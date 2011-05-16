@@ -1,12 +1,4 @@
-Pklib
+pklib - a usefull JavaScript library
 
-A Usefull JavaScript Library
-
-World Web is growing very quickly. Very many reasons it is to believe that Web 3.0 is already discernible in our applications. Any kind of animated stuff and fireworks, so popular in our applications are used so often that I decided to gather popular patterns in one place.
-
-That's attitudes Pklib. Pklib is JS/jQuery library. At one point the service is assured top layer, pre-loader, glass, specific information about your browser, include rendering files to content. Data validation, an element that is always on time, is also implemented in Pklib.
-
-Author: Piotr Kowalski - Piecioshka
-Email: piotr.kowalski@piecioshka.pl
-Version: 0.6.1
+Project author: Piotr 'Piecioshka' Kowalski  <piotr.kowalski@piecioshka.pl>
 
