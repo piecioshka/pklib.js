@@ -9,7 +9,7 @@
  * Dependence jQuery 1.3.x or high!
  * http://jquery.com/
  * 
- * Date: Wed Mar 16 2011 20:44:09 GMT+0100
+ * Date: Thu May 26 2011 10:21:18 GMT+0200
  */
 
 if (typeof jQuery != 'function'){
@@ -72,10 +72,10 @@ if (!String.prototype.isLetter){
 	};
 }
 
+// Get full month, from 1-12, with 'zero' when month is one number
 if (!Date.prototype.getFullMonth){
-	Date.prototype.getFullMonth = function(add){
+	Date.prototype.getFullMonth = function(){
 		var month = (parseInt(new Date().getMonth(), 10) + 1);
-		add && month += add;
 		if(month < 10){
 			month = '0' + month;
 		} 
