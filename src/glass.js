@@ -18,6 +18,9 @@ pklib.glass = (function(){
 	
 	    // Show time glass
 	    showtime: 500,
+	    
+	    // Color of background
+	    background: '#000000',
 	
 	    // Show glass in browser. Have max width and max height. 
 	    // Add object to DOM
@@ -49,12 +52,12 @@ pklib.glass = (function(){
 	            border: 0
 			}),
 	        glass = jQuery('<div />').addClass(this.objClass).css({
+	        	background: this.background,
 				height: maxHeight - extraHeight,
 				width: maxWidth  - extraWidth,
 				position: 'absolute',
 				top: 0,
 				left: 0,
-				background: '#000000',
 				overflow: 'hidden',
 				opacity: 0,
 				zIndex: 1000
@@ -72,6 +75,14 @@ pklib.glass = (function(){
 	        
             // Refresh position
             function refreshPosition(){
+            	
+            	(function clearSizes(){
+	            	jQuery('.' + that.objClass).css({
+	    				height: 0,
+	    				width: 0
+	                });
+            	})();
+            	
                 var winWidth = jQuery(window).width(),
                     winHeight = jQuery(window).height(),
                     docWidth = jQuery(document).width(),
@@ -79,16 +90,16 @@ pklib.glass = (function(){
                     maxWidth = (docWidth > winWidth) ? docWidth : winWidth, 
                     maxHeight = (dovHeight > winHeight) ? dovHeight : winHeight;
 
-                jQuery('.' + this.objClass).css({
+                jQuery('.' + that.objClass).css({
     				height: maxHeight - extraHeight,
     				width: maxWidth  - extraWidth
                 });
             }
             
-            // Per 0.01 sec
-            setInterval(function(){
+            // On window resize
+            window.onresize = function(){
                 refreshPosition.call(that);
-            }, 2000);
+            };
 	        
 	        // release memory in IE
 	        glassFrame = null;

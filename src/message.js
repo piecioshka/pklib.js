@@ -36,8 +36,7 @@ pklib.message = (function(){
 	            message.css({
 					width: 300,
 					height: 200,
-					border: '1px solid #000000',
-					color: '#000000',
+					border: '1px solid #999999',
 					background: '#ffffff'
 				});
 	        }
@@ -63,20 +62,22 @@ pklib.message = (function(){
                 });
             }
             
-            // Per 0.01 sec
-            setInterval(function(){
+            // On window resize
+            window.onresize = function(){
                 refreshPosition.call(that);
-            }, 10);
+            };
+            
+            refreshPosition.call(that);
         },
 
         // Auto close layer popup. 
         // Remove object from DOM
         autoclose: function() {
             var className = this.objClass,
-                Message = this;
+                message = this;
                 
             setTimeout(function() {
-                Message.close();
+                message.close();
             }, this.autoclosetime);
         },
 
