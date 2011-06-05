@@ -134,6 +134,16 @@ pklib.utils = (function(){
                 return result;
             }
             return text;
+        },
+        
+        // Scroll all page to top with animation
+        scrolltop: function() {
+    		var scrollTopInterval = setInterval(function(){
+    		    document.body.scrollTop -= 5;
+    		    if(document.body.scrollTop <= 0){
+    		        clearInterval(scrollTopInterval);
+    		    }
+    		}, 1);
         }
         
 	};
