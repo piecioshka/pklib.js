@@ -144,6 +144,31 @@ pklib.utils = (function(){
     		        clearInterval(scrollTopInterval);
     		    }
     		}, 1);
+        },
+
+        // Serialize JSON to string
+        serialize: function(obj){
+        	var obj = obj || {},
+	    		addAmp = false,
+	        	response = '';
+			
+			for(var i in obj){
+				if(typeof obj[i] !== 'function'){
+					if(addAmp) {
+						response += '&'
+					} else {
+						addAmp = true;
+					}
+					
+					var value = '';
+					if(typeof obj[i] !== 'undefined' && obj[i] !== null){
+						value = obj[i];
+					}
+					response += i + '=' + value;
+				}
+			}
+			
+			return response;
         }
         
 	};

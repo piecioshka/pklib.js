@@ -3,6 +3,8 @@
     <body>
         <img src="http://home.piecioshka.pl/img/bg.jpg" alt="" style="width: 500px; height: 1080px;" />
         
+        <div id="res"></div>
+        
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
         <script type="text/javascript" src="../src/utils.js"></script>
         <script type="text/javascript">
@@ -10,6 +12,20 @@
             document.getElementsByTagName('img')[0].onload = function(){
                 pklib.utils.scrolltop();
             }
+            var test = {
+                samochod: 'ferrari',
+                samolot: 'aeroplan',
+                count: 123
+            };
+            var serialize = pklib.utils.serialize(test);
+            var byId = (function(){
+                var d = document;
+                return function(id){
+                    return d.getElementById(id);
+                }
+            })();
+            
+            byId('res').innerHTML = serialize
         </script>
     </body>
 </html>
