@@ -1,6 +1,6 @@
 pklib = pklib || {};
 
-pklib.JSON = (function() {
+pklib.json = (function() {
 	
 	return {
 	
@@ -18,12 +18,12 @@ pklib.JSON = (function() {
 					}
 				}
 				
-				var Iterator = 0;
+				var iterator = 0;
 				for(var item in obj){
 					if(typeof item !== 'function'){
-						Iterator++;
-						result += '"' + item + '"' + ": " + pklib.JSON.stringify(obj[item]);
-						if(Iterator !== length ){
+						iterator++;
+						result += '"' + item + '"' + ": " + pklib.json.stringify(obj[item]);
+						if(iterator !== length ){
 							result += ', ';
 						}
 					}
@@ -34,7 +34,7 @@ pklib.JSON = (function() {
 			if(typeof obj === 'array' || (typeof obj === 'object' && typeof obj.length !== 'undefined')){
 				result += '[';
 				for(var i = 0; i < obj.length; ++i){
-					result += pklib.JSON.stringify(obj[i]);
+					result += pklib.json.stringify(obj[i]);
 					if(i !== (obj.length - 1) ){
 						result += ', ';
 					}

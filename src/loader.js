@@ -4,29 +4,20 @@ pklib.loader = (function() {
 	
 	return {
 
-        // Class name to new layer
 		objClass: 'pklib-loader-wrapper',
 
-        // Class name to new layer
         objClassPercent: this.objClass + '-percent',
 
-        // Time to auto close loader
         autoclosetime: 500,
 
-        // Time to close loader
         closetime: 500,
 
-        // Time to animate fade loader in browser
         showtime: 500,
 
-        // Url to loader image
         loaderImage: 'http://pklib.com/img/icons/loader.gif',
         
-        // Alternative text
-        loaderImageAlt: 'loader', 
+        loaderImageAlt: 'loading...', 
 
-        // Show loader in browser. Default will be show in body. 
-        // Default not be centered. Add object to DOM
         show: function(config, callback) {
             var settings = {
                 place: 'body',
@@ -35,7 +26,9 @@ pklib.loader = (function() {
                 percent: false,
                 percentMargin: 0
             };
+            
             jQuery.extend(settings, config);
+            
             settings.holder = (settings.place === 'body') ? window : settings.place;
             
             var placeHolderChildrens = jQuery(settings.holder).children(),
@@ -56,7 +49,7 @@ pklib.loader = (function() {
                 width: 32,
                 height: 32,
                 opacity: 0,
-                zIndex: 2000
+                'z-index': 2000
             }).addClass(this.objClass);
             
             jQuery(settings.place).append(loader);
@@ -87,7 +80,7 @@ pklib.loader = (function() {
                     width: loader.width(),
                     textAlign: 'center',
                     opacity: 0,
-                    zIndex: 2002
+                    'z-index': 2002
                 }).addClass(percentCssClass);
                 
                 jQuery(settings.place).append(percent);
@@ -106,7 +99,7 @@ pklib.loader = (function() {
                 
                 jQuery('.' + percentCssClass).css({
                     left: leftCssVal,
-                    top: topCssVal + topMargin + settings.percentMargin
+                    top: topCssVal + topMargin + parseInt(settings.percentMargin, 10)
                 }).animate({
                     opacity: 1
                 }, this.showtime);
@@ -117,8 +110,6 @@ pklib.loader = (function() {
             percent = null;
         },
 
-        // Auto close loader. 
-        // Remove object from DOM
         autoclose: function(config) {
             var settings = config || {},
                 Loader = this;
@@ -127,12 +118,12 @@ pklib.loader = (function() {
             }, this.autoclosetime);
         },
 
-        // Close loader. Remove object from DOM
         close: function(config) {
             var settings = {
                     place: 'body'
                 },
                 Loader = this;
+            
             jQuery.extend(settings, config);
             
             var className = settings.place + ' .' + this.objClass,

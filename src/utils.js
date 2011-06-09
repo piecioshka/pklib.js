@@ -67,7 +67,7 @@ pklib.utils = (function(){
         },
 
         // Array with chars which are trim in tail and head word.
-        chars: [' ', '-', '_'],
+        chars: [" ", "-", "_", "\n"],
 
         // Trim word on the head ( left side )
         ltrim: function(word) {
