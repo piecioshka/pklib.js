@@ -6,7 +6,7 @@ pklib.browser = (function() {
 
 		getName: function() {
 			var browser = navigator.userAgent.toLowerCase();
-			
+
 	        if (/msie/.test(browser)) return 'msie';
 	        if (/chrome/.test(browser)) return 'chrome';
 	        if (/safari/.test(browser)) return 'safari';
@@ -16,7 +16,7 @@ pklib.browser = (function() {
 	        
 	        return null;
 	    },
-	
+
 	    getVersion: function() {
 	        return jQuery.browser.version;
 	    }

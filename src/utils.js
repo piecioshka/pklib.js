@@ -53,14 +53,14 @@ pklib.utils = (function(){
             }
             return true;
         },
-        
+
         // ASCII codes for letters only.
     	// Array started by 'qwerty', ended on 'vbnm'
         ascii: {
-            
+
             // Lower case letters
             lower: [113,119,101,114,116,121,117,105,111,112,97,115,100,102,103,104,106,107,108,122,120,99,118,98,110,109],
-            
+
             // Upper case Letters
             upper: [81,87,69,82,84,89,85,73,79,80,65,83,68,70,71,72,74,75,76,90,88,67,86,66,78,77]
             
@@ -135,7 +135,7 @@ pklib.utils = (function(){
             }
             return text;
         },
-        
+
         // Scroll all page to top with animation
         scrolltop: function() {
     		var scrollTopInterval = setInterval(function(){
@@ -151,7 +151,7 @@ pklib.utils = (function(){
         	var obj = obj || {},
 	    		addAmp = false,
 	        	response = '';
-			
+
 			for(var i in obj){
 				if(typeof obj[i] !== 'function'){
 					if(addAmp) {
@@ -159,7 +159,7 @@ pklib.utils = (function(){
 					} else {
 						addAmp = true;
 					}
-					
+
 					var value = '';
 					if(typeof obj[i] !== 'undefined' && obj[i] !== null){
 						value = obj[i];
@@ -167,10 +167,10 @@ pklib.utils = (function(){
 					response += i + '=' + value;
 				}
 			}
-			
+
 			return response;
         }
-        
+
 	};
-	
+
 })();

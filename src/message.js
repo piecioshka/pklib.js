@@ -1,7 +1,7 @@
 pklib = this.pklib || {};
 
 pklib.message = (function(){
-	
+
 	return {
 
         objClass: 'pklib-message-wrapper',
@@ -13,7 +13,7 @@ pklib.message = (function(){
         closetime: 500,
 
         showtime: 500,
-        
+
         defaultCSS: false,
 
         show: function(callback) {
@@ -23,7 +23,7 @@ pklib.message = (function(){
 					opacity: 0,
 					'z-index': 2000
 	            }).html(this.text);
-	        
+
 	        if(this.defaultCSS){
 	            message.css({
 					width: 300,
@@ -32,7 +32,7 @@ pklib.message = (function(){
 					background: '#ffffff'
 				});
 	        }
-	        
+
             jQuery('body').append(message);
 
             jQuery('.' + this.objClass).animate({
@@ -42,7 +42,7 @@ pklib.message = (function(){
                     callback();
                 }
             });
-            
+
             // Refresh position
             function refreshPosition(){
                 var leftCssValue = (jQuery(window).width() - message.width()) / 2 + jQuery(window).scrollLeft(),
@@ -53,19 +53,19 @@ pklib.message = (function(){
                     top: topCssValue
                 });
             }
-            
+
             // On window resize
             window.onresize = function(){
                 refreshPosition.call(that);
             };
-            
+
             refreshPosition.call(that);
         },
 
         autoclose: function() {
             var className = this.objClass,
                 message = this;
-                
+
             setTimeout(function() {
                 message.close();
             }, this.autoclosetime);
@@ -84,7 +84,7 @@ pklib.message = (function(){
             this.close();
             this.show();
         }
-        
+
 	};
-	
+
 })();

@@ -13,7 +13,7 @@ pklib.validate = (function(){
                 default: return false;
             }
         },
-        
+
         // Check regular expression for field and run action
         regexp: function(config) {
             var settings = {
@@ -22,17 +22,18 @@ pklib.validate = (function(){
                 error: null,
                 success: null
             };
-            
+
             jQuery.extend(settings, config);
-            
+
             var exp = new RegExp(settings.regexp);
-            
+
             if (exp.test(settings.object)) {
                 return settings.success();
             }
+            
             return settings.error();
         }
-        
+
     };
-	
+
 })();

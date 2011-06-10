@@ -21,7 +21,7 @@ pklib.glass = (function(){
 	        	settings = {
 		            place: 'body'
 		        };
-	        
+
 	        jQuery.extend(settings, config);
 
 	        var winWidth = jQuery(window).width(),
@@ -30,10 +30,10 @@ pklib.glass = (function(){
 	            dovHeight = jQuery(document).height(),
 	            maxWidth = (docWidth > winWidth) ? docWidth : winWidth, 
 	            maxHeight = (dovHeight > winHeight) ? dovHeight + 16 : winHeight,
-	            
+
 	            extraWidth = (pklib.browser.getName() === 'msie') ? 21 : 0,
 	            extraHeight = (pklib.browser.getName() === 'msie') ? 20 : 0,
-	            
+
 	            glassFrame = jQuery('<iframe />').addClass(this.objClass).css({
 					height: maxHeight - extraHeight,
 					width: maxWidth - extraWidth,
@@ -44,6 +44,7 @@ pklib.glass = (function(){
 					'z-index': 1000,
 		            border: 0
 				}),
+
 		        glass = jQuery('<div />').addClass(this.objClass).css({
 		        	background: this.background,
 					height: maxHeight - extraHeight,
@@ -63,19 +64,19 @@ pklib.glass = (function(){
 	        }, this.showtime, function(){
 	            if (typeof callback != 'undefined'){
 	                callback();
-	            } 
+	            }
 	        });
-	        
-            // Refresh position
+
+            // refresh position
             function refreshPosition(){
-            	
+
             	(function clearSizes(){
 	            	jQuery('.' + that.objClass).css({
 	    				height: 0,
 	    				width: 0
 	                });
             	})();
-            	
+
                 var winWidth = jQuery(window).width(),
                     winHeight = jQuery(window).height(),
                     docWidth = jQuery(document).width(),
@@ -88,12 +89,12 @@ pklib.glass = (function(){
     				width: maxWidth  - extraWidth
                 });
             }
-            
-            // On window resize
-            window.onresize = function(){
+
+            // on window resize
+            window.onresize = function pklibGlassRefreshPosition(){
                 refreshPosition.call(that);
             };
-	        
+
 	        // release memory in IE
 	        glassFrame = null;
 	        glass = null;
@@ -101,10 +102,10 @@ pklib.glass = (function(){
 
 	    autoclose: function() {
 	        var className = this.objClass,
-	            Glass = this;
-	        
+	            glass = this;
+
 	        setTimeout(function() {
-	            Glass.close();
+	            glass.close();
 	        }, this.autoclosetime);
 	    },
 
@@ -118,5 +119,5 @@ pklib.glass = (function(){
 	    }
 
 	};
-	
+
 })();

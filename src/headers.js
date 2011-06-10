@@ -1,5 +1,5 @@
 /*!
- * pklib JavaScript Library 0.6.1
+ * pklib JavaScript Library 1.0.0
  * http://pklib.com/
  * 
  * Copyright 2011, Piotr Kowalski
@@ -78,7 +78,7 @@ if (!Date.prototype.getFullMonth){
 		var month = (parseInt(new Date().getMonth(), 10) + 1);
 		if(month < 10){
 			month = '0' + month;
-		} 
+		}
 		return month; 
-	}; 
+	};
 }
