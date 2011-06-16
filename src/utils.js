@@ -87,7 +87,7 @@ pklib.utils = (function(){
         // Trim word on the tail ( right side )
         rtrim: function(word) {
             if (typeof word === 'string' ) {
-	        	for(var i = word.length-1; i > 0; --i){
+	        	for(var i = word.length-1; i > 0; --i) {
 	        		if (this.chars.inArray(word[i])) {
                         word = word.substr(0, i);
                     } else {
@@ -147,27 +147,35 @@ pklib.utils = (function(){
         },
 
         // Serialize JSON to string
-        serialize: function(obj){
+        serialize: function(obj, toJson){
         	var obj = obj || {},
 	    		addAmp = false,
 	        	response = '';
-
+        	
+        	response += (toJson) ? '{' : '';
+			
 			for(var i in obj){
 				if(typeof obj[i] !== 'function'){
 					if(addAmp) {
-						response += '&'
+						var lst = toJson ? ',' : '&';
+						response += lst
 					} else {
 						addAmp = true;
 					}
-
+					
 					var value = '';
 					if(typeof obj[i] !== 'undefined' && obj[i] !== null){
 						value = obj[i];
 					}
-					response += i + '=' + value;
+					
+					var bef = toJson ? ':' : '=';
+					var mtz = toJson ? '"' : '';
+					response += i + bef + mtz + value + mtz;
 				}
 			}
-
+			
+        	response += (toJson) ? '}' : '';
+			
 			return response;
         }
 
