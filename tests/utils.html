@@ -17,15 +17,7 @@
                 samolot: 'aeroplan',
                 count: 123
             };
-            var serialize = pklib.utils.serialize(test);
-            var byId = (function(){
-                var d = document;
-                return function(id){
-                    return d.getElementById(id);
-                }
-            })();
-            
-            byId('res').innerHTML = serialize
+            jQuery('#res').text(pklib.utils.serialize(test));
         </script>
     </body>
 </html>
