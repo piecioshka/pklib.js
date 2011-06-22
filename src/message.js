@@ -62,21 +62,24 @@ pklib.message = (function(){
             refreshPosition.call(that);
         },
 
-        autoclose: function() {
+        autoclose: function(callback) {
             var className = this.objClass,
                 message = this;
 
             setTimeout(function() {
-                message.close();
+                message.close(callback);
             }, this.autoclosetime);
         },
 
-        close: function() {
+        close: function(callback) {
             var className = this.objClass;
             jQuery('.' + className).animate({
                 opacity: 0
             }, this.closetime, function() {
                 jQuery('.' + className).remove();
+                if (typeof callback === 'function'){
+                    callback();
+                }
             });
         },
 

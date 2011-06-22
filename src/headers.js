@@ -16,6 +16,13 @@ if (typeof jQuery != 'function'){
     throw new Error('jQuery is need\'ed ! Please visit: http://jquery.com/');
 }
 
+// pklib definition and initialization
+pklib = this.pklib || {
+    author: 'Piotr Kowalski',
+    www: 'http://pklib.pl/',
+    version: '1.0.0',
+};
+
 // Add alias name 'bind' to 'addEvent'. This is better to syntax language
 jQuery.fn.addEvent = jQuery.fn.bind;
 
@@ -54,8 +61,8 @@ Array.prototype.inArray = Array.prototype.inArray || function(parameter) {
 String.prototype.isLetter = String.prototype.isLetter || function() {
 	if (this.length === 1){
         var ascii = pklib.utils.slug(this[0]).charCodeAt(),
-            lowercase = pklib.utils.ascii.lower,
-            uppercase = pklib.utils.ascii.upper;
+            lowercase = pklib.utils.ascii.letters.lower,
+            uppercase = pklib.utils.ascii.letters.upper;
         if (lowercase.inArray(ascii) || uppercase.inArray(ascii)){
             return true;
         }

@@ -62,7 +62,7 @@ pklib.glass = (function(){
 	        jQuery('.' + this.objClass).animate({
 	            opacity: this.opacity
 	        }, this.showtime, function(){
-	            if (typeof callback != 'undefined'){
+	            if (typeof callback === 'function'){
 	                callback();
 	            }
 	        });
@@ -100,21 +100,24 @@ pklib.glass = (function(){
 	        glass = null;
 	    },
 
-	    autoclose: function() {
+	    autoclose: function(callback) {
 	        var className = this.objClass,
 	            glass = this;
 
 	        setTimeout(function() {
-	            glass.close();
+	            glass.close(callback);
 	        }, this.autoclosetime);
 	    },
 
-	    close: function() {
+	    close: function(callback) {
 	        var className = this.objClass;
 	        jQuery('.' + className).animate({
 	            opacity: 0
 	        }, this.closetime, function() {
 	            jQuery('.' + className).remove();
+	            if (typeof callback === 'function'){
+	                callback();
+	            }
 	        });
 	    }
 

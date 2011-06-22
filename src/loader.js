@@ -68,7 +68,7 @@ pklib.loader = (function() {
             }).animate({
                 opacity: 1
             }, this.showtime, function(){
-                if (typeof callback != 'undefined'){
+                if (typeof callback === 'function'){
                     callback();
                 }
             });
@@ -110,15 +110,15 @@ pklib.loader = (function() {
             percent = null;
         },
 
-        autoclose: function(config) {
+        autoclose: function(config, callback) {
             var settings = config || {},
                 Loader = this;
             setTimeout(function(){
-                Loader.close(settings);
+                Loader.close(settings, callback);
             }, this.autoclosetime);
         },
 
-        close: function(config) {
+        close: function(config, callback) {
             var settings = {
                     place: 'body'
                 },
@@ -132,7 +132,10 @@ pklib.loader = (function() {
                 animationComplete = function() {
                     jQuery.each(loaderElementCssClass, function(i,val){
                         jQuery(val).remove();
-                    });
+                    });						
+					if (typeof callback === 'function'){
+						callback();
+					}
                 };
 
             jQuery.each(loaderElementCssClass, function(i,val){
