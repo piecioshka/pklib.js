@@ -1,0 +1,33 @@
+<script type="text/javascript" src="../src/file.js"></script>
+<script type="text/javascript">
+    pklib.file.loadScript("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js", function(sc){
+        console.log("jQuery 1.6.1 loaded!", sc);
+    });
+    
+    pklib.file.attach({
+        section: "body",
+        tag: "img",
+        src: "http://www.google.pl/intl/en_com/images/srpr/logo1w.png"
+    }, function(file){
+        console.log('Google logo is downloaded!', file);
+    });
+</script>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>QUnit pklib.browser</title>
+    <link rel="stylesheet" href="../qunit/qunit.css" type="text/css" media="screen">
+    <script type="text/javascript" src="../qunit/qunit.js"></script>
+    <script type="text/javascript" src="browser.js"></script>
+</head>
+<body>
+    <h1 id="qunit-header">QUnit pklib.browser</h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    <div id="qunit-fixture">test markup</div>
+</body>
+</html>
