@@ -20,6 +20,7 @@ pklib.cookie = (function() {
 	    },
 
 	    read: function(name) {
+	    	name = name || '';
 	        var name = name + '=',
 	        	ca = document.cookie.split(';');
 

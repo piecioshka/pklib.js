@@ -1,8 +1,18 @@
 pklib = this.pklib || {};
 
 pklib.utils = (function(){
-
+	
 	return {
+		
+		// Add event to element
+		addEvent: function(el, evt, call){
+			if(el.attachEvent){
+				el.attachEvent("on" + evt, call);
+			}
+			if(el.addEventListener){
+				el.addEventListener(evt, call, true);
+			}
+		},
 		
         // Clear content from parameter element after focus. 
     	// On blur if content doesn't change is restore
@@ -162,7 +172,7 @@ pklib.utils = (function(){
 				if(typeof obj[i] !== 'function'){
 					if(addAmp) {
 						var lst = toJson ? ',' : '&';
-						response += lst
+						response += lst;
 					} else {
 						addAmp = true;
 					}

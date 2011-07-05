@@ -35,7 +35,7 @@ Array.prototype.remove = Array.prototype.remove || function() {
 		if (typeof this.splice != 'undefined') this.splice(arguments[i], 1);
 	}
     return this;
-}
+};
 
 // Remove duplicates from array
 Array.prototype.unique = Array.prototype.unique || function() {
@@ -47,7 +47,7 @@ Array.prototype.unique = Array.prototype.unique || function() {
 		}
 	}
     return this;
-}
+};
 
 // Check value if is in array
 Array.prototype.inArray = Array.prototype.inArray || function(parameter) {
@@ -55,7 +55,7 @@ Array.prototype.inArray = Array.prototype.inArray || function(parameter) {
 		if (this[i] === parameter) return true;
 	}
 	return false;
-}
+};
 
 // Check if string is letter
 String.prototype.isLetter = String.prototype.isLetter || function() {
@@ -69,7 +69,7 @@ String.prototype.isLetter = String.prototype.isLetter || function() {
 		return false;
 	}
 	return false;
-}
+};
 
 // Get full month, from 1-12, with 'zero' when month is one number
 Date.prototype.getFullMonth = Date.prototype.getFullMonth || function(){
@@ -78,7 +78,7 @@ Date.prototype.getFullMonth = Date.prototype.getFullMonth || function(){
 		month = '0' + month;
 	}
 	return month;
-}
+};
 
 // Hours on the date of zeroes
 Date.prototype.trunc = Date.prototype.trunc || function() {
@@ -87,4 +87,4 @@ Date.prototype.trunc = Date.prototype.trunc || function() {
         rest = (time - offset) % 86400000;
     this.setTime(time - rest);
     return rest;
-}
+};
