@@ -19,7 +19,7 @@ pklib = this.pklib || {
 // Remove element in array
 Array.prototype.remove = Array.prototype.remove || function() {
 	for(var i = 0; i < arguments.length; ++i){
-		if (typeof this.splice != 'undefined') this.splice(arguments[i], 1);
+		if (typeof this.splice !== 'undefined') this.splice(arguments[i], 1);
 	}
     return this;
 };

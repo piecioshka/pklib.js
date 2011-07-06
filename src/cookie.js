@@ -2,13 +2,13 @@ pklib = this.pklib || {};
 
 pklib.cookie = (function() {
 
-	return {
+	var obj = {
 
 	    create: function(name, value, days) {
 	    	var expires = '',
 	    		value = value || null;
 
-	        if (typeof days != 'undefined') {
+	        if (typeof days !== 'undefined') {
 	            var date = new Date();
 	            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 	            expires = '; expires=' + date.toGMTString();
@@ -42,5 +42,7 @@ pklib.cookie = (function() {
 	    }
 
 	};
+	
+	return obj;
 
 })();
