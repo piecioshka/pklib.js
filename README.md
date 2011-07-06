@@ -2,9 +2,9 @@ pklib
 =====
 
 ### Description
-**pklib** is a usefull JavaScript library. 
-**pklib** resolve the most popular use cases from web sites. <br />
-Example:<br />
+**pklib** is a usefull JavaScript library.<br />
+**pklib** resolve the most popular use cases from web sites.<br />
+Example:
 <ul>
     <li>loader,</li>
     <li>centered popup message,</li>
