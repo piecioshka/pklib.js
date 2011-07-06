@@ -1,20 +1,13 @@
 /*!
- * pklib JavaScript Library 1.0.0
+ * pklib JavaScript library 1.0.0
  * http://pklib.com/
  * 
  * Copyright 2011, Piotr Kowalski
- * GNU General Public License
+ * Public Domain
  * http://pklib.com/license
- * 
- * Dependence jQuery 1.3.x or high!
- * http://jquery.com/
  * 
  * Date: Thu May 26 2011 10:21:18 GMT+0200
  */
-
-if (typeof jQuery != 'function'){
-    throw new Error('jQuery is need\'ed ! Please visit: http://jquery.com/');
-}
 
 // pklib definition and initialization
 pklib = this.pklib || {
@@ -22,12 +15,6 @@ pklib = this.pklib || {
     www: 'http://pklib.pl/',
     version: '1.0.0',
 };
-
-// Add alias name 'bind' to 'addEvent'. This is better to syntax language
-jQuery.fn.addEvent = jQuery.fn.bind;
-
-// Add alias 'unbind' to 'removeEvent'. This is better to syntax language
-jQuery.fn.removeEvent = jQuery.fn.unbind;
 
 // Remove element in array
 Array.prototype.remove = Array.prototype.remove || function() {
