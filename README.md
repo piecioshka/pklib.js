@@ -8,7 +8,7 @@ Author: **Piotr Kowalski**<br />
 License: **public domain**
 
 ```js
-pklib.file.loadScript("pklib.message.js", function(){
+pklib.file.load("pklib.message.js", function(){
     pklib.message.glass();
 });
 ```
