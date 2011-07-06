@@ -8,7 +8,7 @@ pklib.cookie = (function() {
 	    	var expires = '',
 	    		value = value || null;
 
-	        if (typeof days !== 'undefined') {
+	        if (typeof days !== "undefined") {
 	            var date = new Date();
 	            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 	            expires = '; expires=' + date.toGMTString();

@@ -105,7 +105,7 @@ pklib.utils = (function() {
 		chars : [ " ", "-", "_", "\n", "\r", "\t" ],
 
 		ltrim : function(text) {
-			if (typeof text === 'string') {
+			if (typeof text === "string") {
 				for ( var i = 0; i < text.length; ++i) {
 					if (this.chars.inArray(text[i])) {
 						text = text.substr(i);
@@ -119,7 +119,7 @@ pklib.utils = (function() {
 		},
 
 		rtrim : function(text) {
-			if (typeof text === 'string') {
+			if (typeof text === "string") {
 				for ( var i = text.length - 1; i > 0; --i) {
 					if (this.chars.inArray(text[i])) {
 						text = text.substr(0, i);
@@ -132,14 +132,14 @@ pklib.utils = (function() {
 		},
 
 		trim : function(text) {
-			if (typeof text === 'string') {
+			if (typeof text === "string") {
 				return this.ltrim(this.rtrim(text));
 			}
 			return false;
 		},
 
 		slug : function(text) {
-			if (typeof text === 'string') {
+			if (typeof text === "string") {
 				var result = '';
 				for ( var i = 0; i < text.length; ++i) {
 					var letter = text[i].toLowerCase().charCodeAt(0);

@@ -7,9 +7,9 @@ pklib.validate = (function(){
         // Check if object doesn't empty
         empty: function(object) {
             switch(typeof object){
-                case 'string': return ( object === '' ); break;
-                case 'number': return ( object === 0 ); break;
-                case 'object': return ( object.length === 0 ); break;
+                case "string": return ( object === '' ); break;
+                case "number": return ( object === 0 ); break;
+                case "object": return ( object.length === 0 ); break;
                 default: return false;
             }
         },

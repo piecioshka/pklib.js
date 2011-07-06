@@ -68,7 +68,7 @@ pklib.loader = (function() {
             }).animate({
                 opacity: 1
             }, this.showtime, function(){
-                if (typeof callback === 'function'){
+                if (typeof callback === "function"){
                     callback();
                 }
             });
@@ -133,7 +133,7 @@ pklib.loader = (function() {
                     jQuery.each(loaderElementCssClass, function(i,val){
                         jQuery(val).remove();
                     });						
-					if (typeof callback === 'function'){
+					if (typeof callback === "function"){
 						callback();
 					}
                 };

@@ -8,19 +8,19 @@ pklib.json = (function() {
 
 			var result = '';
 
-			if(typeof obj === 'object' && typeof obj.length === 'undefined'){
+			if(typeof obj === "object" && typeof obj.length === "undefined"){
 				result += '{';
 				
 				var length = 0;
 				for(var item in obj){
-					if(typeof item !== 'function'){
+					if(typeof item !== "function"){
 						length++;
 					}
 				}
 
 				var iterator = 0;
 				for(var item in obj){
-					if(typeof item !== 'function'){
+					if(typeof item !== "function"){
 						iterator++;
 						result += '"' + item + '"' + ": " + pklib.json.stringify(obj[item]);
 						if(iterator !== length ){
@@ -31,7 +31,7 @@ pklib.json = (function() {
 				result += '}';
 			}
 
-			if(typeof obj === 'array' || (typeof obj === 'object' && typeof obj.length !== 'undefined')){
+			if(typeof obj === 'array' || (typeof obj === "object" && typeof obj.length !== "undefined")){
 				result += '[';
 				for(var i = 0; i < obj.length; ++i){
 					result += pklib.json.stringify(obj[i]);
@@ -42,11 +42,11 @@ pklib.json = (function() {
 				result += ']';
 			}
 
-			if(typeof obj === 'number'){
+			if(typeof obj === "number"){
 				result += obj;
 			}
 
-			if(typeof obj === 'string'){
+			if(typeof obj === "string"){
 				result += '"' + obj + '"';
 			}
 
@@ -54,7 +54,7 @@ pklib.json = (function() {
 				result += obj;
 			}
 
-			if(typeof obj === 'function'){
+			if(typeof obj === "function"){
 				result += ''; // don't add functions
 			}
 
@@ -70,7 +70,7 @@ pklib.json = (function() {
         	response += (toJson) ? '{' : '';
 			
 			for(var i in obj){
-				if(typeof obj[i] !== 'function'){
+				if(typeof obj[i] !== "function"){
 					if(addAmp) {
 						var lst = toJson ? ',' : '&';
 						response += lst;
@@ -79,7 +79,7 @@ pklib.json = (function() {
 					}
 					
 					var value = '';
-					if(typeof obj[i] !== 'undefined' && obj[i] !== null){
+					if(typeof obj[i] !== "undefined" && obj[i] !== null){
 						value = obj[i];
 					}
 					
