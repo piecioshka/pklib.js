@@ -32,4 +32,5 @@ pklib.browser = (function() {
 	};
 
 	return obj;
+	
 })();

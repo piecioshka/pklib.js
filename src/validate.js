@@ -2,7 +2,7 @@ pklib = this.pklib || {};
 
 pklib.validate = (function(){
 	
-	return {
+	var obj = {
 
         // Check if object doesn't empty
         empty: function(object) {
@@ -35,5 +35,7 @@ pklib.validate = (function(){
         }
 
     };
+	
+	return obj;
 
 })();

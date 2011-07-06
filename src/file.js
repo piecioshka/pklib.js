@@ -2,7 +2,9 @@ pklib = this.pklib || {};
 pklib.file = pklib.file || {};
 
 pklib.file.load = (function(){
+	
 	var doc = document;
+	
 	return function(src, callback){
 		var script = doc.createElement("script");
 		script.type = "text/javascript";
@@ -26,4 +28,5 @@ pklib.file.load = (function(){
 		doc.getElementsByTagName("head")[0].appendChild(script);
 		
 	};
+	
 })();

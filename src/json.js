@@ -2,7 +2,7 @@ pklib = pklib || {};
 
 pklib.json = (function() {
 
-	return {
+	var obj = {
 
 		stringify: function(obj){
 
@@ -95,5 +95,7 @@ pklib.json = (function() {
         }
 
 	};
+	
+	return obj;
 
 })();
