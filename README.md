@@ -16,7 +16,7 @@ License: **public domain**
 
 ```js
 pklib.file.load("pklib.message.js", function(){
-    pklib.message.glass();
+    pklib.message.show();
 });
 ```
 
