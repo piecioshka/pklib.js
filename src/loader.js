@@ -27,7 +27,7 @@ pklib.loader = (function() {
                 percentMargin: 0
             };
 
-            jQuery.extend(settings, config);
+            settings = pklib.utils.merge(settings, config);
 
             settings.holder = (settings.place === 'body') ? window : settings.place;
 
@@ -124,7 +124,7 @@ pklib.loader = (function() {
                 },
                 loader = this;
 
-            jQuery.extend(settings, config);
+            settings = pklib.utils.merge(settings, config);
 
             var className = settings.place + ' .' + this.objClass,
                 classNamePercent = settings.place + ' .' + this.objClassPercent,

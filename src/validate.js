@@ -23,7 +23,7 @@ pklib.validate = (function(){
                 success: null
             };
 
-            jQuery.extend(settings, config);
+            settings = pklib.utils.merge(settings, config);
 
             var exp = new RegExp(settings.regexp);
 

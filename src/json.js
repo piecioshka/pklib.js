@@ -59,7 +59,40 @@ pklib.json = (function() {
 			}
 
 			return result;	
-		}
+		},
+		
+        // Serialize JSON to string
+        serialize: function(obj, toJson){
+        	var obj = obj || {},
+	    		addAmp = false,
+	        	response = '';
+        	
+        	response += (toJson) ? '{' : '';
+			
+			for(var i in obj){
+				if(typeof obj[i] !== 'function'){
+					if(addAmp) {
+						var lst = toJson ? ',' : '&';
+						response += lst;
+					} else {
+						addAmp = true;
+					}
+					
+					var value = '';
+					if(typeof obj[i] !== 'undefined' && obj[i] !== null){
+						value = obj[i];
+					}
+					
+					var bef = toJson ? ':' : '=';
+					var mtz = toJson ? '"' : '';
+					response += i + bef + mtz + value + mtz;
+				}
+			}
+			
+        	response += (toJson) ? '}' : '';
+			
+			return response;
+        }
 
 	};
 
