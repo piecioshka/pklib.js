@@ -1,17 +1,3 @@
-<script type="text/javascript" src="../src/utils.js"></script>
-<script type="text/javascript">
-    document.body.scrollTop = 10000;
-    document.getElementsByTagName('img')[0].onload = function(){
-        pklib.utils.scrolltop();
-    }
-    var test = {
-        samochod: 'ferrari',
-        samolot: 'aeroplan',
-        count: 123
-    };
-    jQuery('#res').text(pklib.utils.serialize(test));
-</script>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,10 +5,11 @@
     <title>QUnit pklib.browser</title>
     <link rel="stylesheet" href="../qunit/qunit.css" type="text/css" media="screen">
     <script type="text/javascript" src="../qunit/qunit.js"></script>
-    <script type="text/javascript" src="browser.js"></script>
+    <script type="text/javascript" src="../src/pklib.utils.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
 </head>
 <body>
-    <h1 id="qunit-header">QUnit pklib.browser</h1>
+    <h1 id="qunit-header">QUnit pklib.utils</h1>
     <h2 id="qunit-banner"></h2>
     <div id="qunit-testrunner-toolbar"></div>
     <h2 id="qunit-userAgent"></h2>
