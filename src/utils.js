@@ -106,29 +106,16 @@ pklib.utils = (function() {
 
 		ltrim : function(text) {
 			if (typeof text === "string") {
-				for ( var i = 0; i < text.length; ++i) {
-					if (this.chars.inArray(text[i])) {
-						text = text.substr(i);
-						i = 0;
-					} else {
-						break;
-					}
-				}
+				return text.replace(new RegExp("^[" + this.chars + "]+", "g"), "");
 			}
-			return text.substr(i);
+			return false;
 		},
 
 		rtrim : function(text) {
 			if (typeof text === "string") {
-				for ( var i = text.length - 1; i > 0; --i) {
-					if (this.chars.inArray(text[i])) {
-						text = text.substr(0, i);
-					} else {
-						break;
-					}
-				}
+				return text.replace(new RegExp("[" + this.chars + "]+$", "g"), "");
 			}
-			return text.substr(0, i + 1);
+			return false;
 		},
 
 		trim : function(text) {
