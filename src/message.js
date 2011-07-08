@@ -57,6 +57,8 @@ pklib.message = (function(){
 			});
 			
 			typeof callback === "function" && callback();
+			
+			return message;
 		},
 		close: function(callback){
 			var message = doc.getElementById(obj.objId);

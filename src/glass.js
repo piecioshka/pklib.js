@@ -4,7 +4,6 @@ pklib.glass = (function(){
 
 	var doc = document,
 		id = "pklib-glass-wrapper",
-		contents = null,
 		settings = {
 			contener: doc.getElementsByTagName("body")[0],
 			style: {
@@ -64,6 +63,8 @@ pklib.glass = (function(){
 			});
 			
 			typeof callback === "function" && callback();
+			
+			return glass;
 		},
 		close: function(callback){
 			var glass = doc.getElementById(obj.objId);
