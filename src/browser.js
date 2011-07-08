@@ -8,7 +8,8 @@ pklib.browser = (function() {
 
 		getName : function() {
 			var userAgent = navigator.userAgent.toLowerCase();
-			for ( var i = 0; i < browsers.length; ++i) {
+			
+			for ( var i = 0, len = browsers.length; i < len; ++i) {
 				var browser = browsers[i];
 				if (new RegExp(browser).test(userAgent)) {
 					return browser;
@@ -20,7 +21,7 @@ pklib.browser = (function() {
 		getVersion : function() {
 			var userAgent = navigator.userAgent.toLowerCase();
 
-			for ( var i = 0; i < browsers.length; ++i) {
+			for ( var i = 0, len = browsers.length; i < len; ++i) {
 				var browser = browsers[i], len = browser.length, cur = userAgent
 						.indexOf(browser);
 				if (cur != -1) {

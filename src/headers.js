@@ -18,7 +18,7 @@ pklib = this.pklib || {
 
 // Remove element in array
 Array.prototype.remove = Array.prototype.remove || function() {
-	for(var i = 0; i < arguments.length; ++i){
+	for(var i = 0, len = arguments.length; i < len; ++i){
 		if (typeof this.splice !== "undefined") this.splice(arguments[i], 1);
 	}
     return this;
@@ -27,8 +27,8 @@ Array.prototype.remove = Array.prototype.remove || function() {
 // Remove duplicates from array
 Array.prototype.unique = Array.prototype.unique || function() {
 	for(var effect = 0; effect < 3; ++effect){
-		for(var i = 0; i < this.length; ++i){
-			for(var j = i + 1 ; j < this.length; ++j){
+		for(var i = 0, len = this.length; i < len; ++i){
+			for(var j = i + 1, num = this.length; j < num; ++j){
 				if (this[i] === this[j]) this.remove(j);
 			}
 		}
@@ -38,7 +38,7 @@ Array.prototype.unique = Array.prototype.unique || function() {
 
 // Check value if is in array
 Array.prototype.inArray = Array.prototype.inArray || function(parameter) {
-	for(var i = 0; i < this.length; ++i){
+	for(var i = 0, len = this.length; i < len; ++i){
 		if (this[i] === parameter) return true;
 	}
 	return false;

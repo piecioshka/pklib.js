@@ -24,7 +24,7 @@ pklib.cookie = (function() {
 	        var name = name + '=',
 	        	ca = document.cookie.split(';');
 
-	        for(var i = 0; i < ca.length; ++i) {
+	        for(var i = 0, len = ca.length; i < len; ++i) {
 	            var c = ca[i];
 	            while (c.charAt(0) === ' ') {
 	                c = c.substring(1, c.length);

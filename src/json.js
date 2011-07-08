@@ -33,7 +33,7 @@ pklib.json = (function() {
 
 			if(typeof obj === 'array' || (typeof obj === "object" && typeof obj.length !== "undefined")){
 				result += '[';
-				for(var i = 0; i < obj.length; ++i){
+				for(var i = 0, len = obj.length; i < len; ++i){
 					result += pklib.json.stringify(obj[i]);
 					if(i !== (obj.length - 1) ){
 						result += ', ';

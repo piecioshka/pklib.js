@@ -66,7 +66,7 @@ pklib.utils = (function() {
 		outerlink : function(area) {
 			area = area || document;
 			var links = area.getElementsByTagName("a");
-			for ( var i = 0; i < links.length; ++i) {
+			for ( var i = 0, len = links.length; i < len; ++i) {
 				var link = links[i];
 				if (link.rel === "outerlink") {
 					pklib.utils.addEvent(link, "click", function outerlink(e) {
