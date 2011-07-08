@@ -3,7 +3,7 @@ pklib
 
 ### Description
 **pklib** is a usefull JavaScript library.<br />
-**pklib** resolve the most popular use cases from web sites.<br />
+**pklib** resolve the most popular use cases from web sites.<br /><br />
 Example:
 <ul>
     <li>loader,</li>
