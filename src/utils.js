@@ -32,19 +32,22 @@ pklib.utils = (function() {
 			window : function getWindowSize(name) {
 				var win = window;
 				var docElemProp = win.document.documentElement["client" + name];
-				return win.document.compatMode === "CSS1Compat" && docElemProp
-						|| win.document.body["client" + name] || docElemProp;
+				return win.document.compatMode === "CSS1Compat" && docElemProp || win.document.body["client" + name] || docElemProp;
 			},
 			document : function getDocumentSizes(name) {
 				var doc = document;
-				return Math.max(doc.documentElement["client" + name],
-						doc.body["scroll" + name], doc.documentElement["scroll"
-								+ name], doc.body["offset" + name],
-						doc.documentElement["offset" + name]);
+				var clientName = doc.documentElement["client" + name];
+				var scrollBodyName = doc.body["scroll" + name];
+				var scrollName = doc.documentElement["scroll" + name];
+				var offsetBodyName = doc.body["offset" + name];
+				var offsetName = doc.documentElement["offset" + name];
+				return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
 			},
 			obj : function getObjSizes(obj, name) {
-				return Math.max(obj["client" + name], obj["scroll" + name],
-						obj["offset" + name]);
+			    var client = obj["client" + name];
+			    var scroll = obj["scroll" + name];
+			    var offset = obj["offset" + name];
+				return Math.max(client, scroll, offset);
 			}
 		},
 

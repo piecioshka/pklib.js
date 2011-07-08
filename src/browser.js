@@ -2,36 +2,35 @@ pklib = this.pklib || {};
 
 pklib.browser = (function() {
 
-	var browsers = [ "msie", "chrome", "safari", "opera", "mozilla", "konqueror" ];
+    var browsers = [ "msie", "chrome", "safari", "opera", "mozilla", "konqueror" ];
 
-	var obj = {
+    var obj = {
 
-		getName : function() {
-			var userAgent = navigator.userAgent.toLowerCase();
-			
-			for ( var i = 0, len = browsers.length; i < len; ++i) {
-				var browser = browsers[i];
-				if (new RegExp(browser).test(userAgent)) {
-					return browser;
-				}
-			}
-			return undefined;
-		},
+        getName : function() {
+            var userAgent = navigator.userAgent.toLowerCase();
 
-		getVersion : function() {
-			var userAgent = navigator.userAgent.toLowerCase();
+            for ( var i = 0, len = browsers.length; i < len; ++i) {
+                var browser = browsers[i];
+                if (new RegExp(browser).test(userAgent)) {
+                    return browser;
+                }
+            }
+            return undefined;
+        },
 
-			for ( var i = 0, len = browsers.length; i < len; ++i) {
-				var browser = browsers[i], len = browser.length, cur = userAgent
-						.indexOf(browser);
-				if (cur != -1) {
-					return userAgent.substr(cur + len + 1, 3);
-				}
-			}
-			return undefined;
-		}
-	};
+        getVersion : function() {
+            var userAgent = navigator.userAgent.toLowerCase();
 
-	return obj;
-	
+            for ( var i = 0, len = browsers.length; i < len; ++i) {
+                var browser = browsers[i], len = browser.length, cur = userAgent.indexOf(browser);
+                if (cur != -1) {
+                    return userAgent.substr(cur + len + 1, 3);
+                }
+            }
+            return undefined;
+        }
+    };
+
+    return obj;
+
 })();
