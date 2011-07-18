@@ -4,14 +4,20 @@ pklib.utils = (function() {
 
 	var obj = {
 
-		addEvent : function(el, evt, fun) {
-			if (el.attachEvent) {
-				el.attachEvent("on" + evt, fun);
-			} else if (el.addEventListener) {
-				el.addEventListener(evt, fun, true);
-			}
-			return el;
-		},
+		addEvent : function(target, eventType, callback) {
+            if (target.attachEvent) {
+                utils.event.add = function(target, eventType, callback){
+                    target.attachEvent("on" + eventType, callback);
+                };
+            } else if (target.addEventListener) {
+                utils.event.add = function(target, eventType, callback){
+                    target.addEventListener(eventType, callback, false);
+                };
+            }
+            utils.event.add(target, eventType, callback);
+            
+            return target;
+        },
 
 		merge : function(target, source) {
 			for ( var el in source) {
@@ -107,25 +113,25 @@ pklib.utils = (function() {
 
 		chars : [ " ", "-", "_", "\n", "\r", "\t" ],
 
-		ltrim : function(text) {
-			if (typeof text === "string") {
-				return text.replace(new RegExp("^[" + this.chars + "]+", "g"), "");
+		ltrim : function(source) {
+			if (typeof source === "string") {
+				return source.replace(new RegExp("^[" + this.chars + "]+", "g"), "");
 			}
-			return false;
+			return source;
 		},
 
-		rtrim : function(text) {
-			if (typeof text === "string") {
-				return text.replace(new RegExp("[" + this.chars + "]+$", "g"), "");
+		rtrim : function(source) {
+			if (typeof source === "string") {
+				return source.replace(new RegExp("[" + this.chars + "]+$", "g"), "");
 			}
-			return false;
+			return source;
 		},
 
-		trim : function(text) {
-			if (typeof text === "string") {
-				return this.ltrim(this.rtrim(text));
+		trim : function(source) {
+			if (typeof source === "string") {
+				return this.ltrim(this.rtrim(source));
 			}
-			return false;
+			return source;
 		},
 
 		slug : function(text) {
