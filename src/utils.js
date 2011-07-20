@@ -21,7 +21,7 @@ pklib.utils = (function() {
 
 		merge : function(target, source) {
 			for ( var el in source) {
-				if (typeof target[el] === "object") {
+				if (typeof target[el] === "object" && target[el] != null) {
 					if (target[el].parentNode != null) {
 						target[el] = source[el];
 						continue;
