@@ -181,6 +181,17 @@ pklib.utils = (function() {
 			}
 			return text;
 		},
+		
+        camelCase : function(text) {
+            while(text.indexOf("-") != -1){
+                var pos = text.indexOf("-");
+                var pre = text.substr(0, pos);
+                var sub = text.substr(pos - 1, 1).toUpperCase();
+                var post = text.substring(pos + 2, text.length);
+                text = pre + sub + post;
+            }
+            return text;
+        },
 
 		scrollTo : function(prop, animate) {
 			if (animate) {
