@@ -178,6 +178,12 @@ pklib.utils = (function() {
             }
             return text;
         },
+        
+        delimiterSeparatedWords: function(text){
+            return text.replace(/[A-Z]/g, function(match) {
+                return "-" + match.toLowerCase();
+            });
+        },
 
         camelCase : function(text) {
             while (text.indexOf("-") != -1) {
