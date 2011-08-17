@@ -1,3 +1,6 @@
+/**
+ * @package pklib.validate
+ */
 pklib = this.pklib || {};
 
 pklib.validate = (function(){

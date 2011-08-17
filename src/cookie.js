@@ -1,3 +1,6 @@
+/**
+ * @package pklib.cookie
+ */
 pklib = this.pklib || {};
 
 pklib.cookie = (function() {

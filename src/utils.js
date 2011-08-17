@@ -1,3 +1,7 @@
+/**
+ * @package pklib.utils
+ * @dependence pklib.browser
+ */
 pklib = this.pklib || {};
 
 pklib.utils = (function() {
@@ -34,25 +38,28 @@ pklib.utils = (function() {
             return target;
         },
 
-        sizes : {
+        size : {
             window : function getWindowSize(name) {
-                var win = window;
-                var docElemProp = win.document.documentElement["client" + name];
-                return win.document.compatMode === "CSS1Compat" && docElemProp || win.document.body["client" + name] || docElemProp;
+                name = pklib.utils.capitalize(name);
+                var win = window, 
+                    clientName = win.document.documentElement["client" + name];
+                return win.document.compatMode === "CSS1Compat" && clientName || win.document.body["client" + name] || clientName;
             },
             document : function getDocumentSizes(name) {
-                var doc = document;
-                var clientName = doc.documentElement["client" + name];
-                var scrollBodyName = doc.body["scroll" + name];
-                var scrollName = doc.documentElement["scroll" + name];
-                var offsetBodyName = doc.body["offset" + name];
-                var offsetName = doc.documentElement["offset" + name];
+                name = pklib.utils.capitalize(name);
+                var doc = document,
+                    clientName = doc.documentElement["client" + name],
+                    scrollBodyName = doc.body["scroll" + name],
+                    scrollName = doc.documentElement["scroll" + name],
+                    offsetBodyName = doc.body["offset" + name],
+                    offsetName = doc.documentElement["offset" + name];
                 return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
             },
             obj : function getObjSizes(obj, name) {
-                var client = obj["client" + name];
-                var scroll = obj["scroll" + name];
-                var offset = obj["offset" + name];
+                name = pklib.utils.capitalize(name);
+                var client = obj["client" + name],
+                    scroll = obj["scroll" + name],
+                    offset = obj["offset" + name];
                 return Math.max(client, scroll, offset);
             }
         },
@@ -131,69 +138,79 @@ pklib.utils = (function() {
             return source;
         },
 
-        slug : function(text) {
-            if (typeof text === "string") {
+        slug : function(source) {
+            if (typeof source === "string") {
                 var result = '';
-                for ( var i = 0; i < text.length; ++i) {
-                    var letter = text[i].toLowerCase().charCodeAt(0);
+                for ( var i = 0; i < source.length; ++i) {
+                    var letter = source[i].toLowerCase().charCodeAt(0);
                     switch (letter) {
-                        case 380:
-                        case 378:
-                            result += 'z';
-                            break;
-                        case 347:
-                            result += 's';
-                            break;
-                        case 324:
-                            result += 'n';
-                            break;
-                        case 322:
-                            result += 'l';
-                            break;
-                        case 263:
-                            result += 'c';
-                            break;
-                        case 261:
-                            result += 'a';
-                            break;
-                        case 243:
-                            result += 'o';
-                            break;
-                        case 281:
-                            result += 'e';
-                            break;
+                    case 380:
+                    case 378:
+                        result += 'z';
+                        break;
+                    case 347:
+                        result += 's';
+                        break;
+                    case 324:
+                        result += 'n';
+                        break;
+                    case 322:
+                        result += 'l';
+                        break;
+                    case 263:
+                        result += 'c';
+                        break;
+                    case 261:
+                        result += 'a';
+                        break;
+                    case 243:
+                        result += 'o';
+                        break;
+                    case 281:
+                        result += 'e';
+                        break;
 
-                        case 63:
-                        case 43:
-                        case 42:
-                        case 32:
-                        case 33:
-                            result += '-';
-                            break;
-                        default:
-                            result += String.fromCharCode(letter);
+                    case 63:
+                    case 43:
+                    case 42:
+                    case 32:
+                    case 33:
+                        result += '-';
+                        break;
+                    default:
+                        result += String.fromCharCode(letter);
                     }
                 }
                 return result;
             }
-            return text;
+            return source;
         },
         
-        delimiterSeparatedWords: function(text){
-            return text.replace(/[A-Z]/g, function(match) {
-                return "-" + match.toLowerCase();
-            });
+        capitalize: function(source){
+            if (typeof source === "string") {
+                return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
+            }
+            return source;
         },
 
-        camelCase : function(text) {
-            while (text.indexOf("-") != -1) {
-                var pos = text.indexOf("-");
-                var pre = text.substr(0, pos);
-                var sub = text.substr(pos + 1, 1).toUpperCase();
-                var post = text.substring(pos + 2, text.length);
-                text = pre + sub + post;
+        delimiterSeparatedWords : function(source) {
+            if (typeof source === "string") {
+                return source.replace(/[A-Z]/g, function(match) {
+                    return "-" + match.toLowerCase();
+                });
             }
-            return text;
+            return source;
+        },
+
+        camelCase : function(source) {
+            while (source.indexOf("-") != -1) {
+                var pos = source.indexOf("-"),
+                    pre = source.substr(0, pos),
+                    sub = source.substr(pos + 1, 1).toUpperCase(),
+                    post = source.substring(pos + 2, source.length);
+                source = pre + sub + post;
+            }
+            return source;
         },
 
         scrollTo : function(prop, animate) {

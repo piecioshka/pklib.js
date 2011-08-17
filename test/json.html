@@ -1,18 +1,23 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>QUnit pklib.browser</title>
-    <link rel="stylesheet" href="../qunit/qunit.css" type="text/css" media="screen">
-    <script type="text/javascript" src="../qunit/qunit.js"></script>
-    <script type="text/javascript" src="browser.js"></script>
+    <script type="text/javascript" src="../src/json.js"></script>
 </head>
 <body>
-    <h1 id="qunit-header">QUnit pklib.browser</h1>
-    <h2 id="qunit-banner"></h2>
-    <div id="qunit-testrunner-toolbar"></div>
-    <h2 id="qunit-userAgent"></h2>
-    <ol id="qunit-tests"></ol>
-    <div id="qunit-fixture">test markup</div>
+    <script type="text/javascript">
+
+    function call(){
+        return 3 * 4;
+    }
+    
+    var test = [{ 3: "a" }, "g", 1, [], call];
+    
+    document.write(pklib.json.stringify(test));
+    console.log(pklib.json.stringify(test));
+    
+    test = { 3: "a", "g": 34};
+    
+    console.log(pklib.json.serialize(test));
+
+    </script>
 </body>
 </html>

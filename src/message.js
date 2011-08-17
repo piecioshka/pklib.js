@@ -1,3 +1,7 @@
+/**
+ * @package pklib.message
+ * @dependence pklib.utils
+ */
 pklib = this.pklib || {};
 
 pklib.message = (function(){
@@ -16,12 +20,12 @@ pklib.message = (function(){
 	
 	var _center = function(obj, contener){
 		if(contener === doc.getElementsByTagName("body")[0]){
-			var left = ( Math.max(pklib.utils.sizes.window("Width"), pklib.utils.sizes.document("Width")) - pklib.utils.sizes.obj(obj, "Width") ) / 2;
-			var top = ( Math.max(pklib.utils.sizes.window("Height"), pklib.utils.sizes.document("Height")) - pklib.utils.sizes.obj(obj, "Height") ) / 2;
+			var left = ( Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.obj(obj, "width") ) / 2;
+			var top = ( Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.obj(obj, "height") ) / 2;
 			pklib.utils.scrollTo(top);
 		} else {
-			var left = ( pklib.utils.sizes.obj(contener, "Width") - pklib.utils.sizes.obj(obj, "Width") ) / 2;
-			var top = ( pklib.utils.sizes.obj(contener, "Height") - pklib.utils.sizes.obj(obj, "Height") ) / 2;
+			var left = ( pklib.utils.size.obj(contener, "width") - pklib.utils.size.obj(obj, "width") ) / 2;
+			var top = ( pklib.utils.size.obj(contener, "height") - pklib.utils.size.obj(obj, "height") ) / 2;
 		}
 		obj.style.left = left;
 		obj.style.top = top;
@@ -56,7 +60,7 @@ pklib.message = (function(){
 				_center(message, settings.contener);
 			});
 			
-			typeof callback === "function" && callback();
+			(typeof callback === "function") && callback();
 			
 			return message;
 		},
@@ -68,7 +72,7 @@ pklib.message = (function(){
 				obj.close(callback);
 				result = true;
 			}
-			typeof callback === "function" && callback();
+			(typeof callback === "function") && callback();
 			
 			return result;
 		}

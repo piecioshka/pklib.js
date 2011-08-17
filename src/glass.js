@@ -1,3 +1,7 @@
+/**
+ * @package pklib.glass
+ * @dependence pklib.utils, pklib.browser
+ */
 pklib = this.pklib || {};
 
 pklib.glass = (function() {
@@ -18,14 +22,14 @@ pklib.glass = (function() {
 
     var _fill = function(obj, contener) {
         if (contener === doc.getElementsByTagName("body")[0]) {
-            var width = Math.max(pklib.utils.sizes.window("Width"), pklib.utils.sizes.document("Width"));
-            var height = Math.max(pklib.utils.sizes.window("Height"), pklib.utils.sizes.document("Height"));
+            var width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
+            var height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
             if (pklib.browser.getName() === "msie") {
                 width -= 20;
             }
         } else {
-            var width = pklib.utils.sizes.obj(contener, "Width");
-            var height = pklib.utils.sizes.obj(contener, "Height");
+            var width = pklib.utils.size.obj(contener, "width");
+            var height = pklib.utils.size.obj(contener, "height");
         }
         obj.style.width = width;
         obj.style.height = height;
@@ -62,7 +66,7 @@ pklib.glass = (function() {
                 _fill(glass, settings.contener);
             });
 
-            typeof callback === "function" && callback();
+            (typeof callback === "function") && callback();
 
             return glass;
         },
@@ -74,7 +78,7 @@ pklib.glass = (function() {
                 obj.close(callback);
                 result = true;
             }
-            typeof callback === "function" && callback();
+            (typeof callback === "function") && callback();
 
             return result;
         }

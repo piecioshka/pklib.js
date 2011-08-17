@@ -1,3 +1,6 @@
+/**
+ * @package pklib.profiler
+ */
 pklib = this.pklib || {};
 
 pklib.profiler = (function(){
