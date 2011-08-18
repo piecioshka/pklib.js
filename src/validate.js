@@ -1,23 +1,21 @@
 /**
  * @package pklib.validate
+ * @dependence pklib.utils
  */
 pklib = this.pklib || {};
-
 pklib.validate = (function(){
 	
-	var obj = {
+	var __validate = {
 
-        // Check if object doesn't empty
-        empty: function(object) {
-            switch(typeof object){
-                case "string": return ( object === '' ); break;
-                case "number": return ( object === 0 ); break;
-                case "object": return ( object.length === 0 ); break;
+        empty: function(obj) {
+            switch(typeof obj){
+                case "string": return ( obj === '' ); break;
+                case "number": return ( obj === 0 ); break;
+                case "object": return ( obj.length === 0 ); break;
                 default: return false;
             }
         },
 
-        // Check regular expression for field and run action
         regexp: function(config) {
             var settings = {
                 object: null,
@@ -39,6 +37,6 @@ pklib.validate = (function(){
 
     };
 	
-	return obj;
+	return __validate;
 
 })();

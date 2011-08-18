@@ -2,12 +2,11 @@
  * @package pklib.browser
  */
 pklib = this.pklib || {};
-
 pklib.browser = (function() {
 
     var browsers = [ "msie", "chrome", "safari", "opera", "mozilla", "konqueror" ];
 
-    var browser = {
+    var __browser = {
 
         getName : function() {
             var userAgent = navigator.userAgent.toLowerCase();
@@ -34,6 +33,6 @@ pklib.browser = (function() {
         }
     };
 
-    return browser;
+    return __browser;
 
 })();

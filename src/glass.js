@@ -3,7 +3,6 @@
  * @dependence pklib.utils, pklib.browser
  */
 pklib = this.pklib || {};
-
 pklib.glass = (function() {
 
     var doc = document, 
@@ -36,7 +35,7 @@ pklib.glass = (function() {
         return [ width, height ];
     };
 
-    var obj = {
+    var __glass = {
         objId : id,
         show : function(config, callback) {
             settings = pklib.utils.merge(settings, config);
@@ -45,24 +44,24 @@ pklib.glass = (function() {
             var glass = doc.createElement("div");
             var glassStyle = glass.style;
 
-            glass.setAttribute("id", obj.objId);
+            glass.setAttribute("id", __glass.objId);
             for ( var style in settings.style) {
                 glassStyle[style] = settings.style[style];
             }
 
-            if (typeof obj.content === "string") {
-                glass.innerHTML = obj.content;
-            } else if (typeof obj.content === "object") {
-                glass.appendChild(obj.content);
+            if (typeof __glass.content === "string") {
+                glass.innerHTML = __glass.content;
+            } else if (typeof __glass.content === "object") {
+                glass.appendChild(__glass.content);
             }
 
             settings.contener.appendChild(glass);
 
             _fill(glass, settings.contener);
 
-            pklib.utils.addEvent(window, "resize", function() {
-                obj.close();
-                obj.show(config, callback);
+            pklib.utils.event.add(window, "resize", function() {
+                __glass.close();
+                __glass.show(config, callback);
                 _fill(glass, settings.contener);
             });
 
@@ -71,11 +70,11 @@ pklib.glass = (function() {
             return glass;
         },
         close : function(callback) {
-            var glass = doc.getElementById(obj.objId);
+            var glass = doc.getElementById(__glass.objId);
             var result = false;
             if (glass !== null) {
                 glass.parentNode.removeChild(glass);
-                obj.close(callback);
+                __glass.close(callback);
                 result = true;
             }
             (typeof callback === "function") && callback();
@@ -84,6 +83,6 @@ pklib.glass = (function() {
         }
     };
 
-    return obj;
+    return __glass;
 
 })();

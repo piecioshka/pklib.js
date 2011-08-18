@@ -2,10 +2,9 @@
  * @package pklib.json
  */
 pklib = this.pklib || {};
-
 pklib.json = (function() {
 
-	var obj = {
+	var __json = {
 
 		stringify: function(obj, ind){
 		    var source = "",
@@ -139,6 +138,6 @@ pklib.json = (function() {
 
 	};
 	
-	return obj;
+	return __json;
 
 })();

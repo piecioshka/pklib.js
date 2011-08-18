@@ -2,12 +2,11 @@
  * @package pklib.profiler
  */
 pklib = this.pklib || {};
-
 pklib.profiler = (function(){
     
     var data = {};
     
-    var profiler = {
+    var __profiler = {
         start: function(name){
             data[name] = new Date();
         },
@@ -19,5 +18,6 @@ pklib.profiler = (function(){
         }
     };
     
-    return profiler;
+    return __profiler;
+    
 })();

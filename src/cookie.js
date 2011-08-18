@@ -2,10 +2,11 @@
  * @package pklib.cookie
  */
 pklib = this.pklib || {};
-
 pklib.cookie = (function() {
+    
+    var doc = document;
 
-    var obj = {
+    var __cookie = {
 
         create : function(name, value, days) {
             value = value || null;
@@ -17,7 +18,7 @@ pklib.cookie = (function() {
                 expires = '; expires=' + date.toGMTString();
             }
 
-            document.cookie = name + '=' + value + expires + '; path=/';
+            doc.cookie = name + '=' + value + expires + '; path=/';
 
             return this.read(name);
         },
@@ -27,7 +28,7 @@ pklib.cookie = (function() {
                 return;
             }
             name = name + '='; 
-            var ca = document.cookie.split(';');
+            var ca = doc.cookie.split(';');
 
             for ( var i = 0, len = ca.length; i < len; ++i) {
                 var c = ca[i];
@@ -48,6 +49,6 @@ pklib.cookie = (function() {
 
     };
 
-    return obj;
+    return __cookie;
 
 })();

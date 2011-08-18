@@ -3,7 +3,6 @@
  * @dependence pklib.utils
  */
 pklib = this.pklib || {};
-
 pklib.loader = (function() {
 
     var doc = document, 
@@ -34,7 +33,7 @@ pklib.loader = (function() {
         return [ left, top ];
     };
 
-    var obj = {
+    var __loader = {
         objId : id,
         show : function(config, callback) {
             settings = pklib.utils.merge(settings, config);
@@ -42,7 +41,7 @@ pklib.loader = (function() {
             var loader = doc.createElement("img");
             var loaderStyle = loader.style;
 
-            loader.setAttribute("id", obj.objId);
+            loader.setAttribute("id", __loader.objId);
             loader.setAttribute("src", settings.src);
             for ( var style in settings.style) {
                 loaderStyle[style] = settings.style[style];
@@ -50,7 +49,7 @@ pklib.loader = (function() {
             if (settings.center) {
                 _center(loader, settings.contener);
 
-                pklib.utils.addEvent(window, "resize", function() {
+                pklib.utils.event.add(window, "resize", function() {
                     _center(loader, settings.contener);
                 });
             }
@@ -62,11 +61,11 @@ pklib.loader = (function() {
             delete loader;
         },
         close : function(callback) {
-            var loader = doc.getElementById(obj.objId);
+            var loader = doc.getElementById(__loader.objId);
             var result = false;
             if (loader !== null) {
                 loader.parentNode.removeChild(loader);
-                obj.close(callback);
+                __loader.close(callback);
                 result = true;
             }
             (typeof callback === "function") && callback();
@@ -75,6 +74,6 @@ pklib.loader = (function() {
         }
     };
 
-    return obj;
+    return __loader;
 
 })();
