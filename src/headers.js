@@ -15,12 +15,3 @@ pklib = this.pklib || {
     www : "http://pklib.pl/",
     version : "1.0.0",
 };
-
-
-function log(){
-    if(window.console && console.log){
-        console.log.apply(null, arguments);
-    } else {
-        document.write(arguments.toString());
-    }
-}

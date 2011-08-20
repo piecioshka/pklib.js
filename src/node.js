@@ -1,5 +1,5 @@
 /**
- * @package app.node
+ * @package pklib.node
  */
 pklib = this.pklib || {};
 pklib.node = (function() {
