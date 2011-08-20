@@ -58,7 +58,7 @@ pklib.utils = (function() {
             
             index : function(obj) {
                 var parent = obj.parentNode;
-                var elements = utils.dom.children(parent);
+                var elements = __utils.dom.children(parent);
                 for ( var i = 0, len = elements.length; i < len; ++i) {
                     var item = elements[i];
                     if (item === obj) {
@@ -114,14 +114,15 @@ pklib.utils = (function() {
 
         event : {
 
-            add : function(target, eventType, callback) {
+            add : function(target, eventType, callback, propagation) {
                 if (target.attachEvent) {
                     __utils.event.add = function(target, eventType, callback) {
                         target.attachEvent("on" + eventType, callback);
                     };
                 } else if (target.addEventListener) {
-                    __utils.event.add = function(target, eventType, callback) {
-                        target.addEventListener(eventType, callback, false);
+                    __utils.event.add = function(target, eventType, callback, propagation) {
+                        propagation = propagation || true;
+                        target.addEventListener(eventType, callback, propagation);
                     };
                 }
                 __utils.event.add(target, eventType, callback);
