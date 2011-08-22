@@ -6,7 +6,7 @@
  * Public Domain
  * http://pklib.com/license
  * 
- * Date: Thu May 26 2011 10:21:18 GMT+0200
+ * Date: Mon Aug 22 09:21:07 GMT 2011
  */
 
 // pklib definition and initialization
@@ -132,6 +132,21 @@ pklib.utils = (function() {
                     }
                 }
                 return arr;
+            },
+            
+            center : function(obj, contener) {
+                if (contener === doc.getElementsByTagName("body")[0]) {
+                    var left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(obj, "width")) / 2;
+                    var top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(obj, "height")) / 2;
+                    pklib.utils.scrollTo(top);
+                } else {
+                    var left = (pklib.utils.size.window("width") - pklib.utils.size.object(obj, "width")) / 2;
+                    var top = (pklib.utils.size.window("height") - pklib.utils.size.object(obj, "height")) / 2;
+                }
+                obj.style.left = left + "px";
+                obj.style.top = top + "px";
+                obj.style.position = "absolute";
+                return [ left, top ];
             }
             
         },
@@ -594,8 +609,8 @@ pklib.glass = (function() {
                 width -= 20;
             }
         } else {
-            var width = pklib.utils.size.obj(contener, "width");
-            var height = pklib.utils.size.obj(contener, "height");
+            var width = pklib.utils.size.object(contener, "width");
+            var height = pklib.utils.size.object(contener, "height");
         }
         obj.style.width = width;
         obj.style.height = height;
@@ -605,21 +620,17 @@ pklib.glass = (function() {
     var __glass = {
         objId : id,
         show : function(config, callback) {
+            var that = this;
+            
             settings = pklib.utils.merge(settings, config);
             settings.style.filter = 'alpha(opacity=' + parseFloat(settings.style.opacity, 10) * 100 + ')';
 
             var glass = doc.createElement("div");
             var glassStyle = glass.style;
 
-            glass.setAttribute("id", __glass.objId);
+            glass.setAttribute("id", this.objId);
             for ( var style in settings.style) {
                 glassStyle[style] = settings.style[style];
-            }
-
-            if (typeof __glass.content === "string") {
-                glass.innerHTML = __glass.content;
-            } else if (typeof __glass.content === "object") {
-                glass.appendChild(__glass.content);
             }
 
             settings.contener.appendChild(glass);
@@ -627,8 +638,8 @@ pklib.glass = (function() {
             _fill(glass, settings.contener);
 
             pklib.utils.event.add(window, "resize", function() {
-                __glass.close();
-                __glass.show(config, callback);
+                that.close();
+                that.show(config, callback);
                 _fill(glass, settings.contener);
             });
 
@@ -637,13 +648,14 @@ pklib.glass = (function() {
             return glass;
         },
         close : function(callback) {
-            var glass = doc.getElementById(__glass.objId);
+            var glass = doc.getElementById(this.objId);
             var result = false;
             if (glass !== null) {
                 glass.parentNode.removeChild(glass);
-                __glass.close(callback);
+                arguments.callee(callback);
                 result = true;
             }
+            
             (typeof callback === "function") && callback();
 
             return result;
@@ -818,21 +830,6 @@ pklib.loader = (function() {
             center : true
         };
 
-    var _center = function(obj, contener) {
-        if (contener === doc.getElementsByTagName("body")[0]) {
-            var left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.obj(obj, "width")) / 2;
-            var top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.obj(obj, "height")) / 2;
-            pklib.utils.scrollTo(top);
-        } else {
-            var left = (pklib.utils.size.obj(contener, "width") - pklib.utils.size.obj(obj, "width")) / 2;
-            var top = (pklib.utils.size.obj(contener, "height") - pklib.utils.size.obj(obj, "height")) / 2;
-        }
-        obj.style.left = left + "px";
-        obj.style.top = top + "px";
-        obj.style.position = "absolute";
-        return [ left, top ];
-    };
-
     var __loader = {
         objId : id,
         show : function(config, callback) {
@@ -841,16 +838,16 @@ pklib.loader = (function() {
             var loader = doc.createElement("img");
             var loaderStyle = loader.style;
 
-            loader.setAttribute("id", __loader.objId);
+            loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
             for ( var style in settings.style) {
                 loaderStyle[style] = settings.style[style];
             }
             if (settings.center) {
-                _center(loader, settings.contener);
+                pklib.utils.dom.center(loader, settings.contener);
 
                 pklib.utils.event.add(window, "resize", function() {
-                    _center(loader, settings.contener);
+                    pklib.utils.dom.center(loader, settings.contener);
                 });
             }
 
@@ -861,13 +858,14 @@ pklib.loader = (function() {
             delete loader;
         },
         close : function(callback) {
-            var loader = doc.getElementById(__loader.objId);
+            var loader = doc.getElementById(this.objId);
             var result = false;
             if (loader !== null) {
                 loader.parentNode.removeChild(loader);
-                __loader.close(callback);
+                this.close(callback);
                 result = true;
             }
+            
             (typeof callback === "function") && callback();
 
             return result;
@@ -897,20 +895,6 @@ pklib.message = (function() {
             }
         };
 
-    var _center = function(obj, contener) {
-        if (contener === doc.getElementsByTagName("body")[0]) {
-            var left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.obj(obj, "width")) / 2;
-            var top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.obj(obj, "height")) / 2;
-            pklib.utils.scrollTo(top);
-        } else {
-            var left = (pklib.utils.size.obj(contener, "width") - pklib.utils.size.obj(obj, "width")) / 2;
-            var top = (pklib.utils.size.obj(contener, "height") - pklib.utils.size.obj(obj, "height")) / 2;
-        }
-        obj.style.left = left;
-        obj.style.top = top;
-        return [ left, top ];
-    };
-
     var __message = {
         objId : id,
         content : contents,
@@ -920,23 +904,23 @@ pklib.message = (function() {
             var message = doc.createElement("div");
             var messageStyle = message.style;
 
-            message.setAttribute("id", __message.objId);
+            message.setAttribute("id", this.objId);
             for ( var style in settings.style) {
                 messageStyle[style] = settings.style[style];
             }
 
-            if (typeof __message.content === "string") {
-                message.innerHTML = __message.content;
-            } else if (typeof __message.content === "object") {
-                message.appendChild(__message.content);
+            if (typeof this.content === "string") {
+                message.innerHTML = this.content;
+            } else if (typeof this.content === "object") {
+                message.appendChild(this.content);
             }
 
             settings.contener.appendChild(message);
 
-            _center(message, settings.contener);
+            pklib.utils.dom.center(message, settings.contener);
 
             pklib.utils.event.add(window, "resize", function() {
-                _center(message, settings.contener);
+                pklib.utils.dom.center(message, settings.contener);
             });
 
             (typeof callback === "function") && callback();
@@ -944,12 +928,12 @@ pklib.message = (function() {
             return message;
         },
         close : function(callback) {
-            var message = doc.getElementById(__message.objId);
+            var message = doc.getElementById(this.objId);
             var result = false;
             
             if (message !== null) {
                 message.parentNode.removeChild(message);
-                __message.close(callback);
+                this.close(callback);
                 result = true;
             }
             

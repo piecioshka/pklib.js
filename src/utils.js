@@ -75,6 +75,21 @@ pklib.utils = (function() {
                     }
                 }
                 return arr;
+            },
+            
+            center : function(obj, contener) {
+                if (contener === doc.getElementsByTagName("body")[0]) {
+                    var left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(obj, "width")) / 2;
+                    var top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(obj, "height")) / 2;
+                    pklib.utils.scrollTo(top);
+                } else {
+                    var left = (pklib.utils.size.window("width") - pklib.utils.size.object(obj, "width")) / 2;
+                    var top = (pklib.utils.size.window("height") - pklib.utils.size.object(obj, "height")) / 2;
+                }
+                obj.style.left = left + "px";
+                obj.style.top = top + "px";
+                obj.style.position = "absolute";
+                return [ left, top ];
             }
             
         },

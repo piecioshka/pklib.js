@@ -6,7 +6,7 @@
  * Public Domain
  * http://pklib.com/license
  * 
- * Date: Thu May 26 2011 10:21:18 GMT+0200
+ * Date: Mon Aug 22 09:21:07 GMT 2011
  */
 
 // pklib definition and initialization
