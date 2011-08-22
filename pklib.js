@@ -73,7 +73,7 @@ pklib.utils = (function() {
                     throw new TypeError();
                 }
                 var c = el.className;
-                if(!__utils.css.hasClass(el, cls)){
+                if(!this.hasClass(el, cls)){
                     if (c.length) {
                         c += " " + cls;
                     } else {
@@ -115,7 +115,7 @@ pklib.utils = (function() {
             
             index : function(obj) {
                 var parent = obj.parentNode;
-                var elements = utils.dom.children(parent);
+                var elements = this.children(parent);
                 for ( var i = 0, len = elements.length; i < len; ++i) {
                     var item = elements[i];
                     if (item === obj) {
@@ -140,7 +140,7 @@ pklib.utils = (function() {
 
             unique : function(array) {
                 for ( var i = 0, temp = [], len = array.length; i < len; ++i) {
-                    if (!pklib.utils.array.inArray.call(null, temp, array[i])) {
+                    if (!this.inArray.call(null, temp, array[i])) {
                         temp.push(array[i]);
                     }
                 }
@@ -159,7 +159,7 @@ pklib.utils = (function() {
             remove : function(array /*  */) {
                 var params = Array.prototype.splice.call(arguments, 1);
                 for ( var i = 0, len = params.length; i < len; ++i) {
-                    var param = params[i], inside = pklib.utils.array.inArray(array, param);
+                    var param = params[i], inside = this.inArray(array, param);
                     if (inside !== false) {
                         array.splice(inside, 1);
                     }
@@ -173,15 +173,15 @@ pklib.utils = (function() {
 
             add : function(target, eventType, callback) {
                 if (target.attachEvent) {
-                    __utils.event.add = function(target, eventType, callback) {
+                    this.add = function(target, eventType, callback) {
                         target.attachEvent("on" + eventType, callback);
                     };
                 } else if (target.addEventListener) {
-                    __utils.event.add = function(target, eventType, callback) {
+                    this.add = function(target, eventType, callback) {
                         target.addEventListener(eventType, callback, false);
                     };
                 }
-                __utils.event.add(target, eventType, callback);
+                this.add(target, eventType, callback);
             }
 
         },
