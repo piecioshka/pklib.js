@@ -27,8 +27,8 @@ pklib.glass = (function() {
                 width -= 20;
             }
         } else {
-            var width = pklib.utils.size.obj(contener, "width");
-            var height = pklib.utils.size.obj(contener, "height");
+            var width = pklib.utils.size.object(contener, "width");
+            var height = pklib.utils.size.object(contener, "height");
         }
         obj.style.width = width;
         obj.style.height = height;
@@ -38,21 +38,17 @@ pklib.glass = (function() {
     var __glass = {
         objId : id,
         show : function(config, callback) {
+            var that = this;
+            
             settings = pklib.utils.merge(settings, config);
             settings.style.filter = 'alpha(opacity=' + parseFloat(settings.style.opacity, 10) * 100 + ')';
 
             var glass = doc.createElement("div");
             var glassStyle = glass.style;
 
-            glass.setAttribute("id", __glass.objId);
+            glass.setAttribute("id", this.objId);
             for ( var style in settings.style) {
                 glassStyle[style] = settings.style[style];
-            }
-
-            if (typeof __glass.content === "string") {
-                glass.innerHTML = __glass.content;
-            } else if (typeof __glass.content === "object") {
-                glass.appendChild(__glass.content);
             }
 
             settings.contener.appendChild(glass);
@@ -60,8 +56,8 @@ pklib.glass = (function() {
             _fill(glass, settings.contener);
 
             pklib.utils.event.add(window, "resize", function() {
-                __glass.close();
-                __glass.show(config, callback);
+                that.close();
+                that.show(config, callback);
                 _fill(glass, settings.contener);
             });
 
@@ -70,13 +66,14 @@ pklib.glass = (function() {
             return glass;
         },
         close : function(callback) {
-            var glass = doc.getElementById(__glass.objId);
+            var glass = doc.getElementById(this.objId);
             var result = false;
             if (glass !== null) {
                 glass.parentNode.removeChild(glass);
-                __glass.close(callback);
+                arguments.callee(callback);
                 result = true;
             }
+            
             (typeof callback === "function") && callback();
 
             return result;

@@ -16,7 +16,7 @@ pklib.utils = (function() {
                     throw new TypeError();
                 }
                 var c = el.className;
-                if(!__utils.css.hasClass(el, cls)){
+                if(!this.hasClass(el, cls)){
                     if (c.length) {
                         c += " " + cls;
                     } else {
@@ -58,7 +58,7 @@ pklib.utils = (function() {
             
             index : function(obj) {
                 var parent = obj.parentNode;
-                var elements = __utils.dom.children(parent);
+                var elements = this.children(parent);
                 for ( var i = 0, len = elements.length; i < len; ++i) {
                     var item = elements[i];
                     if (item === obj) {
@@ -75,6 +75,21 @@ pklib.utils = (function() {
                     }
                 }
                 return arr;
+            },
+            
+            center : function(obj, contener) {
+                if (contener === doc.getElementsByTagName("body")[0]) {
+                    var left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(obj, "width")) / 2;
+                    var top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(obj, "height")) / 2;
+                    pklib.utils.scrollTo(top);
+                } else {
+                    var left = (pklib.utils.size.window("width") - pklib.utils.size.object(obj, "width")) / 2;
+                    var top = (pklib.utils.size.window("height") - pklib.utils.size.object(obj, "height")) / 2;
+                }
+                obj.style.left = left + "px";
+                obj.style.top = top + "px";
+                obj.style.position = "absolute";
+                return [ left, top ];
             }
             
         },
@@ -83,7 +98,7 @@ pklib.utils = (function() {
 
             unique : function(array) {
                 for ( var i = 0, temp = [], len = array.length; i < len; ++i) {
-                    if (!pklib.utils.array.inArray.call(null, temp, array[i])) {
+                    if (!this.inArray.call(null, temp, array[i])) {
                         temp.push(array[i]);
                     }
                 }
@@ -102,7 +117,7 @@ pklib.utils = (function() {
             remove : function(array /*  */) {
                 var params = Array.prototype.splice.call(arguments, 1);
                 for ( var i = 0, len = params.length; i < len; ++i) {
-                    var param = params[i], inside = pklib.utils.array.inArray(array, param);
+                    var param = params[i], inside = this.inArray(array, param);
                     if (inside !== false) {
                         array.splice(inside, 1);
                     }
@@ -116,16 +131,16 @@ pklib.utils = (function() {
 
             add : function(target, eventType, callback, propagation) {
                 if (target.attachEvent) {
-                    __utils.event.add = function(target, eventType, callback) {
+                    this.add = function(target, eventType, callback) {
                         target.attachEvent("on" + eventType, callback);
                     };
                 } else if (target.addEventListener) {
-                    __utils.event.add = function(target, eventType, callback, propagation) {
-                        propagation = propagation || true;
+                    this.add = function(target, eventType, callback, propagation) {
+                        propagation = propagation || false;
                         target.addEventListener(eventType, callback, propagation);
                     };
                 }
-                __utils.event.add(target, eventType, callback);
+                this.add(target, eventType, callback);
             }
 
         },
@@ -253,6 +268,20 @@ pklib.utils = (function() {
                     source = pre + sub + post;
                 }
                 return source;
+            },
+
+            slice: function (source, len){
+                for(var item = 0,  text = "", num = source.length; item < num; ++item){
+                    text += source[item];
+                    if(item == len){
+                        if(num - len > 3){
+                            text += "...";
+                        }
+                        break;
+                    }
+                }
+                
+                return text;
             }
 
         },
