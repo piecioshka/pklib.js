@@ -324,6 +324,20 @@ pklib.utils = (function() {
                     source = pre + sub + post;
                 }
                 return source;
+            },
+
+            slice: function (source, len){
+                for(var item = 0,  text = "", num = source.length; item < num; ++item){
+                    text += source[item];
+                    if(item == len){
+                        if(num - len > 3){
+                            text += "...";
+                        }
+                        break;
+                    }
+                }
+                
+                return text;
             }
 
         },
