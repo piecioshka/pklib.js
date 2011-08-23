@@ -4,140 +4,150 @@
 pklib = this.pklib || {};
 pklib.json = (function() {
 
-	var __json = {
+    var __json = {
 
-		stringify: function(obj, ind){
-		    var source = "",
-		        type = "",
-		        ind = ind || 0;
-		        
-		    
-		    function indent(len){
-		        for(var i = 0, preffix = "\t", source = ""; i < len; ++i){
-		            source += preffix;
-		        }
-		        return source;
-		    }
-		    
-		    // Null
-		    if(obj == null){
-		        type = "null";
-		        return type;
-		    } else 
-		        
-	        // Undefined
-	        if(typeof obj === "undefined"){
-	            type = "undefined";
-	            return type;
-	        } else
-               
+        /**
+         * @param {array} object
+         * @param {number} ind
+         * @return {string}
+         */
+        stringify : function(object, ind) {
+            var source = "", type = "", index = ind || 0;
+
+            function indent(len) {
+                for ( var i = 0, preffix = "\t", source = ""; i < len; ++i) {
+                    source += preffix;
+                }
+                return source;
+            }
+
+            // Undefined
+            if (typeof object === "undefined") {
+                type = undefined;
+                return type;
+            } else
+
+            // Null
+            if (object == null) {
+                type = null;
+                return type;
+            } else
+
             // Boolean
-            if(typeof obj === "boolean"){
+            if (typeof object === "boolean") {
                 type = "boolean";
-                return obj;
-            } else 
-            
+                return object;
+            } else
+
             // Number
-            if(typeof obj === "number"){
+            if (typeof object === "number") {
                 type = "number";
-                return obj;
-            } else 
-            
+                return object;
+            } else
+
             // String
-            if(typeof obj === "string"){
+            if (typeof object === "string") {
                 type = "string";
-                return '"' + obj + '"';
-            } else 
-            
+                return '"' + object + '"';
+            } else
+
             // Function
-            if(typeof obj === "function"){
+            if (typeof object === "function") {
                 type = "function";
-                
+
                 function __getName(fun) {
                     var text = fun.toString();
                     text = text.split("\n")[0].replace("function ", "");
                     return text.substr(0, text.indexOf("(")) + "()";
                 }
-                
-                return __getName(obj);
-            } else 
-            
+
+                return __getName(object);
+            } else
+
             // Array
-            if(typeof obj === "object" && typeof obj.slice === "function"){
+            if (typeof object === "object" && typeof object.slice === "function") {
                 type = "array";
-                if(obj.length === 0) {
+                if (object.length === 0) {
                     return "[]";
                 }
-                source = "[\n" + indent(ind);
-                ind++;
-                for(var i = 0, len = obj.length; i < len; ++i){
-                    source += indent(ind) + arguments.callee(obj[i], ind);
-                    if(i !== len - 1){
+                source = "[\n" + indent(index);
+                index++;
+                for ( var i = 0, len = object.length; i < len; ++i) {
+                    source += indent(index) + arguments.callee(object[i], index);
+                    if (i !== len - 1) {
                         source += ",\n";
                     }
                 }
-                ind--;
-                source += "\n" + indent(ind) + "]";
-            } else 
-            
+                index--;
+                source += "\n" + indent(index) + "]";
+            } else
+
             // Object
-            if(typeof obj === "object"){
+            if (typeof object === "object") {
                 type = "object";
-                
-                function __getLast(obj){
-                    for(var i in obj){} return i;
+
+                function __getLast(object) {
+                    for ( var i in object) {
+                    }
+                    return i;
                 }
-                
+
                 source = "{\n";
-                ind++;
-                for(var item in obj){
-                    source += indent(ind) + item + ": " + arguments.callee(obj[item], ind);
-                    if(item !== __getLast(obj)){
+                index++;
+                for ( var item in object) {
+                    source += indent(index) + item + ": " + arguments.callee(object[item], index);
+                    if (item !== __getLast(object)) {
                         source += ",\n";
                     }
                 }
-                ind--;
-                source += "\n" + indent(ind) + "}";
+                index--;
+                source += "\n" + indent(index) + "}";
             }
 
-			return source;
-		},
-		
-        // Serialize JSON to string
-        serialize: function(obj, toJson){
-        	var obj = obj || {},
-	    		addAmp = false,
-	        	response = '';
-        	
-        	response += (toJson) ? '{' : '';
-			
-			for(var i in obj){
-				if(typeof obj[i] !== "function"){
-					if(addAmp) {
-						var lst = toJson ? ',' : '&';
-						response += lst;
-					} else {
-						addAmp = true;
-					}
-					
-					var value = '';
-					if(typeof obj[i] !== "undefined" && obj[i] !== null){
-						value = obj[i];
-					}
-					
-					var bef = toJson ? ':' : '=';
-					var mtz = toJson ? '"' : '';
-					response += i + bef + mtz + value + mtz;
-				}
-			}
-			
-        	response += (toJson) ? '}' : '';
-			
-			return response;
+            return source;
+        },
+
+        /**
+         * @param {object} object
+         * @param {boolean} toJson
+         * @returns {string}
+         */
+        serialize : function(object, toJson) {
+            if (typeof object !== "object" || object == null) {
+                throw new TypeError();
+            }
+
+            var addAmp = false, response = '';
+
+            response += (toJson) ? '{' : '';
+
+            for ( var i in object) {
+                if (typeof object[i] !== "function") {
+                    if (addAmp) {
+                        var lst = toJson ? ',' : '&';
+                        response += lst;
+                    } else {
+                        addAmp = true;
+                    }
+
+                    var value = '';
+                    if (typeof object[i] !== "undefined" && object[i] !== null) {
+                        value = object[i];
+                    }
+
+                    var bef = toJson ? ':' : '=';
+                    var mtz = toJson ? '"' : '';
+                    response += i + bef + mtz + value + mtz;
+                }
+            }
+
+            response += (toJson) ? '}' : '';
+
+            return response;
         }
 
-	};
-	
-	return __json;
+    };
+
+    return __json;
 
 })();

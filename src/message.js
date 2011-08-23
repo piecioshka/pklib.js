@@ -52,13 +52,13 @@ pklib.message = (function() {
         close : function(callback) {
             var message = doc.getElementById(this.objId);
             var result = false;
-            
+
             if (message !== null) {
                 message.parentNode.removeChild(message);
                 this.close(callback);
                 result = true;
             }
-            
+
             (typeof callback === "function") && callback();
 
             return result;

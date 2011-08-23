@@ -53,7 +53,7 @@ pklib.loader = (function() {
                 this.close(callback);
                 result = true;
             }
-            
+
             (typeof callback === "function") && callback();
 
             return result;

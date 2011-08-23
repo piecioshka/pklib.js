@@ -2,22 +2,38 @@
  * @package pklib.profiler
  */
 pklib = this.pklib || {};
-pklib.profiler = (function(){
-    
+pklib.profiler = (function() {
+
     var data = {};
-    
-    var __profiler = {
-        start: function(name){
+
+    return {
+
+        /**
+         * @param {string} name
+         * @return {number}
+         */
+        start : function(name) {
             data[name] = new Date();
+            return data[name];
         },
-        stop: function(name){
+
+        /**
+         * @param {string} name
+         * @return {number}
+         */
+        stop : function(name) {
             data[name] = new Date() - data[name];
+            return new Date((new Date()).getTime() + data[name]);
         },
-        getTime: function(name){
+
+        /**
+         * @param {string} name
+         * @return {number}
+         */
+        getTime : function(name) {
             return data[name];
         }
+
     };
-    
-    return __profiler;
-    
+
 })();

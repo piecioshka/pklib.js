@@ -3,11 +3,17 @@
  */
 pklib = this.pklib || {};
 pklib.cookie = (function() {
-    
+
     var doc = document;
 
-    var __cookie = {
+    return {
 
+        /**
+         * @param {string} name
+         * @param {string} value
+         * @param {number} days
+         * @return {string}
+         */
         create : function(name, value, days) {
             value = value || null;
             var expires = '';
@@ -23,11 +29,15 @@ pklib.cookie = (function() {
             return this.read(name);
         },
 
+        /**
+         * @param {string} name
+         * @return {null or string}
+         */
         read : function(name) {
-            if(typeof name === "undefined"){
-                return;
+            if (typeof name === "undefined") {
+                return null;
             }
-            name = name + '='; 
+            name = name + '=';
             var ca = doc.cookie.split(';');
 
             for ( var i = 0, len = ca.length; i < len; ++i) {
@@ -39,16 +49,16 @@ pklib.cookie = (function() {
                     return c.substring(name.length, c.length);
                 }
             }
-
-            return undefined;
         },
 
+        /**
+         * @param {string} name
+         * @return {string}
+         */
         erase : function(name) {
             return this.create(name, undefined, -1);
         }
 
     };
-
-    return __cookie;
 
 })();

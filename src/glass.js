@@ -20,15 +20,16 @@ pklib.glass = (function() {
         };
 
     var _fill = function(obj, contener) {
+        var width, height;
         if (contener === doc.getElementsByTagName("body")[0]) {
-            var width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
-            var height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
+            width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
+            height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
             if (pklib.browser.getName() === "msie") {
                 width -= 20;
             }
         } else {
-            var width = pklib.utils.size.object(contener, "width");
-            var height = pklib.utils.size.object(contener, "height");
+            width = pklib.utils.size.object(contener, "width");
+            height = pklib.utils.size.object(contener, "height");
         }
         obj.style.width = width;
         obj.style.height = height;

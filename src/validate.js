@@ -3,40 +3,84 @@
  * @dependence pklib.utils
  */
 pklib = this.pklib || {};
-pklib.validate = (function(){
-	
-	var __validate = {
+pklib.validate = (function() {
 
-        empty: function(obj) {
-            switch(typeof obj){
-                case "string": return ( obj === '' ); break;
-                case "number": return ( obj === 0 ); break;
-                case "object": return ( obj.length === 0 ); break;
-                default: return false;
+    return {
+
+        /**
+         * @param {object} object
+         * @return {boolean}
+         */
+        empty : function(object) {
+            if (object == null) {
+                return true;
+            } else if (pklib.utils.array.isArray(object)) {
+                return (object.length === 0);
+            } else {
+                switch (typeof object) {
+                    case "string":
+                        return (object === '');
+                        break;
+                    case "number":
+                        return (object === 0);
+                        break;
+                    case "object":
+                        var iterator = 0;
+                        for ( var item in object) {
+                            if (object.hasOwnProperty(item)) {
+                                iterator++;
+                            }
+                        }
+                        return (iterator === 0);
+                        break;
+
+                    case "undefined":
+                }
+                return false;
             }
         },
 
-        regexp: function(config) {
+        /**
+         * @param {object} config
+         * <pre>
+         * { 
+         *      object {string}
+         *      regexp {object}
+         * 
+         *      error {function},
+         *      success {function}
+         * }
+         * </pre>
+         * 
+         * @return {function}
+         */
+        regexp : function(config) {
             var settings = {
-                object: null,
-                regexp: null,
-                error: null,
-                success: null
+                object : null,
+                regexp : null,
+                error : function() {
+                },
+                success : function() {
+                }
             };
 
             settings = pklib.utils.merge(settings, config);
 
+            if(settings.regexp == null){
+                throw new TypeError();
+            }
             var exp = new RegExp(settings.regexp);
 
-            if (exp.test(settings.object)) {
-                return settings.success();
+            if(settings.object == null){
+                throw new TypeError();
             }
-            
-            return settings.error();
+            if (exp.test(settings.object)) {
+                return (typeof settings.success === "function") && settings.success();
+            }
+
+            return (typeof settings.error === "function") && settings.error();
         }
 
     };
-	
-	return __validate;
 
 })();

@@ -6,18 +6,16 @@ pklib = this.pklib || {};
 pklib.cache = [];
 pklib.ajax = (function() {
 
-    var client = null, _settings = {}, _states = [];
+    var client = null, settings = {}, states = [];
 
     function __init() {
-        client = null, _settings = {
+        client = null, settings = {
             type : "get",
             async : true,
             cache : false,
             url : null,
             params : null,
-            headers : {
-                "Accept-Encoding" : "gzip"
-            },
+            headers : {},
 
             unset : function(data) {
             },
@@ -29,48 +27,66 @@ pklib.ajax = (function() {
             },
             done : function(data) {
             }
-        }, _states = [];
+        }, states = [];
     }
 
     function handler() {
         var method = "responseText";
-        
+
         if (this.readyState === 4) {
-            pklib.cache[_settings.url] = this;
+            pklib.cache[settings.url] = this;
 
-            var ct = this.getResponseHeader("Content-Type"),
-                xmlct = [ "application/xml", "text/xml" ];
+            var ct = this.getResponseHeader("Content-Type"), xmlct = [ "application/xml", "text/xml" ];
 
-            if (pklib.utils.array.inArray(ct, xmlct)) {
+            if (pklib.utils.array.inArray(xmlct, ct) !== false) {
                 method = "responseXML";
             }
 
         }
-        _states[this.readyState].call(null, this[method]);
+        states[this.readyState].call(null, this[method]);
     }
 
-    return function(obj) {
+    /**
+     * @param {object} config
+     * <pre>
+     * { 
+     *      type {string|default /get/}, 
+     *      async {boolean|default true},
+     *      cache {boolean|default false}, 
+     *      url {string}, 
+     *      params {array or object},
+     *      headers {object}
+     * 
+     *      unset {function},
+     *      opened {function},
+     *      headersReceived {function},
+     *      loading {function},
+     *      done {function}
+     * }
+     * </pre>
+     */
+    return function(config) {
 
         __init();
 
-        _settings = pklib.utils.merge(_settings, obj);
-        _settings.type = _settings.type.toUpperCase();
-        _states = [ _settings.unset, _settings.opened, _settings.headersReceived, _settings.loading, _settings.done ];
+        settings = pklib.utils.merge(settings, config);
+        settings.type = settings.type.toUpperCase();
+        states = [ settings.unset, settings.opened, settings.headersReceived, settings.loading, settings.done ];
 
-        if (_settings.cache && pklib.cache[_settings.url]) {
-            handler.call(pklib.cache[_settings.url]);
+        if (settings.cache && pklib.cache[settings.url]) {
+            handler.call(pklib.cache[settings.url]);
         } else {
             client = new XMLHttpRequest();
-            client.onreadystatechange = function(){
+            client.onreadystatechange = function() {
                 handler.call(client);
             };
-            client.open(_settings.type, _settings.url, _settings.async);
-            if (_settings.headers != null) {
-                for ( var item in _settings.headers ) {
-                    client.setRequestHeader(item, _settings.headers[item]);
+            client.open(settings.type, settings.url, settings.async);
+            if (settings.headers != null) {
+                for ( var item in settings.headers) {
+                    client.setRequestHeader(item, settings.headers[item]);
                 }
             }
-            client.send(_settings.params);
+            client.send(settings.params);
         }
 
     };

@@ -6,7 +6,7 @@ pklib.browser = (function() {
 
     var browsers = [ "msie", "chrome", "safari", "opera", "mozilla", "konqueror" ];
 
-    var __browser = {
+    return {
 
         /**
          * @return {undefined or string}
@@ -36,7 +36,5 @@ pklib.browser = (function() {
             }
         }
     };
-
-    return __browser;
 
 })();
