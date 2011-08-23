@@ -6,11 +6,11 @@ Opis
 
 **pklib** jest wynikiem ciągłego używania z tych samych wzorców w sieci web, 
 z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach. 
-Źródła biblioteki są w całości na Git'cie, korzystając z usługi [GitHub.com](http://www.github.com "GitHub")
-Biblioteka jest rozwijana z podziałem na moduły, np. moduł **pklib.profiler** ma swoje źródła w plikub profiler.js w ktatalog "src"
+Źródła biblioteki są w całości na Git'cie, korzystając z usługi [GitHub.com](http://www.github.com "GitHub").<br />
+Biblioteka jest rozwijana z podziałem na moduły, np. moduł **pklib.profiler** ma swoje źródła w plikub profiler.js w katalogu "src"
 
-Wersje biblioteki
-----------------
+Wersje
+-----------------
 
 Wersję release'ów bibilioteki są iterowane w następujący sposób:
 
@@ -18,16 +18,16 @@ Wersję release'ów bibilioteki są iterowane w następujący sposób:
 * Druga cyfra jest aktualizowane gdy następuje ogromna porcja nowych obiektów bądź metod w dowolnym namespace'sie
 * Trzecia cyferka jest bardzo często inkrementowana, z uwagi na proces dewelopmentu całej biblioteki
 
-Do core biblioteki zostały napisane unit testy w [QUnit](http://docs.jquery.com/Qunit "QUnit")
+Do *core* biblioteki zostały napisane unit testy w [QUnit](http://docs.jquery.com/Qunit "QUnit")
 
-Generowanie 
------------
+Budowa biblioteki
+-----------------
 
-Każda wersja posiada własny tag w gałęzi projektu. Dla poprawy pracy nad biblioteką został napisany skrypt w bashu.
-Ma on za zadanie z aktualnego katalogu generować kod całej biblioteki w jednym pliku. 
+Każda wersja posiada własny tag w gałęzi projektu. Dla poprawy pracy nad biblioteką został napisany skrypt w bashu,
+który ma za zadanie generować kod całej biblioteki z aktualnego katalogu w jeden duży plik. 
 Każdy tag ma w swoich żródłach juz wygenerowany plik z kodem źródłowym biblioteki, ale gdy istniała potrzeba 
 wygenerowanie biblioteki z aktualnych źródeł dostępnych w branch'ach plik **Makefile**, bo o nim mowa,
-znajduje swoje zastosowanie.
+znajduje swoje praktyczne zastosowanie.
 
 `piecioshka:~/library/pklib$ ./Makefile`
 
