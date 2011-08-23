@@ -13,6 +13,7 @@ Wersje biblioteki
 ----------------
 
 Wersję release'ów bibilioteki są iterowane w następujący sposób:
+
 * Pierwsza cyfra jest zmieniana gdy cała architektura biblioteki nabiera innego kształtu,
 * Druga cyfra jest aktualizowane gdy następuje ogromna porcja nowych obiektów bądź metod w dowolnym namespace'sie
 * Trzecia cyferka jest bardzo często inkrementowana, z uwagi na proces dewelopmentu całej biblioteki
@@ -59,7 +60,7 @@ Przykładowy kod
 ---------------
 
 ```js
-pklib.file.load("pklib.message.js", function(){
+pklib.file.load("pklib.message.js", function(file){
     pklib.message.show();
 });
 ```
