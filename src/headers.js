@@ -1,9 +1,9 @@
-/*!
- * pklib JavaScript library 1.0.0
+/**
+ * pklib JavaScript library v1.0.0
  * http://pklib.com/
  * 
  * Copyright 2011, Piotr Kowalski
- * Public Domain
+ * Released under the GPL 3.0 Licenses.
  * http://pklib.com/license
  * 
  * Date: Tue Aug 23 2011 21:41:07 GMT+0200 (CEST)
