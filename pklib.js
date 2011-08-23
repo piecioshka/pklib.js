@@ -330,20 +330,42 @@ pklib.utils = (function() {
 
         size : {
 
+            /**
+             * @param {string} name
+             * @returns {number}
+             */
             window : function(name) {
+                if (typeof name === "undefined") {
+                    throw new TypeError();
+                }
                 name = pklib.utils.string.capitalize(name);
                 var win = window, clientName = win.document.documentElement["client" + name];
                 return win.document.compatMode === "CSS1Compat" && clientName || win.document.body["client" + name] || clientName;
             },
 
+            /**
+             * @param {string} name
+             * @return {number}
+             */
             document : function(name) {
+                if (typeof name === "undefined") {
+                    throw new TypeError();
+                }
                 name = pklib.utils.string.capitalize(name);
                 var clientName = doc.documentElement["client" + name], scrollBodyName = doc.body["scroll" + name], scrollName = doc.documentElement["scroll" + name], offsetBodyName = doc.body["offset"
                         + name], offsetName = doc.documentElement["offset" + name];
                 return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
             },
 
+            /**
+             * @param {HTMLElement} obj
+             * @param {string} name
+             * @return {number}
+             */
             object : function(obj, name) {
+                if (typeof name === "undefined" || typeof obj === "undefined") {
+                    throw new TypeError();
+                }
                 name = pklib.utils.string.capitalize(name);
                 var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];
                 return Math.max(client, scroll, offset);
@@ -362,6 +384,9 @@ pklib.utils = (function() {
 
         date : {
 
+            /**
+             * @return {string}
+             */
             getFullMonth : function() {
                 var month = (parseInt(new Date().getMonth(), 10) + 1);
                 return (month < 10) ? "0" + month : month;
@@ -370,87 +395,104 @@ pklib.utils = (function() {
         },
 
         string : {
-            
+
             /**
              * @param {any Object} obj
              * @return {boolean}
              */
-            isString: function(obj){
-                return typeof obj === "string" || /[a-zA-Z]/.test(obj);
+            isString : function(obj) {
+                return typeof obj === "string";
+            },
+
+            /**
+             * @param source
+             * @returns
+             */
+            isLetter : function(source) {
+                return typeof source === "string" && /^[a-zA-Z]$/.test(source);
             },
 
             chars : [ " ", "-", "_", "\n", "\r", "\t" ],
 
+            /**
+             * @param {string} source
+             * @return {string}
+             */
             ltrim : function(source) {
-                return source.replace(new RegExp("^[" + this.chars + "]+", "g"), "");
+                return source.replace(new RegExp("^[" + this.chars.join("") + "]+", "g"), "");
             },
 
+            /**
+             * @param {string} source
+             * @return {string}
+             */
             rtrim : function(source) {
-                return source.replace(new RegExp("[" + this.chars + "]+$", "g"), "");
+                return source.replace(new RegExp("[" + this.chars.join("") + "]+$", "g"), "");
             },
 
+            /**
+             * @param {string} source
+             * @return {string}
+             */
             trim : function(source) {
                 return this.ltrim(this.rtrim(source));
             },
 
+            /**
+             * @param {string}source
+             * @return {string}
+             */
             slug : function(source) {
-                for ( var i = 0, result = '', len = source.length; i < len; ++i) {
-                    var letter = source[i].toLowerCase().charCodeAt(0);
-                    switch (letter) {
-                        case 380:
-                        case 378:
-                            result += 'z';
-                            break;
-                        case 347:
-                            result += 's';
-                            break;
-                        case 324:
-                            result += 'n';
-                            break;
-                        case 322:
-                            result += 'l';
-                            break;
-                        case 263:
-                            result += 'c';
-                            break;
+                var result = source.toLowerCase().replace(/\s/mg, "-");
+                result = result.replace(/[^a-zA-Z0-9\-]/mg, function(char) {
+                    switch (char.charCodeAt()) {
                         case 261:
-                            result += 'a';
-                            break;
-                        case 243:
-                            result += 'o';
-                            break;
+                            return String.fromCharCode(97);
                         case 281:
-                            result += 'e';
-                            break;
+                            return String.fromCharCode(101);
+                        case 243:
+                            return String.fromCharCode(111);
+                        case 347:
+                            return String.fromCharCode(115);
+                        case 322:
+                            return String.fromCharCode(108);
+                        case 378:
+                        case 380:
+                            return String.fromCharCode(122);
+                        case 263:
+                            return String.fromCharCode(99);
+                        case 324:
+                            return String.fromCharCode(110);
 
-                        case 63:
-                        case 43:
-                        case 42:
-                        case 32:
-                        case 33:
-                            result += '-';
-                            break;
                         default:
-                            result += String.fromCharCode(letter);
+                            return "";
                     }
-                }
+                });
                 return result;
             },
 
-            isLetter : function(source) {
-                return /^[a-zA-Z]$/.test(source);
-            },
-
+            /**
+             * @param {string} source
+             * @return {string}
+             */
             capitalize : function(source) {
                 return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
             },
 
+            /**
+             * @param {string} source
+             * @return {string}
+             */
             delimiterSeparatedWords : function(source) {
-                return source.replace(/[A-Z]/g, function(match) {
+                return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function(match) {
                     return "-" + match.toLowerCase();
                 });
             },
 
+            /**
+             * @param {string} source
+             * @return {string}
+             */
             camelCase : function(source) {
                 while (source.indexOf("-") != -1) {
                     var pos = source.indexOf("-"), pre = source.substr(0, pos), sub = source.substr(pos + 1, 1).toUpperCase(), post = source.substring(pos + 2, source.length);
@@ -459,10 +501,15 @@ pklib.utils = (function() {
                 return source;
             },
 
+            /**
+             * @param {string} source
+             * @param {number} len
+             * @return {string}
+             */
             slice : function(source, len) {
                 for ( var item = 0, text = "", num = source.length; item < num; ++item) {
                     text += source[item];
-                    if (item == len) {
+                    if (item == len - 1) {
                         if (num - len > 3) {
                             text += "...";
                         }
@@ -475,23 +522,33 @@ pklib.utils = (function() {
 
         },
 
+        /**
+         * @param {array or object} target
+         * @param {array or object} source
+         * @return {array}
+         */
         merge : function(target, source) {
-            for ( var el in source) {
-                if (source.hasOwnProperty(el)) {
-                    if (typeof target[el] === "object" && target[el] != null) {
-                        if (target[el].parentNode != null) {
-                            target[el] = source[el];
-                            continue;
-                        }
-                        target[el] = arguments.callee(target[el], source[el]);
-                    } else {
-                        target[el] = source[el];
+            if (this.array.isArray(target) && this.array.isArray(source)) {
+                for ( var i = 0, len = source.length; i < len; ++i) {
+                    var element = source[i];
+                    if (!this.array.inArray(target, element)) {
+                        target.push(element);
                     }
                 }
+                return target.sort();
+            } else {
+                for ( var element in source) {
+                    if (source.hasOwnProperty(element)) {
+                        target[element] = source[element];
+                    }
+                }
+                return target;
             }
-            return target;
         },
 
+        /**
+         * @param {HTMLElement} obj
+         */
         clearfocus : function(obj) {
             if (typeof obj !== "undefined") {
                 pklib.utils.event.add(obj, "focus", function() {
@@ -507,6 +564,9 @@ pklib.utils = (function() {
             }
         },
 
+        /**
+         * @param {HTMLElement} area
+         */
         outerlink : function(area) {
             area = area || doc;
             var links = area.getElementsByTagName("a");
@@ -521,6 +581,10 @@ pklib.utils = (function() {
             }
         },
 
+        /**
+         * @param {HTMLElement} element
+         * @param {string} text
+         */
         confirm : function(element, text) {
             if (typeof element !== "undefined") {
                 text = text || "Sure?";
@@ -536,18 +600,26 @@ pklib.utils = (function() {
             }
         },
 
-        scrollTo : function(param, animate) {
-            if (true === animate) {
-                var interval = null;
-                interval = setInterval(function() {
-                    doc.body.scrollTop -= 5;
-                    if (doc.body.scrollTop <= 0) {
-                        clearInterval(interval);
-                    }
-                }, 1);
-            } else {
-                doc.body.scrollTop = param;
+        animate : {
+
+            /**
+             * @param param
+             * @param {boolean} animate
+             */
+            scrollTo : function(param, animate) {
+                if (true === animate) {
+                    var interval = null;
+                    interval = setInterval(function() {
+                        doc.body.scrollTop -= 5;
+                        if (doc.body.scrollTop <= 0) {
+                            clearInterval(interval);
+                        }
+                    }, 1);
+                } else {
+                    doc.body.scrollTop = param;
+                }
             }
+
         }
 
     };
