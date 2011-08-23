@@ -5,6 +5,26 @@
  */
 
 pklib.utils.event.add(window, "load", function(){
+    
+module("pklib.borwser");
+
+//pklib.browser.getName
+test("getName", function(){
+ 
+    var name = pklib.browser.getName();
+    ok(name, "Browser name: " + name);
+    ok(pklib.utils.string.isString(name), "Browser name is string");
+});
+
+//pklib.browser.getVersion
+test("getVersion", function(){
+ 
+    var version = pklib.browser.getVersion();
+    ok(version, "Browser version: " + version);
+    ok(pklib.utils.string.isString(version), "Browser version is string");
+});
+
+
 
 module("pklib.utils.css");
     
@@ -43,6 +63,17 @@ test("hasClass", function(){
 
 module("pklib.utils.dom");
 
+//pklib.utils.dom.isNode
+test("isNode", function(){
+
+    var element = document.createElement("span");
+    document.body.appendChild(element);
+    
+    strictEqual(pklib.utils.dom.isNode(element), pklib.utils.dom.nodeTypes[1], "Element is node");
+    
+    strictEqual(pklib.utils.dom.isNode({}), undefined, "Element is node");
+});
+
 // pklib.utils.dom.byId
 test("byId", function(){
 
@@ -50,7 +81,7 @@ test("byId", function(){
     var id = "pklib-utils-dom-byId";
     element.id = id;
     
-    document.body.appendChild(element)
+    document.body.appendChild(element);
     
     strictEqual(pklib.utils.dom.byId(id), element, "Element about id: " + id + " was found");
 });

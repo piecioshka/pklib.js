@@ -26,6 +26,9 @@ pklib.browser = (function() {
 
     var __browser = {
 
+        /**
+         * @return {undefined or string}
+         */
         getName : function() {
             var userAgent = navigator.userAgent.toLowerCase();
 
@@ -35,9 +38,11 @@ pklib.browser = (function() {
                     return browser;
                 }
             }
-            return undefined;
         },
 
+        /**
+         * @return {undefined or string}
+         */
         getVersion : function() {
             var userAgent = navigator.userAgent.toLowerCase();
 
@@ -47,7 +52,6 @@ pklib.browser = (function() {
                     return userAgent.substr(cur + len + 1, 3);
                 }
             }
-            return undefined;
         }
     };
 
@@ -61,103 +65,107 @@ pklib.browser = (function() {
  */
 pklib = this.pklib || {};
 pklib.utils = (function() {
-    
+
     var doc = document;
 
     var __utils = {
-            
-        css: {
-            
+
+        css : {
+
             /**
-             * @param element {HTMLElement} 
-             * @param cls {String}
+             * @param {HTMLElement} element
+             * @param {string} className
              */
-            addClass : function(element, cls) {
-                if(typeof element === "undefined" || element == null || typeof cls === "undefined"){
+            addClass : function(element, className) {
+                if (typeof element === "undefined" || element == null || typeof className === "undefined") {
                     throw new TypeError();
                 }
-                var c = element.className;
-                if(!this.hasClass(element, cls)){
-                    if (c.length) {
-                        c += " " + cls;
+                var classElement = element.className;
+                if (!this.hasClass(element, className)) {
+                    if (classElement.length) {
+                        classElement += " " + className;
                     } else {
-                        c = cls;
+                        classElement = className;
                     }
                 }
-                element.className = c;
+                element.className = classElement;
             },
 
             /**
-             * @param element {HTMLElement} 
-             * @param cls {String}
+             * @param {HTMLElement} element
+             * @param {string} className
              */
-            removeClass : function(element, cls) {
-                if(typeof element === "undefined" || element == null || typeof cls === "undefined"){
+            removeClass : function(element, className) {
+                if (typeof element === "undefined" || element == null || typeof className === "undefined") {
                     throw new TypeError();
                 }
-                var regexp = new RegExp("(\s" + cls + ")|(" + cls + "\s)|" + cls, "i");
+                var regexp = new RegExp("(\s" + className + ")|(" + className + "\s)|" + className, "i");
                 element.className = element.className.replace(regexp, "");
             },
 
             /**
-             * @param element {HTMLElement} 
-             * @param cls {String}
+             * @param {HTMLElement} element
+             * @param {string} className
+             * @return {boolean}
              */
-            hasClass : function(element, cls) {
-                if(typeof element === "undefined" || element == null || typeof cls === "undefined"){
+            hasClass : function(element, className) {
+                if (typeof element === "undefined" || element == null || typeof className === "undefined") {
                     throw new TypeError();
                 }
-                var regexp = new RegExp("(\s" + cls + ")|(" + cls + "\s)|" + cls, "i");
+                var regexp = new RegExp("(\s" + className + ")|(" + className + "\s)|" + className, "i");
                 return regexp.test(element.className);
             }
-            
+
         },
 
-        dom: {
-            
-            nodeTypes : [
-                null,
-                'ELEMENT_NODE',
-                'ATTRIBUTE_NODE',
-                'TEXT_NODE',
-                'CDATA_SECTION_NODE',
-                'ENTITY_REFERENCE_NODE',
-                'ENTITY_NODE',
-                'PROCESSING_INSTRUCTION_NODE',
-                'COMMENT_NODE',
-                'DOCUMENT_NODE',
-                'DOCUMENT_TYPE_NODE',
-                'DOCUMENT_FRAGMENT_NODE',
-                'NOTATION_NODE'
-            ],
-            
+        dom : {
+
+            nodeTypes : {
+                1 : 'ELEMENT_NODE',
+                2 : 'ATTRIBUTE_NODE',
+                3 : 'TEXT_NODE',
+                4 : 'CDATA_SECTION_NODE',
+                5 : 'ENTITY_REFERENCE_NODE',
+                6 : 'ENTITY_NODE',
+                7 : 'PROCESSING_INSTRUCTION_NODE',
+                8 : 'COMMENT_NODE',
+                9 : 'DOCUMENT_NODE',
+                10 : 'DOCUMENT_TYPE_NODE',
+                11 : 'DOCUMENT_FRAGMENT_NODE',
+                12 : 'NOTATION_NODE'
+            },
+
             /**
-             * @param element {HTMLElement}
+             * @param {HTMLElement} element
+             * @return {string}
              */
-            isNode : function(element){
+            isNode : function(element) {
                 return this.nodeTypes[element.nodeType];
             },
-            
+
             /**
-             * @param id {String}
-             * @param area {HTMLElement}
+             * @param {string} id
+             * @param {HTMLElement} area
+             * @return {HTMLElement}
              */
             byId : function(id, area) {
                 area = area || doc;
                 return area.getElementById(id);
             },
-            
+
             /**
-             * @param tag {String}
-             * @param area {HTMLElement}
+             * @param {string} tag
+             * @param {HTMLElement} area
+             * @return {HTMLCollection}
              */
             byTag : function(tag, area) {
                 area = area || doc;
                 return area.getElementsByTagName(tag);
             },
-            
+
             /**
-             * @param element {HTMLElement}
+             * @param {HTMLElement} element
+             * @return {null or number}
              */
             index : function(element) {
                 var parent = element.parentNode;
@@ -170,9 +178,10 @@ pklib.utils = (function() {
                 }
                 return null;
             },
-            
+
             /**
-             * @param element {HTMLElement}
+             * @param {HTMLElement} element
+             * @return {array}
              */
             children : function(element) {
                 for ( var i = 0, arr = [], childs = element.childNodes, len = childs.length; i < len; ++i) {
@@ -182,39 +191,43 @@ pklib.utils = (function() {
                 }
                 return arr;
             },
-            
+
             /**
-             * @param element {HTMLElement}
-             * @param contener {HTMLElement}
+             * @param {HTMLElement} element
+             * @param {HTMLElement} area
+             * @return {array}
              */
-            center : function(element, contener) {
-                if (contener === doc.getElementsByTagName("body")[0]) {
-                    var left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(element, "width")) / 2;
-                    var top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(element, "height")) / 2;
+            center : function(element, area) {
+                var left, top;
+                if (area === doc.getElementsByTagName("body")[0]) {
+                    left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(element, "width")) / 2;
+                    top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(element, "height")) / 2;
                 } else {
-                    var left = (pklib.utils.size.window("width") - pklib.utils.size.object(element, "width")) / 2;
-                    var top = (pklib.utils.size.window("height") - pklib.utils.size.object(element, "height")) / 2;
+                    left = (pklib.utils.size.window("width") - pklib.utils.size.object(element, "width")) / 2;
+                    top = (pklib.utils.size.window("height") - pklib.utils.size.object(element, "height")) / 2;
                 }
                 element.style.left = left + "px";
                 element.style.top = top + "px";
                 element.style.position = "absolute";
                 return [ left, top ];
             }
-            
+
         },
 
         array : {
-            
+
             /**
-             * @param obj {HTMLElement}
+             * @param {HTMLElement} obj
+             * @return {boolean}
              */
-            isArray: function(obj){
+            isArray : function(obj) {
                 return typeof obj === "object" && obj != null && typeof obj.length !== "undefined" && typeof obj.slice !== "undefined";
             },
 
             /**
-             * @param array {Array}
-             * @param param {any Object)
+             * @param {array} array
+             * @param {any Object) param
+             * @return {boolean or number}
              */
             inArray : function(array, param) {
                 for ( var i = 0, len = array.length; i < len; ++i) {
@@ -226,7 +239,8 @@ pklib.utils = (function() {
             },
 
             /**
-             * @param array {Array}
+             * @param {array} array
+             * @return {array}
              */
             unique : function(array) {
                 for ( var i = 0, temp = [], len = array.length; i < len; ++i) {
@@ -239,8 +253,9 @@ pklib.utils = (function() {
             },
 
             /**
-             * @param array {Array}
-             * @params {any Object}
+             * @param {array} array
+             * @param {any Object}...
+             * @return {array}
              */
             remove : function(array /*  */) {
                 var params = Array.prototype.splice.call(arguments, 1);
@@ -256,20 +271,21 @@ pklib.utils = (function() {
         },
 
         event : {
-            
+
             /**
-             * @param target {HTMLElement}
-             * @param eventType {String}
-             * @param callback {Function}
-             * @param bubbles {Boolean}
+             * @param {HTMLElement} target
+             * @param {string} eventType
+             * @param {function} callback
+             * @param {boolean} bubbles
+             * @return {Event}
              */
             add : function(target, eventType, callback, bubbles) {
                 if (target.attachEvent) {
                     this.add = function(target, eventType, callback, bubbles) {
                         bubbles = bubbles || false;
                         target.attachEvent("on" + eventType, callback);
-                        
-                        var evt = document.createEvent("Event");
+
+                        var evt = doc.createEvent("Event");
                         evt.initEvent(eventType, bubbles, true);
                         return evt;
                     };
@@ -277,21 +293,22 @@ pklib.utils = (function() {
                     this.add = function(target, eventType, callback, bubbles) {
                         bubbles = bubbles || false;
                         target.addEventListener(eventType, callback, bubbles);
-                        
-                        var evt = document.createEvent("Event");
+
+                        var evt = doc.createEvent("Event");
                         evt.initEvent(eventType, bubbles, true);
                         return evt;
                     };
                 }
-                
+
                 this.add(target, eventType, callback, bubbles);
             },
-            
+
             /**
-             * @param target {HTMLElement}
-             * @param eventType {String}
-             * @param callback {Function}
-             * @param bubbles {Boolean}
+             * @param {HTMLElement} target
+             * @param {string} eventType
+             * @param {function} callback
+             * @param {boolean} bubbles
+             * @return {boolean}
              */
             remove : function(target, eventType, callback, bubbles) {
                 if (target.detachEvent) {
@@ -321,7 +338,8 @@ pklib.utils = (function() {
 
             document : function(name) {
                 name = pklib.utils.string.capitalize(name);
-                var clientName = doc.documentElement["client" + name], scrollBodyName = doc.body["scroll" + name], scrollName = doc.documentElement["scroll" + name], offsetBodyName = doc.body["offset" + name], offsetName = doc.documentElement["offset" + name];
+                var clientName = doc.documentElement["client" + name], scrollBodyName = doc.body["scroll" + name], scrollName = doc.documentElement["scroll" + name], offsetBodyName = doc.body["offset"
+                        + name], offsetName = doc.documentElement["offset" + name];
                 return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
             },
 
@@ -341,17 +359,25 @@ pklib.utils = (function() {
             }
 
         },
-        
-        date: {
-        
+
+        date : {
+
             getFullMonth : function() {
                 var month = (parseInt(new Date().getMonth(), 10) + 1);
                 return (month < 10) ? "0" + month : month;
             }
-        
+
         },
 
         string : {
+            
+            /**
+             * @param {any Object} obj
+             * @return {boolean}
+             */
+            isString: function(obj){
+                return typeof obj === "string" || /[a-zA-Z]/.test(obj);
+            },
 
             chars : [ " ", "-", "_", "\n", "\r", "\t" ],
 
@@ -427,26 +453,23 @@ pklib.utils = (function() {
 
             camelCase : function(source) {
                 while (source.indexOf("-") != -1) {
-                    var pos = source.indexOf("-"), 
-                        pre = source.substr(0, pos), 
-                        sub = source.substr(pos + 1, 1).toUpperCase(), 
-                        post = source.substring(pos + 2, source.length);
+                    var pos = source.indexOf("-"), pre = source.substr(0, pos), sub = source.substr(pos + 1, 1).toUpperCase(), post = source.substring(pos + 2, source.length);
                     source = pre + sub + post;
                 }
                 return source;
             },
 
-            slice: function (source, len){
-                for(var item = 0,  text = "", num = source.length; item < num; ++item){
+            slice : function(source, len) {
+                for ( var item = 0, text = "", num = source.length; item < num; ++item) {
                     text += source[item];
-                    if(item == len){
-                        if(num - len > 3){
+                    if (item == len) {
+                        if (num - len > 3) {
                             text += "...";
                         }
                         break;
                     }
                 }
-                
+
                 return text;
             }
 
@@ -515,10 +538,11 @@ pklib.utils = (function() {
 
         scrollTo : function(param, animate) {
             if (true === animate) {
-                var scrollTopInterval = setInterval(function() {
+                var interval = null;
+                interval = setInterval(function() {
                     doc.body.scrollTop -= 5;
                     if (doc.body.scrollTop <= 0) {
-                        clearInterval(scrollTopInterval);
+                        clearInterval(interval);
                     }
                 }, 1);
             } else {

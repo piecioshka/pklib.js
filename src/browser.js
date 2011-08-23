@@ -8,6 +8,9 @@ pklib.browser = (function() {
 
     var __browser = {
 
+        /**
+         * @return {undefined or string}
+         */
         getName : function() {
             var userAgent = navigator.userAgent.toLowerCase();
 
@@ -17,9 +20,11 @@ pklib.browser = (function() {
                     return browser;
                 }
             }
-            return undefined;
         },
 
+        /**
+         * @return {undefined or string}
+         */
         getVersion : function() {
             var userAgent = navigator.userAgent.toLowerCase();
 
@@ -29,7 +34,6 @@ pklib.browser = (function() {
                     return userAgent.substr(cur + len + 1, 3);
                 }
             }
-            return undefined;
         }
     };
 
