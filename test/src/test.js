@@ -67,7 +67,9 @@ pklib.tests = function() {
 
         strictEqual(pklib.utils.dom.isNode(element), pklib.utils.dom.nodeTypes[1], "Element is node");
 
-        strictEqual(pklib.utils.dom.isNode({}), undefined, "Element is node");
+        strictEqual(pklib.utils.dom.isNode({}), null, "Element is undefined");
+        strictEqual(pklib.utils.dom.isNode(undefined), null, "Element is null");
+        strictEqual(pklib.utils.dom.isNode(), null, "Element is null");
     });
 
     // pklib.utils.dom.byId
