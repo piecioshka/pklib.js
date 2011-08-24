@@ -8,7 +8,44 @@ pklib.ajax = (function() {
 
     var client = null, settings = {}, states = [];
 
-    function __init() {
+    function handler() {
+        var method = "responseText";
+
+        if (this.readyState === 4) {
+            pklib.cache[settings.url] = this;
+
+            var ct = this.getResponseHeader("Content-Type"), xmlct = [ "application/xml", "text/xml" ];
+
+            if (pklib.utils.array.inArray(xmlct, ct) !== false) {
+                method = "responseXML";
+            }
+
+        }
+        states[this.readyState].call(null, this[method]);
+    }
+
+    /**
+     * @param {object} config
+     * 
+     * <pre>
+     * { 
+     *      type {string|default /get/}
+     *      async {boolean|default true}
+     *      cache {boolean|default false}
+     *      url {string}
+     *      params {array or object}
+     *      headers {object}
+     * 
+     *      unset {function}
+     *      opened {function}
+     *      headersReceived {function}
+     *      loading {function}
+     *      done {function}
+     * }
+     * </pre>
+     */
+    return function(config) {
+
         client = null, settings = {
             type : "get",
             async : true,
@@ -28,46 +65,6 @@ pklib.ajax = (function() {
             done : function(data) {
             }
         }, states = [];
-    }
-
-    function handler() {
-        var method = "responseText";
-
-        if (this.readyState === 4) {
-            pklib.cache[settings.url] = this;
-
-            var ct = this.getResponseHeader("Content-Type"), xmlct = [ "application/xml", "text/xml" ];
-
-            if (pklib.utils.array.inArray(xmlct, ct) !== false) {
-                method = "responseXML";
-            }
-
-        }
-        states[this.readyState].call(null, this[method]);
-    }
-
-    /**
-     * @param {object} config
-     * <pre>
-     * { 
-     *      type {string|default /get/}, 
-     *      async {boolean|default true},
-     *      cache {boolean|default false}, 
-     *      url {string}, 
-     *      params {array or object},
-     *      headers {object}
-     * 
-     *      unset {function},
-     *      opened {function},
-     *      headersReceived {function},
-     *      loading {function},
-     *      done {function}
-     * }
-     * </pre>
-     */
-    return function(config) {
-
-        __init();
 
         settings = pklib.utils.merge(settings, config);
         settings.type = settings.type.toUpperCase();
