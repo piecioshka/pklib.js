@@ -227,8 +227,13 @@ pklib.utils = (function() {
                         bubbles = bubbles || false;
                         target.attachEvent("on" + eventType, callback);
 
-                        var evt = doc.createEvent("Event");
-                        evt.initEvent(eventType, bubbles, true);
+                        var evt = null;
+                        try {
+                            evt = doc.createEvent("Event");
+                            evt.initEvent(eventType, bubbles, true);
+                        } catch(e){
+                            // pass
+                        }
                         return evt;
                     };
                 } else if (target.addEventListener) {
@@ -236,8 +241,13 @@ pklib.utils = (function() {
                         bubbles = bubbles || false;
                         target.addEventListener(eventType, callback, bubbles);
 
-                        var evt = doc.createEvent("Event");
-                        evt.initEvent(eventType, bubbles, true);
+                        var evt = null;
+                        try {
+                            evt = doc.createEvent("Event");
+                            evt.initEvent(eventType, bubbles, true);
+                        } catch(e){
+                            // pass
+                        }
                         return evt;
                     };
                 }
