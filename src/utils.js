@@ -79,7 +79,10 @@ pklib.utils = (function() {
              * @return {string}
              */
             isNode : function(element) {
-                return this.nodeTypes[element.nodeType];
+                if(typeof element === "object" && typeof element.nodeType !== "undefined"){
+                    return this.nodeTypes[element.nodeType];
+                }
+                return null;
             },
 
             /**
@@ -224,8 +227,13 @@ pklib.utils = (function() {
                         bubbles = bubbles || false;
                         target.attachEvent("on" + eventType, callback);
 
-                        var evt = doc.createEvent("Event");
-                        evt.initEvent(eventType, bubbles, true);
+                        var evt = null;
+                        try {
+                            evt = doc.createEvent("Event");
+                            evt.initEvent(eventType, bubbles, true);
+                        } catch(e){
+                            // pass
+                        }
                         return evt;
                     };
                 } else if (target.addEventListener) {
@@ -233,8 +241,13 @@ pklib.utils = (function() {
                         bubbles = bubbles || false;
                         target.addEventListener(eventType, callback, bubbles);
 
-                        var evt = doc.createEvent("Event");
-                        evt.initEvent(eventType, bubbles, true);
+                        var evt = null;
+                        try {
+                            evt = doc.createEvent("Event");
+                            evt.initEvent(eventType, bubbles, true);
+                        } catch(e){
+                            // pass
+                        }
                         return evt;
                     };
                 }
