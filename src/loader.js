@@ -19,7 +19,16 @@ pklib.loader = (function() {
         };
 
     var __loader = {
+    
+        /**
+         * @type string
+         */ 
         objId : id,
+        
+        /**
+         * @param {object} config
+         * @param {function} callback
+         */
         show : function(config, callback) {
             settings = pklib.utils.merge(settings, config);
 
@@ -45,6 +54,10 @@ pklib.loader = (function() {
 
             delete loader;
         },
+        
+        /**
+         * @param {function} callback
+         */
         close : function(callback) {
             var loader = doc.getElementById(this.objId);
             var result = false;
@@ -58,6 +71,7 @@ pklib.loader = (function() {
 
             return result;
         }
+        
     };
 
     return __loader;
