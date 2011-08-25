@@ -1134,7 +1134,16 @@ pklib.loader = (function() {
         };
 
     var __loader = {
+    
+        /**
+         * @type string
+         */ 
         objId : id,
+        
+        /**
+         * @param {object} config
+         * @param {function} callback
+         */
         show : function(config, callback) {
             settings = pklib.utils.merge(settings, config);
 
@@ -1160,6 +1169,10 @@ pklib.loader = (function() {
 
             delete loader;
         },
+        
+        /**
+         * @param {function} callback
+         */
         close : function(callback) {
             var loader = doc.getElementById(this.objId);
             var result = false;
@@ -1173,6 +1186,7 @@ pklib.loader = (function() {
 
             return result;
         }
+        
     };
 
     return __loader;
@@ -1289,7 +1303,16 @@ pklib.glass = (function() {
     };
 
     var __glass = {
+    
+        /**
+         * @type string
+         */
         objId : id,
+        
+        /**
+         * @param {object} config
+         * @param {function} callback
+         */
         show : function(config, callback) {
             var that = this;
             
@@ -1318,6 +1341,11 @@ pklib.glass = (function() {
 
             return glass;
         },
+        
+        /**
+         * @param {function} callback
+         * @return {boolean}
+         */ 
         close : function(callback) {
             var glass = doc.getElementById(this.objId);
             var result = false;
@@ -1331,6 +1359,7 @@ pklib.glass = (function() {
 
             return result;
         }
+        
     };
 
     return __glass;
