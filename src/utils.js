@@ -79,10 +79,7 @@ pklib.utils = (function() {
              * @return {string}
              */
             isNode : function(element) {
-                if(typeof element === "object" && typeof element.nodeType !== "undefined"){
-                    return this.nodeTypes[element.nodeType];
-                }
-                return null;
+                return element && this.nodeTypes[element.nodeType] || null;
             },
 
             /**
