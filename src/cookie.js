@@ -16,15 +16,15 @@ pklib.cookie = (function() {
          */
         create : function(name, value, days) {
             value = value || null;
-            var expires = '';
+            var expires = "";
 
             if (typeof days !== "undefined") {
                 var date = new Date();
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = '; expires=' + date.toGMTString();
+                expires = "; expires=" + date.toGMTString();
             }
 
-            doc.cookie = name + '=' + value + expires + '; path=/';
+            doc.cookie = name + "=" + value + expires + "; path=/";
 
             return this.read(name);
         },
@@ -37,12 +37,12 @@ pklib.cookie = (function() {
             if (typeof name === "undefined") {
                 return null;
             }
-            name = name + '=';
-            var ca = doc.cookie.split(';');
+            name = name + "=";
+            var ca = doc.cookie.split(";");
 
             for ( var i = 0, len = ca.length; i < len; ++i) {
                 var c = ca[i];
-                while (c.charAt(0) === ' ') {
+                while (c.charAt(0) === " ") {
                     c = c.substring(1, c.length);
                 }
                 if (c.indexOf(name) === 0) {

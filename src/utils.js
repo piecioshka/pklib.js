@@ -60,18 +60,18 @@ pklib.utils = (function() {
         dom : {
 
             nodeTypes : {
-                1 : 'ELEMENT_NODE',
-                2 : 'ATTRIBUTE_NODE',
-                3 : 'TEXT_NODE',
-                4 : 'CDATA_SECTION_NODE',
-                5 : 'ENTITY_REFERENCE_NODE',
-                6 : 'ENTITY_NODE',
-                7 : 'PROCESSING_INSTRUCTION_NODE',
-                8 : 'COMMENT_NODE',
-                9 : 'DOCUMENT_NODE',
-                10 : 'DOCUMENT_TYPE_NODE',
-                11 : 'DOCUMENT_FRAGMENT_NODE',
-                12 : 'NOTATION_NODE'
+                1 : "ELEMENT_NODE",
+                2 : "ATTRIBUTE_NODE",
+                3 : "TEXT_NODE",
+                4 : "CDATA_SECTION_NODE",
+                5 : "ENTITY_REFERENCE_NODE",
+                6 : "ENTITY_NODE",
+                7 : "PROCESSING_INSTRUCTION_NODE",
+                8 : "COMMENT_NODE",
+                9 : "DOCUMENT_NODE",
+                10 : "DOCUMENT_TYPE_NODE",
+                11 : "DOCUMENT_FRAGMENT_NODE",
+                12 : "NOTATION_NODE"
             },
 
             /**
@@ -79,10 +79,7 @@ pklib.utils = (function() {
              * @return {string}
              */
             isNode : function(element) {
-                if(typeof element === "object" && typeof element.nodeType !== "undefined"){
-                    return this.nodeTypes[element.nodeType];
-                }
-                return null;
+                return element && this.nodeTypes[element.nodeType] || null;
             },
 
             /**
@@ -141,7 +138,7 @@ pklib.utils = (function() {
              */
             center : function(element, area) {
                 var left, top;
-                if (area === doc.getElementsByTagName("body")[0]) {
+                if (area === doc.body) {
                     left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(element, "width")) / 2;
                     top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(element, "height")) / 2;
                 } else {

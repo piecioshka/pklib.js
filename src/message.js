@@ -9,7 +9,7 @@ pklib.message = (function() {
         id = "pklib-message-wrapper", 
         contents = null, 
         settings = {
-            contener : doc.getElementsByTagName("body")[0],
+            contener : doc.body,
             style : {
                 width : 300,
                 height : 300,

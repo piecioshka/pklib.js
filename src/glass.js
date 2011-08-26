@@ -8,12 +8,12 @@ pklib.glass = (function() {
     var doc = document, 
         id = "pklib-glass-wrapper", 
         settings = {
-            contener : doc.getElementsByTagName("body")[0],
+            contener : doc.body,
             style : {
-                position : 'absolute',
+                position : "absolute",
                 left : 0,
                 top : 0,
-                background : '#000',
+                background : "#000",
                 opacity : 0.5,
                 zIndex : 1000
             }
@@ -21,7 +21,7 @@ pklib.glass = (function() {
 
     var _fill = function(obj, contener) {
         var width, height;
-        if (contener === doc.getElementsByTagName("body")[0]) {
+        if (contener === doc.body) {
             width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
             height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
             if (pklib.browser.getName() === "msie") {
@@ -51,7 +51,7 @@ pklib.glass = (function() {
             var that = this;
             
             settings = pklib.utils.merge(settings, config);
-            settings.style.filter = 'alpha(opacity=' + parseFloat(settings.style.opacity, 10) * 100 + ')';
+            settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
 
             var glass = doc.createElement("div");
             var glassStyle = glass.style;

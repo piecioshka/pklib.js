@@ -19,7 +19,7 @@ pklib.validate = (function() {
             } else {
                 switch (typeof object) {
                     case "string":
-                        return (object === '');
+                        return (object === "");
                         break;
                     case "number":
                         return (object === 0);

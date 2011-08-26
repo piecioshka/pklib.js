@@ -8,8 +8,8 @@ pklib.loader = (function() {
     var doc = document, 
         id = "pklib-loader-wrapper", 
         settings = {
-            src : 'http://pklib.com/img/icons/loader.gif',
-            contener : doc.getElementsByTagName("body")[0],
+            src : "http://pklib.com/img/icons/loader.gif",
+            contener : doc.body,
             style : {
                 width : 31,
                 height : 31,
