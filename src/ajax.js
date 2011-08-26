@@ -8,28 +8,6 @@ pklib.ajax = (function() {
 
     var client = null, settings = {}, states = [];
 
-    function __init() {
-        client = null, settings = {
-            type : "get",
-            async : true,
-            cache : false,
-            url : null,
-            params : null,
-            headers : {},
-
-            unset : function(data) {
-            },
-            opened : function(data) {
-            },
-            headersReceived : function(data) {
-            },
-            loading : function(data) {
-            },
-            done : function(data) {
-            }
-        }, states = [];
-    }
-
     function handler() {
         var method = "responseText";
 
@@ -48,6 +26,7 @@ pklib.ajax = (function() {
 
     /**
      * @param {object} config
+     * 
      * <pre>
      * { 
      *      type {string|default /get/}, 
@@ -67,7 +46,25 @@ pklib.ajax = (function() {
      */
     return function(config) {
 
-        __init();
+        client = null, settings = {
+            type : "get",
+            async : true,
+            cache : false,
+            url : null,
+            params : null,
+            headers : {},
+
+            unset : function(data) {
+            },
+            opened : function(data) {
+            },
+            headersReceived : function(data) {
+            },
+            loading : function(data) {
+            },
+            done : function(data) {
+            }
+        }, states = [];
 
         settings = pklib.utils.merge(settings, config);
         settings.type = settings.type.toUpperCase();

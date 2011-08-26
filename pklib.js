@@ -119,18 +119,18 @@ pklib.utils = (function() {
         dom : {
 
             nodeTypes : {
-                1 : 'ELEMENT_NODE',
-                2 : 'ATTRIBUTE_NODE',
-                3 : 'TEXT_NODE',
-                4 : 'CDATA_SECTION_NODE',
-                5 : 'ENTITY_REFERENCE_NODE',
-                6 : 'ENTITY_NODE',
-                7 : 'PROCESSING_INSTRUCTION_NODE',
-                8 : 'COMMENT_NODE',
-                9 : 'DOCUMENT_NODE',
-                10 : 'DOCUMENT_TYPE_NODE',
-                11 : 'DOCUMENT_FRAGMENT_NODE',
-                12 : 'NOTATION_NODE'
+                1 : "ELEMENT_NODE",
+                2 : "ATTRIBUTE_NODE",
+                3 : "TEXT_NODE",
+                4 : "CDATA_SECTION_NODE",
+                5 : "ENTITY_REFERENCE_NODE",
+                6 : "ENTITY_NODE",
+                7 : "PROCESSING_INSTRUCTION_NODE",
+                8 : "COMMENT_NODE",
+                9 : "DOCUMENT_NODE",
+                10 : "DOCUMENT_TYPE_NODE",
+                11 : "DOCUMENT_FRAGMENT_NODE",
+                12 : "NOTATION_NODE"
             },
 
             /**
@@ -200,7 +200,7 @@ pklib.utils = (function() {
              */
             center : function(element, area) {
                 var left, top;
-                if (area === doc.getElementsByTagName("body")[0]) {
+                if (area === doc.body) {
                     left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(element, "width")) / 2;
                     top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(element, "height")) / 2;
                 } else {
@@ -652,28 +652,6 @@ pklib.ajax = (function() {
 
     var client = null, settings = {}, states = [];
 
-    function __init() {
-        client = null, settings = {
-            type : "get",
-            async : true,
-            cache : false,
-            url : null,
-            params : null,
-            headers : {},
-
-            unset : function(data) {
-            },
-            opened : function(data) {
-            },
-            headersReceived : function(data) {
-            },
-            loading : function(data) {
-            },
-            done : function(data) {
-            }
-        }, states = [];
-    }
-
     function handler() {
         var method = "responseText";
 
@@ -692,6 +670,7 @@ pklib.ajax = (function() {
 
     /**
      * @param {object} config
+     * 
      * <pre>
      * { 
      *      type {string|default /get/}, 
@@ -711,7 +690,25 @@ pklib.ajax = (function() {
      */
     return function(config) {
 
-        __init();
+        client = null, settings = {
+            type : "get",
+            async : true,
+            cache : false,
+            url : null,
+            params : null,
+            headers : {},
+
+            unset : function(data) {
+            },
+            opened : function(data) {
+            },
+            headersReceived : function(data) {
+            },
+            loading : function(data) {
+            },
+            done : function(data) {
+            }
+        }, states = [];
 
         settings = pklib.utils.merge(settings, config);
         settings.type = settings.type.toUpperCase();
@@ -755,15 +752,15 @@ pklib.cookie = (function() {
          */
         create : function(name, value, days) {
             value = value || null;
-            var expires = '';
+            var expires = "";
 
             if (typeof days !== "undefined") {
                 var date = new Date();
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = '; expires=' + date.toGMTString();
+                expires = "; expires=" + date.toGMTString();
             }
 
-            doc.cookie = name + '=' + value + expires + '; path=/';
+            doc.cookie = name + "=" + value + expires + "; path=/";
 
             return this.read(name);
         },
@@ -776,12 +773,12 @@ pklib.cookie = (function() {
             if (typeof name === "undefined") {
                 return null;
             }
-            name = name + '=';
-            var ca = doc.cookie.split(';');
+            name = name + "=";
+            var ca = doc.cookie.split(";");
 
             for ( var i = 0, len = ca.length; i < len; ++i) {
                 var c = ca[i];
-                while (c.charAt(0) === ' ') {
+                while (c.charAt(0) === " ") {
                     c = c.substring(1, c.length);
                 }
                 if (c.indexOf(name) === 0) {
@@ -1057,7 +1054,7 @@ pklib.validate = (function() {
             } else {
                 switch (typeof object) {
                     case "string":
-                        return (object === '');
+                        return (object === "");
                         break;
                     case "number":
                         return (object === 0);
@@ -1133,8 +1130,8 @@ pklib.loader = (function() {
     var doc = document, 
         id = "pklib-loader-wrapper", 
         settings = {
-            src : 'http://pklib.com/img/icons/loader.gif',
-            contener : doc.getElementsByTagName("body")[0],
+            src : "http://pklib.com/img/icons/loader.gif",
+            contener : doc.body,
             style : {
                 width : 31,
                 height : 31,
@@ -1214,7 +1211,7 @@ pklib.message = (function() {
         id = "pklib-message-wrapper", 
         contents = null, 
         settings = {
-            contener : doc.getElementsByTagName("body")[0],
+            contener : doc.body,
             style : {
                 width : 300,
                 height : 300,
@@ -1284,12 +1281,12 @@ pklib.glass = (function() {
     var doc = document, 
         id = "pklib-glass-wrapper", 
         settings = {
-            contener : doc.getElementsByTagName("body")[0],
+            contener : doc.body,
             style : {
-                position : 'absolute',
+                position : "absolute",
                 left : 0,
                 top : 0,
-                background : '#000',
+                background : "#000",
                 opacity : 0.5,
                 zIndex : 1000
             }
@@ -1297,7 +1294,7 @@ pklib.glass = (function() {
 
     var _fill = function(obj, contener) {
         var width, height;
-        if (contener === doc.getElementsByTagName("body")[0]) {
+        if (contener === doc.body) {
             width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
             height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
             if (pklib.browser.getName() === "msie") {
@@ -1327,7 +1324,7 @@ pklib.glass = (function() {
             var that = this;
             
             settings = pklib.utils.merge(settings, config);
-            settings.style.filter = 'alpha(opacity=' + parseFloat(settings.style.opacity, 10) * 100 + ')';
+            settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
 
             var glass = doc.createElement("div");
             var glassStyle = glass.style;
