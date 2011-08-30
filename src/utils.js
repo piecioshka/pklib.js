@@ -6,6 +6,15 @@ pklib = this.pklib || {};
 pklib.utils = (function() {
 
     var doc = document;
+    
+    var walk_the_dom = function(node, func){
+        func(node);
+        node = node.firstChild;
+        while(node){
+            walk_the_dom(node, func);
+            node = node.nextSibling;
+        }
+    };
 
     var __utils = {
 
@@ -100,6 +109,26 @@ pklib.utils = (function() {
             byTag : function(tag, area) {
                 area = area || doc;
                 return area.getElementsByTagName(tag);
+            },
+            
+            /**
+             * @param {string} cssClass
+             * @param {HTMLElement} area
+             * @return {HTMLCollection}
+             */
+            byClass : function(cssClass, area){
+                area = area || doc;
+                try {
+                    return area.getElementsByClassName(cssClass);
+                } catch(e) {
+                    var results = [];
+                    walk_the_dom(area, function(node){
+                        if(__utils.css.hasClass(node, cssClass)){
+                            results.push(node);
+                        }
+                    });
+                    return results;
+                }
             },
 
             /**
