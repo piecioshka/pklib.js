@@ -95,6 +95,18 @@ pklib.tests = function() {
         strictEqual(pklib.utils.dom.byTag(tag)[0], element, "Element in tag: " + tag + " was found");
     });
 
+    // pklib.utils.dom.byTag
+    test("byClass", function() {
+
+        var cssClass = "uniq-selective-class";
+        var element = document.createElement("div");
+        pklib.utils.css.addClass(element, cssClass);
+
+        document.body.appendChild(element);
+        
+        strictEqual(pklib.utils.dom.byClass(cssClass)[0], element, "Element with class: " + cssClass + " was found");
+    });
+
     // pklib.utils.dom.index
     test("index", function() {
 
