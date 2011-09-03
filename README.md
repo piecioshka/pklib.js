@@ -7,7 +7,7 @@ Opis
 **pklib** jest wynikiem ciągłego używania z tych samych wzorców w sieci web, 
 z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach. 
 Źródła biblioteki są w całości na Git'cie, korzystając z usługi [GitHub.com](http://www.github.com "GitHub").<br />
-Biblioteka jest rozwijana z podziałem na moduły, np. moduł **pklib.profiler** ma swoje źródła w plikub profiler.js w katalogu "src"
+Biblioteka jest rozwijana z podziałem na moduły, np. moduł **pklib.profiler** ma swoje źródła w pliku profiler.js w katalogu "src"
 
 Wersje
 -----------------
