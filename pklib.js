@@ -448,30 +448,12 @@ pklib.utils = (function() {
                 return typeof source === "string" && /^[a-zA-Z]$/.test(source);
             },
 
-            chars : [ " ", "-", "_", "\n", "\r", "\t" ],
-
-            /**
-             * @param {string} source
-             * @return {string}
-             */
-            ltrim : function(source) {
-                return source.replace(new RegExp("^[" + this.chars.join("") + "]+", "g"), "");
-            },
-
-            /**
-             * @param {string} source
-             * @return {string}
-             */
-            rtrim : function(source) {
-                return source.replace(new RegExp("[" + this.chars.join("") + "]+$", "g"), "");
-            },
-
             /**
              * @param {string} source
              * @return {string}
              */
             trim : function(source) {
-                return this.ltrim(this.rtrim(source));
+                return source.replace(/^\s+/, "").replace(/\s+$/, "");
             },
 
             /**
