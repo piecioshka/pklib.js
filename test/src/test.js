@@ -395,66 +395,29 @@ pklib.tests = function() {
         notEqual(pklib.utils.string.isLetter(source), true, "Is not letter");
     });
 
-    // pklib.utils.string.ltrim
-    test("ltrim", function() {
-
-        var result = "dog";
-
-        var text = "   _-dog";
-        strictEqual(pklib.utils.string.ltrim(text), result, "Left trim is good for: " + text);
-
-        text = "-___ dog";
-        strictEqual(pklib.utils.string.ltrim(text), result, "Left trim is good for: " + text);
-
-        text = " _      dog";
-        strictEqual(pklib.utils.string.ltrim(text), result, "Left trim is good for: " + text);
-
-        text = " _      $dog";
-
-        var chars = pklib.utils.string.chars;
-        pklib.utils.string.chars.push("$");
-        strictEqual(pklib.utils.string.ltrim(text), result, "Left trim is good for: " + text);
-        pklib.utils.string.chars = chars;
-    });
-
-    // pklib.utils.string.rtrim
-    test("rtrim", function() {
-
-        var result = "dog";
-
-        var text = "dog   _-";
-        strictEqual(pklib.utils.string.rtrim(text), result, "Right trim is good for: " + text);
-
-        text = "dog-___ ";
-        strictEqual(pklib.utils.string.rtrim(text), result, "Right trim is good for: " + text);
-
-        text = "dog _      ";
-        strictEqual(pklib.utils.string.rtrim(text), result, "Right trim is good for: " + text);
-
-        text = "dog _  a    ";
-        notEqual(pklib.utils.string.rtrim(text), result, "Right trim is good for letter: " + pklib.utils.string.chars.join(""));
-
-        pklib.utils.string.chars.push("a");
-        strictEqual(pklib.utils.string.rtrim(text), result, "Right trim is good for: " + text);
-    });
-
     // pklib.utils.string.trim
     test("trim", function() {
 
         var result = "dog";
 
-        var text = "_ -- - \ndog   _-";
-        strictEqual(pklib.utils.string.trim(text), result, "All trim is good for: " + text);
+        var text = "" +
+        		"dog   ";
+        strictEqual(pklib.utils.string.trim(text), result, "1) trim is good for: " + text);
 
-        text = "- - \t __----dog-___ ";
-        strictEqual(pklib.utils.string.trim(text), result, "All trim is good for: " + text);
+        text = "    dog ";
+        strictEqual(pklib.utils.string.trim(text), result, "2) trim is good for: " + text);
 
-        text = "- ____--- dog _      ";
-        strictEqual(pklib.utils.string.trim(text), result, "All trim is good for: " + text);
+        text = " dog ";
+        strictEqual(pklib.utils.string.trim(text), result, "3) trim is good for: " + text);
 
-        text = "- ___$_--- dog _  $    ";
-        pklib.utils.string.chars.push("$");
-        strictEqual(pklib.utils.string.trim(text), result, "All trim is good for: " + text);
+        text = "dog";
+        strictEqual(pklib.utils.string.trim(text), result, "4) trim is good for: " + text);
+
+        text = " \ndog ";
+        strictEqual(pklib.utils.string.trim(text), result, "5) trim is good for: " + text);
+
+        text = " \tdog ";
+        strictEqual(pklib.utils.string.trim(text), result, "6) trim is good for: " + text);
     });
 
     // pklib.utils.string.slug
