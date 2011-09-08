@@ -52,7 +52,7 @@ pklib.message = (function() {
             return message;
         },
         close : function(callback) {
-            var message = doc.getElementById(this.objId);
+            var message = pklib.utils.dom.byId(this.objId);
             var result = false;
 
             if (message !== null) {

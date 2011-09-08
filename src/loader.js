@@ -61,7 +61,7 @@ pklib.loader = (function() {
          * @param {function} callback
          */
         close : function(callback) {
-            var loader = doc.getElementById(this.objId);
+            var loader = pklib.utils.dom.byId(this.objId);
             var result = false;
             if (loader !== null) {
                 loader.parentNode.removeChild(loader);

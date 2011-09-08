@@ -153,7 +153,7 @@ pklib.utils = (function() {
              */
             children : function(element) {
                 for ( var i = 0, arr = [], childs = element.childNodes, len = childs.length; i < len; ++i) {
-                    if (childs[i].nodeType !== doc.TEXT_NODE) {
+                    if (this.nodeTypes[childs[i].nodeType] === this.nodeTypes[1]) {
                         arr.push(childs[i]);
                     }
                 }
@@ -397,16 +397,16 @@ pklib.utils = (function() {
         string : {
 
             /**
-             * @param {any Object} obj
+             * @param {any Object} source
              * @return {boolean}
              */
-            isString : function(obj) {
-                return typeof obj === "string";
+            isString : function(source) {
+                return typeof source === "string";
             },
 
             /**
-             * @param source
-             * @returns
+             * @param {any Object} source
+             * @return {boolean}
              */
             isLetter : function(source) {
                 return typeof source === "string" && /^[a-zA-Z]$/.test(source);
@@ -421,7 +421,7 @@ pklib.utils = (function() {
             },
 
             /**
-             * @param {string}source
+             * @param {string} source
              * @return {string}
              */
             slug : function(source) {
@@ -529,7 +529,7 @@ pklib.utils = (function() {
              */
             outerlink : function(area) {
                 area = area || doc;
-                var links = area.getElementsByTagName("a");
+                var links = pklib.utils.dom.byTag("a");
                 for ( var i = 0, len = links.length; i < len; ++i) {
                     var link = links[i];
                     if (link.rel === "outerlink") {

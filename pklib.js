@@ -6,7 +6,7 @@
  * Released under the GPL 3.0 Licenses.
  * http://pklib.com/license
  * 
- * Date: Tue Aug 23 2011 21:41:07 GMT+0200 (CEST)
+ * Date: Thu Sep 08 2011 23:32:54 GMT+0200 (CEST)
  */
 
 // pklib definition and initialization
@@ -212,7 +212,7 @@ pklib.utils = (function() {
              */
             children : function(element) {
                 for ( var i = 0, arr = [], childs = element.childNodes, len = childs.length; i < len; ++i) {
-                    if (childs[i].nodeType !== doc.TEXT_NODE) {
+                    if (this.nodeTypes[childs[i].nodeType] === this.nodeTypes[1]) {
                         arr.push(childs[i]);
                     }
                 }
@@ -456,16 +456,16 @@ pklib.utils = (function() {
         string : {
 
             /**
-             * @param {any Object} obj
+             * @param {any Object} source
              * @return {boolean}
              */
-            isString : function(obj) {
-                return typeof obj === "string";
+            isString : function(source) {
+                return typeof source === "string";
             },
 
             /**
-             * @param source
-             * @returns
+             * @param {any Object} source
+             * @return {boolean}
              */
             isLetter : function(source) {
                 return typeof source === "string" && /^[a-zA-Z]$/.test(source);
@@ -480,7 +480,7 @@ pklib.utils = (function() {
             },
 
             /**
-             * @param {string}source
+             * @param {string} source
              * @return {string}
              */
             slug : function(source) {
@@ -588,7 +588,7 @@ pklib.utils = (function() {
              */
             outerlink : function(area) {
                 area = area || doc;
-                var links = area.getElementsByTagName("a");
+                var links = pklib.utils.dom.byTag("a");
                 for ( var i = 0, len = links.length; i < len; ++i) {
                     var link = links[i];
                     if (link.rel === "outerlink") {
@@ -1215,7 +1215,7 @@ pklib.loader = (function() {
          * @param {function} callback
          */
         close : function(callback) {
-            var loader = doc.getElementById(this.objId);
+            var loader = pklib.utils.dom.byId(this.objId);
             var result = false;
             if (loader !== null) {
                 loader.parentNode.removeChild(loader);
@@ -1288,7 +1288,7 @@ pklib.message = (function() {
             return message;
         },
         close : function(callback) {
-            var message = doc.getElementById(this.objId);
+            var message = pklib.utils.dom.byId(this.objId);
             var result = false;
 
             if (message !== null) {
@@ -1375,7 +1375,7 @@ pklib.glass = (function() {
          * @return {boolean}
          */ 
         close : function(callback) {
-            var glass = doc.getElementById(this.objId);
+            var glass = pklib.utils.dom.byId(this.objId);
             var result = false;
             if (glass !== null) {
                 glass.parentNode.removeChild(glass);

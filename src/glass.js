@@ -66,7 +66,7 @@ pklib.glass = (function() {
          * @return {boolean}
          */ 
         close : function(callback) {
-            var glass = doc.getElementById(this.objId);
+            var glass = pklib.utils.dom.byId(this.objId);
             var result = false;
             if (glass !== null) {
                 glass.parentNode.removeChild(glass);
