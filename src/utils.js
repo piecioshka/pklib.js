@@ -26,7 +26,7 @@ pklib.utils = (function() {
              */
             addClass : function(element, cssClass) {
                 if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.css.addClass: Element is undefined/null or cssClass is undefined");
                 }
                 var classElement = element.className;
                 if (!this.hasClass(element, cssClass)) {
@@ -45,7 +45,7 @@ pklib.utils = (function() {
              */
             removeClass : function(element, cssClass) {
                 if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.css.removeClass: Element is undefined/null or cssClass is undefined");
                 }
                 var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
                 element.className = element.className.replace(regexp, "");
@@ -58,7 +58,7 @@ pklib.utils = (function() {
              */
             hasClass : function(element, cssClass) {
                 if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.css.hasClass: Element is undefined/null or cssClass is undefined");
                 }
                 var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
                 return regexp.test(element.className);
@@ -123,7 +123,7 @@ pklib.utils = (function() {
                 } catch(e) {
                     var results = [];
                     walk_the_dom(area, function(node){
-                        if(__utils.css.hasClass(node, cssClass)){
+                        if(pklib.utils.css.hasClass(node, cssClass)){
                             results.push(node);
                         }
                     });
@@ -314,7 +314,7 @@ pklib.utils = (function() {
              */
             window : function(name) {
                 if (typeof name === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.size.window: Parameter name is mandatory");
                 }
                 name = pklib.utils.string.capitalize(name);
                 var win = window, clientName = win.document.documentElement["client" + name];
@@ -327,7 +327,7 @@ pklib.utils = (function() {
              */
             document : function(name) {
                 if (typeof name === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.size.document: Parameter name is mandatory");
                 }
                 name = pklib.utils.string.capitalize(name);
                 var clientName = doc.documentElement["client" + name], scrollBodyName = doc.body["scroll" + name], scrollName = doc.documentElement["scroll" + name], offsetBodyName = doc.body["offset" + name], offsetName = doc.documentElement["offset" + name];
@@ -341,7 +341,7 @@ pklib.utils = (function() {
              */
             object : function(obj, name) {
                 if (typeof name === "undefined" || typeof obj === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.size.object: Parameter name is mandatory");
                 }
                 name = pklib.utils.string.capitalize(name);
                 var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];

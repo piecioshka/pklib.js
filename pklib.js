@@ -85,7 +85,7 @@ pklib.utils = (function() {
              */
             addClass : function(element, cssClass) {
                 if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.css.addClass: Element is undefined/null or cssClass is undefined");
                 }
                 var classElement = element.className;
                 if (!this.hasClass(element, cssClass)) {
@@ -104,7 +104,7 @@ pklib.utils = (function() {
              */
             removeClass : function(element, cssClass) {
                 if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.css.removeClass: Element is undefined/null or cssClass is undefined");
                 }
                 var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
                 element.className = element.className.replace(regexp, "");
@@ -117,7 +117,7 @@ pklib.utils = (function() {
              */
             hasClass : function(element, cssClass) {
                 if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.css.hasClass: Element is undefined/null or cssClass is undefined");
                 }
                 var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
                 return regexp.test(element.className);
@@ -182,7 +182,7 @@ pklib.utils = (function() {
                 } catch(e) {
                     var results = [];
                     walk_the_dom(area, function(node){
-                        if(__utils.css.hasClass(node, cssClass)){
+                        if(pklib.utils.css.hasClass(node, cssClass)){
                             results.push(node);
                         }
                     });
@@ -373,7 +373,7 @@ pklib.utils = (function() {
              */
             window : function(name) {
                 if (typeof name === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.size.window: Parameter name is mandatory");
                 }
                 name = pklib.utils.string.capitalize(name);
                 var win = window, clientName = win.document.documentElement["client" + name];
@@ -386,7 +386,7 @@ pklib.utils = (function() {
              */
             document : function(name) {
                 if (typeof name === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.size.document: Parameter name is mandatory");
                 }
                 name = pklib.utils.string.capitalize(name);
                 var clientName = doc.documentElement["client" + name], scrollBodyName = doc.body["scroll" + name], scrollName = doc.documentElement["scroll" + name], offsetBodyName = doc.body["offset" + name], offsetName = doc.documentElement["offset" + name];
@@ -400,7 +400,7 @@ pklib.utils = (function() {
              */
             object : function(obj, name) {
                 if (typeof name === "undefined" || typeof obj === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.size.object: Parameter name is mandatory");
                 }
                 name = pklib.utils.string.capitalize(name);
                 var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];
@@ -960,36 +960,34 @@ pklib.json = (function() {
          * @param {boolean} toJson
          * @returns {string}
          */
-        serialize : function(object, toJson) {
-            if (typeof object !== "object" || object == null) {
-                throw new TypeError();
+        serialize : function(source, toJson) {
+            if (typeof source !== "object" || source == null) {
+                throw new TypeError("pklib.json.serialize: Source is null or not object");
             }
 
-            var addAmp = false, response = '';
+            var amp = false, 
+                response = '';
 
-            response += (toJson) ? '{' : '';
+            (toJson) && (response += "{");
 
-            for ( var i in object) {
-                if (typeof object[i] !== "function") {
-                    if (addAmp) {
-                        var lst = toJson ? ',' : '&';
-                        response += lst;
-                    } else {
-                        addAmp = true;
-                    }
+            for ( var item in source) {
+                if (source.hasOwnProperty(item)) {
+                    (amp) ? response += toJson ? ',' : '&' : (amp = true);
 
                     var value = '';
-                    if (typeof object[i] !== "undefined" && object[i] !== null) {
-                        value = object[i];
+                    if (typeof source[item] !== "undefined" && source[item] !== null) {
+                        value = source[item];
                     }
 
-                    var bef = toJson ? ':' : '=';
                     var mtz = toJson ? '"' : '';
-                    response += i + bef + mtz + value + mtz;
+                    response += item;
+                    response += toJson ? ':' : '=';
+                    response += mtz;
+                    response += value + mtz;
                 }
             }
 
-            response += (toJson) ? '}' : '';
+            (toJson) && (response += "}");
 
             return response;
         }
@@ -1109,12 +1107,12 @@ pklib.validate = (function() {
             settings = pklib.utils.merge(settings, config);
 
             if(settings.regexp == null){
-                throw new TypeError();
+                throw new TypeError("pklib.validate.regexp: Regular expressino is neeeded");
             }
             var exp = new RegExp(settings.regexp);
 
             if(settings.object == null){
-                throw new TypeError();
+                throw new TypeError("pklib.validate.regexp: Object is neeeded");
             }
             if (exp.test(settings.object)) {
                 return (typeof settings.success === "function") && settings.success();

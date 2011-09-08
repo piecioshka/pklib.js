@@ -112,36 +112,34 @@ pklib.json = (function() {
          * @param {boolean} toJson
          * @returns {string}
          */
-        serialize : function(object, toJson) {
-            if (typeof object !== "object" || object == null) {
-                throw new TypeError();
+        serialize : function(source, toJson) {
+            if (typeof source !== "object" || source == null) {
+                throw new TypeError("pklib.json.serialize: Source is null or not object");
             }
 
-            var addAmp = false, response = '';
+            var amp = false, 
+                response = '';
 
-            response += (toJson) ? '{' : '';
+            (toJson) && (response += "{");
 
-            for ( var i in object) {
-                if (typeof object[i] !== "function") {
-                    if (addAmp) {
-                        var lst = toJson ? ',' : '&';
-                        response += lst;
-                    } else {
-                        addAmp = true;
-                    }
+            for ( var item in source) {
+                if (source.hasOwnProperty(item)) {
+                    (amp) ? response += toJson ? ',' : '&' : (amp = true);
 
                     var value = '';
-                    if (typeof object[i] !== "undefined" && object[i] !== null) {
-                        value = object[i];
+                    if (typeof source[item] !== "undefined" && source[item] !== null) {
+                        value = source[item];
                     }
 
-                    var bef = toJson ? ':' : '=';
                     var mtz = toJson ? '"' : '';
-                    response += i + bef + mtz + value + mtz;
+                    response += item;
+                    response += toJson ? ':' : '=';
+                    response += mtz;
+                    response += value + mtz;
                 }
             }
 
-            response += (toJson) ? '}' : '';
+            (toJson) && (response += "}");
 
             return response;
         }

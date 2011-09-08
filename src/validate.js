@@ -67,12 +67,12 @@ pklib.validate = (function() {
             settings = pklib.utils.merge(settings, config);
 
             if(settings.regexp == null){
-                throw new TypeError();
+                throw new TypeError("pklib.validate.regexp: Regular expressino is neeeded");
             }
             var exp = new RegExp(settings.regexp);
 
             if(settings.object == null){
-                throw new TypeError();
+                throw new TypeError("pklib.validate.regexp: Object is neeeded");
             }
             if (exp.test(settings.object)) {
                 return (typeof settings.success === "function") && settings.success();
