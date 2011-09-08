@@ -178,6 +178,29 @@ pklib.utils = (function() {
                 element.style.top = top + "px";
                 element.style.position = "absolute";
                 return [ left, top ];
+            },
+            
+
+            /**
+             * @param {HTMLElement} element
+             * @param {HTMLElement} contener
+             * @return {array}
+             */
+            maximize: function(element, contener) {
+                var width, height;
+                if (contener === doc.body) {
+                    width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
+                    height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
+                    if (pklib.browser.getName() === "msie") {
+                        width -= 20;
+                    }
+                } else {
+                    width = pklib.utils.size.object(contener, "width");
+                    height = pklib.utils.size.object(contener, "height");
+                }
+                element.style.width = width;
+                element.style.height = height;
+                return [ width, height ];
             }
 
         },
@@ -576,9 +599,9 @@ pklib.utils = (function() {
                 }
                 return target.sort();
             } else {
-                for ( var element in source) {
-                    if (source.hasOwnProperty(element)) {
-                        target[element] = source[element];
+                for ( var item in source) {
+                    if (source.hasOwnProperty(item)) {
+                        target[item] = source[item];
                     }
                 }
                 return target;

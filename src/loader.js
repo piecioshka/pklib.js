@@ -38,7 +38,9 @@ pklib.loader = (function() {
             loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
             for ( var style in settings.style) {
-                loaderStyle[style] = settings.style[style];
+                if(settings.style.hasOwnProperty(style)){
+                    loaderStyle[style] = settings.style[style];
+                }
             }
             if (settings.center) {
                 pklib.utils.dom.center(loader, settings.contener);

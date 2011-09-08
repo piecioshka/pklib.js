@@ -28,7 +28,9 @@ pklib.message = (function() {
 
             message.setAttribute("id", this.objId);
             for ( var style in settings.style) {
-                messageStyle[style] = settings.style[style];
+                if(settings.style.hasOwnProperty(style)){
+                    messageStyle[style] = settings.style[style];
+                }
             }
 
             if (typeof this.content === "string") {

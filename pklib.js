@@ -237,6 +237,29 @@ pklib.utils = (function() {
                 element.style.top = top + "px";
                 element.style.position = "absolute";
                 return [ left, top ];
+            },
+            
+
+            /**
+             * @param {HTMLElement} element
+             * @param {HTMLElement} contener
+             * @return {array}
+             */
+            maximize: function(element, contener) {
+                var width, height;
+                if (contener === doc.body) {
+                    width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
+                    height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
+                    if (pklib.browser.getName() === "msie") {
+                        width -= 20;
+                    }
+                } else {
+                    width = pklib.utils.size.object(contener, "width");
+                    height = pklib.utils.size.object(contener, "height");
+                }
+                element.style.width = width;
+                element.style.height = height;
+                return [ width, height ];
             }
 
         },
@@ -635,9 +658,9 @@ pklib.utils = (function() {
                 }
                 return target.sort();
             } else {
-                for ( var element in source) {
-                    if (source.hasOwnProperty(element)) {
-                        target[element] = source[element];
+                for ( var item in source) {
+                    if (source.hasOwnProperty(item)) {
+                        target[item] = source[item];
                     }
                 }
                 return target;
@@ -732,7 +755,9 @@ pklib.ajax = (function() {
             client.open(settings.type, settings.url, settings.async);
             if (settings.headers != null) {
                 for ( var item in settings.headers) {
-                    client.setRequestHeader(item, settings.headers[item]);
+                    if(settings.headers.hasOwnProperty(item)){
+                        client.setRequestHeader(item, settings.headers[item]);
+                    }
                 }
             }
             client.send(settings.params);
@@ -943,9 +968,11 @@ pklib.json = (function() {
                 source = "{\n";
                 index++;
                 for ( var item in object) {
-                    source += indent(index) + item + ": " + arguments.callee(object[item], index);
-                    if (item !== __getLast(object)) {
-                        source += ",\n";
+                    if(object.hasOwnProperty(item)){
+                        source += indent(index) + item + ": " + arguments.callee(object[item], index);
+                        if (item !== __getLast(object)) {
+                            source += ",\n";
+                        }
                     }
                 }
                 index--;
@@ -1165,7 +1192,9 @@ pklib.loader = (function() {
             loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
             for ( var style in settings.style) {
-                loaderStyle[style] = settings.style[style];
+                if(settings.style.hasOwnProperty(style)){
+                    loaderStyle[style] = settings.style[style];
+                }
             }
             if (settings.center) {
                 pklib.utils.dom.center(loader, settings.contener);
@@ -1235,7 +1264,9 @@ pklib.message = (function() {
 
             message.setAttribute("id", this.objId);
             for ( var style in settings.style) {
-                messageStyle[style] = settings.style[style];
+                if(settings.style.hasOwnProperty(style)){
+                    messageStyle[style] = settings.style[style];
+                }
             }
 
             if (typeof this.content === "string") {
@@ -1297,23 +1328,6 @@ pklib.glass = (function() {
             }
         };
 
-    var _fill = function(obj, contener) {
-        var width, height;
-        if (contener === doc.body) {
-            width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
-            height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
-            if (pklib.browser.getName() === "msie") {
-                width -= 20;
-            }
-        } else {
-            width = pklib.utils.size.object(contener, "width");
-            height = pklib.utils.size.object(contener, "height");
-        }
-        obj.style.width = width;
-        obj.style.height = height;
-        return [ width, height ];
-    };
-
     var __glass = {
     
         /**
@@ -1336,17 +1350,19 @@ pklib.glass = (function() {
 
             glass.setAttribute("id", this.objId);
             for ( var style in settings.style) {
-                glassStyle[style] = settings.style[style];
+                if(settings.style.hasOwnProperty(style)){
+                    glassStyle[style] = settings.style[style];
+                }
             }
 
             settings.contener.appendChild(glass);
 
-            _fill(glass, settings.contener);
+            pklib.utils.dom.maximize(glass, settings.contener);
 
             pklib.utils.event.add(window, "resize", function() {
                 that.close();
                 that.show(config, callback);
-                _fill(glass, settings.contener);
+                pklib.utils.dom.maximize(glass, settings.contener);
             });
 
             (typeof callback === "function") && callback();

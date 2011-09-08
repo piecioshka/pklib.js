@@ -95,9 +95,11 @@ pklib.json = (function() {
                 source = "{\n";
                 index++;
                 for ( var item in object) {
-                    source += indent(index) + item + ": " + arguments.callee(object[item], index);
-                    if (item !== __getLast(object)) {
-                        source += ",\n";
+                    if(object.hasOwnProperty(item)){
+                        source += indent(index) + item + ": " + arguments.callee(object[item], index);
+                        if (item !== __getLast(object)) {
+                            source += ",\n";
+                        }
                     }
                 }
                 index--;

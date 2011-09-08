@@ -80,7 +80,9 @@ pklib.ajax = (function() {
             client.open(settings.type, settings.url, settings.async);
             if (settings.headers != null) {
                 for ( var item in settings.headers) {
-                    client.setRequestHeader(item, settings.headers[item]);
+                    if(settings.headers.hasOwnProperty(item)){
+                        client.setRequestHeader(item, settings.headers[item]);
+                    }
                 }
             }
             client.send(settings.params);
