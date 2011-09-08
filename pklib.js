@@ -27,7 +27,7 @@ pklib.browser = (function() {
     return {
 
         /**
-         * @return {undefined or string}
+         * @return {string}
          */
         getName : function() {
             var userAgent = navigator.userAgent.toLowerCase();
@@ -41,7 +41,7 @@ pklib.browser = (function() {
         },
 
         /**
-         * @return {undefined or string}
+         * @return {string}
          */
         getVersion : function() {
             var userAgent = navigator.userAgent.toLowerCase();
@@ -448,30 +448,12 @@ pklib.utils = (function() {
                 return typeof source === "string" && /^[a-zA-Z]$/.test(source);
             },
 
-            chars : [ " ", "-", "_", "\n", "\r", "\t" ],
-
-            /**
-             * @param {string} source
-             * @return {string}
-             */
-            ltrim : function(source) {
-                return source.replace(new RegExp("^[" + this.chars.join("") + "]+", "g"), "");
-            },
-
-            /**
-             * @param {string} source
-             * @return {string}
-             */
-            rtrim : function(source) {
-                return source.replace(new RegExp("[" + this.chars.join("") + "]+$", "g"), "");
-            },
-
             /**
              * @param {string} source
              * @return {string}
              */
             trim : function(source) {
-                return this.ltrim(this.rtrim(source));
+                return source.replace(/^\s+/, "").replace(/\s+$/, "");
             },
 
             /**
@@ -699,17 +681,17 @@ pklib.ajax = (function() {
      * 
      * <pre>
      * { 
-     *      type {string|default /get/}, 
-     *      async {boolean|default true},
-     *      cache {boolean|default false}, 
-     *      url {string}, 
-     *      params {array or object},
+     *      type {string|default /get/}
+     *      async {boolean|default true}
+     *      cache {boolean|default false}
+     *      url {string}
+     *      params {array or object}
      *      headers {object}
      * 
-     *      unset {function},
-     *      opened {function},
-     *      headersReceived {function},
-     *      loading {function},
+     *      unset {function}
+     *      opened {function}
+     *      headersReceived {function}
+     *      loading {function}
      *      done {function}
      * }
      * </pre>
@@ -857,8 +839,7 @@ pklib.file = (function() {
                 };
             }
 
-            doc.getElementsByTagName("head")[0].appendChild(script);
-
+            doc.head.appendChild(script);
         }
 
     };

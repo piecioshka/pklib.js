@@ -30,8 +30,7 @@ pklib.file = (function() {
                 };
             }
 
-            doc.getElementsByTagName("head")[0].appendChild(script);
-
+            doc.head.appendChild(script);
         }
 
     };
