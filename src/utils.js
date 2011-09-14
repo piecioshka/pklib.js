@@ -492,7 +492,7 @@ pklib.utils = (function() {
                 for ( var item = 0, text = "", num = source.length; item < num; ++item) {
                     text += source[item];
                     if (item == len - 1) {
-                        if (num - len > 3) {
+                        if (num - len >= 1) {
                             text += "...";
                         }
                         break;
