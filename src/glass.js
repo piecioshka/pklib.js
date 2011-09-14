@@ -19,23 +19,6 @@ pklib.glass = (function() {
             }
         };
 
-    var _fill = function(obj, contener) {
-        var width, height;
-        if (contener === doc.body) {
-            width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
-            height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
-            if (pklib.browser.getName() === "msie") {
-                width -= 20;
-            }
-        } else {
-            width = pklib.utils.size.object(contener, "width");
-            height = pklib.utils.size.object(contener, "height");
-        }
-        obj.style.width = width;
-        obj.style.height = height;
-        return [ width, height ];
-    };
-
     var __glass = {
     
         /**
@@ -58,17 +41,19 @@ pklib.glass = (function() {
 
             glass.setAttribute("id", this.objId);
             for ( var style in settings.style) {
-                glassStyle[style] = settings.style[style];
+                if(settings.style.hasOwnProperty(style)){
+                    glassStyle[style] = settings.style[style];
+                }
             }
 
             settings.contener.appendChild(glass);
 
-            _fill(glass, settings.contener);
+            pklib.utils.dom.maximize(glass, settings.contener);
 
             pklib.utils.event.add(window, "resize", function() {
                 that.close();
                 that.show(config, callback);
-                _fill(glass, settings.contener);
+                pklib.utils.dom.maximize(glass, settings.contener);
             });
 
             (typeof callback === "function") && callback();
@@ -81,7 +66,7 @@ pklib.glass = (function() {
          * @return {boolean}
          */ 
         close : function(callback) {
-            var glass = doc.getElementById(this.objId);
+            var glass = pklib.utils.dom.byId(this.objId);
             var result = false;
             if (glass !== null) {
                 glass.parentNode.removeChild(glass);

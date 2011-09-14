@@ -26,7 +26,7 @@ pklib.utils = (function() {
              */
             addClass : function(element, cssClass) {
                 if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.css.addClass: Element is undefined/null or cssClass is undefined");
                 }
                 var classElement = element.className;
                 if (!this.hasClass(element, cssClass)) {
@@ -45,7 +45,7 @@ pklib.utils = (function() {
              */
             removeClass : function(element, cssClass) {
                 if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.css.removeClass: Element is undefined/null or cssClass is undefined");
                 }
                 var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
                 element.className = element.className.replace(regexp, "");
@@ -58,7 +58,7 @@ pklib.utils = (function() {
              */
             hasClass : function(element, cssClass) {
                 if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.css.hasClass: Element is undefined/null or cssClass is undefined");
                 }
                 var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
                 return regexp.test(element.className);
@@ -123,7 +123,7 @@ pklib.utils = (function() {
                 } catch(e) {
                     var results = [];
                     walk_the_dom(area, function(node){
-                        if(__utils.css.hasClass(node, cssClass)){
+                        if(pklib.utils.css.hasClass(node, cssClass)){
                             results.push(node);
                         }
                     });
@@ -153,7 +153,7 @@ pklib.utils = (function() {
              */
             children : function(element) {
                 for ( var i = 0, arr = [], childs = element.childNodes, len = childs.length; i < len; ++i) {
-                    if (childs[i].nodeType !== doc.TEXT_NODE) {
+                    if (this.nodeTypes[childs[i].nodeType] === this.nodeTypes[1]) {
                         arr.push(childs[i]);
                     }
                 }
@@ -178,6 +178,29 @@ pklib.utils = (function() {
                 element.style.top = top + "px";
                 element.style.position = "absolute";
                 return [ left, top ];
+            },
+            
+
+            /**
+             * @param {HTMLElement} element
+             * @param {HTMLElement} contener
+             * @return {array}
+             */
+            maximize: function(element, contener) {
+                var width, height;
+                if (contener === doc.body) {
+                    width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
+                    height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
+                    if (pklib.browser.getName() === "msie") {
+                        width -= 20;
+                    }
+                } else {
+                    width = pklib.utils.size.object(contener, "width");
+                    height = pklib.utils.size.object(contener, "height");
+                }
+                element.style.width = width;
+                element.style.height = height;
+                return [ width, height ];
             }
 
         },
@@ -314,7 +337,7 @@ pklib.utils = (function() {
              */
             window : function(name) {
                 if (typeof name === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.size.window: Parameter name is mandatory");
                 }
                 name = pklib.utils.string.capitalize(name);
                 var win = window, clientName = win.document.documentElement["client" + name];
@@ -327,7 +350,7 @@ pklib.utils = (function() {
              */
             document : function(name) {
                 if (typeof name === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.size.document: Parameter name is mandatory");
                 }
                 name = pklib.utils.string.capitalize(name);
                 var clientName = doc.documentElement["client" + name], scrollBodyName = doc.body["scroll" + name], scrollName = doc.documentElement["scroll" + name], offsetBodyName = doc.body["offset" + name], offsetName = doc.documentElement["offset" + name];
@@ -341,7 +364,7 @@ pklib.utils = (function() {
              */
             object : function(obj, name) {
                 if (typeof name === "undefined" || typeof obj === "undefined") {
-                    throw new TypeError();
+                    throw new TypeError("pklib.utils.size.object: Parameter name is mandatory");
                 }
                 name = pklib.utils.string.capitalize(name);
                 var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];
@@ -374,16 +397,16 @@ pklib.utils = (function() {
         string : {
 
             /**
-             * @param {any Object} obj
+             * @param {any Object} source
              * @return {boolean}
              */
-            isString : function(obj) {
-                return typeof obj === "string";
+            isString : function(source) {
+                return typeof source === "string";
             },
 
             /**
-             * @param source
-             * @returns
+             * @param {any Object} source
+             * @return {boolean}
              */
             isLetter : function(source) {
                 return typeof source === "string" && /^[a-zA-Z]$/.test(source);
@@ -398,7 +421,7 @@ pklib.utils = (function() {
             },
 
             /**
-             * @param {string}source
+             * @param {string} source
              * @return {string}
              */
             slug : function(source) {
@@ -506,7 +529,7 @@ pklib.utils = (function() {
              */
             outerlink : function(area) {
                 area = area || doc;
-                var links = area.getElementsByTagName("a");
+                var links = pklib.utils.dom.byTag("a");
                 for ( var i = 0, len = links.length; i < len; ++i) {
                     var link = links[i];
                     if (link.rel === "outerlink") {
@@ -576,9 +599,9 @@ pklib.utils = (function() {
                 }
                 return target.sort();
             } else {
-                for ( var element in source) {
-                    if (source.hasOwnProperty(element)) {
-                        target[element] = source[element];
+                for ( var item in source) {
+                    if (source.hasOwnProperty(item)) {
+                        target[item] = source[item];
                     }
                 }
                 return target;

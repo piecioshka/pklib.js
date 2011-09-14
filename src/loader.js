@@ -38,7 +38,9 @@ pklib.loader = (function() {
             loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
             for ( var style in settings.style) {
-                loaderStyle[style] = settings.style[style];
+                if(settings.style.hasOwnProperty(style)){
+                    loaderStyle[style] = settings.style[style];
+                }
             }
             if (settings.center) {
                 pklib.utils.dom.center(loader, settings.contener);
@@ -59,7 +61,7 @@ pklib.loader = (function() {
          * @param {function} callback
          */
         close : function(callback) {
-            var loader = doc.getElementById(this.objId);
+            var loader = pklib.utils.dom.byId(this.objId);
             var result = false;
             if (loader !== null) {
                 loader.parentNode.removeChild(loader);

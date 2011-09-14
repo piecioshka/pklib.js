@@ -9,7 +9,7 @@ pklib.browser = (function() {
     return {
 
         /**
-         * @return {undefined or string}
+         * @return {string}
          */
         getName : function() {
             var userAgent = navigator.userAgent.toLowerCase();
@@ -23,7 +23,7 @@ pklib.browser = (function() {
         },
 
         /**
-         * @return {undefined or string}
+         * @return {string}
          */
         getVersion : function() {
             var userAgent = navigator.userAgent.toLowerCase();

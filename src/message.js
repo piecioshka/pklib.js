@@ -28,7 +28,9 @@ pklib.message = (function() {
 
             message.setAttribute("id", this.objId);
             for ( var style in settings.style) {
-                messageStyle[style] = settings.style[style];
+                if(settings.style.hasOwnProperty(style)){
+                    messageStyle[style] = settings.style[style];
+                }
             }
 
             if (typeof this.content === "string") {
@@ -50,7 +52,7 @@ pklib.message = (function() {
             return message;
         },
         close : function(callback) {
-            var message = doc.getElementById(this.objId);
+            var message = pklib.utils.dom.byId(this.objId);
             var result = false;
 
             if (message !== null) {
