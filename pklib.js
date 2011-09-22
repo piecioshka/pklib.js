@@ -17,6 +17,28 @@ pklib = this.pklib || {
 };
 	
 /**
+ * @package pklib.aspect
+ */
+pklib = this.pklib || {};
+
+/*
+ * @param fun {function} The function to bind aspect function
+ * @param asp {function} The aspect function
+ */
+pklib.aspect = function(fun, asp) {
+    if( typeof fun !== "function" || typeof asp !== "function") {
+        throw new TypeError("Params are not functions");
+    }
+
+    var that = this;
+
+    return function() {
+        asp.call(that);
+        return fun.apply(that, arguments);
+    };
+};
+	
+/**
  * @package pklib.browser
  */
 pklib = this.pklib || {};
@@ -485,8 +507,8 @@ pklib.utils = (function() {
              */
             slug : function(source) {
                 var result = source.toLowerCase().replace(/\s/mg, "-");
-                result = result.replace(/[^a-zA-Z0-9\-]/mg, function(char) {
-                    switch (char.charCodeAt()) {
+                result = result.replace(/[^a-zA-Z0-9\-]/mg, function(ch) {
+                    switch (ch.charCodeAt()) {
                         case 261:
                             return String.fromCharCode(97);
                         case 281:
@@ -551,7 +573,7 @@ pklib.utils = (function() {
                 for ( var item = 0, text = "", num = source.length; item < num; ++item) {
                     text += source[item];
                     if (item == len - 1) {
-                        if (num - len > 3) {
+                        if (num - len >= 1) {
                             text += "...";
                         }
                         break;
@@ -674,7 +696,7 @@ pklib.utils = (function() {
 })();
 	
 /**
- * @package app.ajax
+ * @package pklib.ajax
  * @dependence pklib.utils
  */
 pklib = this.pklib || {};

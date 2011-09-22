@@ -426,8 +426,8 @@ pklib.utils = (function() {
              */
             slug : function(source) {
                 var result = source.toLowerCase().replace(/\s/mg, "-");
-                result = result.replace(/[^a-zA-Z0-9\-]/mg, function(char) {
-                    switch (char.charCodeAt()) {
+                result = result.replace(/[^a-zA-Z0-9\-]/mg, function(ch) {
+                    switch (ch.charCodeAt()) {
                         case 261:
                             return String.fromCharCode(97);
                         case 281:

@@ -1,5 +1,5 @@
 /**
- * @package app.ajax
+ * @package pklib.ajax
  * @dependence pklib.utils
  */
 pklib = this.pklib || {};
