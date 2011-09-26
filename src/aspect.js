@@ -1,9 +1,12 @@
 /**
- * @package pklib.aspect
+ * @package aspect
  */
 pklib = this.pklib || {};
 
-/*
+/**
+ * Create method with merge first and second.
+ * Second method is run after first.
+ *
  * @param fun {function} The function to bind aspect function
  * @param asp {function} The aspect function
  */

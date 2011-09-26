@@ -1,30 +1,30 @@
 /**
- * @package pklib.loader
- * @dependence pklib.utils
+ * @package loader
+ * @dependence dom, event, utils
  */
 pklib = this.pklib || {};
 pklib.loader = (function() {
 
-    var doc = document, 
-        id = "pklib-loader-wrapper", 
-        settings = {
-            src : "http://pklib.com/img/icons/loader.gif",
-            contener : doc.body,
-            style : {
-                width : 31,
-                height : 31,
-                zIndex : 1010
-            },
-            center : true
-        };
+    var doc = document;
+    var id = "pklib-loader-wrapper";
+    var settings = {
+        src : "http://pklib.com/img/icons/loader.gif",
+        container : doc.body,
+        style : {
+            width : 31,
+            height : 31,
+            zIndex : 1010
+        },
+        center : true
+    };
 
-    var __loader = {
-    
+    return {
+
         /**
          * @type string
-         */ 
+         */
         objId : id,
-        
+
         /**
          * @param {object} config
          * @param {function} callback
@@ -37,45 +37,36 @@ pklib.loader = (function() {
 
             loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
-            for ( var style in settings.style) {
-                if(settings.style.hasOwnProperty(style)){
+            for(var style in settings.style) {
+                if(settings.style.hasOwnProperty(style)) {
                     loaderStyle[style] = settings.style[style];
                 }
             }
-            if (settings.center) {
-                pklib.utils.dom.center(loader, settings.contener);
+            if(settings.center) {
+                pklib.dom.center(loader, settings.container);
 
-                pklib.utils.event.add(window, "resize", function() {
-                    pklib.utils.dom.center(loader, settings.contener);
+                pklib.event.add(window, "resize", function() {
+                    pklib.dom.center(loader, settings.container);
                 });
             }
 
-            settings.contener.appendChild(loader);
-
-            (typeof callback === "function") && callback();
-
+            settings.container.appendChild(loader); ( typeof callback === "function") && callback();
             delete loader;
         },
-        
         /**
          * @param {function} callback
          */
         close : function(callback) {
-            var loader = pklib.utils.dom.byId(this.objId);
+            var loader = pklib.dom.byId(this.objId);
             var result = false;
-            if (loader !== null) {
+            if(loader !== null) {
                 loader.parentNode.removeChild(loader);
                 this.close(callback);
                 result = true;
-            }
-
-            (typeof callback === "function") && callback();
+            }( typeof callback === "function") && callback();
 
             return result;
         }
-        
     };
-
-    return __loader;
 
 })();

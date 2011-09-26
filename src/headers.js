@@ -6,7 +6,7 @@
  * Released under the GPL 3.0 Licenses.
  * http://pklib.com/license
  * 
- * Date: Thu Sep 08 2011 23:32:54 GMT+0200 (CEST)
+ * Date: Mon Sep 26 13:27:16 GMT 2011 GMT+0200 (CEST)
  */
 
 // pklib definition and initialization
@@ -15,3 +15,4 @@ pklib = this.pklib || {
     www : "http://pklib.pl/",
     version : "1.0.0",
 };
+

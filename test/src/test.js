@@ -11,7 +11,7 @@ pklib.tests = function() {
 
         var name = pklib.browser.getName();
         ok(name, "Browser name: " + name);
-        ok(pklib.utils.string.isString(name), "Browser name is string");
+        ok(pklib.string.isString(name), "Browser name is string");
     });
 
     // pklib.browser.getVersion
@@ -19,60 +19,60 @@ pklib.tests = function() {
 
         var version = pklib.browser.getVersion();
         ok(version, "Browser version: " + version);
-        ok(pklib.utils.string.isString(version), "Browser version is string");
+        ok(pklib.string.isString(version), "Browser version is string");
     });
 
     /** *********************************************************************** */
 
-    module("pklib.utils.css");
+    module("pklib.css");
 
-    // pklib.utils.css.addClass
+    // pklib.css.addClass
     test("addClass", function() {
         var element = document.createElement("span");
         var cssClass = "active";
-        pklib.utils.css.addClass(element, cssClass);
+        pklib.css.addClass(cssClass, element);
 
-        ok(pklib.utils.css.hasClass(element, cssClass), "Element has class: " + cssClass);
+        ok(pklib.css.hasClass(cssClass, element), "Element has class: " + cssClass);
     });
 
-    // pklib.utils.css.removeClass
+    // pklib.css.removeClass
     test("removeClass", function() {
 
         var element = document.createElement("span");
         var cssClass = "active";
         element.className = cssClass;
 
-        pklib.utils.css.removeClass(element, cssClass);
+        pklib.css.removeClass(cssClass, element);
 
-        ok(pklib.utils.css.hasClass(element, cssClass) === false, "Element has not class: " + cssClass);
+        ok(pklib.css.hasClass(cssClass, element) === false, "Element has not class: " + cssClass);
     });
 
-    // pklib.utils.css.hasClass
+    // pklib.css.hasClass
     test("hasClass", function() {
 
         var element = document.createElement("span");
         var cssClass = "active";
         element.className = cssClass;
 
-        ok(pklib.utils.css.hasClass(element, cssClass), "Element has class: " + cssClass);
+        ok(pklib.css.hasClass(element, cssClass), "Element has class: " + cssClass);
     });
 
-    module("pklib.utils.dom");
+    module("pklib.dom");
 
-    // pklib.utils.dom.isNode
+    // pklib.dom.isNode
     test("isNode", function() {
 
         var element = document.createElement("span");
         document.body.appendChild(element);
 
-        strictEqual(pklib.utils.dom.isNode(element), pklib.utils.dom.nodeTypes[1], "Element is node");
+        strictEqual(pklib.dom.isNode(element), pklib.dom.nodeTypes[1], "Element is node");
 
-        strictEqual(pklib.utils.dom.isNode({}), null, "Element is undefined");
-        strictEqual(pklib.utils.dom.isNode(undefined), null, "Element is null");
-        strictEqual(pklib.utils.dom.isNode(), null, "Element is null");
+        strictEqual(pklib.dom.isNode({}), null, "Element is undefined");
+        strictEqual(pklib.dom.isNode(undefined), null, "Element is null");
+        strictEqual(pklib.dom.isNode(), null, "Element is null");
     });
 
-    // pklib.utils.dom.byId
+    // pklib.dom.byId
     test("byId", function() {
 
         var element = document.createElement("span");
@@ -81,10 +81,10 @@ pklib.tests = function() {
 
         document.body.appendChild(element);
 
-        strictEqual(pklib.utils.dom.byId(id), element, "Element about id: " + id + " was found");
+        strictEqual(pklib.dom.byId(id), element, "Element about id: " + id + " was found");
     });
 
-    // pklib.utils.dom.byTag
+    // pklib.dom.byTag
     test("byTag", function() {
 
         var tag = "special-tag";
@@ -92,22 +92,22 @@ pklib.tests = function() {
 
         document.body.appendChild(element);
 
-        strictEqual(pklib.utils.dom.byTag(tag)[0], element, "Element in tag: " + tag + " was found");
+        strictEqual(pklib.dom.byTag(tag)[0], element, "Element in tag: " + tag + " was found");
     });
 
-    // pklib.utils.dom.byTag
+    // pklib.dom.byClass
     test("byClass", function() {
 
         var cssClass = "uniq-selective-class";
         var element = document.createElement("div");
-        pklib.utils.css.addClass(element, cssClass);
+        pklib.css.addClass(cssClass, element);
 
         document.body.appendChild(element);
-        
-        strictEqual(pklib.utils.dom.byClass(cssClass)[0], element, "Element with class: " + cssClass + " was found");
+                
+        strictEqual(pklib.dom.byClass(cssClass)[0], element, "Element with class: " + cssClass + " was found");
     });
 
-    // pklib.utils.dom.index
+    // pklib.dom.index
     test("index", function() {
 
         var area = document.createElement("div");
@@ -119,10 +119,10 @@ pklib.tests = function() {
 
         document.body.appendChild(area);
 
-        strictEqual(pklib.utils.dom.index(element2), 1, "Element " + element2.nodeType + " have index 1");
+        strictEqual(pklib.dom.index(element2), 1, "Element " + element2.nodeType + " have index 1");
     });
 
-    // pklib.utils.dom.children
+    // pklib.dom.children
     test("children", function() {
 
         var area = document.createElement("div");
@@ -135,10 +135,10 @@ pklib.tests = function() {
 
         document.body.appendChild(area);
 
-        deepEqual(pklib.utils.dom.children(pklib.utils.dom.byId(area.id)), [ element, element2 ], "Element " + area.nodeType + " have 2 childs");
+        deepEqual(pklib.dom.children(pklib.dom.byId(area.id)), [ element, element2 ], "Element " + area.nodeType + " have 2 childs");
     });
 
-    // pklib.utils.dom.center
+    // pklib.dom.center
     test("center", function() {
 
         var element = document.createElement("div");
@@ -146,15 +146,15 @@ pklib.tests = function() {
 
         document.body.appendChild(element);
 
-        var __center = pklib.utils.dom.center(pklib.utils.dom.byId(element.id));
+        var __center = pklib.dom.center(pklib.dom.byId(element.id));
 
-        ok(pklib.utils.array.isArray(__center), "Params are in array");
+        ok(pklib.array.isArray(__center), "Params are in array");
         strictEqual(__center.length, 2, "Two params");
     });
 
-    module("pklib.utils.array");
+    module("pklib.array");
 
-    // pklib.utils.array.isArray
+    // pklib.array.isArray
     test("isArray", function() {
 
         var element = document.createElement("div");
@@ -162,13 +162,13 @@ pklib.tests = function() {
 
         document.body.appendChild(element);
 
-        var __center = pklib.utils.dom.center(pklib.utils.dom.byId(element.id));
+        var __center = pklib.dom.center(pklib.dom.byId(element.id));
 
-        ok(pklib.utils.array.isArray(__center), "Params are in array");
+        ok(pklib.array.isArray(__center), "Params are in array");
         strictEqual(__center.length, 2, "Two params");
     });
 
-    // pklib.utils.array.inArray
+    // pklib.array.inArray
     test("inArray", function() {
 
         var __array = [];
@@ -176,21 +176,20 @@ pklib.tests = function() {
 
         __array.push(element);
 
-        ok(pklib.utils.array.inArray(__array, element) !== false, "Element is in array");
-        strictEqual(pklib.utils.array.inArray(__array, element), 0, "Element is on first position in array");
+        ok(pklib.array.inArray(element, __array), "Element is in array");
     });
 
-    // pklib.utils.array.unique
+    // pklib.array.unique
     test("unique", function() {
 
         var __arrayRedundancy = [ 2, 3, 4, 2, 3, 4 ];
         var __array = [ 2, 3, 4 ];
-        var __temp = pklib.utils.array.unique(__arrayRedundancy);
+        var __temp = pklib.array.unique(__arrayRedundancy);
 
         deepEqual(__temp, __array, "Array with unique elements");
     });
 
-    // pklib.utils.array.remove
+    // pklib.array.remove
     test("remove", function() {
 
         var __array = [ 1 ];
@@ -201,22 +200,22 @@ pklib.tests = function() {
         __array.push(element);
         __array.push(element2);
 
-        pklib.utils.array.remove(__array, element);
-        pklib.utils.array.remove(__array, element2);
+        pklib.array.remove(__array, element);
+        pklib.array.remove(__array, element2);
 
         deepEqual(__array, __temp, "Elements in array removed");
     });
 
-    module("pklib.utils.event");
+    module("pklib.event");
 
-    // pklib.utils.event.add
+    // pklib.event.add
     test("add", function() {
 
         var element = document.createElement("a");
         document.body.appendChild(element);
 
         var type = "click";
-        var event = pklib.utils.event.add(element, type, function() {
+        var event = pklib.event.add(element, type, function() {
             alert(1);
         });
 
@@ -224,21 +223,21 @@ pklib.tests = function() {
         strictEqual(event.type, type, "Type event is: " + type);
     });
 
-    // pklib.utils.event.remove
+    // pklib.event.remove
     test("remove", function() {
 
         var element = document.createElement("a");
         document.body.appendChild(element);
 
         var type = "click";
-        var event = pklib.utils.event.add(element, type, function() {
+        var event = pklib.event.add(element, type, function() {
             alert(1);
         });
 
         strictEqual(event.constructor, Event, "Event is add");
         strictEqual(event.type, type, "Type event is: " + type);
 
-        var removed = pklib.utils.event.remove(element, type, function() {
+        var removed = pklib.event.remove(element, type, function() {
             alert(1);
         });
 
@@ -332,160 +331,160 @@ pklib.tests = function() {
         strictEqual(month, dateMonth, "Month is " + month);
     });
 
-    module("pklib.utils.string");
+    module("pklib.string");
 
-    // pklib.utils.string.isString
+    // pklib.string.isString
     test("isString", function() {
 
         var source = 45345;
-        notEqual(pklib.utils.string.isString(source), true, "Is not string");
+        notEqual(pklib.string.isString(source), true, "Is not string");
 
         source = "asdasd";
-        ok(pklib.utils.string.isString(source), "Is string");
+        ok(pklib.string.isString(source), "Is string");
 
         source = "as345345345dasd";
-        ok(pklib.utils.string.isString(source), "Is string");
+        ok(pklib.string.isString(source), "Is string");
 
         source = [];
-        notEqual(pklib.utils.string.isString(source), true, "Is not string");
+        notEqual(pklib.string.isString(source), true, "Is not string");
 
         source = {
             3 : 4
         };
-        notEqual(pklib.utils.string.isString(source), true, "Is not string");
+        notEqual(pklib.string.isString(source), true, "Is not string");
 
         source = [ "a" ];
-        notEqual(pklib.utils.string.isString(source), true, "Is not string");
+        notEqual(pklib.string.isString(source), true, "Is not string");
 
         source = function() {
             return this;
         };
-        notEqual(pklib.utils.string.isString(source), true, "Is not string");
+        notEqual(pklib.string.isString(source), true, "Is not string");
     });
 
-    // pklib.utils.string.isLetter
+    // pklib.string.isLetter
     test("isLetter", function() {
 
         var source = 45345;
-        notEqual(pklib.utils.string.isLetter(source), true, "Is not letter");
+        notEqual(pklib.string.isLetter(source), true, "Is not letter");
 
         source = "2";
-        notEqual(pklib.utils.string.isLetter(source), true, "Is not letter");
+        notEqual(pklib.string.isLetter(source), true, "Is not letter");
 
         source = "G";
-        strictEqual(pklib.utils.string.isLetter(source), true, "Is letter");
+        strictEqual(pklib.string.isLetter(source), true, "Is letter");
 
         source = 5;
-        notEqual(pklib.utils.string.isLetter(source), true, "Is not letter");
+        notEqual(pklib.string.isLetter(source), true, "Is not letter");
 
         source = [];
-        notEqual(pklib.utils.string.isLetter(source), true, "Is not letter");
+        notEqual(pklib.string.isLetter(source), true, "Is not letter");
 
         source = {
             3 : 4
         };
-        notEqual(pklib.utils.string.isLetter(source), true, "Is not letter");
+        notEqual(pklib.string.isLetter(source), true, "Is not letter");
 
         source = [ "a" ];
-        notEqual(pklib.utils.string.isLetter(source), true, "Is not letter");
+        notEqual(pklib.string.isLetter(source), true, "Is not letter");
 
         source = function() {
             return this;
         };
-        notEqual(pklib.utils.string.isLetter(source), true, "Is not letter");
+        notEqual(pklib.string.isLetter(source), true, "Is not letter");
     });
 
-    // pklib.utils.string.trim
+    // pklib.string.trim
     test("trim", function() {
 
         var result = "dog";
 
         var text = "" +
         		"dog   ";
-        strictEqual(pklib.utils.string.trim(text), result, "1) trim is good for: " + text);
+        strictEqual(pklib.string.trim(text), result, "1) trim is good for: " + text);
 
         text = "    dog ";
-        strictEqual(pklib.utils.string.trim(text), result, "2) trim is good for: " + text);
+        strictEqual(pklib.string.trim(text), result, "2) trim is good for: " + text);
 
         text = " dog ";
-        strictEqual(pklib.utils.string.trim(text), result, "3) trim is good for: " + text);
+        strictEqual(pklib.string.trim(text), result, "3) trim is good for: " + text);
 
         text = "dog";
-        strictEqual(pklib.utils.string.trim(text), result, "4) trim is good for: " + text);
+        strictEqual(pklib.string.trim(text), result, "4) trim is good for: " + text);
 
         text = " \ndog ";
-        strictEqual(pklib.utils.string.trim(text), result, "5) trim is good for: " + text);
+        strictEqual(pklib.string.trim(text), result, "5) trim is good for: " + text);
 
         text = " \tdog ";
-        strictEqual(pklib.utils.string.trim(text), result, "6) trim is good for: " + text);
+        strictEqual(pklib.string.trim(text), result, "6) trim is good for: " + text);
     });
 
-    // pklib.utils.string.slug
+    // pklib.string.slug
     test("slug", function() {
 
         var text = "Chrząszcz brzmię w Żółwiu";
         var result = "chrzaszcz-brzmie-w-zolwiu";
-        strictEqual(pklib.utils.string.slug(text), result, "Slug is good for: " + text);
+        strictEqual(pklib.string.slug(text), result, "Slug is good for: " + text);
 
         var text = "Ch?$%^?4564565rząszcz brzmię w +Żółwiu";
         var result = "ch4564565rzaszcz-brzmie-w-zolwiu";
-        strictEqual(pklib.utils.string.slug(text), result, "Slug is good for: " + text);
+        strictEqual(pklib.string.slug(text), result, "Slug is good for: " + text);
     });
 
-    // pklib.utils.string.capitalize
+    // pklib.string.capitalize
     test("capitalize", function() {
 
         var text = "dziewczYnka z zapaŁeczkami W doMku sobie Miaszkała ;)";
         var result = "Dziewczynka z zapałeczkami w domku sobie miaszkała ;)";
 
-        strictEqual(pklib.utils.string.capitalize(text), result, "Capitalize is good for: " + text);
+        strictEqual(pklib.string.capitalize(text), result, "Capitalize is good for: " + text);
 
         text = "test-test";
         result = "Test-test";
 
-        strictEqual(pklib.utils.string.capitalize(text), result, "Capitalize is good for: " + text);
+        strictEqual(pklib.string.capitalize(text), result, "Capitalize is good for: " + text);
     });
 
-    // pklib.utils.string.delimiterSeparatedWords
+    // pklib.string.delimiterSeparatedWords
     test("delimiterSeparatedWords", function() {
 
         var text = "dziewczYnkazzapaŁeczkamiWdoMkusFobieMiaszkała ;)";
         var result = "dziewcz-ynkazzapa-łeczkami-wdo-mkus-fobie-miaszkała ;)";
 
-        strictEqual(pklib.utils.string.delimiterSeparatedWords(text), result, "delimiterSeparatedWords is good for: " + text);
+        strictEqual(pklib.string.delimiterSeparatedWords(text), result, "delimiterSeparatedWords is good for: " + text);
 
         var text = "testTest";
         var result = "test-test";
 
-        strictEqual(pklib.utils.string.delimiterSeparatedWords(text), result, "delimiterSeparatedWords is good for: " + text);
+        strictEqual(pklib.string.delimiterSeparatedWords(text), result, "delimiterSeparatedWords is good for: " + text);
     });
 
-    // pklib.utils.string.camelCase
+    // pklib.string.camelCase
     test("camelCase", function() {
 
         var text = "Dziewczynka-z-zapa-łe-czkami-";
         var result = "DziewczynkaZZapaŁeCzkami";
 
-        strictEqual(pklib.utils.string.camelCase(text), result, "Camel case is good for: " + text);
+        strictEqual(pklib.string.camelCase(text), result, "Camel case is good for: " + text);
 
         text = "test-test";
         result = "testTest";
 
-        strictEqual(pklib.utils.string.camelCase(text), result, "Camel case is good for: " + text);
+        strictEqual(pklib.string.camelCase(text), result, "Camel case is good for: " + text);
     });
 
-    // pklib.utils.string.slice
+    // pklib.string.slice
     test("slice", function() {
 
         var text = "Ciechocinek";
         var result = "Cie...";
 
-        strictEqual(pklib.utils.string.slice(text, 3), result, "Slice is good for: " + text);
+        strictEqual(pklib.string.slice(text, 3), result, "Slice is good for: " + text);
 
         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra tincidunt semper.";
         result = "Lorem ipsum dolor si...";
 
-        strictEqual(pklib.utils.string.slice(text, 20), result, "Slice is good for: " + text);
+        strictEqual(pklib.string.slice(text, 20), result, "Slice is good for: " + text);
     });
 
     module("pklib.utils");
@@ -546,7 +545,7 @@ pklib.tests = function() {
     /** *********************************************************************** */
 
     // pklib.ajax
-    pklib.ajax({
+    pklib.ajax.load({
         "url" : "data/data.txt",
         "done" : function(txt) {
 
@@ -555,7 +554,7 @@ pklib.tests = function() {
             asyncTest("ajax(txt)", function() {
                 strictEqual(txt, "data txt ;-)", "Data.txt is contain good msg");
 
-                pklib.ajax({
+                pklib.ajax.load({
                     "url" : "data/data.json",
                     "done" : function(json) {
 
@@ -565,7 +564,7 @@ pklib.tests = function() {
                             json = eval("[" + json + "]")[0];
                             strictEqual(json.data, ":)", "Data.json is contain good msg");
 
-                            pklib.ajax({
+                            pklib.ajax.load({
                                 "url" : "data/data.xml",
                                 "done" : function(xml) {
 
@@ -889,4 +888,4 @@ pklib.tests = function() {
 
 };
 
-pklib.utils.event.add(window, "load", pklib.tests);
+pklib.event.add(window, "load", pklib.tests);

@@ -1,5 +1,5 @@
 /**
- * @package pklib.file
+ * @package file
  */
 pklib = this.pklib || {};
 pklib.file = (function() {
@@ -9,6 +9,9 @@ pklib.file = (function() {
     return {
 
         /**
+         * Lazy load scripts.
+         * Append script to HEAD section.
+         *
          * @param {string} src
          * @param {function} callback
          */
@@ -17,22 +20,19 @@ pklib.file = (function() {
             script.type = "text/javascript";
             script.src = src;
 
-            if (script.readyState) {
+            if(script.readyState) {
                 script.onreadystatechange = function() {
-                    if (script.readyState === "loaded" || script.readyState === "complete") {
-                        script.onreadystatechange = null;
-                        (typeof callback === "function") && callback(script);
+                    if(script.readyState === "loaded" || script.readyState === "complete") {
+                        script.onreadystatechange = null; ( typeof callback === "function") && callback(script);
                     }
                 };
             } else {
-                script.onload = function() {
-                    (typeof callback === "function") && callback(script);
+                script.onload = function() {( typeof callback === "function") && callback(script);
                 };
             }
 
             doc.head.appendChild(script);
         }
-
     };
 
 })();

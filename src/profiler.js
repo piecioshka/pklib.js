@@ -16,7 +16,6 @@ pklib.profiler = (function() {
             data[name] = new Date();
             return data[name];
         },
-
         /**
          * @param {string} name
          * @return {number}
@@ -25,7 +24,6 @@ pklib.profiler = (function() {
             data[name] = new Date() - data[name];
             return new Date((new Date()).getTime() + data[name]);
         },
-
         /**
          * @param {string} name
          * @return {number}
@@ -33,7 +31,6 @@ pklib.profiler = (function() {
         getTime : function(name) {
             return data[name];
         }
-
     };
 
 })();

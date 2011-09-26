@@ -1,23 +1,23 @@
 /**
- * @package pklib.message
- * @dependence pklib.utils
+ * @package message
+ * @dependence dom, event, utils
  */
 pklib = this.pklib || {};
 pklib.message = (function() {
 
-    var doc = document, 
-        id = "pklib-message-wrapper", 
-        contents = null, 
-        settings = {
-            contener : doc.body,
-            style : {
-                width : 300,
-                height : 300,
-                zIndex : 1010
-            }
-        };
+    var doc = document;
+    var id = "pklib-message-wrapper";
+    var contents = null;
+    var settings = {
+        container : doc.body,
+        style : {
+            width : 300,
+            height : 300,
+            zIndex : 1010
+        }
+    };
 
-    var __message = {
+    return {
         objId : id,
         content : contents,
         show : function(config, callback) {
@@ -27,46 +27,40 @@ pklib.message = (function() {
             var messageStyle = message.style;
 
             message.setAttribute("id", this.objId);
-            for ( var style in settings.style) {
-                if(settings.style.hasOwnProperty(style)){
+            for(var style in settings.style) {
+                if(settings.style.hasOwnProperty(style)) {
                     messageStyle[style] = settings.style[style];
                 }
             }
 
-            if (typeof this.content === "string") {
+            if( typeof this.content === "string") {
                 message.innerHTML = this.content;
-            } else if (typeof this.content === "object") {
+            } else if( typeof this.content === "object") {
                 message.appendChild(this.content);
             }
 
-            settings.contener.appendChild(message);
+            settings.container.appendChild(message);
 
-            pklib.utils.dom.center(message, settings.contener);
+            pklib.dom.center(message, settings.container);
 
-            pklib.utils.event.add(window, "resize", function() {
-                pklib.utils.dom.center(message, settings.contener);
-            });
-
-            (typeof callback === "function") && callback();
+            pklib.event.add(window, "resize", function() {
+                pklib.dom.center(message, settings.container);
+            }); ( typeof callback === "function") && callback();
 
             return message;
         },
         close : function(callback) {
-            var message = pklib.utils.dom.byId(this.objId);
+            var message = pklib.dom.byId(this.objId);
             var result = false;
 
-            if (message !== null) {
+            if(message !== null) {
                 message.parentNode.removeChild(message);
                 this.close(callback);
                 result = true;
-            }
-
-            (typeof callback === "function") && callback();
+            }( typeof callback === "function") && callback();
 
             return result;
         }
     };
-
-    return __message;
 
 })();
