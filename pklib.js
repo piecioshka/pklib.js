@@ -498,7 +498,7 @@ pklib.utils = (function() {
              * @return {string}
              */
             trim : function(source) {
-                return source.replace(/^\s+/, "").replace(/\s+$/, "");
+                return source.replace(/^\s+|\s+$/g, "");
             },
 
             /**
