@@ -96,7 +96,7 @@ pklib.json = (function() {
                 index++;
                 for(var item in object) {
                     if(object.hasOwnProperty(item)) {
-                        source += indent(index) + item + ": " + arguments.callee(object[item], index);
+                        source += indent(index) + '"' + item + '": ' + arguments.callee(object[item], index);
                         if(item !== __getLast(object)) {
                             source += ",\n";
                         }
