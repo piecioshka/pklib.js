@@ -2,6 +2,10 @@
  * @package array
  */
 pklib = this.pklib || {};
+
+/**
+ * Module to service array object.
+ */
 pklib.array = (function() {
 
     return {
@@ -20,6 +24,7 @@ pklib.array = (function() {
         isArray : function(obj) {
             return typeof obj === "object" && obj != null && typeof obj.length !== "undefined" && typeof obj.slice !== "undefined";
         },
+        
         /**
          * Check if element is in array by loop.
          * 
@@ -35,6 +40,7 @@ pklib.array = (function() {
             }
             return false;
         },
+        
         /**
          * Unique array. Delete element what was duplicated.
          * 
@@ -50,6 +56,7 @@ pklib.array = (function() {
             }
             return temp;
         },
+        
         /**
          * Remove element declarated in infinity params without first.
          * First parameter is array object.

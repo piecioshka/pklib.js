@@ -2,6 +2,10 @@
  * @package browser
  */
 pklib = this.pklib || {};
+
+/**
+ * Get best information about browser.
+ */
 pklib.browser = (function() {
 
     var browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
@@ -23,6 +27,7 @@ pklib.browser = (function() {
                 }
             }
         },
+        
         /**
          * Get browser version by checking userAgent.
          * Parse userAgent to find next 3 characters.

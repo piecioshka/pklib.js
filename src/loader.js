@@ -3,6 +3,11 @@
  * @dependence dom, event, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Loader adapter.
+ * Show animate image (GIF) on special place.
+ */
 pklib.loader = (function() {
 
     var doc = document;
@@ -53,6 +58,7 @@ pklib.loader = (function() {
             settings.container.appendChild(loader); ( typeof callback === "function") && callback();
             delete loader;
         },
+        
         /**
          * @param {function} callback
          */

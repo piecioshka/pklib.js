@@ -3,6 +3,10 @@
  * @dependence array, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Module to service asynchronous request.
+ */
 pklib.ajax = (function() {
 
     var client = null;

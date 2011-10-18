@@ -2,6 +2,10 @@
  * @package string
  */
 pklib = this.pklib || {};
+
+/**
+ * String service manager
+ */
 pklib.string = (function() {
     
     return {

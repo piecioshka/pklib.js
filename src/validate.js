@@ -3,6 +3,10 @@
  * @dependence array, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Validate module
+ */
 pklib.validate = (function() {
 
     return {
@@ -39,6 +43,7 @@ pklib.validate = (function() {
                 return false;
             }
         },
+        
         /**
          * @param {object} config
          * <pre>

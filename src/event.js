@@ -2,6 +2,10 @@
  * @package event
  */
 pklib = this.pklib || {};
+
+/**
+ * Helper about manage event on HTMLElement.
+ */
 pklib.event = (function() {
 
     var doc = document;
@@ -33,6 +37,7 @@ pklib.event = (function() {
             }
             return evt;
         },
+        
         /**
          * @param {HTMLElement} target
          * @param {string} eventType

@@ -2,6 +2,10 @@
  * @package cookie
  */
 pklib = this.pklib || {};
+
+/**
+ * Cookie service manager.
+ */
 pklib.cookie = (function() {
 
     var doc = document;
@@ -30,6 +34,7 @@ pklib.cookie = (function() {
 
             return this.read(name);
         },
+        
         /**
          * Read cookie by it name.
          *
@@ -53,6 +58,7 @@ pklib.cookie = (function() {
                 }
             }
         },
+        
         /**
          * Delete cookie by it name.
          *

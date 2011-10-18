@@ -18,7 +18,6 @@ Function.prototype.bind = Function.prototype.bind || function(oThis) {
     fBound.prototype = new fNOP();
 
     return fBound;
-
 };
 
 Function.prototype.addMethod = function(name, func) {

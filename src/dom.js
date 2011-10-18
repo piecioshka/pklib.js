@@ -3,9 +3,22 @@
  * @dependence browser, css, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Helper related with DOM service.
+ */
 pklib.dom = (function() {
 
     var doc = document;
+    
+    var walk_the_dom = function(node, func) {
+        func(node);
+        node = node.firstChild;
+        while(node) {
+            walk_the_dom(node, func);
+            node = node.nextSibling;
+        }
+    };
 
     return {
 
@@ -31,6 +44,7 @@ pklib.dom = (function() {
         isNode : function(element) {
             return element && this.nodeTypes[element.nodeType] || null;
         },
+        
         /**
          * @param {string} id
          * @param {HTMLElement} area
@@ -40,6 +54,7 @@ pklib.dom = (function() {
             area = area || doc;
             return area.getElementById(id);
         },
+        
         /**
          * @param {string} tag
          * @param {HTMLElement} area
@@ -49,6 +64,7 @@ pklib.dom = (function() {
             area = area || doc;
             return area.getElementsByTagName(tag);
         },
+        
         /**
          * @param {string} cssClass
          * @param {HTMLElement} area
@@ -68,6 +84,7 @@ pklib.dom = (function() {
                 return results;
             }
         },
+        
         /**
          * @param {HTMLElement} element
          * @return {null or number}
@@ -83,6 +100,7 @@ pklib.dom = (function() {
             }
             return null;
         },
+        
         /**
          * @param {HTMLElement} element
          * @return {array}
@@ -95,6 +113,7 @@ pklib.dom = (function() {
             }
             return arr;
         },
+        
         /**
          * @param {HTMLElement} element
          * @param {HTMLElement} area
@@ -114,6 +133,7 @@ pklib.dom = (function() {
             element.style.position = "absolute";
             return [left, top];
         },
+        
         /**
          * @param {HTMLElement} element
          * @param {HTMLElement} container

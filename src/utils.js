@@ -3,18 +3,14 @@
  * @dependence array, browser, dom, event, string
  */
 pklib = this.pklib || {};
+
+/**
+ * Utils tools
+ */
 pklib.utils = (function() {
 
     var doc = document;
 
-    var walk_the_dom = function(node, func) {
-        func(node);
-        node = node.firstChild;
-        while(node) {
-            walk_the_dom(node, func);
-            node = node.nextSibling;
-        }
-    };
     return {
 
         size : {
@@ -32,6 +28,7 @@ pklib.utils = (function() {
                 var clientName = win.document.documentElement["client" + name];
                 return win.document.compatMode === "CSS1Compat" && clientName || win.document.body["client" + name] || clientName;
             },
+            
             /**
              * @param {string} name
              * @return {number}
@@ -48,6 +45,7 @@ pklib.utils = (function() {
                 var offsetName = doc.documentElement["offset" + name];
                 return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
             },
+            
             /**
              * @param {HTMLElement} obj
              * @param {string} name
@@ -102,6 +100,7 @@ pklib.utils = (function() {
                     });
                 }
             },
+            
             /**
              * @param {HTMLElement} area
              */
@@ -118,6 +117,7 @@ pklib.utils = (function() {
                     }
                 }
             },
+            
             /**
              * @param {HTMLElement} element
              * @param {string} text
@@ -155,6 +155,7 @@ pklib.utils = (function() {
                 doc.body.scrollTop = param;
             }
         },
+        
         /**
          * @param {array or object} target
          * @param {array or object} source

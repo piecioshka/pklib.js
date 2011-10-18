@@ -3,6 +3,11 @@
  * @dependence browser, dom, event, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Glass Adapter.
+ * Show this on dimensions on browser. 
+ */
 pklib.glass = (function() {
 
     var doc = document;
@@ -58,6 +63,7 @@ pklib.glass = (function() {
 
             return glass;
         },
+        
         /**
          * @param {function} callback
          * @return {boolean}

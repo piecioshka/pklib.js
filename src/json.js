@@ -2,6 +2,10 @@
  * @package json
  */
 pklib = this.pklib || {};
+
+/**
+ * JSON manager
+ */
 pklib.json = (function() {
 
     return {
@@ -108,6 +112,7 @@ pklib.json = (function() {
 
             return source;
         },
+        
         /**
          * @param {object} object
          * @param {boolean} toJson

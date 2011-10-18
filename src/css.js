@@ -2,6 +2,10 @@
  * @package css
  */
 pklib = this.pklib || {};
+
+/**
+ * Utils method related css on tags in DOM tree.
+ */
 pklib.css = (function() {
 
     return {
@@ -26,6 +30,7 @@ pklib.css = (function() {
             }
             element.className = classElement;
         },
+        
         /**
          * Remove CSS class from element define in second parameter.
          *
@@ -39,6 +44,7 @@ pklib.css = (function() {
             var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
             element.className = element.className.replace(regexp, "");
         },
+        
         /**
          * Check if element has CSS class
          * 

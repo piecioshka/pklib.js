@@ -3,6 +3,10 @@
  * @dependence dom, event, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Show layer on special place.
+ */
 pklib.message = (function() {
 
     var doc = document;
@@ -49,6 +53,7 @@ pklib.message = (function() {
 
             return message;
         },
+        
         close : function(callback) {
             var message = pklib.dom.byId(this.objId);
             var result = false;

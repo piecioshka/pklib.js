@@ -2,6 +2,10 @@
  * @package file
  */
 pklib = this.pklib || {};
+
+/**
+ * File manager
+ */
 pklib.file = (function() {
 
     var doc = document;
