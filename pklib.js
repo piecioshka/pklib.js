@@ -22,6 +22,10 @@ pklib = this.pklib || {
  * @dependence array, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Module to service asynchronous request.
+ */
 pklib.ajax = (function() {
 
     var client = null;
@@ -107,6 +111,10 @@ pklib.ajax = (function() {
  * @package array
  */
 pklib = this.pklib || {};
+
+/**
+ * Module to service array object.
+ */
 pklib.array = (function() {
 
     return {
@@ -125,6 +133,7 @@ pklib.array = (function() {
         isArray : function(obj) {
             return typeof obj === "object" && obj != null && typeof obj.length !== "undefined" && typeof obj.slice !== "undefined";
         },
+        
         /**
          * Check if element is in array by loop.
          * 
@@ -140,6 +149,7 @@ pklib.array = (function() {
             }
             return false;
         },
+        
         /**
          * Unique array. Delete element what was duplicated.
          * 
@@ -155,6 +165,7 @@ pklib.array = (function() {
             }
             return temp;
         },
+        
         /**
          * Remove element declarated in infinity params without first.
          * First parameter is array object.
@@ -206,6 +217,10 @@ pklib.aspect = function(fun, asp) {
  * @package browser
  */
 pklib = this.pklib || {};
+
+/**
+ * Get best information about browser.
+ */
 pklib.browser = (function() {
 
     var browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
@@ -227,6 +242,7 @@ pklib.browser = (function() {
                 }
             }
         },
+        
         /**
          * Get browser version by checking userAgent.
          * Parse userAgent to find next 3 characters.
@@ -253,6 +269,10 @@ pklib.browser = (function() {
  * @package cookie
  */
 pklib = this.pklib || {};
+
+/**
+ * Cookie service manager.
+ */
 pklib.cookie = (function() {
 
     var doc = document;
@@ -281,6 +301,7 @@ pklib.cookie = (function() {
 
             return this.read(name);
         },
+        
         /**
          * Read cookie by it name.
          *
@@ -304,6 +325,7 @@ pklib.cookie = (function() {
                 }
             }
         },
+        
         /**
          * Delete cookie by it name.
          *
@@ -321,6 +343,10 @@ pklib.cookie = (function() {
  * @package css
  */
 pklib = this.pklib || {};
+
+/**
+ * Utils method related css on tags in DOM tree.
+ */
 pklib.css = (function() {
 
     return {
@@ -345,6 +371,7 @@ pklib.css = (function() {
             }
             element.className = classElement;
         },
+        
         /**
          * Remove CSS class from element define in second parameter.
          *
@@ -358,6 +385,7 @@ pklib.css = (function() {
             var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
             element.className = element.className.replace(regexp, "");
         },
+        
         /**
          * Check if element has CSS class
          * 
@@ -381,9 +409,22 @@ pklib.css = (function() {
  * @dependence browser, css, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Helper related with DOM service.
+ */
 pklib.dom = (function() {
 
     var doc = document;
+    
+    var walk_the_dom = function(node, func) {
+        func(node);
+        node = node.firstChild;
+        while(node) {
+            walk_the_dom(node, func);
+            node = node.nextSibling;
+        }
+    };
 
     return {
 
@@ -409,6 +450,7 @@ pklib.dom = (function() {
         isNode : function(element) {
             return element && this.nodeTypes[element.nodeType] || null;
         },
+        
         /**
          * @param {string} id
          * @param {HTMLElement} area
@@ -418,6 +460,7 @@ pklib.dom = (function() {
             area = area || doc;
             return area.getElementById(id);
         },
+        
         /**
          * @param {string} tag
          * @param {HTMLElement} area
@@ -427,6 +470,7 @@ pklib.dom = (function() {
             area = area || doc;
             return area.getElementsByTagName(tag);
         },
+        
         /**
          * @param {string} cssClass
          * @param {HTMLElement} area
@@ -446,6 +490,7 @@ pklib.dom = (function() {
                 return results;
             }
         },
+        
         /**
          * @param {HTMLElement} element
          * @return {null or number}
@@ -461,6 +506,7 @@ pklib.dom = (function() {
             }
             return null;
         },
+        
         /**
          * @param {HTMLElement} element
          * @return {array}
@@ -473,6 +519,7 @@ pklib.dom = (function() {
             }
             return arr;
         },
+        
         /**
          * @param {HTMLElement} element
          * @param {HTMLElement} area
@@ -492,6 +539,7 @@ pklib.dom = (function() {
             element.style.position = "absolute";
             return [left, top];
         },
+        
         /**
          * @param {HTMLElement} element
          * @param {HTMLElement} container
@@ -521,6 +569,10 @@ pklib.dom = (function() {
  * @package event
  */
 pklib = this.pklib || {};
+
+/**
+ * Helper about manage event on HTMLElement.
+ */
 pklib.event = (function() {
 
     var doc = document;
@@ -542,16 +594,8 @@ pklib.event = (function() {
             } else if(target.addEventListener) {
                 target.addEventListener(eventType, callback, bubbles);
             }
-            
-            var evt = null;
-            try {
-                evt = doc.createEvent("Event");
-                evt.initEvent(eventType, bubbles, true);
-            } catch(e) {
-                evt = new Event();
-            }
-            return evt;
         },
+        
         /**
          * @param {HTMLElement} target
          * @param {string} eventType
@@ -582,6 +626,10 @@ pklib.event = (function() {
  * @package file
  */
 pklib = this.pklib || {};
+
+/**
+ * File manager
+ */
 pklib.file = (function() {
 
     var doc = document;
@@ -622,6 +670,11 @@ pklib.file = (function() {
  * @dependence browser, dom, event, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Glass Adapter.
+ * Show this on dimensions on browser. 
+ */
 pklib.glass = (function() {
 
     var doc = document;
@@ -677,6 +730,7 @@ pklib.glass = (function() {
 
             return glass;
         },
+        
         /**
          * @param {function} callback
          * @return {boolean}
@@ -700,6 +754,10 @@ pklib.glass = (function() {
  * @package json
  */
 pklib = this.pklib || {};
+
+/**
+ * JSON manager
+ */
 pklib.json = (function() {
 
     return {
@@ -806,6 +864,7 @@ pklib.json = (function() {
 
             return source;
         },
+        
         /**
          * @param {object} object
          * @param {boolean} toJson
@@ -847,6 +906,11 @@ pklib.json = (function() {
  * @dependence dom, event, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Loader adapter.
+ * Show animate image (GIF) on special place.
+ */
 pklib.loader = (function() {
 
     var doc = document;
@@ -897,6 +961,7 @@ pklib.loader = (function() {
             settings.container.appendChild(loader); ( typeof callback === "function") && callback();
             delete loader;
         },
+        
         /**
          * @param {function} callback
          */
@@ -920,6 +985,10 @@ pklib.loader = (function() {
  * @dependence dom, event, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Show layer on special place.
+ */
 pklib.message = (function() {
 
     var doc = document;
@@ -966,6 +1035,7 @@ pklib.message = (function() {
 
             return message;
         },
+        
         close : function(callback) {
             var message = pklib.dom.byId(this.objId);
             var result = false;
@@ -986,6 +1056,10 @@ pklib.message = (function() {
  * @package pklib.profiler
  */
 pklib = this.pklib || {};
+
+/**
+ * Time analyzer
+ */
 pklib.profiler = (function() {
 
     var data = {};
@@ -1000,6 +1074,7 @@ pklib.profiler = (function() {
             data[name] = new Date();
             return data[name];
         },
+        
         /**
          * @param {string} name
          * @return {number}
@@ -1008,6 +1083,7 @@ pklib.profiler = (function() {
             data[name] = new Date() - data[name];
             return new Date((new Date()).getTime() + data[name]);
         },
+        
         /**
          * @param {string} name
          * @return {number}
@@ -1039,7 +1115,6 @@ Function.prototype.bind = Function.prototype.bind || function(oThis) {
     fBound.prototype = new fNOP();
 
     return fBound;
-
 };
 
 Function.prototype.addMethod = function(name, func) {
@@ -1051,6 +1126,10 @@ Function.prototype.addMethod = function(name, func) {
  * @package string
  */
 pklib = this.pklib || {};
+
+/**
+ * String service manager
+ */
 pklib.string = (function() {
     
     return {
@@ -1173,18 +1252,14 @@ pklib.string = (function() {
  * @dependence array, browser, dom, event, string
  */
 pklib = this.pklib || {};
+
+/**
+ * Utils tools
+ */
 pklib.utils = (function() {
 
     var doc = document;
 
-    var walk_the_dom = function(node, func) {
-        func(node);
-        node = node.firstChild;
-        while(node) {
-            walk_the_dom(node, func);
-            node = node.nextSibling;
-        }
-    };
     return {
 
         size : {
@@ -1202,6 +1277,7 @@ pklib.utils = (function() {
                 var clientName = win.document.documentElement["client" + name];
                 return win.document.compatMode === "CSS1Compat" && clientName || win.document.body["client" + name] || clientName;
             },
+            
             /**
              * @param {string} name
              * @return {number}
@@ -1218,6 +1294,7 @@ pklib.utils = (function() {
                 var offsetName = doc.documentElement["offset" + name];
                 return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
             },
+            
             /**
              * @param {HTMLElement} obj
              * @param {string} name
@@ -1272,6 +1349,7 @@ pklib.utils = (function() {
                     });
                 }
             },
+            
             /**
              * @param {HTMLElement} area
              */
@@ -1288,6 +1366,7 @@ pklib.utils = (function() {
                     }
                 }
             },
+            
             /**
              * @param {HTMLElement} element
              * @param {string} text
@@ -1325,6 +1404,7 @@ pklib.utils = (function() {
                 doc.body.scrollTop = param;
             }
         },
+        
         /**
          * @param {array or object} target
          * @param {array or object} source
@@ -1357,6 +1437,10 @@ pklib.utils = (function() {
  * @dependence array, utils
  */
 pklib = this.pklib || {};
+
+/**
+ * Validate module
+ */
 pklib.validate = (function() {
 
     return {
@@ -1393,6 +1477,7 @@ pklib.validate = (function() {
                 return false;
             }
         },
+        
         /**
          * @param {object} config
          * <pre>

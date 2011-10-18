@@ -27,15 +27,6 @@ pklib.event = (function() {
             } else if(target.addEventListener) {
                 target.addEventListener(eventType, callback, bubbles);
             }
-            
-            var evt = null;
-            try {
-                evt = doc.createEvent("Event");
-                evt.initEvent(eventType, bubbles, true);
-            } catch(e) {
-                evt = new Event();
-            }
-            return evt;
         },
         
         /**
