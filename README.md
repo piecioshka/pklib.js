@@ -1,16 +1,13 @@
-pklib - darmowa biblioteka JavaScript
-=====================================
+# pklib - darmowa biblioteka JavaScript
 
-Opis
------
+## opis
 
 **pklib** jest wynikiem ciągłego używania z tych samych wzorców w sieci web, 
 z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach. 
 Źródła biblioteki są w całości na Git'cie, korzystając z usługi [GitHub.com](http://www.github.com "GitHub").<br />
 Biblioteka jest rozwijana z podziałem na moduły, np. moduł **pklib.profiler** ma swoje źródła w pliku profiler.js w katalogu "src"
 
-Wersje
------------------
+## wersje
 
 Wersję release'ów bibilioteki są iterowane w następujący sposób:
 
@@ -20,8 +17,7 @@ Wersję release'ów bibilioteki są iterowane w następujący sposób:
 
 Do *core* biblioteki zostały napisane unit testy w [QUnit](http://docs.jquery.com/Qunit "QUnit")
 
-Budowa biblioteki
------------------
+## budowa biblioteki
 
 Każda wersja posiada własny tag w gałęzi projektu. Dla poprawy pracy nad biblioteką został napisany skrypt w bashu,
 który ma za zadanie generować kod całej biblioteki z aktualnego katalogu w jeden duży plik. 
@@ -29,11 +25,10 @@ Każdy tag ma w swoich żródłach juz wygenerowany plik z kodem źródłowym bi
 wygenerowanie biblioteki z aktualnych źródeł dostępnych w branch'ach plik **Makefile**, bo o nim mowa,
 znajduje swoje praktyczne zastosowanie.
 
-`piecioshka:~/library/pklib$ ./Makefile`
+`piecioshka:~/lib/pklib$ ./Makefile`
 
 
-Opis modułów prezentacyjnych
-----------------------------
+## opis modułów prezentacyjnych
 
 * **pklib.loader** - obsługa loadera, który jest dodawanym do drzewa DOM elementem o określonych parametrach.
 Wymiary obrazka jak i link do obrazka jest łatwo konfigurowalny.
@@ -49,15 +44,13 @@ layera, tj. usunięcie z widoku warstwy reprezentującej komunikat dla użytkown
 Dzięki przroczystości otrzymamy efekt dezaktywacji strony. 
 Layer służy do wyłączenia częśći bądź całęj strony aby przykładowo wyświetlić komunikat.
 
-Szczegóły
----------
+## szczegóły
 
 Autor: **Piotr Kowalski** ( [http://piecioshka.pl/](http://piecioshka.pl/ "homepage") ) <br />
 Licencja: **GPL 3.0 License** ( [http://pklib.com/license](http://pklib.com/license "pklib license") ) 
 
 
-Przykładowy kod
----------------
+## przykład
 
 ```js
 pklib.file.load("pklib.message.js", function(file){
