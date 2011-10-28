@@ -6,7 +6,7 @@ pklib = this.pklib || {};
 /**
  * Helper about manage event on HTMLElement.
  */
-pklib.event = (function() {
+pklib.event = (function () {
 
     var doc = document;
 
@@ -19,12 +19,12 @@ pklib.event = (function() {
          * @param {boolean} bubbles
          * @return {Event}
          */
-        add : function(target, eventType, callback, bubbles) {
+        add: function (target, eventType, callback, bubbles) {
             bubbles = bubbles || false;
 
-            if(target.attachEvent) {
+            if (target.attachEvent) {
                 target.attachEvent("on" + eventType, callback);
-            } else if(target.addEventListener) {
+            } else if (target.addEventListener) {
                 target.addEventListener(eventType, callback, bubbles);
             }
         },
@@ -36,14 +36,14 @@ pklib.event = (function() {
          * @param {boolean} bubbles
          * @return {boolean}
          */
-        remove : function(target, eventType, callback, bubbles) {
-            if(target.detachEvent) {
-                this.remove = function(target, eventType, callback) {
+        remove: function (target, eventType, callback, bubbles) {
+            if (target.detachEvent) {
+                this.remove = function (target, eventType, callback) {
                     target.detachEvent("on" + eventType, callback);
                     return true;
                 };
-            } else if(target.removeEventListener) {
-                this.remove = function(target, eventType, callback, bubbles) {
+            } else if (target.removeEventListener) {
+                this.remove = function (target, eventType, callback, bubbles) {
                     bubbles = bubbles || false;
                     target.removeEventListener(eventType, callback, bubbles);
                     return true;

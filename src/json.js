@@ -6,7 +6,7 @@ pklib = this.pklib || {};
 /**
  * JSON manager
  */
-pklib.json = (function() {
+pklib.json = (function () {
 
     return {
 
@@ -15,7 +15,7 @@ pklib.json = (function() {
          * @param {number} ind
          * @return {string}
          */
-        stringify : function(object, ind) {
+        stringify: function (object, ind) {
             var source = "", type = "", index = ind || 0;
 
             function indent(len) {
@@ -26,37 +26,37 @@ pklib.json = (function() {
             }
 
             // Undefined
-            if( typeof object === "undefined") {
+            if ( typeof object === "undefined") {
                 type = undefined;
                 return type;
             } else
 
             // Null
-            if(object == null) {
+            if (object == null) {
                 type = null;
                 return type;
             } else
 
             // Boolean
-            if( typeof object === "boolean") {
+            if ( typeof object === "boolean") {
                 type = "boolean";
                 return object;
             } else
 
             // Number
-            if( typeof object === "number") {
+            if ( typeof object === "number") {
                 type = "number";
                 return object;
             } else
 
             // String
-            if( typeof object === "string") {
+            if ( typeof object === "string") {
                 type = "string";
                 return '"' + object + '"';
             } else
 
             // Function
-            if( typeof object === "function") {
+            if ( typeof object === "function") {
                 type = "function";
 
                 function __getName(fun) {
@@ -69,16 +69,16 @@ pklib.json = (function() {
             } else
 
             // Array
-            if( typeof object === "object" && typeof object.slice === "function") {
+            if ( typeof object === "object" && typeof object.slice === "function") {
                 type = "array";
-                if(object.length === 0) {
+                if (object.length === 0) {
                     return "[]";
                 }
                 source = "[\n" + indent(index);
                 index++;
                 for(var i = 0, len = object.length; i < len; ++i) {
                     source += indent(index) + arguments.callee(object[i], index);
-                    if(i !== len - 1) {
+                    if (i !== len - 1) {
                         source += ",\n";
                     }
                 }
@@ -87,7 +87,7 @@ pklib.json = (function() {
             } else
 
             // Object
-            if( typeof object === "object") {
+            if ( typeof object === "object") {
                 type = "object";
 
                 function __getLast(object) {
@@ -99,9 +99,9 @@ pklib.json = (function() {
                 source = "{\n";
                 index++;
                 for(var item in object) {
-                    if(object.hasOwnProperty(item)) {
+                    if (object.hasOwnProperty(item)) {
                         source += indent(index) + '"' + item + '": ' + arguments.callee(object[item], index);
-                        if(item !== __getLast(object)) {
+                        if (item !== __getLast(object)) {
                             source += ",\n";
                         }
                     }
@@ -118,24 +118,24 @@ pklib.json = (function() {
          * @param {boolean} toJson
          * @returns {string}
          */
-        serialize : function(source, toJson) {
-            if( typeof source !== "object" || source == null) {
+        serialize: function (source, toJson) {
+            if ( typeof source !== "object" || source == null) {
                 throw new TypeError("pklib.json.serialize: Source is null or not object");
             }
 
             var amp = false, response = ''; (toJson) && (response += "{");
 
             for(var item in source) {
-                if(source.hasOwnProperty(item)) {(amp) ? response += toJson ? ',' : '&' : ( amp = true);
+                if (source.hasOwnProperty(item)) {(amp) ? response += toJson ? ',': '&': ( amp = true);
 
                     var value = '';
-                    if( typeof source[item] !== "undefined" && source[item] !== null) {
+                    if ( typeof source[item] !== "undefined" && source[item] !== null) {
                         value = source[item];
                     }
 
-                    var mtz = toJson ? '"' : '';
+                    var mtz = toJson ? '"': '';
                     response += item;
-                    response += toJson ? ':' : '=';
+                    response += toJson ? ':': '=';
                     response += mtz;
                     response += value + mtz;
                 }

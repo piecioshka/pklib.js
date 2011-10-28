@@ -6,7 +6,7 @@ pklib = this.pklib || {};
 /**
  * Get best information about browser.
  */
-pklib.browser = (function() {
+pklib.browser = (function () {
 
     var browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 
@@ -17,12 +17,12 @@ pklib.browser = (function() {
          *
          * @return {string}
          */
-        getName : function() {
+        getName: function () {
             var userAgent = navigator.userAgent.toLowerCase();
 
             for(var i = 0, len = browsers.length; i < len; ++i) {
                 var browser = browsers[i];
-                if(new RegExp(browser).test(userAgent)) {
+                if (new RegExp(browser).test(userAgent)) {
                     return browser;
                 }
             }
@@ -34,14 +34,14 @@ pklib.browser = (function() {
          *
          * @return {string}
          */
-        getVersion : function() {
+        getVersion: function () {
             var userAgent = navigator.userAgent.toLowerCase();
 
             for(var i = 0, len = browsers.length; i < len; ++i) {
                 var browser = browsers[i];
                 var cur = userAgent.indexOf(browser);
 
-                if(cur != -1) {
+                if (cur != -1) {
                     return userAgent.substr(cur + len + 1, 3);
                 }
             }

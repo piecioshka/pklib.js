@@ -1,17 +1,17 @@
 /**
  * @package prototypes
  */
-Function.prototype.bind = Function.prototype.bind || function(oThis) {
+Function.prototype.bind = Function.prototype.bind || function (oThis) {
 
     if (typeof this !== "function") {
         throw new TypeError("Function.prototype.bind - what is trying to be fBound is not callable");
     }
 
-    var aArgs = Array.prototype.slice.call(arguments, 1), fToBind = this, fNOP = function() {
-    }, fBound = function() {
+    var aArgs = Array.prototype.slice.call(arguments, 1), fToBind = this, fNOP = function () {
+    }, fBound = function () {
         return fToBind.apply(this instanceof fNOP 
             ? this 
-            : oThis || window, aArgs.concat(Array.prototype.slice.call(arguments)));
+           : oThis || window, aArgs.concat(Array.prototype.slice.call(arguments)));
     };
 
     fNOP.prototype = this.prototype;
@@ -20,7 +20,7 @@ Function.prototype.bind = Function.prototype.bind || function(oThis) {
     return fBound;
 };
 
-Function.prototype.addMethod = function(name, func) {
+Function.prototype.addMethod = function (name, func) {
     this.prototype[name] = func;
     return this;
 };

@@ -6,7 +6,7 @@ pklib = this.pklib || {};
 /**
  * String service manager
  */
-pklib.string = (function() {
+pklib.string = (function () {
     
     return {
     
@@ -14,7 +14,7 @@ pklib.string = (function() {
          * @param {any Object} source
          * @return {boolean}
          */
-        isString : function(source) {
+        isString: function (source) {
             return typeof source === "string";
         },
     
@@ -22,7 +22,7 @@ pklib.string = (function() {
          * @param {any Object} source
          * @return {boolean}
          */
-        isLetter : function(source) {
+        isLetter: function (source) {
             return typeof source === "string" && /^[a-zA-Z]$/.test(source);
         },
     
@@ -30,7 +30,7 @@ pklib.string = (function() {
          * @param {string} source
          * @return {string}
          */
-        trim : function(source) {
+        trim: function (source) {
             return source.replace(/^\s+|\s+$/g, "");
         },
     
@@ -38,9 +38,9 @@ pklib.string = (function() {
          * @param {string} source
          * @return {string}
          */
-        slug : function(source) {
+        slug: function (source) {
             var result = source.toLowerCase().replace(/\s/mg, "-");
-            result = result.replace(/[^a-zA-Z0-9\-]/mg, function(ch) {
+            result = result.replace(/[^a-zA-Z0-9\-]/mg, function (ch) {
                 switch (ch.charCodeAt()) {
                     case 261:
                         return String.fromCharCode(97);
@@ -71,7 +71,7 @@ pklib.string = (function() {
          * @param {string} source
          * @return {string}
          */
-        capitalize : function(source) {
+        capitalize: function (source) {
             return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
         },
     
@@ -79,8 +79,8 @@ pklib.string = (function() {
          * @param {string} source
          * @return {string}
          */
-        delimiterSeparatedWords : function(source) {
-            return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function(match) {
+        delimiterSeparatedWords: function (source) {
+            return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function (match) {
                 return "-" + match.toLowerCase();
             });
         },
@@ -89,7 +89,7 @@ pklib.string = (function() {
          * @param {string} source
          * @return {string}
          */
-        camelCase : function(source) {
+        camelCase: function (source) {
             while (source.indexOf("-") != -1) {
                 var pos = source.indexOf("-");
                 var pre = source.substr(0, pos);
@@ -105,7 +105,7 @@ pklib.string = (function() {
          * @param {number} len
          * @return {string}
          */
-        slice : function(source, len) {
+        slice: function (source, len) {
             for ( var item = 0, text = "", num = source.length; item < num; ++item) {
                 text += source[item];
                 if (item == len - 1) {

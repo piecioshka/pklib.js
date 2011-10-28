@@ -7,24 +7,24 @@ pklib = this.pklib || {};
 /**
  * Show layer on special place.
  */
-pklib.message = (function() {
+pklib.message = (function () {
 
     var doc = document;
     var id = "pklib-message-wrapper";
     var contents = null;
     var settings = {
-        container : doc.body,
-        style : {
-            width : 300,
-            height : 300,
-            zIndex : 1010
+        container: doc.body,
+        style: {
+            width: 300,
+            height: 300,
+            zIndex: 1010
         }
     };
 
     return {
-        objId : id,
-        content : contents,
-        show : function(config, callback) {
+        objId: id,
+        content: contents,
+        show: function (config, callback) {
             settings = pklib.utils.merge(settings, config);
 
             var message = doc.createElement("div");
@@ -32,14 +32,14 @@ pklib.message = (function() {
 
             message.setAttribute("id", this.objId);
             for(var style in settings.style) {
-                if(settings.style.hasOwnProperty(style)) {
+                if (settings.style.hasOwnProperty(style)) {
                     messageStyle[style] = settings.style[style];
                 }
             }
 
-            if( typeof this.content === "string") {
+            if ( typeof this.content === "string") {
                 message.innerHTML = this.content;
-            } else if( typeof this.content === "object") {
+            } else if ( typeof this.content === "object") {
                 message.appendChild(this.content);
             }
 
@@ -47,18 +47,18 @@ pklib.message = (function() {
 
             pklib.dom.center(message, settings.container);
 
-            pklib.event.add(window, "resize", function() {
+            pklib.event.add(window, "resize", function () {
                 pklib.dom.center(message, settings.container);
             }); ( typeof callback === "function") && callback();
 
             return message;
         },
         
-        close : function(callback) {
+        close: function (callback) {
             var message = pklib.dom.byId(this.objId);
             var result = false;
 
-            if(message !== null) {
+            if (message !== null) {
                 message.parentNode.removeChild(message);
                 this.close(callback);
                 result = true;

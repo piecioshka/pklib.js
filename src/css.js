@@ -6,7 +6,7 @@ pklib = this.pklib || {};
 /**
  * Utils method related css on tags in DOM tree.
  */
-pklib.css = (function() {
+pklib.css = (function () {
 
     return {
 
@@ -16,13 +16,13 @@ pklib.css = (function() {
          * @param {HTMLElement} element
          * @param {string} cssClass
          */
-        addClass : function(cssClass, element) {
-            if( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+        addClass: function (cssClass, element) {
+            if ( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.addClass: Element is undefined/null or cssClass is undefined");
             }
             var classElement = element.className;
-            if(!this.hasClass(cssClass, element)) {
-                if(classElement.length) {
+            if (!this.hasClass(cssClass, element)) {
+                if (classElement.length) {
                     classElement += " " + cssClass;
                 } else {
                     classElement = cssClass;
@@ -37,8 +37,8 @@ pklib.css = (function() {
          * @param {HTMLElement} element
          * @param {string} cssClass
          */
-        removeClass : function(cssClass, element) {
-            if( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+        removeClass: function (cssClass, element) {
+            if ( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.removeClass: Element is undefined/null or cssClass is undefined");
             }
             var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
@@ -52,8 +52,8 @@ pklib.css = (function() {
          * @param {string} cssClass
          * @return {boolean}
          */
-        hasClass : function(cssClass, element) {
-            if( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+        hasClass: function (cssClass, element) {
+            if ( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.hasClass: Element is undefined/null or cssClass is undefined");
             }
             var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");

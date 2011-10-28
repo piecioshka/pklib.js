@@ -7,7 +7,7 @@ pklib = this.pklib || {};
 /**
  * Validate module
  */
-pklib.validate = (function() {
+pklib.validate = (function () {
 
     return {
 
@@ -15,10 +15,10 @@ pklib.validate = (function() {
          * @param {object} object
          * @return {boolean}
          */
-        empty : function(object) {
-            if(object == null) {
+        empty: function (object) {
+            if (object == null) {
                 return true;
-            } else if(pklib.array.isArray(object)) {
+            } else if (pklib.array.isArray(object)) {
                 return (object.length === 0);
             } else {
                 switch (typeof object) {
@@ -31,7 +31,7 @@ pklib.validate = (function() {
                     case "object":
                         var iterator = 0;
                         for(var item in object) {
-                            if(object.hasOwnProperty(item)) {
+                            if (object.hasOwnProperty(item)) {
                                 iterator++;
                             }
                         }
@@ -58,26 +58,26 @@ pklib.validate = (function() {
          *
          * @return {function}
          */
-        regexp : function(config) {
+        regexp: function (config) {
             var settings = {
-                object : null,
-                regexp : null,
-                error : function() {
+                object: null,
+                regexp: null,
+                error: function () {
                 },
-                success : function() {
+                success: function () {
                 }
             };
             settings = pklib.utils.merge(settings, config);
 
-            if(settings.regexp == null) {
+            if (settings.regexp == null) {
                 throw new TypeError("pklib.validate.regexp: Regular expressino is neeeded");
             }
             var exp = new RegExp(settings.regexp);
 
-            if(settings.object == null) {
+            if (settings.object == null) {
                 throw new TypeError("pklib.validate.regexp: Object is neeeded");
             }
-            if(exp.test(settings.object)) {
+            if (exp.test(settings.object)) {
                 return ( typeof settings.success === "function") && settings.success();
             }
 

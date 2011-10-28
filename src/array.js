@@ -6,7 +6,7 @@ pklib = this.pklib || {};
 /**
  * Module to service array object.
  */
-pklib.array = (function() {
+pklib.array = (function () {
 
     return {
 
@@ -21,7 +21,7 @@ pklib.array = (function() {
          * @param {HTMLElement} obj
          * @return {boolean}
          */
-        isArray : function(obj) {
+        isArray: function (obj) {
             return typeof obj === "object" && obj != null && typeof obj.length !== "undefined" && typeof obj.slice !== "undefined";
         },
         
@@ -32,9 +32,9 @@ pklib.array = (function() {
          * @param {array} array
          * @return {boolean or number}
          */
-        inArray : function(param, array) {
+        inArray: function (param, array) {
             for(var i = 0, len = array.length; i < len; ++i) {
-                if(array[i] === param) {
+                if (array[i] === param) {
                     return true;
                 }
             }
@@ -47,10 +47,10 @@ pklib.array = (function() {
          * @param {array} array
          * @return {array}
          */
-        unique : function(array) {
+        unique: function (array) {
             for(var i = 0, temp = [], len = array.length; i < len; ++i) {
                 var item = array[i];
-                if(this.inArray.call(null, item, temp) === false) {
+                if (this.inArray.call(null, item, temp) === false) {
                     temp.push(item);
                 }
             }
@@ -65,11 +65,11 @@ pklib.array = (function() {
          * @param {any Object}...
          * @return {array}
          */
-        remove : function(array /*,  */) {
+        remove: function (array /*,  */) {
             var params = Array.prototype.splice.call(arguments, 1);
             for(var i = 0, len = params.length; i < len; ++i) {
                 var param = params[i], inside = this.inArray(param, array);
-                if(inside !== false) {
+                if (inside !== false) {
                     array.splice(inside, 1);
                 }
             }

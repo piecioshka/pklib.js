@@ -6,7 +6,7 @@ pklib = this.pklib || {};
 /**
  * Cookie service manager.
  */
-pklib.cookie = (function() {
+pklib.cookie = (function () {
 
     var doc = document;
 
@@ -20,11 +20,11 @@ pklib.cookie = (function() {
          * @param {number} days
          * @return {string}
          */
-        create : function(name, value, days) {
+        create: function (name, value, days) {
             value = value || null;
             var expires = "";
 
-            if( typeof days !== "undefined") {
+            if ( typeof days !== "undefined") {
                 var date = new Date();
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                 expires = "; expires=" + date.toGMTString();
@@ -41,8 +41,8 @@ pklib.cookie = (function() {
          * @param {string} name
          * @return {null or string}
          */
-        read : function(name) {
-            if( typeof name === "undefined") {
+        read: function (name) {
+            if ( typeof name === "undefined") {
                 return null;
             }
             name = name + "=";
@@ -53,7 +53,7 @@ pklib.cookie = (function() {
                 while(c.charAt(0) === " ") {
                     c = c.substring(1, c.length);
                 }
-                if(c.indexOf(name) === 0) {
+                if (c.indexOf(name) === 0) {
                     return c.substring(name.length, c.length);
                 }
             }
@@ -65,7 +65,7 @@ pklib.cookie = (function() {
          * @param {string} name
          * @return {string}
          */
-        erase : function(name) {
+        erase: function (name) {
             return this.create(name, undefined, -1);
         }
     };

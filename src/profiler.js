@@ -6,7 +6,7 @@ pklib = this.pklib || {};
 /**
  * Time analyzer
  */
-pklib.profiler = (function() {
+pklib.profiler = (function () {
 
     var data = {};
 
@@ -16,7 +16,7 @@ pklib.profiler = (function() {
          * @param {string} name
          * @return {number}
          */
-        start : function(name) {
+        start: function (name) {
             data[name] = new Date();
             return data[name];
         },
@@ -25,7 +25,7 @@ pklib.profiler = (function() {
          * @param {string} name
          * @return {number}
          */
-        stop : function(name) {
+        stop: function (name) {
             data[name] = new Date() - data[name];
             return new Date((new Date()).getTime() + data[name]);
         },
@@ -34,7 +34,7 @@ pklib.profiler = (function() {
          * @param {string} name
          * @return {number}
          */
-        getTime : function(name) {
+        getTime: function (name) {
             return data[name];
         }
     };

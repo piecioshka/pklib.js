@@ -11,9 +11,9 @@
 
 // pklib definition and initialization
 pklib = this.pklib || {
-    author : "Piotr Kowalski",
-    www : "http://pklib.pl/",
-    version : "1.0.0",
+    author: "Piotr Kowalski",
+    www: "http://pklib.pl/",
+    version: "1.0.0",
 };
 
 	
@@ -26,7 +26,7 @@ pklib = this.pklib || {};
 /**
  * Module to service asynchronous request.
  */
-pklib.ajax = (function() {
+pklib.ajax = (function () {
 
     var client = null;
     var settings = {};
@@ -35,13 +35,13 @@ pklib.ajax = (function() {
     function handler() {
         var method = "responseText";
 
-        if(this.readyState === 4) {
+        if (this.readyState === 4) {
             cache[settings.url] = this;
 
             var ct = this.getResponseHeader("Content-Type");
             var xmlct = ["application/xml", "text/xml"];
 
-            if(pklib.array.inArray(ct, xmlct)) {
+            if (pklib.array.inArray(ct, xmlct)) {
                 method = "responseXML";
             }
 
@@ -68,34 +68,34 @@ pklib.ajax = (function() {
          * }
          * </pre>
          */
-        load: function(config) {
+        load: function (config) {
             client = null;
             settings = {
-                type : "get",
-                async : true,
-                cache : false,
-                url : null,
-                params : null,
-                headers : {},
+                type: "get",
+                async: true,
+                cache: false,
+                url: null,
+                params: null,
+                headers: {},
     
-                done : function(data) {
+                done: function (data) {
                     // pass
                 }
             };
             settings = pklib.utils.merge(settings, config);
             settings.type = settings.type.toUpperCase();
     
-            if(settings.cache && cache[settings.url]) {
+            if (settings.cache && cache[settings.url]) {
                 handler.call(cache[settings.url]);
             } else {
                 client = new XMLHttpRequest();
-                client.onreadystatechange = function() {
+                client.onreadystatechange = function () {
                     handler.call(client);
                 };
                 client.open(settings.type, settings.url, settings.async);
-                if(settings.headers != null) {
+                if (settings.headers != null) {
                     for(var item in settings.headers) {
-                        if(settings.headers.hasOwnProperty(item)) {
+                        if (settings.headers.hasOwnProperty(item)) {
                             client.setRequestHeader(item, settings.headers[item]);
                         }
                     }
@@ -115,7 +115,7 @@ pklib = this.pklib || {};
 /**
  * Module to service array object.
  */
-pklib.array = (function() {
+pklib.array = (function () {
 
     return {
 
@@ -130,7 +130,7 @@ pklib.array = (function() {
          * @param {HTMLElement} obj
          * @return {boolean}
          */
-        isArray : function(obj) {
+        isArray: function (obj) {
             return typeof obj === "object" && obj != null && typeof obj.length !== "undefined" && typeof obj.slice !== "undefined";
         },
         
@@ -141,9 +141,9 @@ pklib.array = (function() {
          * @param {array} array
          * @return {boolean or number}
          */
-        inArray : function(param, array) {
+        inArray: function (param, array) {
             for(var i = 0, len = array.length; i < len; ++i) {
-                if(array[i] === param) {
+                if (array[i] === param) {
                     return true;
                 }
             }
@@ -156,10 +156,10 @@ pklib.array = (function() {
          * @param {array} array
          * @return {array}
          */
-        unique : function(array) {
+        unique: function (array) {
             for(var i = 0, temp = [], len = array.length; i < len; ++i) {
                 var item = array[i];
-                if(this.inArray.call(null, item, temp) === false) {
+                if (this.inArray.call(null, item, temp) === false) {
                     temp.push(item);
                 }
             }
@@ -174,11 +174,11 @@ pklib.array = (function() {
          * @param {any Object}...
          * @return {array}
          */
-        remove : function(array /*,  */) {
+        remove: function (array /*,  */) {
             var params = Array.prototype.splice.call(arguments, 1);
             for(var i = 0, len = params.length; i < len; ++i) {
                 var param = params[i], inside = this.inArray(param, array);
-                if(inside !== false) {
+                if (inside !== false) {
                     array.splice(inside, 1);
                 }
             }
@@ -200,14 +200,14 @@ pklib = this.pklib || {};
  * @param fun {function} The function to bind aspect function
  * @param asp {function} The aspect function
  */
-pklib.aspect = function(fun, asp) {
-    if( typeof fun !== "function" || typeof asp !== "function") {
+pklib.aspect = function (fun, asp) {
+    if ( typeof fun !== "function" || typeof asp !== "function") {
         throw new TypeError("Params are not functions");
     }
 
     var that = this;
 
-    return function() {
+    return function () {
         asp.call(that);
         return fun.apply(that, arguments);
     };
@@ -221,7 +221,7 @@ pklib = this.pklib || {};
 /**
  * Get best information about browser.
  */
-pklib.browser = (function() {
+pklib.browser = (function () {
 
     var browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 
@@ -232,12 +232,12 @@ pklib.browser = (function() {
          *
          * @return {string}
          */
-        getName : function() {
+        getName: function () {
             var userAgent = navigator.userAgent.toLowerCase();
 
             for(var i = 0, len = browsers.length; i < len; ++i) {
                 var browser = browsers[i];
-                if(new RegExp(browser).test(userAgent)) {
+                if (new RegExp(browser).test(userAgent)) {
                     return browser;
                 }
             }
@@ -249,14 +249,14 @@ pklib.browser = (function() {
          *
          * @return {string}
          */
-        getVersion : function() {
+        getVersion: function () {
             var userAgent = navigator.userAgent.toLowerCase();
 
             for(var i = 0, len = browsers.length; i < len; ++i) {
                 var browser = browsers[i];
                 var cur = userAgent.indexOf(browser);
 
-                if(cur != -1) {
+                if (cur != -1) {
                     return userAgent.substr(cur + len + 1, 3);
                 }
             }
@@ -273,7 +273,7 @@ pklib = this.pklib || {};
 /**
  * Cookie service manager.
  */
-pklib.cookie = (function() {
+pklib.cookie = (function () {
 
     var doc = document;
 
@@ -287,11 +287,11 @@ pklib.cookie = (function() {
          * @param {number} days
          * @return {string}
          */
-        create : function(name, value, days) {
+        create: function (name, value, days) {
             value = value || null;
             var expires = "";
 
-            if( typeof days !== "undefined") {
+            if ( typeof days !== "undefined") {
                 var date = new Date();
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                 expires = "; expires=" + date.toGMTString();
@@ -308,8 +308,8 @@ pklib.cookie = (function() {
          * @param {string} name
          * @return {null or string}
          */
-        read : function(name) {
-            if( typeof name === "undefined") {
+        read: function (name) {
+            if ( typeof name === "undefined") {
                 return null;
             }
             name = name + "=";
@@ -320,7 +320,7 @@ pklib.cookie = (function() {
                 while(c.charAt(0) === " ") {
                     c = c.substring(1, c.length);
                 }
-                if(c.indexOf(name) === 0) {
+                if (c.indexOf(name) === 0) {
                     return c.substring(name.length, c.length);
                 }
             }
@@ -332,7 +332,7 @@ pklib.cookie = (function() {
          * @param {string} name
          * @return {string}
          */
-        erase : function(name) {
+        erase: function (name) {
             return this.create(name, undefined, -1);
         }
     };
@@ -347,7 +347,7 @@ pklib = this.pklib || {};
 /**
  * Utils method related css on tags in DOM tree.
  */
-pklib.css = (function() {
+pklib.css = (function () {
 
     return {
 
@@ -357,13 +357,13 @@ pklib.css = (function() {
          * @param {HTMLElement} element
          * @param {string} cssClass
          */
-        addClass : function(cssClass, element) {
-            if( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+        addClass: function (cssClass, element) {
+            if ( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.addClass: Element is undefined/null or cssClass is undefined");
             }
             var classElement = element.className;
-            if(!this.hasClass(cssClass, element)) {
-                if(classElement.length) {
+            if (!this.hasClass(cssClass, element)) {
+                if (classElement.length) {
                     classElement += " " + cssClass;
                 } else {
                     classElement = cssClass;
@@ -378,8 +378,8 @@ pklib.css = (function() {
          * @param {HTMLElement} element
          * @param {string} cssClass
          */
-        removeClass : function(cssClass, element) {
-            if( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+        removeClass: function (cssClass, element) {
+            if ( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.removeClass: Element is undefined/null or cssClass is undefined");
             }
             var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
@@ -393,8 +393,8 @@ pklib.css = (function() {
          * @param {string} cssClass
          * @return {boolean}
          */
-        hasClass : function(cssClass, element) {
-            if( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+        hasClass: function (cssClass, element) {
+            if ( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.hasClass: Element is undefined/null or cssClass is undefined");
             }
             var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
@@ -413,11 +413,11 @@ pklib = this.pklib || {};
 /**
  * Helper related with DOM service.
  */
-pklib.dom = (function() {
+pklib.dom = (function () {
 
     var doc = document;
     
-    var walk_the_dom = function(node, func) {
+    var walk_the_dom = function (node, func) {
         func(node);
         node = node.firstChild;
         while(node) {
@@ -428,26 +428,26 @@ pklib.dom = (function() {
 
     return {
 
-        nodeTypes : {
-            1 : "ELEMENT_NODE",
-            2 : "ATTRIBUTE_NODE",
-            3 : "TEXT_NODE",
-            4 : "CDATA_SECTION_NODE",
-            5 : "ENTITY_REFERENCE_NODE",
-            6 : "ENTITY_NODE",
-            7 : "PROCESSING_INSTRUCTION_NODE",
-            8 : "COMMENT_NODE",
-            9 : "DOCUMENT_NODE",
-            10 : "DOCUMENT_TYPE_NODE",
-            11 : "DOCUMENT_FRAGMENT_NODE",
-            12 : "NOTATION_NODE"
+        nodeTypes: {
+            1: "ELEMENT_NODE",
+            2: "ATTRIBUTE_NODE",
+            3: "TEXT_NODE",
+            4: "CDATA_SECTION_NODE",
+            5: "ENTITY_REFERENCE_NODE",
+            6: "ENTITY_NODE",
+            7: "PROCESSING_INSTRUCTION_NODE",
+            8: "COMMENT_NODE",
+            9: "DOCUMENT_NODE",
+            10: "DOCUMENT_TYPE_NODE",
+            11: "DOCUMENT_FRAGMENT_NODE",
+            12: "NOTATION_NODE"
         },
 
         /**
          * @param {HTMLElement} element
          * @return {string}
          */
-        isNode : function(element) {
+        isNode: function (element) {
             return element && this.nodeTypes[element.nodeType] || null;
         },
         
@@ -456,7 +456,7 @@ pklib.dom = (function() {
          * @param {HTMLElement} area
          * @return {HTMLElement}
          */
-        byId : function(id, area) {
+        byId: function (id, area) {
             area = area || doc;
             return area.getElementById(id);
         },
@@ -466,7 +466,7 @@ pklib.dom = (function() {
          * @param {HTMLElement} area
          * @return {NodeList}
          */
-        byTag : function(tag, area) {
+        byTag: function (tag, area) {
             area = area || doc;
             return area.getElementsByTagName(tag);
         },
@@ -476,14 +476,14 @@ pklib.dom = (function() {
          * @param {HTMLElement} area
          * @return {NodeList or array}
          */
-        byClass : function(cssClass, area) {
+        byClass: function (cssClass, area) {
             area = area || doc;
-            if(area.getElementsByClassName){
+            if (area.getElementsByClassName) {
                 return area.getElementsByClassName(cssClass);
             } else {
                 var results = [];
-                walk_the_dom(area, function(node) {
-                    if(pklib.css.hasClass(cssClass, node)) {
+                walk_the_dom(area, function (node) {
+                    if (pklib.css.hasClass(cssClass, node)) {
                         results.push(node);
                     }
                 });
@@ -495,12 +495,12 @@ pklib.dom = (function() {
          * @param {HTMLElement} element
          * @return {null or number}
          */
-        index : function(element) {
+        index: function (element) {
             var parent = element.parentNode;
             var elements = this.children(parent);
             for(var i = 0, len = elements.length; i < len; ++i) {
                 var item = elements[i];
-                if(item === element) {
+                if (item === element) {
                     return i;
                 }
             }
@@ -511,9 +511,9 @@ pklib.dom = (function() {
          * @param {HTMLElement} element
          * @return {array}
          */
-        children : function(element) {
+        children: function (element) {
             for(var i = 0, arr = [], childs = element.childNodes, len = childs.length; i < len; ++i) {
-                if(this.nodeTypes[childs[i].nodeType] === this.nodeTypes[1]) {
+                if (this.nodeTypes[childs[i].nodeType] === this.nodeTypes[1]) {
                     arr.push(childs[i]);
                 }
             }
@@ -525,9 +525,9 @@ pklib.dom = (function() {
          * @param {HTMLElement} area
          * @return {array}
          */
-        center : function(element, area) {
+        center: function (element, area) {
             var left, top;
-            if(area === doc.body) {
+            if (area === doc.body) {
                 left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(element, "width")) / 2;
                 top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(element, "height")) / 2;
             } else {
@@ -545,12 +545,12 @@ pklib.dom = (function() {
          * @param {HTMLElement} container
          * @return {array}
          */
-        maximize : function(element, container) {
+        maximize: function (element, container) {
             var width, height;
-            if(container === doc.body) {
+            if (container === doc.body) {
                 width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
                 height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
-                if(pklib.browser.getName() === "msie") {
+                if (pklib.browser.getName() === "msie") {
                     width -= 20;
                 }
             } else {
@@ -573,7 +573,7 @@ pklib = this.pklib || {};
 /**
  * Helper about manage event on HTMLElement.
  */
-pklib.event = (function() {
+pklib.event = (function () {
 
     var doc = document;
 
@@ -586,12 +586,12 @@ pklib.event = (function() {
          * @param {boolean} bubbles
          * @return {Event}
          */
-        add : function(target, eventType, callback, bubbles) {
+        add: function (target, eventType, callback, bubbles) {
             bubbles = bubbles || false;
 
-            if(target.attachEvent) {
+            if (target.attachEvent) {
                 target.attachEvent("on" + eventType, callback);
-            } else if(target.addEventListener) {
+            } else if (target.addEventListener) {
                 target.addEventListener(eventType, callback, bubbles);
             }
         },
@@ -603,14 +603,14 @@ pklib.event = (function() {
          * @param {boolean} bubbles
          * @return {boolean}
          */
-        remove : function(target, eventType, callback, bubbles) {
-            if(target.detachEvent) {
-                this.remove = function(target, eventType, callback) {
+        remove: function (target, eventType, callback, bubbles) {
+            if (target.detachEvent) {
+                this.remove = function (target, eventType, callback) {
                     target.detachEvent("on" + eventType, callback);
                     return true;
                 };
-            } else if(target.removeEventListener) {
-                this.remove = function(target, eventType, callback, bubbles) {
+            } else if (target.removeEventListener) {
+                this.remove = function (target, eventType, callback, bubbles) {
                     bubbles = bubbles || false;
                     target.removeEventListener(eventType, callback, bubbles);
                     return true;
@@ -630,7 +630,7 @@ pklib = this.pklib || {};
 /**
  * File manager
  */
-pklib.file = (function() {
+pklib.file = (function () {
 
     var doc = document;
 
@@ -643,19 +643,19 @@ pklib.file = (function() {
          * @param {string} src
          * @param {function} callback
          */
-        load : function(src, callback) {
+        load: function (src, callback) {
             var script = doc.createElement("script");
             script.type = "text/javascript";
             script.src = src;
 
-            if(script.readyState) {
-                script.onreadystatechange = function() {
-                    if(script.readyState === "loaded" || script.readyState === "complete") {
+            if (script.readyState) {
+                script.onreadystatechange = function () {
+                    if (script.readyState === "loaded" || script.readyState === "complete") {
                         script.onreadystatechange = null; ( typeof callback === "function") && callback(script);
                     }
                 };
             } else {
-                script.onload = function() {( typeof callback === "function") && callback(script);
+                script.onload = function () {( typeof callback === "function") && callback(script);
                 };
             }
 
@@ -675,19 +675,19 @@ pklib = this.pklib || {};
  * Glass Adapter.
  * Show this on dimensions on browser. 
  */
-pklib.glass = (function() {
+pklib.glass = (function () {
 
     var doc = document;
     var id = "pklib-glass-wrapper";
     var settings = {
-        container : doc.body,
-        style : {
-            position : "absolute",
-            left : 0,
-            top : 0,
-            background : "#000",
-            opacity : 0.5,
-            zIndex : 1000
+        container: doc.body,
+        style: {
+            position: "absolute",
+            left: 0,
+            top: 0,
+            background: "#000",
+            opacity: 0.5,
+            zIndex: 1000
         }
     };
 
@@ -696,13 +696,13 @@ pklib.glass = (function() {
         /**
          * @type string
          */
-        objId : id,
+        objId: id,
 
         /**
          * @param {object} config
          * @param {function} callback
          */
-        show : function(config, callback) {
+        show: function (config, callback) {
             var that = this;
             settings = pklib.utils.merge(settings, config);
             settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
@@ -712,7 +712,7 @@ pklib.glass = (function() {
 
             glass.setAttribute("id", this.objId);
             for(var style in settings.style) {
-                if(settings.style.hasOwnProperty(style)) {
+                if (settings.style.hasOwnProperty(style)) {
                     glassStyle[style] = settings.style[style];
                 }
             }
@@ -721,7 +721,7 @@ pklib.glass = (function() {
 
             pklib.dom.maximize(glass, settings.container);
 
-            pklib.event.add(window, "resize", function() {
+            pklib.event.add(window, "resize", function () {
                 that.close();
                 that.show(config, callback);
                 pklib.dom.maximize(glass, settings.container);
@@ -735,10 +735,10 @@ pklib.glass = (function() {
          * @param {function} callback
          * @return {boolean}
          */
-        close : function(callback) {
+        close: function (callback) {
             var glass = pklib.dom.byId(this.objId);
             var result = false;
-            if(glass !== null) {
+            if (glass !== null) {
                 glass.parentNode.removeChild(glass);
                 arguments.callee(callback);
                 result = true;
@@ -758,7 +758,7 @@ pklib = this.pklib || {};
 /**
  * JSON manager
  */
-pklib.json = (function() {
+pklib.json = (function () {
 
     return {
 
@@ -767,7 +767,7 @@ pklib.json = (function() {
          * @param {number} ind
          * @return {string}
          */
-        stringify : function(object, ind) {
+        stringify: function (object, ind) {
             var source = "", type = "", index = ind || 0;
 
             function indent(len) {
@@ -778,37 +778,37 @@ pklib.json = (function() {
             }
 
             // Undefined
-            if( typeof object === "undefined") {
+            if ( typeof object === "undefined") {
                 type = undefined;
                 return type;
             } else
 
             // Null
-            if(object == null) {
+            if (object == null) {
                 type = null;
                 return type;
             } else
 
             // Boolean
-            if( typeof object === "boolean") {
+            if ( typeof object === "boolean") {
                 type = "boolean";
                 return object;
             } else
 
             // Number
-            if( typeof object === "number") {
+            if ( typeof object === "number") {
                 type = "number";
                 return object;
             } else
 
             // String
-            if( typeof object === "string") {
+            if ( typeof object === "string") {
                 type = "string";
                 return '"' + object + '"';
             } else
 
             // Function
-            if( typeof object === "function") {
+            if ( typeof object === "function") {
                 type = "function";
 
                 function __getName(fun) {
@@ -821,16 +821,16 @@ pklib.json = (function() {
             } else
 
             // Array
-            if( typeof object === "object" && typeof object.slice === "function") {
+            if ( typeof object === "object" && typeof object.slice === "function") {
                 type = "array";
-                if(object.length === 0) {
+                if (object.length === 0) {
                     return "[]";
                 }
                 source = "[\n" + indent(index);
                 index++;
                 for(var i = 0, len = object.length; i < len; ++i) {
                     source += indent(index) + arguments.callee(object[i], index);
-                    if(i !== len - 1) {
+                    if (i !== len - 1) {
                         source += ",\n";
                     }
                 }
@@ -839,7 +839,7 @@ pklib.json = (function() {
             } else
 
             // Object
-            if( typeof object === "object") {
+            if ( typeof object === "object") {
                 type = "object";
 
                 function __getLast(object) {
@@ -851,9 +851,9 @@ pklib.json = (function() {
                 source = "{\n";
                 index++;
                 for(var item in object) {
-                    if(object.hasOwnProperty(item)) {
+                    if (object.hasOwnProperty(item)) {
                         source += indent(index) + '"' + item + '": ' + arguments.callee(object[item], index);
-                        if(item !== __getLast(object)) {
+                        if (item !== __getLast(object)) {
                             source += ",\n";
                         }
                     }
@@ -870,24 +870,24 @@ pklib.json = (function() {
          * @param {boolean} toJson
          * @returns {string}
          */
-        serialize : function(source, toJson) {
-            if( typeof source !== "object" || source == null) {
+        serialize: function (source, toJson) {
+            if ( typeof source !== "object" || source == null) {
                 throw new TypeError("pklib.json.serialize: Source is null or not object");
             }
 
             var amp = false, response = ''; (toJson) && (response += "{");
 
             for(var item in source) {
-                if(source.hasOwnProperty(item)) {(amp) ? response += toJson ? ',' : '&' : ( amp = true);
+                if (source.hasOwnProperty(item)) {(amp) ? response += toJson ? ',': '&': ( amp = true);
 
                     var value = '';
-                    if( typeof source[item] !== "undefined" && source[item] !== null) {
+                    if ( typeof source[item] !== "undefined" && source[item] !== null) {
                         value = source[item];
                     }
 
-                    var mtz = toJson ? '"' : '';
+                    var mtz = toJson ? '"': '';
                     response += item;
-                    response += toJson ? ':' : '=';
+                    response += toJson ? ':': '=';
                     response += mtz;
                     response += value + mtz;
                 }
@@ -911,19 +911,19 @@ pklib = this.pklib || {};
  * Loader adapter.
  * Show animate image (GIF) on special place.
  */
-pklib.loader = (function() {
+pklib.loader = (function () {
 
     var doc = document;
     var id = "pklib-loader-wrapper";
     var settings = {
-        src : "http://pklib.com/img/icons/loader.gif",
-        container : doc.body,
-        style : {
-            width : 31,
-            height : 31,
-            zIndex : 1010
+        src: "http://pklib.com/img/icons/loader.gif",
+        container: doc.body,
+        style: {
+            width: 31,
+            height: 31,
+            zIndex: 1010
         },
-        center : true
+        center: true
     };
 
     return {
@@ -931,13 +931,13 @@ pklib.loader = (function() {
         /**
          * @type string
          */
-        objId : id,
+        objId: id,
 
         /**
          * @param {object} config
          * @param {function} callback
          */
-        show : function(config, callback) {
+        show: function (config, callback) {
             settings = pklib.utils.merge(settings, config);
 
             var loader = doc.createElement("img");
@@ -946,14 +946,14 @@ pklib.loader = (function() {
             loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
             for(var style in settings.style) {
-                if(settings.style.hasOwnProperty(style)) {
+                if (settings.style.hasOwnProperty(style)) {
                     loaderStyle[style] = settings.style[style];
                 }
             }
-            if(settings.center) {
+            if (settings.center) {
                 pklib.dom.center(loader, settings.container);
 
-                pklib.event.add(window, "resize", function() {
+                pklib.event.add(window, "resize", function () {
                     pklib.dom.center(loader, settings.container);
                 });
             }
@@ -965,10 +965,10 @@ pklib.loader = (function() {
         /**
          * @param {function} callback
          */
-        close : function(callback) {
+        close: function (callback) {
             var loader = pklib.dom.byId(this.objId);
             var result = false;
-            if(loader !== null) {
+            if (loader !== null) {
                 loader.parentNode.removeChild(loader);
                 this.close(callback);
                 result = true;
@@ -989,24 +989,24 @@ pklib = this.pklib || {};
 /**
  * Show layer on special place.
  */
-pklib.message = (function() {
+pklib.message = (function () {
 
     var doc = document;
     var id = "pklib-message-wrapper";
     var contents = null;
     var settings = {
-        container : doc.body,
-        style : {
-            width : 300,
-            height : 300,
-            zIndex : 1010
+        container: doc.body,
+        style: {
+            width: 300,
+            height: 300,
+            zIndex: 1010
         }
     };
 
     return {
-        objId : id,
-        content : contents,
-        show : function(config, callback) {
+        objId: id,
+        content: contents,
+        show: function (config, callback) {
             settings = pklib.utils.merge(settings, config);
 
             var message = doc.createElement("div");
@@ -1014,14 +1014,14 @@ pklib.message = (function() {
 
             message.setAttribute("id", this.objId);
             for(var style in settings.style) {
-                if(settings.style.hasOwnProperty(style)) {
+                if (settings.style.hasOwnProperty(style)) {
                     messageStyle[style] = settings.style[style];
                 }
             }
 
-            if( typeof this.content === "string") {
+            if ( typeof this.content === "string") {
                 message.innerHTML = this.content;
-            } else if( typeof this.content === "object") {
+            } else if ( typeof this.content === "object") {
                 message.appendChild(this.content);
             }
 
@@ -1029,18 +1029,18 @@ pklib.message = (function() {
 
             pklib.dom.center(message, settings.container);
 
-            pklib.event.add(window, "resize", function() {
+            pklib.event.add(window, "resize", function () {
                 pklib.dom.center(message, settings.container);
             }); ( typeof callback === "function") && callback();
 
             return message;
         },
         
-        close : function(callback) {
+        close: function (callback) {
             var message = pklib.dom.byId(this.objId);
             var result = false;
 
-            if(message !== null) {
+            if (message !== null) {
                 message.parentNode.removeChild(message);
                 this.close(callback);
                 result = true;
@@ -1060,7 +1060,7 @@ pklib = this.pklib || {};
 /**
  * Time analyzer
  */
-pklib.profiler = (function() {
+pklib.profiler = (function () {
 
     var data = {};
 
@@ -1070,7 +1070,7 @@ pklib.profiler = (function() {
          * @param {string} name
          * @return {number}
          */
-        start : function(name) {
+        start: function (name) {
             data[name] = new Date();
             return data[name];
         },
@@ -1079,7 +1079,7 @@ pklib.profiler = (function() {
          * @param {string} name
          * @return {number}
          */
-        stop : function(name) {
+        stop: function (name) {
             data[name] = new Date() - data[name];
             return new Date((new Date()).getTime() + data[name]);
         },
@@ -1088,7 +1088,7 @@ pklib.profiler = (function() {
          * @param {string} name
          * @return {number}
          */
-        getTime : function(name) {
+        getTime: function (name) {
             return data[name];
         }
     };
@@ -1098,17 +1098,17 @@ pklib.profiler = (function() {
 /**
  * @package prototypes
  */
-Function.prototype.bind = Function.prototype.bind || function(oThis) {
+Function.prototype.bind = Function.prototype.bind || function (oThis) {
 
     if (typeof this !== "function") {
         throw new TypeError("Function.prototype.bind - what is trying to be fBound is not callable");
     }
 
-    var aArgs = Array.prototype.slice.call(arguments, 1), fToBind = this, fNOP = function() {
-    }, fBound = function() {
+    var aArgs = Array.prototype.slice.call(arguments, 1), fToBind = this, fNOP = function () {
+    }, fBound = function () {
         return fToBind.apply(this instanceof fNOP 
             ? this 
-            : oThis || window, aArgs.concat(Array.prototype.slice.call(arguments)));
+           : oThis || window, aArgs.concat(Array.prototype.slice.call(arguments)));
     };
 
     fNOP.prototype = this.prototype;
@@ -1117,7 +1117,7 @@ Function.prototype.bind = Function.prototype.bind || function(oThis) {
     return fBound;
 };
 
-Function.prototype.addMethod = function(name, func) {
+Function.prototype.addMethod = function (name, func) {
     this.prototype[name] = func;
     return this;
 };
@@ -1130,7 +1130,7 @@ pklib = this.pklib || {};
 /**
  * String service manager
  */
-pklib.string = (function() {
+pklib.string = (function () {
     
     return {
     
@@ -1138,7 +1138,7 @@ pklib.string = (function() {
          * @param {any Object} source
          * @return {boolean}
          */
-        isString : function(source) {
+        isString: function (source) {
             return typeof source === "string";
         },
     
@@ -1146,7 +1146,7 @@ pklib.string = (function() {
          * @param {any Object} source
          * @return {boolean}
          */
-        isLetter : function(source) {
+        isLetter: function (source) {
             return typeof source === "string" && /^[a-zA-Z]$/.test(source);
         },
     
@@ -1154,7 +1154,7 @@ pklib.string = (function() {
          * @param {string} source
          * @return {string}
          */
-        trim : function(source) {
+        trim: function (source) {
             return source.replace(/^\s+|\s+$/g, "");
         },
     
@@ -1162,9 +1162,9 @@ pklib.string = (function() {
          * @param {string} source
          * @return {string}
          */
-        slug : function(source) {
+        slug: function (source) {
             var result = source.toLowerCase().replace(/\s/mg, "-");
-            result = result.replace(/[^a-zA-Z0-9\-]/mg, function(ch) {
+            result = result.replace(/[^a-zA-Z0-9\-]/mg, function (ch) {
                 switch (ch.charCodeAt()) {
                     case 261:
                         return String.fromCharCode(97);
@@ -1195,7 +1195,7 @@ pklib.string = (function() {
          * @param {string} source
          * @return {string}
          */
-        capitalize : function(source) {
+        capitalize: function (source) {
             return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
         },
     
@@ -1203,8 +1203,8 @@ pklib.string = (function() {
          * @param {string} source
          * @return {string}
          */
-        delimiterSeparatedWords : function(source) {
-            return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function(match) {
+        delimiterSeparatedWords: function (source) {
+            return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function (match) {
                 return "-" + match.toLowerCase();
             });
         },
@@ -1213,7 +1213,7 @@ pklib.string = (function() {
          * @param {string} source
          * @return {string}
          */
-        camelCase : function(source) {
+        camelCase: function (source) {
             while (source.indexOf("-") != -1) {
                 var pos = source.indexOf("-");
                 var pre = source.substr(0, pos);
@@ -1229,7 +1229,7 @@ pklib.string = (function() {
          * @param {number} len
          * @return {string}
          */
-        slice : function(source, len) {
+        slice: function (source, len) {
             for ( var item = 0, text = "", num = source.length; item < num; ++item) {
                 text += source[item];
                 if (item == len - 1) {
@@ -1256,20 +1256,20 @@ pklib = this.pklib || {};
 /**
  * Utils tools
  */
-pklib.utils = (function() {
+pklib.utils = (function () {
 
     var doc = document;
 
     return {
 
-        size : {
+        size: {
 
             /**
              * @param {string} name
              * @returns {number}
              */
-            window : function(name) {
-                if( typeof name === "undefined") {
+            window: function (name) {
+                if ( typeof name === "undefined") {
                     throw new TypeError("pklib.utils.size.window: Parameter name is mandatory");
                 }
                 name = pklib.string.capitalize(name);
@@ -1282,8 +1282,8 @@ pklib.utils = (function() {
              * @param {string} name
              * @return {number}
              */
-            document : function(name) {
-                if( typeof name === "undefined") {
+            document: function (name) {
+                if ( typeof name === "undefined") {
                     throw new TypeError("pklib.utils.size.document: Parameter name is mandatory");
                 }
                 name = pklib.string.capitalize(name);
@@ -1300,8 +1300,8 @@ pklib.utils = (function() {
              * @param {string} name
              * @return {number}
              */
-            object : function(obj, name) {
-                if( typeof name === "undefined" || typeof obj === "undefined") {
+            object: function (obj, name) {
+                if ( typeof name === "undefined" || typeof obj === "undefined") {
                     throw new TypeError("pklib.utils.size.object: Parameter name is mandatory");
                 }
                 name = pklib.string.capitalize(name);
@@ -1310,40 +1310,40 @@ pklib.utils = (function() {
             }
         },
 
-        ascii : {
+        ascii: {
 
-            letters : {
-                lower : [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
-                upper : [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
+            letters: {
+                lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
+                upper: [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
             }
 
         },
 
-        date : {
+        date: {
 
             /**
              * @return {string}
              */
-            getFullMonth : function() {
+            getFullMonth: function () {
                 var month = (parseInt(new Date().getMonth(), 10) + 1);
-                return (month < 10) ? "0" + month : month;
+                return (month < 10) ? "0" + month: month;
             }
         },
 
-        action : {
+        action: {
 
             /**
              * @param {HTMLElement} obj
              */
-            clearfocus : function(obj) {
-                if( typeof obj !== "undefined") {
-                    pklib.event.add(obj, "focus", function() {
-                        if(this.value === this.defaultValue) {
+            clearfocus: function (obj) {
+                if ( typeof obj !== "undefined") {
+                    pklib.event.add(obj, "focus", function () {
+                        if (this.value === this.defaultValue) {
                             this.value = "";
                         }
                     });
-                    pklib.event.add(obj, "blur", function() {
-                        if(this.value === "") {
+                    pklib.event.add(obj, "blur", function () {
+                        if (this.value === "") {
                             this.value = this.defaultValue;
                         }
                     });
@@ -1353,13 +1353,13 @@ pklib.utils = (function() {
             /**
              * @param {HTMLElement} area
              */
-            outerlink : function(area) {
+            outerlink: function (area) {
                 area = area || doc;
                 var links = pklib.dom.byTag("a");
                 for(var i = 0, len = links.length; i < len; ++i) {
                     var link = links[i];
-                    if(link.rel === "outerlink") {
-                        pklib.event.add(link, "click", function(e) {
+                    if (link.rel === "outerlink") {
+                        pklib.event.add(link, "click", function (e) {
                             window.open(this.href);
                             e.preventDefault();
                         });
@@ -1371,13 +1371,13 @@ pklib.utils = (function() {
              * @param {HTMLElement} element
              * @param {string} text
              */
-            confirm : function(element, text) {
-                if( typeof element !== "undefined") {
+            confirm: function (element, text) {
+                if ( typeof element !== "undefined") {
                     text = text || "Sure?";
 
-                    pklib.event.add(element, "click", function(evt) {
+                    pklib.event.add(element, "click", function (evt) {
                         var response = confirm(text);
-                        if(true === response) {
+                        if (true === response) {
                             return true;
                         } else {
                             evt.preventDefault();
@@ -1391,12 +1391,12 @@ pklib.utils = (function() {
          * @param param
          * @param {boolean} animate
          */
-        scrollTo : function(param, animate) {
-            if(true === animate) {
+        scrollTo: function (param, animate) {
+            if (true === animate) {
                 var interval = null;
-                interval = setInterval(function() {
+                interval = setInterval(function () {
                     doc.body.scrollTop -= 5;
-                    if(doc.body.scrollTop <= 0) {
+                    if (doc.body.scrollTop <= 0) {
                         clearInterval(interval);
                     }
                 }, 1);
@@ -1410,18 +1410,18 @@ pklib.utils = (function() {
          * @param {array or object} source
          * @return {array}
          */
-        merge : function(target, source) {
-            if(pklib.array.isArray(target) && pklib.array.isArray(source)) {
+        merge: function (target, source) {
+            if (pklib.array.isArray(target) && pklib.array.isArray(source)) {
                 for(var i = 0, len = source.length; i < len; ++i) {
                     var element = source[i];
-                    if(!pklib.array.inArray(element, target)) {
+                    if (!pklib.array.inArray(element, target)) {
                         target.push(element);
                     }
                 }
                 return target.sort();
             } else {
                 for(var item in source) {
-                    if(source.hasOwnProperty(item)) {
+                    if (source.hasOwnProperty(item)) {
                         target[item] = source[item];
                     }
                 }
@@ -1441,7 +1441,7 @@ pklib = this.pklib || {};
 /**
  * Validate module
  */
-pklib.validate = (function() {
+pklib.validate = (function () {
 
     return {
 
@@ -1449,10 +1449,10 @@ pklib.validate = (function() {
          * @param {object} object
          * @return {boolean}
          */
-        empty : function(object) {
-            if(object == null) {
+        empty: function (object) {
+            if (object == null) {
                 return true;
-            } else if(pklib.array.isArray(object)) {
+            } else if (pklib.array.isArray(object)) {
                 return (object.length === 0);
             } else {
                 switch (typeof object) {
@@ -1465,7 +1465,7 @@ pklib.validate = (function() {
                     case "object":
                         var iterator = 0;
                         for(var item in object) {
-                            if(object.hasOwnProperty(item)) {
+                            if (object.hasOwnProperty(item)) {
                                 iterator++;
                             }
                         }
@@ -1492,26 +1492,26 @@ pklib.validate = (function() {
          *
          * @return {function}
          */
-        regexp : function(config) {
+        regexp: function (config) {
             var settings = {
-                object : null,
-                regexp : null,
-                error : function() {
+                object: null,
+                regexp: null,
+                error: function () {
                 },
-                success : function() {
+                success: function () {
                 }
             };
             settings = pklib.utils.merge(settings, config);
 
-            if(settings.regexp == null) {
+            if (settings.regexp == null) {
                 throw new TypeError("pklib.validate.regexp: Regular expressino is neeeded");
             }
             var exp = new RegExp(settings.regexp);
 
-            if(settings.object == null) {
+            if (settings.object == null) {
                 throw new TypeError("pklib.validate.regexp: Object is neeeded");
             }
-            if(exp.test(settings.object)) {
+            if (exp.test(settings.object)) {
                 return ( typeof settings.success === "function") && settings.success();
             }
 

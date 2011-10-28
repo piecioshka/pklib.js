@@ -8,19 +8,19 @@ pklib = this.pklib || {};
  * Loader adapter.
  * Show animate image (GIF) on special place.
  */
-pklib.loader = (function() {
+pklib.loader = (function () {
 
     var doc = document;
     var id = "pklib-loader-wrapper";
     var settings = {
-        src : "http://pklib.com/img/icons/loader.gif",
-        container : doc.body,
-        style : {
-            width : 31,
-            height : 31,
-            zIndex : 1010
+        src: "http://pklib.com/img/icons/loader.gif",
+        container: doc.body,
+        style: {
+            width: 31,
+            height: 31,
+            zIndex: 1010
         },
-        center : true
+        center: true
     };
 
     return {
@@ -28,13 +28,13 @@ pklib.loader = (function() {
         /**
          * @type string
          */
-        objId : id,
+        objId: id,
 
         /**
          * @param {object} config
          * @param {function} callback
          */
-        show : function(config, callback) {
+        show: function (config, callback) {
             settings = pklib.utils.merge(settings, config);
 
             var loader = doc.createElement("img");
@@ -43,14 +43,14 @@ pklib.loader = (function() {
             loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
             for(var style in settings.style) {
-                if(settings.style.hasOwnProperty(style)) {
+                if (settings.style.hasOwnProperty(style)) {
                     loaderStyle[style] = settings.style[style];
                 }
             }
-            if(settings.center) {
+            if (settings.center) {
                 pklib.dom.center(loader, settings.container);
 
-                pklib.event.add(window, "resize", function() {
+                pklib.event.add(window, "resize", function () {
                     pklib.dom.center(loader, settings.container);
                 });
             }
@@ -62,10 +62,10 @@ pklib.loader = (function() {
         /**
          * @param {function} callback
          */
-        close : function(callback) {
+        close: function (callback) {
             var loader = pklib.dom.byId(this.objId);
             var result = false;
-            if(loader !== null) {
+            if (loader !== null) {
                 loader.parentNode.removeChild(loader);
                 this.close(callback);
                 result = true;
