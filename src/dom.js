@@ -156,6 +156,15 @@ pklib.dom = (function () {
             element.style.width = width;
             element.style.height = height;
             return [width, height];
+        },
+        
+        insert: function (element, container) {
+            if (this.isNode(element)) {
+                container.appendChild(element);
+            } else if (typeof element === "string") {
+                container.innerHTML += element;
+            }
+            return element;
         }
     };
 
