@@ -9,17 +9,17 @@ pklib = this.pklib || {};
  */
 pklib.message = (function () {
 
-    var doc = document;
-    var id = "pklib-message-wrapper";
-    var contents = null;
-    var settings = {
-        container: doc.body,
-        style: {
-            width: 300,
-            height: 300,
-            zIndex: 1010
-        }
-    };
+    var doc = document,
+        id = "pklib-message-wrapper",
+        contents = null,
+        settings = {
+            container: doc.body,
+            style: {
+                width: 300,
+                height: 300,
+                zIndex: 1010
+            }
+        };
 
     return {
         objId: id,
@@ -27,8 +27,8 @@ pklib.message = (function () {
         show: function (config, callback) {
             settings = pklib.utils.merge(settings, config);
 
-            var message = doc.createElement("div");
-            var messageStyle = message.style;
+            var message = doc.createElement("div"),
+                messageStyle = message.style;
 
             message.setAttribute("id", this.objId);
             for(var style in settings.style) {
@@ -37,9 +37,9 @@ pklib.message = (function () {
                 }
             }
 
-            if ( typeof this.content === "string") {
+            if (typeof this.content === "string") {
                 message.innerHTML = this.content;
-            } else if ( typeof this.content === "object") {
+            } else if (typeof this.content === "object") {
                 message.appendChild(this.content);
             }
 
@@ -49,20 +49,24 @@ pklib.message = (function () {
 
             pklib.event.add(window, "resize", function () {
                 pklib.dom.center(message, settings.container);
-            }); ( typeof callback === "function") && callback();
+            }); 
+            
+            (typeof callback === "function") && callback();
 
             return message;
         },
         
         close: function (callback) {
-            var message = pklib.dom.byId(this.objId);
-            var result = false;
+            var message = pklib.dom.byId(this.objId),
+                result = false;
 
             if (message !== null) {
                 message.parentNode.removeChild(message);
                 this.close(callback);
                 result = true;
-            }( typeof callback === "function") && callback();
+            }
+            
+            (typeof callback === "function") && callback();
 
             return result;
         }

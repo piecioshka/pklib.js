@@ -91,10 +91,10 @@ pklib.string = (function () {
          */
         camelCase: function (source) {
             while (source.indexOf("-") != -1) {
-                var pos = source.indexOf("-");
-                var pre = source.substr(0, pos);
-                var sub = source.substr(pos + 1, 1).toUpperCase();
-                var post = source.substring(pos + 2, source.length);
+                var pos = source.indexOf("-"),
+                    pre = source.substr(0, pos),
+                    sub = source.substr(pos + 1, 1).toUpperCase(),
+                    post = source.substring(pos + 2, source.length);
                 source = pre + sub + post;
             }
             return source;

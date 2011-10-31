@@ -11,7 +11,7 @@ pklib = this.pklib || {};
  * @param asp {function} The aspect function
  */
 pklib.aspect = function (fun, asp) {
-    if ( typeof fun !== "function" || typeof asp !== "function") {
+    if (typeof fun !== "function" || typeof asp !== "function") {
         throw new TypeError("Params are not functions");
     }
 

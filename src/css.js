@@ -17,7 +17,7 @@ pklib.css = (function () {
          * @param {string} cssClass
          */
         addClass: function (cssClass, element) {
-            if ( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+            if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.addClass: Element is undefined/null or cssClass is undefined");
             }
             var classElement = element.className;
@@ -38,7 +38,7 @@ pklib.css = (function () {
          * @param {string} cssClass
          */
         removeClass: function (cssClass, element) {
-            if ( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+            if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.removeClass: Element is undefined/null or cssClass is undefined");
             }
             var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
@@ -53,7 +53,7 @@ pklib.css = (function () {
          * @return {boolean}
          */
         hasClass: function (cssClass, element) {
-            if ( typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+            if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.hasClass: Element is undefined/null or cssClass is undefined");
             }
             var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");

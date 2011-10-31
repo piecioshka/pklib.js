@@ -8,8 +8,6 @@ pklib = this.pklib || {};
  */
 pklib.event = (function () {
 
-    var doc = document;
-
     return {
 
         /**

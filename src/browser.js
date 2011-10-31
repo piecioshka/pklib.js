@@ -38,9 +38,8 @@ pklib.browser = (function () {
             var userAgent = navigator.userAgent.toLowerCase();
 
             for(var i = 0, len = browsers.length; i < len; ++i) {
-                var browser = browsers[i];
-                var cur = userAgent.indexOf(browser);
-
+                var browser = browsers[i],
+                    cur = userAgent.indexOf(browser);
                 if (cur != -1) {
                     return userAgent.substr(cur + len + 1, 3);
                 }

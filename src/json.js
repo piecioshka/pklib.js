@@ -16,7 +16,9 @@ pklib.json = (function () {
          * @return {string}
          */
         stringify: function (object, ind) {
-            var source = "", type = "", index = ind || 0;
+            var source = "", 
+                type = "", 
+                index = ind || 0;
 
             function indent(len) {
                 for(var i = 0, preffix = "\t", source = ""; i < len; ++i) {
@@ -26,37 +28,35 @@ pklib.json = (function () {
             }
 
             // Undefined
-            if ( typeof object === "undefined") {
-                type = undefined;
-                return type;
+            if (typeof object === "undefined") {
+                return undefined;
             } else
 
             // Null
             if (object == null) {
-                type = null;
-                return type;
+                return null;
             } else
 
             // Boolean
-            if ( typeof object === "boolean") {
+            if (typeof object === "boolean") {
                 type = "boolean";
                 return object;
             } else
 
             // Number
-            if ( typeof object === "number") {
+            if (typeof object === "number") {
                 type = "number";
                 return object;
             } else
 
             // String
-            if ( typeof object === "string") {
+            if (typeof object === "string") {
                 type = "string";
                 return '"' + object + '"';
             } else
 
             // Function
-            if ( typeof object === "function") {
+            if (typeof object === "function") {
                 type = "function";
 
                 function __getName(fun) {
@@ -69,7 +69,7 @@ pklib.json = (function () {
             } else
 
             // Array
-            if ( typeof object === "object" && typeof object.slice === "function") {
+            if (typeof object === "object" && typeof object.slice === "function") {
                 type = "array";
                 if (object.length === 0) {
                     return "[]";
@@ -87,7 +87,7 @@ pklib.json = (function () {
             } else
 
             // Object
-            if ( typeof object === "object") {
+            if (typeof object === "object") {
                 type = "object";
 
                 function __getLast(object) {
@@ -119,17 +119,20 @@ pklib.json = (function () {
          * @returns {string}
          */
         serialize: function (source, toJson) {
-            if ( typeof source !== "object" || source == null) {
+            if (typeof source !== "object" || source == null) {
                 throw new TypeError("pklib.json.serialize: Source is null or not object");
             }
 
-            var amp = false, response = ''; (toJson) && (response += "{");
+            var amp = false, 
+                response = ''; 
 
+            toJson && (response += "{");
+            
             for(var item in source) {
                 if (source.hasOwnProperty(item)) {(amp) ? response += toJson ? ',': '&': ( amp = true);
 
                     var value = '';
-                    if ( typeof source[item] !== "undefined" && source[item] !== null) {
+                    if (typeof source[item] !== "undefined" && source[item] !== null) {
                         value = source[item];
                     }
 
@@ -141,7 +144,7 @@ pklib.json = (function () {
                 }
             }
             
-            (toJson) && (response += "}");
+            toJson && (response += "}");
 
             return response;
         }

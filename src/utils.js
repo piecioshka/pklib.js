@@ -20,12 +20,12 @@ pklib.utils = (function () {
              * @returns {number}
              */
             window: function (name) {
-                if ( typeof name === "undefined") {
+                if (typeof name === "undefined") {
                     throw new TypeError("pklib.utils.size.window: Parameter name is mandatory");
                 }
                 name = pklib.string.capitalize(name);
-                var win = window;
-                var clientName = win.document.documentElement["client" + name];
+                var win = window,
+                    clientName = win.document.documentElement["client" + name];
                 return win.document.compatMode === "CSS1Compat" && clientName || win.document.body["client" + name] || clientName;
             },
             
@@ -34,15 +34,15 @@ pklib.utils = (function () {
              * @return {number}
              */
             document: function (name) {
-                if ( typeof name === "undefined") {
+                if (typeof name === "undefined") {
                     throw new TypeError("pklib.utils.size.document: Parameter name is mandatory");
                 }
                 name = pklib.string.capitalize(name);
-                var clientName = doc.documentElement["client" + name];
-                var scrollBodyName = doc.body["scroll" + name];
-                var scrollName = doc.documentElement["scroll" + name];
-                var offsetBodyName = doc.body["offset" + name];
-                var offsetName = doc.documentElement["offset" + name];
+                var clientName = doc.documentElement["client" + name],
+                    scrollBodyName = doc.body["scroll" + name],
+                    scrollName = doc.documentElement["scroll" + name],
+                    offsetBodyName = doc.body["offset" + name],
+                    offsetName = doc.documentElement["offset" + name];
                 return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
             },
             
@@ -52,7 +52,7 @@ pklib.utils = (function () {
              * @return {number}
              */
             object: function (obj, name) {
-                if ( typeof name === "undefined" || typeof obj === "undefined") {
+                if (typeof name === "undefined" || typeof obj === "undefined") {
                     throw new TypeError("pklib.utils.size.object: Parameter name is mandatory");
                 }
                 name = pklib.string.capitalize(name);
@@ -87,7 +87,7 @@ pklib.utils = (function () {
              * @param {HTMLElement} obj
              */
             clearfocus: function (obj) {
-                if ( typeof obj !== "undefined") {
+                if (typeof obj !== "undefined") {
                     pklib.event.add(obj, "focus", function () {
                         if (this.value === this.defaultValue) {
                             this.value = "";
@@ -123,7 +123,7 @@ pklib.utils = (function () {
              * @param {string} text
              */
             confirm: function (element, text) {
-                if ( typeof element !== "undefined") {
+                if (typeof element !== "undefined") {
                     text = text || "Sure?";
 
                     pklib.event.add(element, "click", function (evt) {

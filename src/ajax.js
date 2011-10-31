@@ -9,18 +9,18 @@ pklib = this.pklib || {};
  */
 pklib.ajax = (function () {
 
-    var client = null;
-    var settings = {};
-    var cache = [];
+    var client = null,
+        settings = {},
+        cache = [];
 
-    function handler() {
+    function handler () {
         var method = "responseText";
 
         if (this.readyState === 4) {
             cache[settings.url] = this;
 
-            var ct = this.getResponseHeader("Content-Type");
-            var xmlct = ["application/xml", "text/xml"];
+            var ct = this.getResponseHeader("Content-Type"),
+                xmlct = ["application/xml", "text/xml"];
 
             if (pklib.array.inArray(ct, xmlct)) {
                 method = "responseXML";
@@ -63,6 +63,7 @@ pklib.ajax = (function () {
                     // pass
                 }
             };
+            
             settings = pklib.utils.merge(settings, config);
             settings.type = settings.type.toUpperCase();
     
@@ -86,4 +87,5 @@ pklib.ajax = (function () {
         }
 
     };
+    
 })();

@@ -10,18 +10,18 @@ pklib = this.pklib || {};
  */
 pklib.loader = (function () {
 
-    var doc = document;
-    var id = "pklib-loader-wrapper";
-    var settings = {
-        src: "http://pklib.com/img/icons/loader.gif",
-        container: doc.body,
-        style: {
-            width: 31,
-            height: 31,
-            zIndex: 1010
-        },
-        center: true
-    };
+    var doc = document,
+        id = "pklib-loader-wrapper",
+        settings = {
+            src: "http://pklib.com/img/icons/loader.gif",
+            container: doc.body,
+            style: {
+                width: 31,
+                height: 31,
+                zIndex: 1010
+            },
+            center: true
+        };
 
     return {
 
@@ -37,8 +37,8 @@ pklib.loader = (function () {
         show: function (config, callback) {
             settings = pklib.utils.merge(settings, config);
 
-            var loader = doc.createElement("img");
-            var loaderStyle = loader.style;
+            var loader = doc.createElement("img"),
+                loaderStyle = loader.style;
 
             loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
@@ -55,7 +55,10 @@ pklib.loader = (function () {
                 });
             }
 
-            settings.container.appendChild(loader); ( typeof callback === "function") && callback();
+            settings.container.appendChild(loader); 
+            
+            (typeof callback === "function") && callback();
+            
             delete loader;
         },
         
@@ -63,13 +66,16 @@ pklib.loader = (function () {
          * @param {function} callback
          */
         close: function (callback) {
-            var loader = pklib.dom.byId(this.objId);
-            var result = false;
+            var loader = pklib.dom.byId(this.objId),
+                result = false;
+                
             if (loader !== null) {
                 loader.parentNode.removeChild(loader);
                 this.close(callback);
                 result = true;
-            }( typeof callback === "function") && callback();
+            }
+            
+            (typeof callback === "function") && callback();
 
             return result;
         }

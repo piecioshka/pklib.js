@@ -10,19 +10,19 @@ pklib = this.pklib || {};
  */
 pklib.glass = (function () {
 
-    var doc = document;
-    var id = "pklib-glass-wrapper";
-    var settings = {
-        container: doc.body,
-        style: {
-            position: "absolute",
-            left: 0,
-            top: 0,
-            background: "#000",
-            opacity: 0.5,
-            zIndex: 1000
-        }
-    };
+    var doc = document,
+        id = "pklib-glass-wrapper",
+        settings = {
+            container: doc.body,
+            style: {
+                position: "absolute",
+                left: 0,
+                top: 0,
+                background: "#000",
+                opacity: 0.5,
+                zIndex: 1000
+            }
+        };
 
     return {
 
@@ -36,12 +36,12 @@ pklib.glass = (function () {
          * @param {function} callback
          */
         show: function (config, callback) {
-            var that = this;
+            var that = this,
+                glass = doc.createElement("div"),
+                glassStyle = glass.style;
+                
             settings = pklib.utils.merge(settings, config);
             settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
-
-            var glass = doc.createElement("div");
-            var glassStyle = glass.style;
 
             glass.setAttribute("id", this.objId);
             for(var style in settings.style) {
@@ -59,7 +59,8 @@ pklib.glass = (function () {
                 that.show(config, callback);
                 pklib.dom.maximize(glass, settings.container);
             });
-            ( typeof callback === "function") && callback();
+            
+            (typeof callback === "function") && callback();
 
             return glass;
         },
@@ -69,13 +70,16 @@ pklib.glass = (function () {
          * @return {boolean}
          */
         close: function (callback) {
-            var glass = pklib.dom.byId(this.objId);
-            var result = false;
+            var glass = pklib.dom.byId(this.objId),
+                result = false;
+                
             if (glass !== null) {
                 glass.parentNode.removeChild(glass);
                 arguments.callee(callback);
                 result = true;
-            }( typeof callback === "function") && callback();
+            }
+            
+            (typeof callback === "function") && callback();
 
             return result;
         }

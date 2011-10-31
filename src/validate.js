@@ -63,8 +63,10 @@ pklib.validate = (function () {
                 object: null,
                 regexp: null,
                 error: function () {
+                    // pass
                 },
                 success: function () {
+                    // pass
                 }
             };
             settings = pklib.utils.merge(settings, config);
@@ -78,10 +80,10 @@ pklib.validate = (function () {
                 throw new TypeError("pklib.validate.regexp: Object is neeeded");
             }
             if (exp.test(settings.object)) {
-                return ( typeof settings.success === "function") && settings.success();
+                return (typeof settings.success === "function") && settings.success();
             }
 
-            return ( typeof settings.error === "function") && settings.error();
+            return (typeof settings.error === "function") && settings.error();
         }
     };
 

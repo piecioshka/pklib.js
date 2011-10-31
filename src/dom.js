@@ -9,16 +9,16 @@ pklib = this.pklib || {};
  */
 pklib.dom = (function () {
 
-    var doc = document;
+    var doc = document,
     
-    var walk_the_dom = function (node, func) {
-        func(node);
-        node = node.firstChild;
-        while(node) {
-            walk_the_dom(node, func);
-            node = node.nextSibling;
-        }
-    };
+        walk_the_dom = function (node, func) {
+            func(node);
+            node = node.firstChild;
+            while(node) {
+                walk_the_dom(node, func);
+                node = node.nextSibling;
+            }
+        };
 
     return {
 
@@ -90,8 +90,8 @@ pklib.dom = (function () {
          * @return {null or number}
          */
         index: function (element) {
-            var parent = element.parentNode;
-            var elements = this.children(parent);
+            var parent = element.parentNode,
+                elements = this.children(parent);
             for(var i = 0, len = elements.length; i < len; ++i) {
                 var item = elements[i];
                 if (item === element) {
@@ -120,7 +120,8 @@ pklib.dom = (function () {
          * @return {array}
          */
         center: function (element, area) {
-            var left, top;
+            var left = null,
+                top = null;
             if (area === doc.body) {
                 left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(element, "width")) / 2;
                 top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(element, "height")) / 2;
@@ -140,7 +141,8 @@ pklib.dom = (function () {
          * @return {array}
          */
         maximize: function (element, container) {
-            var width, height;
+            var width = null, 
+                height = null;
             if (container === doc.body) {
                 width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
                 height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));

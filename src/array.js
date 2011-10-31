@@ -68,7 +68,8 @@ pklib.array = (function () {
         remove: function (array /*,  */) {
             var params = Array.prototype.splice.call(arguments, 1);
             for(var i = 0, len = params.length; i < len; ++i) {
-                var param = params[i], inside = this.inArray(param, array);
+                var param = params[i], 
+                    inside = this.inArray(param, array);
                 if (inside !== false) {
                     array.splice(inside, 1);
                 }
