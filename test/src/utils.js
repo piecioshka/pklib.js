@@ -79,9 +79,10 @@ window.addEventListener("load", function () {
         var month = pklib.utils.date.getFullMonth();
 
         var dateMonth = new Date().getMonth();
-        if (dateMonth < 9) {
-            dateMonth = "0" + (dateMonth + 1);
+        if (dateMonth <= 9) {
+            dateMonth = "0" + dateMonth;
         }
+        dateMonth = parseInt(dateMonth, 10) + 1;
 
         strictEqual(month, dateMonth, "Month is " + month);
     });

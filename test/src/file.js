@@ -23,6 +23,7 @@ window.addEventListener("load", function () {
 
             notEqual(file.src.indexOf(url), -1, "File is loaded from url: " + url);
         });
+        
         start();
     });
     
