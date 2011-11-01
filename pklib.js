@@ -21,7 +21,7 @@
 pklib = this.pklib || {
     author: "Piotr Kowalski",
     www: "http://pklib.com/",
-    version: "1.0.1",
+    version: "1.0.1"
 };
 
 	
