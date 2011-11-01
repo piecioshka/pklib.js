@@ -154,30 +154,6 @@ pklib.utils = (function () {
             } else {
                 doc.body.scrollTop = param;
             }
-        },
-        
-        /**
-         * @param {array or object} target
-         * @param {array or object} source
-         * @return {array}
-         */
-        merge: function (target, source) {
-            if (pklib.array.isArray(target) && pklib.array.isArray(source)) {
-                for(var i = 0, len = source.length; i < len; ++i) {
-                    var element = source[i];
-                    if (!pklib.array.inArray(element, target)) {
-                        target.push(element);
-                    }
-                }
-                return target.sort();
-            } else {
-                for(var item in source) {
-                    if (source.hasOwnProperty(item)) {
-                        target[item] = source[item];
-                    }
-                }
-                return target;
-            }
         }
     };
 

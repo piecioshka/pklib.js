@@ -83,7 +83,7 @@ pklib.ajax = (function () {
                 }
             };
             
-            settings = pklib.utils.merge(settings, config);
+            settings = pklib.array.mixin(settings, config);
             settings.type = settings.type.toUpperCase();
     
             if (settings.cache && cache[settings.url]) {
@@ -186,6 +186,30 @@ pklib.array = (function () {
                 }
             }
             return array;
+        },
+        
+        /**
+         * @param {array or object} target
+         * @param {array or object} source
+         * @return {array}
+         */
+        mixin: function (target, source) {
+            if (this.isArray(target) && this.isArray(source)) {
+                for(var i = 0, len = source.length; i < len; ++i) {
+                    var element = source[i];
+                    if (!this.inArray(element, target)) {
+                        target.push(element);
+                    }
+                }
+                return target.sort();
+            } else {
+                for(var item in source) {
+                    if (source.hasOwnProperty(item)) {
+                        target[item] = source[item];
+                    }
+                }
+                return target;
+            }
         }
     };
 
@@ -431,18 +455,18 @@ pklib.dom = (function () {
     return {
 
         nodeTypes: {
-            1: "ELEMENT_NODE",
-            2: "ATTRIBUTE_NODE",
-            3: "TEXT_NODE",
-            4: "CDATA_SECTION_NODE",
-            5: "ENTITY_REFERENCE_NODE",
-            6: "ENTITY_NODE",
-            7: "PROCESSING_INSTRUCTION_NODE",
-            8: "COMMENT_NODE",
-            9: "DOCUMENT_NODE",
-            10: "DOCUMENT_TYPE_NODE",
-            11: "DOCUMENT_FRAGMENT_NODE",
-            12: "NOTATION_NODE"
+            "ELEMENT_NODE": 1,
+            "ATTRIBUTE_NODE": 2,
+            "TEXT_NODE": 3,
+            "CDATA_SECTION_NODE": 4,
+            "ENTITY_REFERENCE_NODE": 5,
+            "ENTITY_NODE": 6,
+            "PROCESSING_INSTRUCTION_NODE": 7,
+            "COMMENT_NODE": 8,
+            "DOCUMENT_NODE": 9,
+            "DOCUMENT_TYPE_NODE": 10,
+            "DOCUMENT_FRAGMENT_NODE": 11,
+            "NOTATION_NODE": 12
         },
 
         /**
@@ -450,41 +474,41 @@ pklib.dom = (function () {
          * @return {string}
          */
         isNode: function (element) {
-            return element && this.nodeTypes[element.nodeType] || null;
+            return element && element.nodeType && element.nodeName|| null;
         },
         
         /**
          * @param {string} id
-         * @param {HTMLElement} area
+         * @param {HTMLElement} container
          * @return {HTMLElement}
          */
-        byId: function (id, area) {
-            area = area || doc;
-            return area.getElementById(id);
+        byId: function (id, container) {
+            container = container || doc;
+            return container.getElementById(id);
         },
         
         /**
          * @param {string} tag
-         * @param {HTMLElement} area
+         * @param {HTMLElement} container
          * @return {NodeList}
          */
-        byTag: function (tag, area) {
-            area = area || doc;
-            return area.getElementsByTagName(tag);
+        byTag: function (tag, container) {
+            container = container || doc;
+            return container.getElementsByTagName(tag);
         },
         
         /**
          * @param {string} cssClass
-         * @param {HTMLElement} area
+         * @param {HTMLElement} container
          * @return {NodeList or array}
          */
-        byClass: function (cssClass, area) {
-            area = area || doc;
-            if (area.getElementsByClassName) {
-                return area.getElementsByClassName(cssClass);
+        byClass: function (cssClass, container) {
+            container = container || doc;
+            if (container.getElementsByClassName) {
+                return container.getElementsByClassName(cssClass);
             } else {
                 var results = [];
-                walk_the_dom(area, function (node) {
+                walk_the_dom(container, function (node) {
                     if (pklib.css.hasClass(cssClass, node)) {
                         results.push(node);
                     }
@@ -514,23 +538,25 @@ pklib.dom = (function () {
          * @return {array}
          */
         children: function (element) {
-            for(var i = 0, arr = [], childs = element.childNodes, len = childs.length; i < len; ++i) {
-                if (this.nodeTypes[childs[i].nodeType] === this.nodeTypes[1]) {
-                    arr.push(childs[i]);
+            var array = [], 
+                childs = element.childNodes;
+            for(var i = 0, len = childs.length; i < len; ++i) {
+                if (childs[i].nodeType === this.nodeTypes.ELEMENT_NODE) {
+                    array.push(childs[i]);
                 }
             }
-            return arr;
+            return array;
         },
         
         /**
          * @param {HTMLElement} element
-         * @param {HTMLElement} area
+         * @param {HTMLElement} container
          * @return {array}
          */
-        center: function (element, area) {
+        center: function (element, container) {
             var left = null,
                 top = null;
-            if (area === doc.body) {
+            if (container === doc.body) {
                 left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(element, "width")) / 2;
                 top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(element, "height")) / 2;
             } else {
@@ -566,6 +592,11 @@ pklib.dom = (function () {
             return [width, height];
         },
         
+        /**
+         * @param {HTMLElement} element
+         * @param {HTMLElement} container
+         * @return {HTMLElement}
+         */
         insert: function (element, container) {
             if (this.isNode(element)) {
                 container.appendChild(element);
@@ -720,7 +751,7 @@ pklib.glass = (function () {
                 glass = doc.createElement("div"),
                 glassStyle = glass.style;
                 
-            settings = pklib.utils.merge(settings, config);
+            settings = pklib.array.mixin(settings, config);
             settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
 
             glass.setAttribute("id", this.objId);
@@ -958,7 +989,7 @@ pklib.loader = (function () {
          * @param {function} callback
          */
         show: function (config, callback) {
-            settings = pklib.utils.merge(settings, config);
+            settings = pklib.array.mixin(settings, config);
 
             var loader = doc.createElement("img"),
                 loaderStyle = loader.style;
@@ -1033,7 +1064,7 @@ pklib.message = (function () {
         objId: id,
         content: contents,
         show: function (config, callback) {
-            settings = pklib.utils.merge(settings, config);
+            settings = pklib.array.mixin(settings, config);
 
             var message = doc.createElement("div"),
                 messageStyle = message.style;
@@ -1436,30 +1467,6 @@ pklib.utils = (function () {
             } else {
                 doc.body.scrollTop = param;
             }
-        },
-        
-        /**
-         * @param {array or object} target
-         * @param {array or object} source
-         * @return {array}
-         */
-        merge: function (target, source) {
-            if (pklib.array.isArray(target) && pklib.array.isArray(source)) {
-                for(var i = 0, len = source.length; i < len; ++i) {
-                    var element = source[i];
-                    if (!pklib.array.inArray(element, target)) {
-                        target.push(element);
-                    }
-                }
-                return target.sort();
-            } else {
-                for(var item in source) {
-                    if (source.hasOwnProperty(item)) {
-                        target[item] = source[item];
-                    }
-                }
-                return target;
-            }
         }
     };
 
@@ -1536,7 +1543,7 @@ pklib.validate = (function () {
                     // pass
                 }
             };
-            settings = pklib.utils.merge(settings, config);
+            settings = pklib.array.mixin(settings, config);
 
             if (settings.regexp == null) {
                 throw new TypeError("pklib.validate.regexp: Regular expressino is neeeded");

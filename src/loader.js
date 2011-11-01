@@ -35,7 +35,7 @@ pklib.loader = (function () {
          * @param {function} callback
          */
         show: function (config, callback) {
-            settings = pklib.utils.merge(settings, config);
+            settings = pklib.array.mixin(settings, config);
 
             var loader = doc.createElement("img"),
                 loaderStyle = loader.style;

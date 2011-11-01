@@ -64,7 +64,7 @@ pklib.ajax = (function () {
                 }
             };
             
-            settings = pklib.utils.merge(settings, config);
+            settings = pklib.array.mixin(settings, config);
             settings.type = settings.type.toUpperCase();
     
             if (settings.cache && cache[settings.url]) {

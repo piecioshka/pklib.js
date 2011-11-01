@@ -69,7 +69,7 @@ pklib.validate = (function () {
                     // pass
                 }
             };
-            settings = pklib.utils.merge(settings, config);
+            settings = pklib.array.mixin(settings, config);
 
             if (settings.regexp == null) {
                 throw new TypeError("pklib.validate.regexp: Regular expressino is neeeded");

@@ -25,7 +25,7 @@ pklib.message = (function () {
         objId: id,
         content: contents,
         show: function (config, callback) {
-            settings = pklib.utils.merge(settings, config);
+            settings = pklib.array.mixin(settings, config);
 
             var message = doc.createElement("div"),
                 messageStyle = message.style;

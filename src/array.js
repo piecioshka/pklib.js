@@ -75,6 +75,30 @@ pklib.array = (function () {
                 }
             }
             return array;
+        },
+        
+        /**
+         * @param {array or object} target
+         * @param {array or object} source
+         * @return {array}
+         */
+        mixin: function (target, source) {
+            if (this.isArray(target) && this.isArray(source)) {
+                for(var i = 0, len = source.length; i < len; ++i) {
+                    var element = source[i];
+                    if (!this.inArray(element, target)) {
+                        target.push(element);
+                    }
+                }
+                return target.sort();
+            } else {
+                for(var item in source) {
+                    if (source.hasOwnProperty(item)) {
+                        target[item] = source[item];
+                    }
+                }
+                return target;
+            }
         }
     };
 

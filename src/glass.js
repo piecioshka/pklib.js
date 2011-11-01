@@ -40,7 +40,7 @@ pklib.glass = (function () {
                 glass = doc.createElement("div"),
                 glassStyle = glass.style;
                 
-            settings = pklib.utils.merge(settings, config);
+            settings = pklib.array.mixin(settings, config);
             settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
 
             glass.setAttribute("id", this.objId);
