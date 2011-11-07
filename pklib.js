@@ -1178,8 +1178,8 @@ Function.method("bind", function (that) {
         args = slice.apply(arguments, [1]);
         
     return function () {
-        return method.apply(that, args.concat(slice.apply(arguments, [0])))
-    }
+        return method.apply(that, args.concat(slice.apply(arguments, [0])));
+    };
 });	
 /**
  * @package string
