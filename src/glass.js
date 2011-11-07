@@ -13,7 +13,7 @@ pklib.glass = (function () {
     var doc = document,
         id = "pklib-glass-wrapper",
         settings = {
-            container: doc.body,
+            container: null,
             style: {
                 position: "absolute",
                 left: 0,
@@ -40,10 +40,12 @@ pklib.glass = (function () {
                 glass = doc.createElement("div"),
                 glassStyle = glass.style;
                 
+            settings.container = doc.body;
             settings = pklib.array.mixin(settings, config);
             settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
 
             glass.setAttribute("id", this.objId);
+            
             for(var style in settings.style) {
                 if (settings.style.hasOwnProperty(style)) {
                     glassStyle[style] = settings.style[style];

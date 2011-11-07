@@ -14,7 +14,7 @@ pklib.loader = (function () {
         id = "pklib-loader-wrapper",
         settings = {
             src: "http://pklib.com/img/icons/loader.gif",
-            container: doc.body,
+            container: null,
             style: {
                 width: 31,
                 height: 31,
@@ -35,6 +35,7 @@ pklib.loader = (function () {
          * @param {function} callback
          */
         show: function (config, callback) {
+            settings.container = doc.body;
             settings = pklib.array.mixin(settings, config);
 
             var loader = doc.createElement("img"),
@@ -42,11 +43,13 @@ pklib.loader = (function () {
 
             loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
+            
             for(var style in settings.style) {
                 if (settings.style.hasOwnProperty(style)) {
                     loaderStyle[style] = settings.style[style];
                 }
             }
+            
             if (settings.center) {
                 pklib.dom.center(loader, settings.container);
 

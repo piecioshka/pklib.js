@@ -13,7 +13,7 @@ pklib.message = (function () {
         id = "pklib-message-wrapper",
         contents = null,
         settings = {
-            container: doc.body,
+            container: null,
             style: {
                 width: 300,
                 height: 300,
@@ -25,6 +25,7 @@ pklib.message = (function () {
         objId: id,
         content: contents,
         show: function (config, callback) {
+            settings.container = doc.body;
             settings = pklib.array.mixin(settings, config);
 
             var message = doc.createElement("div"),
@@ -39,7 +40,7 @@ pklib.message = (function () {
 
             if (typeof this.content === "string") {
                 message.innerHTML = this.content;
-            } else if (typeof this.content === "object") {
+            } else if (pklib.dom.isNode(this.content)) {
                 message.appendChild(this.content);
             }
 

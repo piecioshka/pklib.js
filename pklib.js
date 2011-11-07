@@ -732,7 +732,7 @@ pklib.glass = (function () {
     var doc = document,
         id = "pklib-glass-wrapper",
         settings = {
-            container: doc.body,
+            container: null,
             style: {
                 position: "absolute",
                 left: 0,
@@ -759,10 +759,12 @@ pklib.glass = (function () {
                 glass = doc.createElement("div"),
                 glassStyle = glass.style;
                 
+            settings.container = doc.body;
             settings = pklib.array.mixin(settings, config);
             settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
 
             glass.setAttribute("id", this.objId);
+            
             for(var style in settings.style) {
                 if (settings.style.hasOwnProperty(style)) {
                     glassStyle[style] = settings.style[style];
@@ -976,7 +978,7 @@ pklib.loader = (function () {
         id = "pklib-loader-wrapper",
         settings = {
             src: "http://pklib.com/img/icons/loader.gif",
-            container: doc.body,
+            container: null,
             style: {
                 width: 31,
                 height: 31,
@@ -997,6 +999,7 @@ pklib.loader = (function () {
          * @param {function} callback
          */
         show: function (config, callback) {
+            settings.container = doc.body;
             settings = pklib.array.mixin(settings, config);
 
             var loader = doc.createElement("img"),
@@ -1004,11 +1007,13 @@ pklib.loader = (function () {
 
             loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
+            
             for(var style in settings.style) {
                 if (settings.style.hasOwnProperty(style)) {
                     loaderStyle[style] = settings.style[style];
                 }
             }
+            
             if (settings.center) {
                 pklib.dom.center(loader, settings.container);
 
@@ -1060,7 +1065,7 @@ pklib.message = (function () {
         id = "pklib-message-wrapper",
         contents = null,
         settings = {
-            container: doc.body,
+            container: null,
             style: {
                 width: 300,
                 height: 300,
@@ -1072,6 +1077,7 @@ pklib.message = (function () {
         objId: id,
         content: contents,
         show: function (config, callback) {
+            settings.container = doc.body;
             settings = pklib.array.mixin(settings, config);
 
             var message = doc.createElement("div"),
@@ -1086,7 +1092,7 @@ pklib.message = (function () {
 
             if (typeof this.content === "string") {
                 message.innerHTML = this.content;
-            } else if (typeof this.content === "object") {
+            } else if (pklib.dom.isNode(this.content)) {
                 message.appendChild(this.content);
             }
 
