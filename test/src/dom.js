@@ -50,6 +50,25 @@ window.addEventListener("load", function () {
         strictEqual(pklib.dom.byClass(cssClass)[0], element, "Element with class: " + cssClass + " was found");
     });
 
+    // pklib.dom.get
+    test("get", function() {
+
+        var wrapper = document.createElement("div");
+        pklib.css.addClass("dummy", wrapper);
+
+        var link1 = document.createElement("a");
+        link1.innerHTML = 1;
+        wrapper.appendChild(link1);
+
+        var link2 = document.createElement("a");
+        link2.innerHTML = 2;
+        wrapper.appendChild(link2);
+
+        document.body.appendChild(wrapper);
+
+        log(pklib.dom.get(".dummy a"));
+    });
+
     // pklib.dom.index
     test("index", function() {
 

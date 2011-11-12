@@ -85,6 +85,10 @@ pklib.dom = (function () {
             }
         },
         
+        get: function (selector) {
+            // TODO: parse selector and user dom method to find elements
+        },
+        
         /**
          * @param {HTMLElement} element
          * @return {null or number}
