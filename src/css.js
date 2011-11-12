@@ -1,5 +1,6 @@
 /**
  * @package css
+ * @dependence string
  */
 pklib = this.pklib || {};
 
@@ -42,7 +43,7 @@ pklib.css = (function () {
                 throw new TypeError("pklib.css.removeClass: Element is undefined/null or cssClass is undefined");
             }
             var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
-            element.className = element.className.replace(regexp, "");
+            element.className = pklib.string.trim(element.className.replace(regexp, ""));
         },
         
         /**

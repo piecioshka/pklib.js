@@ -1,6 +1,6 @@
 window.addEventListener("load", function () {
     
-    module("util/aspect");
+    module("pklib.aspect");
     
     test("Simple ascpect", function () {
         function test_aspect () {
@@ -17,7 +17,7 @@ window.addEventListener("load", function () {
         }
         
         var test = new test_aspect();
-        test.a = aspect(test.a, test.b);
+        test.a = pklib.aspect(test.a, test.b);
         test.a();
                 
         strictEqual(test.get(), "ba", "Aspecting simple method");
