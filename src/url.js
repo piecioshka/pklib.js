@@ -24,7 +24,21 @@ pklib.url = (function () {
             return loc.pathname;
         },
         getParams: function () {
-            return loc.search;
+            var params = loc.search,
+                params_obj = {};
+            
+            if (params.substr(0, 1) == "?") {
+                params = params.substr(1);
+            }
+            
+            params = params.split("&");
+            
+            for (var i = 0, len = params.length; i < len; ++i) {
+                var item = params[i].split("=");
+                params_obj[item[0]] = item[1];
+            }
+            
+            return params_obj;
         },
         getParam: function (key) {
             var params = loc.search;
