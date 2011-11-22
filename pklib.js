@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.0.1
+ * pklib JavaScript library v1.0.2
  * http://pklib.com/
  * 
  * Copyright (c) 2011
@@ -14,14 +14,14 @@
  * 
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Tue Nov 01 2011 16:05:01 GMT+0100 (CEST)
+ * Date: TTue Nov 22 18:27:12 GMT 2011
  */
 
 // pklib definition and initialization
 pklib = this.pklib || {
     author: "Piotr Kowalski",
     www: "http://pklib.com/",
-    version: "1.0.1"
+    version: "1.0.2"
 };
 
 	
@@ -1315,6 +1315,57 @@ pklib.string = (function () {
     
     };
     
+})();
+	
+/**
+ * @package url
+ */
+pklib = this.pklib || {};
+
+/**
+ * Url helper manager
+ */
+pklib.url = (function () {
+    
+    var loc = window.location;
+    
+    return {
+        getProtocol: function () {
+            return loc.protocol;
+        },
+        getHost: function () {
+            return loc.host;
+        },
+        getPort: function () {
+            return loc.port || 80;
+        },
+        getUri: function () {
+            return loc.pathname;
+        },
+        getParams: function () {
+            return loc.search;
+        },
+        getParam: function (key) {
+            var params = loc.search;
+            
+            if (params.substr(0, 1) == "?") {
+                params = params.substr(1);
+            }
+            
+            params = params.split("&");
+            
+            for (var i = 0, len = params.length; i < len; ++i) {
+                var item = params[i].split("=");
+                if (item[0] === key) {
+                    return item[1];
+                }
+            }
+        },
+        getHash: function () {
+            return loc.hash;
+        }
+    }
+
 })();
 	
 /**

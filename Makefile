@@ -35,6 +35,7 @@ for file in headers.js\
     profiler.js\
     prototypes.js\
     string.js\
+    url.js\
     utils.js\
     validate.js\
     
