@@ -30,7 +30,7 @@ window.addEventListener("load", function () {
             var stopProfiler = pklib.profiler.stop("test");
             var timeProfiler = pklib.profiler.getTime("test");
             strictEqual(typeof timeProfiler, "number", "Profiler time type is number");
-            strictEqual(timeProfiler, (stopProfiler - startProfiler) / 2, "Profiler time " + timeProfiler);
+            strictEqual(parseInt(timeProfiler, 10), parseInt(((stopProfiler - startProfiler) / 2), 10), "Profiler time " + timeProfiler);
             start();
         }, time);
 
