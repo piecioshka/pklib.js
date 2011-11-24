@@ -713,8 +713,6 @@ pklib = this.pklib || {};
  */
 pklib.file = (function () {
 
-    var doc = document;
-
     return {
 
         /**
@@ -725,7 +723,11 @@ pklib.file = (function () {
          * @param {function} callback
          */
         load: function (src, callback) {
-            var script = doc.createElement("script");
+            var doc = document,
+                script = doc.createElement("script");
+                
+            doc.head = doc.head || document.getElementsByTagName("head")[0];
+                
             script.type = "text/javascript";
             script.src = src;
 
