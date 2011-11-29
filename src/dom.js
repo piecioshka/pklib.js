@@ -86,33 +86,39 @@ pklib.dom = (function () {
         },
         
         get: function (selector) {
-            function getType(selector) {
-                if (/^\.(\w*)$/.test(selector)) {
-                    return "class";
-                } else if (/^\#(\w*)$/.test(selector)) {
-                    return "id";
-                } else {
-                    return "tag";                    
-                }
-            }
-            
-            var elements = selector.match(/[\.\#\w]+/g),
-                scope = window;
-            
-            for (var i = 0, len = elements.length; i < len; ++i) {
-                var item = elements[i],
-                    type = getType(item);
+            try {
                 
-                if (type === "class") {
-                    scope = this.byClass(item.substr(1), scope);
-                } else if (type === "id") {
-                    scope = this.byId(item.substr(1), scope);                    
-                } else {
-                    scope = this.byTag(item, scope);
+                function getType(selector) {
+                    if (/^\.(\w*)$/.test(selector)) {
+                        return "class";
+                    } else if (/^\#(\w*)$/.test(selector)) {
+                        return "id";
+                    } else {
+                        return "tag";                    
+                    }
                 }
+                
+                var elements = selector.match(/[\.\#\w]+/g),
+                    scope = window;
+                
+                for (var i = 0, len = elements.length; i < len; ++i) {
+                    var item = elements[i],
+                        type = getType(item);
+                    
+                    if (type === "class") {
+                        scope = this.byClass(item.substr(1), scope);
+                    } else if (type === "id") {
+                        scope = this.byId(item.substr(1), scope);                    
+                    } else {
+                        scope = this.byTag(item, scope);
+                    }
+                }
+                
+                warn(scope);
+                
+            } catch (ignore) {
+                
             }
-            
-            warn(scope);
         },
         
         /**

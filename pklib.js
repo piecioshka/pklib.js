@@ -527,33 +527,39 @@ pklib.dom = (function () {
         },
         
         get: function (selector) {
-            function getType(selector) {
-                if (/^\.(\w*)$/.test(selector)) {
-                    return "class";
-                } else if (/^\#(\w*)$/.test(selector)) {
-                    return "id";
-                } else {
-                    return "tag";                    
-                }
-            }
-            
-            var elements = selector.match(/[\.\#\w]+/g),
-                scope = window;
-            
-            for (var i = 0, len = elements.length; i < len; ++i) {
-                var item = elements[i],
-                    type = getType(item);
+            try {
                 
-                if (type === "class") {
-                    scope = this.byClass(item.substr(1), scope);
-                } else if (type === "id") {
-                    scope = this.byId(item.substr(1), scope);                    
-                } else {
-                    scope = this.byTag(item, scope);
+                function getType(selector) {
+                    if (/^\.(\w*)$/.test(selector)) {
+                        return "class";
+                    } else if (/^\#(\w*)$/.test(selector)) {
+                        return "id";
+                    } else {
+                        return "tag";                    
+                    }
                 }
+                
+                var elements = selector.match(/[\.\#\w]+/g),
+                    scope = window;
+                
+                for (var i = 0, len = elements.length; i < len; ++i) {
+                    var item = elements[i],
+                        type = getType(item);
+                    
+                    if (type === "class") {
+                        scope = this.byClass(item.substr(1), scope);
+                    } else if (type === "id") {
+                        scope = this.byId(item.substr(1), scope);                    
+                    } else {
+                        scope = this.byTag(item, scope);
+                    }
+                }
+                
+                warn(scope);
+                
+            } catch (ignore) {
+                
             }
-            
-            warn(scope);
         },
         
         /**
@@ -885,24 +891,33 @@ pklib = this.pklib || {};
  */
 pklib.json = (function () {
 
+    function __getFunctionName(fun) {
+        var text = fun.toString().split("\n")[0].replace("function ", "");
+        return text.substr(0, text.indexOf("(")) + "()";
+    }
+
+    function __getLastElement(object) {
+        for(var i in object) {}
+        return i;
+    }
+
+    function __getIndent(len) {
+        for(var i = 0, preffix = "\t", source = ""; i < len; ++i) {
+            source += preffix;
+        }
+        return source;
+    }
+
     return {
 
         /**
          * @param {array} object
-         * @param {number} ind
          * @return {string}
          */
-        stringify: function (object, ind) {
-            var source = "", 
-                type = "", 
-                index = ind || 0;
-
-            function indent(len) {
-                for(var i = 0, preffix = "\t", source = ""; i < len; ++i) {
-                    source += preffix;
-                }
-                return source;
-            }
+        stringify: function (object) {
+            var source = "",
+                args = Array.prototype.slice.call(arguments),
+                index = args[1] || 0;
 
             // Undefined
             if (typeof object === "undefined") {
@@ -916,75 +931,55 @@ pklib.json = (function () {
 
             // Boolean
             if (typeof object === "boolean") {
-                type = "boolean";
                 return object;
             } else
 
             // Number
             if (typeof object === "number") {
-                type = "number";
                 return object;
             } else
 
             // String
             if (typeof object === "string") {
-                type = "string";
                 return '"' + object + '"';
             } else
 
             // Function
             if (typeof object === "function") {
-                type = "function";
-
-                function __getName(fun) {
-                    var text = fun.toString();
-                    text = text.split("\n")[0].replace("function ", "");
-                    return text.substr(0, text.indexOf("(")) + "()";
-                }
-
-                return __getName(object);
+                return __getFunctionName(object);
             } else
 
             // Array
             if (typeof object === "object" && typeof object.slice === "function") {
-                type = "array";
                 if (object.length === 0) {
                     return "[]";
                 }
-                source = "[\n" + indent(index);
+                source = "[\n" + __getIndent(index);
                 index++;
                 for(var i = 0, len = object.length; i < len; ++i) {
-                    source += indent(index) + arguments.callee(object[i], index);
+                    source += __getIndent(index) + arguments.callee(object[i], index);
                     if (i !== len - 1) {
                         source += ",\n";
                     }
                 }
                 index--;
-                source += "\n" + indent(index) + "]";
+                source += "\n" + __getIndent(index) + "]";
             } else
 
             // Object
             if (typeof object === "object") {
-                type = "object";
-
-                function __getLast(object) {
-                    for(var i in object) {
-                    }
-                    return i;
-                }
-
                 source = "{\n";
                 index++;
                 for(var item in object) {
                     if (object.hasOwnProperty(item)) {
-                        source += indent(index) + '"' + item + '": ' + arguments.callee(object[item], index);
-                        if (item !== __getLast(object)) {
+                        source += __getIndent(index) + '"' + item + '": ' + arguments.callee(object[item], index);
+                        if (item !== __getLastElement(object)) {
                             source += ",\n";
                         }
                     }
                 }
                 index--;
-                source += "\n" + indent(index) + "}";
+                source += "\n" + __getIndent(index) + "}";
             }
 
             return source;
@@ -1006,7 +1001,9 @@ pklib.json = (function () {
             toJson && (response += "{");
             
             for(var item in source) {
-                if (source.hasOwnProperty(item)) {(amp) ? response += toJson ? ',': '&': ( amp = true);
+                if (source.hasOwnProperty(item)) {
+                    
+                    amp ? response += toJson ? ',': '&': ( amp = true);
 
                     var value = '';
                     if (typeof source[item] !== "undefined" && source[item] !== null) {
