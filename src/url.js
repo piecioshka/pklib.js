@@ -59,6 +59,6 @@ pklib.url = (function () {
         getHash: function () {
             return loc.hash;
         }
-    }
+    };
 
 })();
