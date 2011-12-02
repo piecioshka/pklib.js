@@ -1337,6 +1337,14 @@ pklib.string = (function () {
                 return "-" + match.toLowerCase();
             });
         },
+        
+        /**
+         * @param {string} source
+         * @return {string}
+         */
+        strip_tags: function(source) {
+            return source.replace(/\<\S\>/g, "");
+        },
     
         /**
          * @param {string} source
@@ -1437,7 +1445,7 @@ pklib.url = (function () {
         getHash: function () {
             return loc.hash;
         }
-    }
+    };
 
 })();
 	
