@@ -459,6 +459,16 @@
         }
     }
 
+    function getType(selector) {
+        if (/^\.(\w*)$/.test(selector)) {
+            return "class";
+        } else if (/^\#(\w*)$/.test(selector)) {
+            return "id";
+        } else {
+            return "tag";
+        }
+    }
+
     pklib.dom = {
 
         /**
@@ -528,15 +538,6 @@
          */
         get: function (selector) {
             try {
-                function getType(selector) {
-                    if (/^\.(\w*)$/.test(selector)) {
-                        return "class";
-                    } else if (/^\#(\w*)$/.test(selector)) {
-                        return "id";
-                    } else {
-                        return "tag";
-                    }
-                }
                 var i,
                     elements = selector.match(/[\.\#\w]+/g),
                     len = elements.length,
