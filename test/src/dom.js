@@ -66,7 +66,7 @@ window.addEventListener("load", function () {
 
         document.body.appendChild(wrapper);
 
-        log(pklib.dom.get(".dummy a"));
+        // log(pklib.dom.get(".dummy a"));
     });
 
     // pklib.dom.index

@@ -1,42 +1,36 @@
 /**
+ * Time analyzer
  * @package pklib.profiler
  */
-pklib = this.pklib || {};
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {},
+        data = {};
 
-/**
- * Time analyzer
- */
-pklib.profiler = (function () {
-
-    var data = {};
-
-    return {
-
+    pklib.profiler = {
         /**
-         * @param {string} name
-         * @return {number}
+         * @param name {String}
+         * @return {Number}
          */
         start: function (name) {
             data[name] = new Date();
             return data[name];
         },
-        
         /**
-         * @param {string} name
-         * @return {number}
+         * @param name {String}
+         * @return {Number}
          */
         stop: function (name) {
             data[name] = new Date() - data[name];
             return new Date((new Date()).getTime() + data[name]);
         },
-        
         /**
-         * @param {string} name
-         * @return {number}
+         * @param name {String}
+         * @return {Number}
          */
         getTime: function (name) {
             return data[name];
         }
     };
 
-})();
+}(this));

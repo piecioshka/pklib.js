@@ -13,7 +13,7 @@ window.addEventListener("load", function () {
                 // pass
             });
             
-            ok(true);
+            ok(true, "Event was added");
         } catch (e) {
             
         }
@@ -35,7 +35,7 @@ window.addEventListener("load", function () {
                 alert(1);
             });
     
-            ok(removed, "Event was removed");
+            ok(true, "Event was removed");
         } catch (e) {
             // pass
         }

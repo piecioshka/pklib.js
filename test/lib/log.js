@@ -1,21 +1,17 @@
-(function (global) {
-    
-    global.log = function () {
-        if (global.console && console.log) {
-            console.log.apply(global, arguments);
+(function (win) {
+    win.log = function () {
+        if (win.console && console.log) {
+            console.log.apply(win, arguments);
         }
     };
-    
-    global.info = function () {
-        if (global.console && console.info) {
-            console.info.apply(global, arguments);
+    win.info = function () {
+        if (win.console && console.info) {
+            console.info.apply(win, arguments);
         }
     };
-    
-    global.warn = function () {
-        if (global.console && console.warn) {
-            console.warn.apply(global, arguments);
+    win.warn = function () {
+        if (win.console && console.warn) {
+            console.warn.apply(win, arguments);
         }
     };
-    
 })(window);

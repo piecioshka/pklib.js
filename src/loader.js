@@ -1,16 +1,13 @@
 /**
+ * Loader adapter.
+ * Show animate image (GIF) on special place.
  * @package loader
  * @dependence dom, event, utils
  */
-pklib = this.pklib || {};
-
-/**
- * Loader adapter.
- * Show animate image (GIF) on special place.
- */
-pklib.loader = (function () {
-
-    var doc = document,
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {},
+        document = win.document || {},
         id = "pklib-loader-wrapper",
         settings = {
             src: "http://pklib.com/img/icons/loader.gif",
@@ -23,7 +20,7 @@ pklib.loader = (function () {
             center: true
         };
 
-    return {
+    pklib.loader = {
 
         /**
          * @type string
@@ -35,53 +32,48 @@ pklib.loader = (function () {
          * @param {function} callback
          */
         show: function (config, callback) {
-            settings.container = doc.body;
+            settings.container = document.body;
             settings = pklib.array.mixin(settings, config);
 
-            var loader = doc.createElement("img"),
-                loaderStyle = loader.style;
+            var loader = document.createElement("img"),
+                loaderStyle = loader.style,
+                style;
 
             loader.setAttribute("id", this.objId);
             loader.setAttribute("src", settings.src);
-            
-            for(var style in settings.style) {
+            for (style in settings.style) {
                 if (settings.style.hasOwnProperty(style)) {
                     loaderStyle[style] = settings.style[style];
                 }
             }
-            
             if (settings.center) {
                 pklib.dom.center(loader, settings.container);
 
-                pklib.event.add(window, "resize", function () {
+                pklib.event.add(win, "resize", function () {
                     pklib.dom.center(loader, settings.container);
                 });
             }
-
-            settings.container.appendChild(loader); 
-            
-            (typeof callback === "function") && callback();
-            
-            delete loader;
+            settings.container.appendChild(loader);
+            if (typeof callback === "function") {
+                callback();
+            }
+            loader = null;
         },
-        
         /**
-         * @param {function} callback
+         * @param callback {Function}
          */
         close: function (callback) {
             var loader = pklib.dom.byId(this.objId),
                 result = false;
-                
             if (loader !== null) {
                 loader.parentNode.removeChild(loader);
                 this.close(callback);
                 result = true;
             }
-            
-            (typeof callback === "function") && callback();
-
+            if (typeof callback === "function") {
+                callback();
+            }
             return result;
         }
     };
-
-})();
+}(this));

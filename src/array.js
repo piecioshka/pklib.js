@@ -1,14 +1,12 @@
 /**
+ * Module to service array object.
  * @package array
  */
-pklib = this.pklib || {};
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {};
 
-/**
- * Module to service array object.
- */
-pklib.array = (function () {
-
-    return {
+    pklib.array =  {
 
         /**
          * Check if object is array,
@@ -18,81 +16,93 @@ pklib.array = (function () {
          * - typeof object.length
          * - typeof object.slice
          * 
-         * @param {HTMLElement} obj
-         * @return {boolean}
+         * @param obj {HTMLElement}
+         * @return {Boolean}
          */
         isArray: function (obj) {
-            return typeof obj === "object" && obj != null && typeof obj.length !== "undefined" && typeof obj.slice !== "undefined";
+            return typeof obj === "object" && obj !== null && typeof obj.length !== "undefined" && typeof obj.slice !== "undefined";
         },
-        
         /**
          * Check if element is in array by loop.
          * 
-         * @param {any Object) param
-         * @param {array} array
-         * @return {boolean or number}
+         * @param {var) param
+         * @param {Array} array
+         * @return {Boolean}
          */
         inArray: function (param, array) {
-            for(var i = 0, len = array.length; i < len; ++i) {
+            var i = 0,
+                len = array.length;
+            for (i = 0; i < len; i += 1) {
                 if (array[i] === param) {
                     return true;
                 }
             }
             return false;
         },
-        
         /**
          * Unique array. Delete element what was duplicated.
          * 
-         * @param {array} array
-         * @return {array}
+         * @param array {Array}
+         * @return {Array}
          */
         unique: function (array) {
-            for(var i = 0, temp = [], len = array.length; i < len; ++i) {
-                var item = array[i];
+            var i,
+                temp = [],
+                item,
+                len = array.length;
+            for (i = 0; i < len; i += 1) {
+                item = array[i];
                 if (this.inArray.call(null, item, temp) === false) {
                     temp.push(item);
                 }
             }
             return temp;
         },
-        
         /**
          * Remove element declarated in infinity params without first.
          * First parameter is array object.
          * 
-         * @param {array} array
-         * @param {any Object}...
-         * @return {array}
+         * @param array {Array}
+         * @param {var}
+         * @return {Array}
          */
-        remove: function (array /*,  */) {
-            var params = Array.prototype.splice.call(arguments, 1);
-            for(var i = 0, len = params.length; i < len; ++i) {
-                var param = params[i], 
-                    inside = this.inArray(param, array);
+        remove: function (array) {
+            var i,
+                param,
+                params = Array.prototype.splice.call(arguments, 1),
+                len = params.length,
+                inside;
+            for (i = 0; i < len; i += 1) {
+                param = params[i];
+                inside = this.inArray(param, array);
                 if (inside !== false) {
                     array.splice(inside, 1);
                 }
             }
             return array;
         },
-        
         /**
-         * @param {array or object} target
-         * @param {array or object} source
-         * @return {array}
+         * @param target {Array or Object}
+         * @param source {Array or Object}
+         * @return {Array}
          */
         mixin: function (target, source) {
+            var i,
+                len = 0,
+                element,
+                item;
             if (this.isArray(target) && this.isArray(source)) {
-                for(var i = 0, len = source.length; i < len; ++i) {
-                    var element = source[i];
+                len = source.length;
+                for (i = 0; i < len; i += 1) {
+                    element = source[i];
                     if (!this.inArray(element, target)) {
                         target.push(element);
                     }
                 }
-                return target.sort();
+                target.sort();
+                return target;
             } else {
-                for(var item in source) {
+                for (item in source) {
                     if (source.hasOwnProperty(item)) {
                         target[item] = source[item];
                     }
@@ -102,4 +112,4 @@ pklib.array = (function () {
         }
     };
 
-})();
+}(this));

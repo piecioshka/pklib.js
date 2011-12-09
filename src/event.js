@@ -1,20 +1,18 @@
 /**
+ * Helper about manage event on HTMLElement.
  * @package event
  */
-pklib = this.pklib || {};
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {};
 
-/**
- * Helper about manage event on HTMLElement.
- */
-pklib.event = (function () {
-
-    return {
+    pklib.event = {
 
         /**
-         * @param {HTMLElement} target
-         * @param {string} eventType
-         * @param {function} callback
-         * @param {boolean} bubbles
+         * @param target {HTMLElement}
+         * @param eventType {String}
+         * @param callback {Function}
+         * @param bubbles {Boolean}
          * @return {Event}
          */
         add: function (target, eventType, callback, bubbles) {
@@ -26,12 +24,11 @@ pklib.event = (function () {
                 target.addEventListener(eventType, callback, bubbles);
             }
         },
-        
         /**
-         * @param {HTMLElement} target
-         * @param {string} eventType
-         * @param {function} callback
-         * @param {boolean} bubbles
+         * @param target {HTMLElement}
+         * @param eventType {String}
+         * @param callback {Function}
+         * @param bubbles {Boolean}
          * @return {boolean}
          */
         remove: function (target, eventType, callback, bubbles) {
@@ -50,5 +47,4 @@ pklib.event = (function () {
             return this.remove(target, eventType, callback, bubbles);
         }
     };
-
-})();
+}(this));

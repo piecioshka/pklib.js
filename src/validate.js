@@ -1,90 +1,88 @@
 /**
+ * Validate module
  * @package validate
  * @dependence array, utils
  */
-pklib = this.pklib || {};
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {};
 
-/**
- * Validate module
- */
-pklib.validate = (function () {
-
-    return {
-
+    pklib.validate = {
         /**
-         * @param {object} object
-         * @return {boolean}
+         * @param object {Object}
+         * @return {Boolean}
          */
         empty: function (object) {
-            if (object == null) {
+            var iterator = 0,
+                item;
+            if (object === null) {
                 return true;
             } else if (pklib.array.isArray(object)) {
                 return (object.length === 0);
             } else {
                 switch (typeof object) {
-                    case "string":
-                        return (object === "");
-                        break;
-                    case "number":
-                        return (object === 0);
-                        break;
-                    case "object":
-                        var iterator = 0;
-                        for(var item in object) {
-                            if (object.hasOwnProperty(item)) {
-                                iterator++;
-                            }
+                case "string":
+                    return (object === "");
+                case "number":
+                    return (object === 0);
+                case "object":
+                    for (item in object) {
+                        if (object.hasOwnProperty(item)) {
+                            iterator += 1;
                         }
-                        return (iterator === 0);
-                        break;
-
-                    case "undefined":
+                    }
+                    return (iterator === 0);
                 }
                 return false;
             }
         },
-        
         /**
-         * @param {object} config
+         * @param config {Object}
          * <pre>
          * {
-         *      object {string}
-         *      regexp {object}
+         *      object {String}
+         *      regexp {Object}
          *
-         *      error {function},
-         *      success {function}
+         *      error {Function},
+         *      success {Function}
          * }
          * </pre>
          *
-         * @return {function}
+         * @return {Function}
          */
         regexp: function (config) {
-            var settings = {
-                object: null,
-                regexp: null,
-                error: function () {
-                    // pass
-                },
-                success: function () {
-                    // pass
-                }
-            };
+            var exp,
+                settings = {
+                    object: null,
+                    regexp: null,
+                    error: function () {
+                        // pass
+                    },
+                    success: function () {
+                        // pass
+                    }
+                };
+            if (config === null || typeof config === "udnefined") {
+                throw new TypeError("pklib.validate.regexp: Config is undefined");
+            }
             settings = pklib.array.mixin(settings, config);
 
-            if (settings.regexp == null) {
+            if (settings.regexp === null) {
                 throw new TypeError("pklib.validate.regexp: Regular expressino is neeeded");
             }
-            var exp = new RegExp(settings.regexp);
+            exp = new RegExp(settings.regexp);
 
-            if (settings.object == null) {
+            if (settings.object === null) {
                 throw new TypeError("pklib.validate.regexp: Object is neeeded");
             }
             if (exp.test(settings.object)) {
-                return (typeof settings.success === "function") && settings.success();
+                if (typeof settings.success === "function") {
+                    return settings.success();
+                }
             }
-
-            return (typeof settings.error === "function") && settings.error();
+            if (typeof settings.error === "function") {
+                return settings.error();
+            }
         }
     };
-
-})();
+}(this));

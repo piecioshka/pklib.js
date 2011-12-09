@@ -1,50 +1,51 @@
 /**
+ * Get best information about browser.
  * @package browser
  */
-pklib = this.pklib || {};
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {},
+        navigator = win.navigator || {},
+        browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 
-/**
- * Get best information about browser.
- */
-pklib.browser = (function () {
-
-    var browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
-
-    return {
+    pklib.browser = {
 
         /**
          * Get browser name by checking userAgent in global object navigator.
-         *
-         * @return {string}
+         * @return {String}
          */
         getName: function () {
-            var userAgent = navigator.userAgent.toLowerCase();
+            var i,
+                len = browsers.length,
+                userAgent = navigator.userAgent.toLowerCase(),
+                browser;
 
-            for(var i = 0, len = browsers.length; i < len; ++i) {
-                var browser = browsers[i];
+            for (i = 0; i < len; i += 1) {
+                browser = browsers[i];
                 if (new RegExp(browser).test(userAgent)) {
                     return browser;
                 }
             }
         },
-        
         /**
          * Get browser version by checking userAgent.
          * Parse userAgent to find next 3 characters.
-         *
-         * @return {string}
+         * @return {String}
          */
         getVersion: function () {
-            var userAgent = navigator.userAgent.toLowerCase();
+            var i,
+                len = browsers.length,
+                userAgent = navigator.userAgent.toLowerCase(),
+                browser,
+                cur;
 
-            for(var i = 0, len = browsers.length; i < len; ++i) {
-                var browser = browsers[i],
-                    cur = userAgent.indexOf(browser);
-                if (cur != -1) {
+            for (i = 0; i < len; i += 1) {
+                browser = browsers[i];
+                cur = userAgent.indexOf(browser);
+                if (cur !== -1) {
                     return userAgent.substr(cur + len + 1, 3);
                 }
             }
         }
     };
-
-})();
+}(this));

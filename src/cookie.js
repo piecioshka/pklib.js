@@ -1,56 +1,53 @@
 /**
+ * Cookie service manager.
  * @package cookie
  */
-pklib = this.pklib || {};
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {},
+        document = win.document || {};
 
-/**
- * Cookie service manager.
- */
-pklib.cookie = (function () {
-
-    var doc = document;
-
-    return {
+    pklib.cookie = {
 
         /**
          * Create cookie file with name, value and day expired.
-         *
-         * @param {string} name
-         * @param {string} value
-         * @param {number} days
+         * @param name {String}
+         * @param value {String}
+         * @param days {Number}
          * @return {string}
          */
         create: function (name, value, days) {
             value = value || null;
-            var expires = "";
+            var expires = "",
+                date = new Date();
 
             if (typeof days !== "undefined") {
-                var date = new Date();
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                 expires = "; expires=" + date.toGMTString();
             }
 
-            doc.cookie = name + "=" + value + expires + "; path=/";
+            document.cookie = name + "=" + value + expires + "; path=/";
 
             return this.read(name);
         },
-        
         /**
          * Read cookie by it name.
-         *
-         * @param {string} name
-         * @return {null or string}
+         * @param name {String}
+         * @return {Null or String}
          */
         read: function (name) {
             if (typeof name === "undefined") {
                 return null;
             }
             name = name + "=";
-            var ca = doc.cookie.split(";");
+            var i,
+                c,
+                ca = document.cookie.split(";"),
+                len = ca.length;
 
-            for(var i = 0, len = ca.length; i < len; ++i) {
-                var c = ca[i];
-                while(c.charAt(0) === " ") {
+            for (i = 0; i < len; i += 1) {
+                c = ca[i];
+                while (c.charAt(0) === " ") {
                     c = c.substring(1, c.length);
                 }
                 if (c.indexOf(name) === 0) {
@@ -58,16 +55,13 @@ pklib.cookie = (function () {
                 }
             }
         },
-        
         /**
          * Delete cookie by it name.
-         *
-         * @param {string} name
-         * @return {string}
+         * @param name {String}
+         * @return {String}
          */
         erase: function (name) {
             return this.create(name, undefined, -1);
         }
     };
-
-})();
+}(this));

@@ -1,24 +1,20 @@
 /**
+ * Utils method related css on tags in DOM tree.
  * @package css
  * @dependence string
  */
-pklib = this.pklib || {};
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {};
 
-/**
- * Utils method related css on tags in DOM tree.
- */
-pklib.css = (function () {
-
-    return {
-
+    pklib.css = {
         /**
          * Add CSS class to element define in second parameter.
-         *
-         * @param {HTMLElement} element
-         * @param {string} cssClass
+         * @param element {HTMLElement}
+         * @param cssClass {String}
          */
         addClass: function (cssClass, element) {
-            if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+            if (typeof element === "undefined" || element === null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.addClass: Element is undefined/null or cssClass is undefined");
             }
             var classElement = element.className;
@@ -31,35 +27,30 @@ pklib.css = (function () {
             }
             element.className = classElement;
         },
-        
         /**
          * Remove CSS class from element define in second parameter.
-         *
-         * @param {HTMLElement} element
-         * @param {string} cssClass
+         * @param element {HTMLElement}
+         * @param cssClass {String}
          */
         removeClass: function (cssClass, element) {
-            if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+            if (typeof element === "undefined" || element === null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.removeClass: Element is undefined/null or cssClass is undefined");
             }
-            var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
+            var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
             element.className = pklib.string.trim(element.className.replace(regexp, ""));
         },
-        
         /**
          * Check if element has CSS class
-         * 
-         * @param {HTMLElement} element
-         * @param {string} cssClass
-         * @return {boolean}
+         * @param element {HTMLElement}
+         * @param cssClass {String}
+         * @return {Boolean}
          */
         hasClass: function (cssClass, element) {
-            if (typeof element === "undefined" || element == null || typeof cssClass === "undefined") {
+            if (typeof element === "undefined" || element === null || typeof cssClass === "undefined") {
                 throw new TypeError("pklib.css.hasClass: Element is undefined/null or cssClass is undefined");
             }
-            var regexp = new RegExp("(\s" + cssClass + ")|(" + cssClass + "\s)|" + cssClass, "i");
+            var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
             return regexp.test(element.className);
         }
     };
-
-})();
+}(this));

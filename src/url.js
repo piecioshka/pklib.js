@@ -1,16 +1,13 @@
 /**
+ * Url helper manager
  * @package url
  */
-pklib = this.pklib || {};
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {},
+        loc = win.location;
 
-/**
- * Url helper manager
- */
-pklib.url = (function () {
-    
-    var loc = window.location;
-    
-    return {
+    pklib.url = {
         getProtocol: function () {
             return loc.protocol;
         },
@@ -25,32 +22,32 @@ pklib.url = (function () {
         },
         getParams: function () {
             var params = loc.search,
-                params_obj = {};
-            
-            if (params.substr(0, 1) == "?") {
+                params_obj = {},
+                i,
+                item,
+                len = 0;
+            if (params.substr(0, 1) === "?") {
                 params = params.substr(1);
             }
-            
             params = params.split("&");
-            
-            for (var i = 0, len = params.length; i < len; ++i) {
-                var item = params[i].split("=");
+            len = params.length;
+            for (i = 0; i < len; i += 1) {
+                item = params[i].split("=");
                 params_obj[item[0]] = item[1];
             }
-            
             return params_obj;
         },
         getParam: function (key) {
-            var params = loc.search;
-            
-            if (params.substr(0, 1) == "?") {
+            var params = loc.search,
+                i,
+                item,
+                len = params.length;
+            if (params.substr(0, 1) === "?") {
                 params = params.substr(1);
             }
-            
             params = params.split("&");
-            
-            for (var i = 0, len = params.length; i < len; ++i) {
-                var item = params[i].split("=");
+            for (i = 0; i < len; i += 1) {
+                item = params[i].split("=");
                 if (item[0] === key) {
                     return item[1];
                 }
@@ -60,5 +57,4 @@ pklib.url = (function () {
             return loc.hash;
         }
     };
-
-})();
+}(this));

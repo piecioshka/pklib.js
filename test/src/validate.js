@@ -5,7 +5,7 @@ window.addEventListener("load", function () {
     // pklib.validate.empty
     test("empty", function() {
 
-        ok(pklib.validate.empty(undefined), "Empty object: undefined");
+        ok(!pklib.validate.empty(undefined), "Empty object: undefined");
         ok(pklib.validate.empty(null), "Empty object: null");
         strictEqual(pklib.validate.empty(false), false, "Empty object: false");
         strictEqual(pklib.validate.empty(true), false, "Empty object: true");

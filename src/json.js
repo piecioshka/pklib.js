@@ -1,144 +1,148 @@
 /**
+ * JSON manager
  * @package json
  */
-pklib = this.pklib || {};
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {};
 
-/**
- * JSON manager
- */
-pklib.json = (function () {
-
-    function __getFunctionName(fun) {
+    function getFunctionName(fun) {
         var text = fun.toString().split("\n")[0].replace("function ", "");
         return text.substr(0, text.indexOf("(")) + "()";
     }
-
-    function __getLastElement(object) {
-        for(var i in object) {}
-        return i;
+    function getLastElement(object) {
+        var i,
+            len = 0;
+        for (i in object) {
+            if (object.hasOwnProperty(i)) {
+                len += 1;
+            }
+        }
+        return len;
     }
-
-    function __getIndent(len) {
-        for(var i = 0, preffix = "\t", source = ""; i < len; ++i) {
-            source += preffix;
+    function getIndent(len) {
+        var i,
+            fix = "\t",
+            source = "";
+        for (i = 0; i < len; i += 1) {
+            source += fix;
         }
         return source;
     }
 
-    return {
-
+    pklib.json = {
         /**
-         * @param {array} object
-         * @return {string}
+         * @param object {Array}
+         * @return {String}
          */
         stringify: function (object) {
             var source = "",
                 args = Array.prototype.slice.call(arguments),
-                index = args[1] || 0;
+                index = args[1] || 0,
+                i,
+                item,
+                len = object.length;
 
             // Undefined
             if (typeof object === "undefined") {
                 return undefined;
-            } else
-
-            // Null
-            if (object == null) {
+            } else if (object === null) {
+                // Null
                 return null;
-            } else
-
-            // Boolean
-            if (typeof object === "boolean") {
+            } else if (typeof object === "boolean") {
+                // Boolean
                 return object;
-            } else
-
-            // Number
-            if (typeof object === "number") {
+            } else if (typeof object === "number") {
+                // Number
                 return object;
-            } else
-
-            // String
-            if (typeof object === "string") {
+            } else if (typeof object === "string") {
+                // String
                 return '"' + object + '"';
-            } else
-
-            // Function
-            if (typeof object === "function") {
-                return __getFunctionName(object);
-            } else
-
-            // Array
-            if (typeof object === "object" && typeof object.slice === "function") {
+            } else if (typeof object === "function") {
+                // Function
+                return getFunctionName(object);
+            } else if (typeof object === "object" && typeof object.slice === "function") {
+                // Array
                 if (object.length === 0) {
                     return "[]";
                 }
-                source = "[\n" + __getIndent(index);
-                index++;
-                for(var i = 0, len = object.length; i < len; ++i) {
-                    source += __getIndent(index) + arguments.callee(object[i], index);
+                source = "[\n" + getIndent(index);
+                index += 1;
+                for (i = 0; i < len; i += 1) {
+                    source += getIndent(index) + this.stringify(object[i], index);
                     if (i !== len - 1) {
                         source += ",\n";
                     }
                 }
-                index--;
-                source += "\n" + __getIndent(index) + "]";
-            } else
-
-            // Object
-            if (typeof object === "object") {
+                index -= 1;
+                source += "\n" + getIndent(index) + "]";
+            } else if (typeof object === "object") {
+                // Object
                 source = "{\n";
-                index++;
-                for(var item in object) {
+                index += 1;
+                for (item in object) {
                     if (object.hasOwnProperty(item)) {
-                        source += __getIndent(index) + '"' + item + '": ' + arguments.callee(object[item], index);
-                        if (item !== __getLastElement(object)) {
+                        source += getIndent(index) + '"' + item + '": ' + this.stringify(object[item], index);
+                        if (item !== getLastElement(object)) {
                             source += ",\n";
                         }
                     }
                 }
-                index--;
-                source += "\n" + __getIndent(index) + "}";
+                index -= 1;
+                source += "\n" + getIndent(index) + "}";
             }
 
             return source;
         },
-        
         /**
-         * @param {object} object
-         * @param {boolean} toJson
-         * @returns {string}
+         * @param object {Object}
+         * @param toJson {Boolean}
+         * @returns {String}
          */
         serialize: function (source, toJson) {
-            if (typeof source !== "object" || source == null) {
+            if (typeof source !== "object" || source === null) {
                 throw new TypeError("pklib.json.serialize: Source is null or not object");
             }
 
-            var amp = false, 
-                response = ''; 
+            var amp = false,
+                item,
+                value,
+                mtz,
+                response = '';
 
-            toJson && (response += "{");
-            
-            for(var item in source) {
+            if (toJson) {
+                response += "{";
+            }
+            for (item in source) {
                 if (source.hasOwnProperty(item)) {
-                    
-                    amp ? response += toJson ? ',': '&': ( amp = true);
+                    if (amp) {
+                        if (toJson) {
+                            response += ',';
+                        } else {
+                            response += '&';
+                        }
+                    } else {
+                        amp = true;
+                    }
 
-                    var value = '';
+                    value = '';
                     if (typeof source[item] !== "undefined" && source[item] !== null) {
                         value = source[item];
                     }
 
-                    var mtz = toJson ? '"': '';
+                    mtz = toJson ? '"' : '';
                     response += item;
-                    response += toJson ? ':': '=';
+                    response += toJson ? ':' : '=';
                     response += mtz;
                     response += value + mtz;
                 }
             }
-            
-            toJson && (response += "}");
+            if (toJson) {
+                response += "}";
+            }
 
             return response;
         }
     };
 
-})();
+}(this));

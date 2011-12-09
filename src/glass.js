@@ -1,16 +1,13 @@
 /**
+ * Glass Adapter.
+ * Show this on dimensions on browser. 
  * @package glass
  * @dependence browser, dom, event, utils
  */
-pklib = this.pklib || {};
-
-/**
- * Glass Adapter.
- * Show this on dimensions on browser. 
- */
-pklib.glass = (function () {
-
-    var doc = document,
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {},
+        document = win.document || {},
         id = "pklib-glass-wrapper",
         settings = {
             container: null,
@@ -24,29 +21,28 @@ pklib.glass = (function () {
             }
         };
 
-    return {
+    pklib.glass = {
 
         /**
-         * @type string
+         * @type {String}
          */
         objId: id,
 
         /**
-         * @param {object} config
-         * @param {function} callback
+         * @param config {Object}
+         * @param callback {Function}
          */
         show: function (config, callback) {
             var that = this,
-                glass = doc.createElement("div"),
-                glassStyle = glass.style;
-                
-            settings.container = doc.body;
+                glass = document.createElement("div"),
+                glassStyle = glass.style,
+                style;
+            settings.container = document.body;
             settings = pklib.array.mixin(settings, config);
             settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
 
             glass.setAttribute("id", this.objId);
-            
-            for(var style in settings.style) {
+            for (style in settings.style) {
                 if (settings.style.hasOwnProperty(style)) {
                     glassStyle[style] = settings.style[style];
                 }
@@ -56,35 +52,32 @@ pklib.glass = (function () {
 
             pklib.dom.maximize(glass, settings.container);
 
-            pklib.event.add(window, "resize", function () {
+            pklib.event.add(win, "resize", function () {
                 that.close();
                 that.show(config, callback);
                 pklib.dom.maximize(glass, settings.container);
             });
-            
-            (typeof callback === "function") && callback();
-
+            if (typeof callback === "function") {
+                callback();
+            }
             return glass;
         },
-        
         /**
-         * @param {function} callback
-         * @return {boolean}
+         * @param callback {Function}
+         * @return {Boolean}
          */
         close: function (callback) {
             var glass = pklib.dom.byId(this.objId),
                 result = false;
-                
             if (glass !== null) {
                 glass.parentNode.removeChild(glass);
-                arguments.callee(callback);
+                this.close(callback);
                 result = true;
             }
-            
-            (typeof callback === "function") && callback();
-
+            if (typeof callback === "function") {
+                callback();
+            }
             return result;
         }
     };
-    
-})();
+}(this));

@@ -1,51 +1,49 @@
 /**
+ * Utils tools
  * @package utils
  * @dependence array, browser, dom, event, string
  */
-pklib = this.pklib || {};
+(function (win) {
+    'use strict';
+    var pklib = win.pklib || {},
+        document = win.document || {};
 
-/**
- * Utils tools
- */
-pklib.utils = (function () {
-
-    var doc = document;
-
-    return {
-
+    pklib.utils = {
         size: {
-
             /**
              * @param {string} name
              * @returns {number}
              */
             window: function (name) {
+                var clientName;
                 if (typeof name === "undefined") {
                     throw new TypeError("pklib.utils.size.window: Parameter name is mandatory");
                 }
                 name = pklib.string.capitalize(name);
-                var win = window,
-                    clientName = win.document.documentElement["client" + name];
-                return win.document.compatMode === "CSS1Compat" && clientName || win.document.body["client" + name] || clientName;
+                clientName = win.document.documentElement["client" + name];
+                return (win.document.compatMode === "CSS1Compat" && clientName) || win.document.body["client" + name] || clientName;
             },
-            
             /**
              * @param {string} name
              * @return {number}
              */
             document: function (name) {
+                var clientName,
+                    scrollBodyName,
+                    scrollName,
+                    offsetBodyName,
+                    offsetName;
                 if (typeof name === "undefined") {
                     throw new TypeError("pklib.utils.size.document: Parameter name is mandatory");
                 }
                 name = pklib.string.capitalize(name);
-                var clientName = doc.documentElement["client" + name],
-                    scrollBodyName = doc.body["scroll" + name],
-                    scrollName = doc.documentElement["scroll" + name],
-                    offsetBodyName = doc.body["offset" + name],
-                    offsetName = doc.documentElement["offset" + name];
+                clientName = document.documentElement["client" + name];
+                scrollBodyName = document.body["scroll" + name];
+                scrollName = document.documentElement["scroll" + name];
+                offsetBodyName = document.body["offset" + name];
+                offsetName = document.documentElement["offset" + name];
                 return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
             },
-            
             /**
              * @param {HTMLElement} obj
              * @param {string} name
@@ -60,29 +58,22 @@ pklib.utils = (function () {
                 return Math.max(client, scroll, offset);
             }
         },
-
         ascii: {
-
             letters: {
                 lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
                 upper: [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
             }
-
         },
-
         date: {
-
             /**
              * @return {string}
              */
             getFullMonth: function () {
                 var month = (parseInt(new Date().getMonth(), 10) + 1);
-                return (month < 10) ? "0" + month: month;
+                return (month < 10) ? "0" + month : month;
             }
         },
-
         action: {
-
             /**
              * @param {HTMLElement} obj
              */
@@ -100,34 +91,38 @@ pklib.utils = (function () {
                     });
                 }
             },
-            
             /**
              * @param {HTMLElement} area
              */
             outerlink: function (area) {
-                area = area || doc;
-                var links = pklib.dom.byTag("a");
-                for(var i = 0, len = links.length; i < len; ++i) {
-                    var link = links[i];
+                area = area || document;
+                var i,
+                    e,
+                    link,
+                    links = pklib.dom.byTag("a"),
+                    len = links.length,
+                    opentrigger = function (evt) {
+                        win.open(this.href);
+                        evt.preventDefault();
+                    };
+                for (i = 0; i < len; i += 1) {
+                    link = links[i];
                     if (link.rel === "outerlink") {
-                        pklib.event.add(link, "click", function (e) {
-                            window.open(this.href);
-                            e.preventDefault();
-                        });
+                        pklib.event.add(link, "click", opentrigger.bind(e));
                     }
                 }
             },
-            
             /**
              * @param {HTMLElement} element
              * @param {string} text
              */
             confirm: function (element, text) {
+                var response;
                 if (typeof element !== "undefined") {
                     text = text || "Sure?";
 
                     pklib.event.add(element, "click", function (evt) {
-                        var response = confirm(text);
+                        response = win.confirm(text);
                         if (true === response) {
                             return true;
                         } else {
@@ -137,24 +132,23 @@ pklib.utils = (function () {
                 }
             }
         },
-
         /**
          * @param param
          * @param {boolean} animate
          */
         scrollTo: function (param, animate) {
+            var interval = null;
             if (true === animate) {
-                var interval = null;
-                interval = setInterval(function () {
-                    doc.body.scrollTop -= 5;
-                    if (doc.body.scrollTop <= 0) {
-                        clearInterval(interval);
+                interval = win.setInterval(function () {
+                    document.body.scrollTop -= 5;
+                    if (document.body.scrollTop <= 0) {
+                        win.clearInterval(interval);
                     }
                 }, 1);
             } else {
-                doc.body.scrollTop = param;
+                document.body.scrollTop = param;
             }
         }
     };
 
-})();
+}(this));
