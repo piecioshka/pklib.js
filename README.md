@@ -1,7 +1,5 @@
 # pklib - darmowa biblioteka JavaScript
 
-## opis
-
 **pklib** jest wynikiem ciągłego używania z tych samych wzorców w sieci web, 
 z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach. 
 Źródła biblioteki są w całości na Git'cie, korzystając z usługi [GitHub.com](http://www.github.com "GitHub").<br />
@@ -47,7 +45,7 @@ Layer służy do wyłączenia częśći bądź całęj strony aby przykładowo w
 ## szczegóły
 
 Autor: **Piotr Kowalski** ( [http://piecioshka.pl/](http://piecioshka.pl/ "homepage") ) <br />
-Licencja: **GPL 3.0 License** ( [http://pklib.com/license](http://pklib.com/license "pklib license") ) 
+Licencja: **MIT License** ( [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php "license") ) 
 
 
 ## przykład
