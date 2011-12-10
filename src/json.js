@@ -41,7 +41,7 @@
                 index = args[1] || 0,
                 i,
                 item,
-                len = object.length;
+                len = 0;
 
             // Undefined
             if (typeof object === "undefined") {
@@ -68,6 +68,7 @@
                 }
                 source = "[\n" + getIndent(index);
                 index += 1;
+                len = object.length;
                 for (i = 0; i < len; i += 1) {
                     source += getIndent(index) + this.stringify(object[i], index);
                     if (i !== len - 1) {

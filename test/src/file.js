@@ -2,14 +2,6 @@ window.addEventListener("load", function () {
     
     module("pklib.file");
 
-    // pklib.file.load
-    test("load(check)", function() {
-
-        var value = 1;
-        notEqual(pklib.test_data, value, "File contant is unavailable");
-        strictEqual(pklib.test_data, undefined, "File content is undefined");
-    });
-
     pklib.file.load("data/data.js", function(file) {
         module("pklib.file");
 

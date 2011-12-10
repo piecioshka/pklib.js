@@ -6,7 +6,6 @@
 (function (win) {
     'use strict';
     var pklib = win.pklib || {},
-        settings,
         cache = [];
 
     function handler(settings, xhr) {
@@ -26,6 +25,25 @@
 
             settings.done.call(null, xhr[method]);
         }
+    }
+
+    function getXhr() {
+        var xhr;
+        try {
+            xhr = new XMLHttpRequest();
+        } catch (f) {
+            try {
+                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (a) {
+                try {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (b) {
+                    // not support ajax
+                    return null;
+                }
+            }
+        }
+        return xhr;
     }
 
     pklib.ajax = {
@@ -56,16 +74,17 @@
                     url: null,
                     params: null,
                     headers: {},
-                    done: function (data) {
+                    done: function () {
                         // pass
                     }
                 };
             settings = pklib.array.mixin(settings, config);
             settings.type = settings.type.toUpperCase();
+
             if (settings.cache && cache[settings.url]) {
                 handler.call(null, settings, cache[settings.url]);
             } else {
-                client = new XMLHttpRequest();
+                client = getXhr();
                 client.onreadystatechange = function () {
                     handler.call(null, settings, client);
                 };
