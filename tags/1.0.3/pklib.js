@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Fri Dec 9 00:43:02 GMT 2011
+ * Date: Sat Dec 10 17:23:38 GMT 2011
  */
 
 (function (win) {
@@ -35,7 +35,7 @@
         version: "1.0.3"
     };
 }(this));
-	
+
 /**
  * Module to service asynchronous request.
  * @package ajax
@@ -44,7 +44,6 @@
 (function (win) {
     'use strict';
     var pklib = win.pklib || {},
-        settings,
         cache = [];
 
     function handler(settings, xhr) {
@@ -64,6 +63,25 @@
 
             settings.done.call(null, xhr[method]);
         }
+    }
+
+    function getXhr() {
+        var xhr;
+        try {
+            xhr = new XMLHttpRequest();
+        } catch (f) {
+            try {
+                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (a) {
+                try {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (b) {
+                    // not support ajax
+                    return null;
+                }
+            }
+        }
+        return xhr;
     }
 
     pklib.ajax = {
@@ -94,16 +112,17 @@
                     url: null,
                     params: null,
                     headers: {},
-                    done: function (data) {
+                    done: function () {
                         // pass
                     }
                 };
             settings = pklib.array.mixin(settings, config);
             settings.type = settings.type.toUpperCase();
+
             if (settings.cache && cache[settings.url]) {
                 handler.call(null, settings, cache[settings.url]);
             } else {
-                client = new XMLHttpRequest();
+                client = getXhr();
                 client.onreadystatechange = function () {
                     handler.call(null, settings, client);
                 };
@@ -121,7 +140,7 @@
 
     };
 }(this));
-	
+
 /**
  * Module to service array object.
  * @package array
@@ -237,7 +256,7 @@
     };
 
 }(this));
-	
+
 /**
  * @package aspect
  */
@@ -263,7 +282,7 @@
         };
     };
 }(this));
-	
+
 /**
  * Get best information about browser.
  * @package browser
@@ -315,7 +334,7 @@
         }
     };
 }(this));
-	
+
 /**
  * Cookie service manager.
  * @package cookie
@@ -382,7 +401,7 @@
             return this.create(name, undefined, -1);
         }
     };
-}(this));	
+}(this));
 /**
  * Utils method related css on tags in DOM tree.
  * @package css
@@ -439,7 +458,7 @@
         }
     };
 }(this));
-	
+
 /**
  * Helper related with DOM service.
  * @package dom
@@ -647,7 +666,7 @@
             return element;
         }
     };
-}(this));	
+}(this));
 /**
  * Helper about manage event on HTMLElement.
  * @package event
@@ -698,7 +717,7 @@
         }
     };
 }(this));
-	
+
 /**
  * File manager
  * @package file
@@ -781,7 +800,7 @@
     }());
 
 }(this));
-	
+
 /**
  * Glass Adapter.
  * Show this on dimensions on browser. 
@@ -865,7 +884,7 @@
         }
     };
 }(this));
-	
+
 /**
  * JSON manager
  * @package json
@@ -909,7 +928,7 @@
                 index = args[1] || 0,
                 i,
                 item,
-                len = object.length;
+                len = 0;
 
             // Undefined
             if (typeof object === "undefined") {
@@ -936,6 +955,7 @@
                 }
                 source = "[\n" + getIndent(index);
                 index += 1;
+                len = object.length;
                 for (i = 0; i < len; i += 1) {
                     source += getIndent(index) + this.stringify(object[i], index);
                     if (i !== len - 1) {
@@ -1014,7 +1034,7 @@
     };
 
 }(this));
-	
+
 /**
  * Loader adapter.
  * Show animate image (GIF) on special place.
@@ -1094,7 +1114,7 @@
         }
     };
 }(this));
-	
+
 /**
  * Show layer on special place.
  * @package message
@@ -1176,7 +1196,7 @@
         }
     };
 }(this));
-	
+
 /**
  * Time analyzer
  * @package pklib.profiler
@@ -1213,7 +1233,7 @@
     };
 
 }(this));
-	
+
 /**
  * @package prototypes
  */
@@ -1231,7 +1251,7 @@ Function.method("bind", function (that) {
     return function () {
         return method.apply(that, args.concat(slice.apply(arguments, [0])));
     };
-});	
+});
 /**
  * String service manager
  * @package string
@@ -1354,7 +1374,7 @@ Function.method("bind", function (that) {
         }
     };
 }(this));
-	
+
 /**
  * Url helper manager
  * @package url
@@ -1415,7 +1435,7 @@ Function.method("bind", function (that) {
         }
     };
 }(this));
-	
+
 /**
  * Utils tools
  * @package utils
@@ -1570,7 +1590,7 @@ Function.method("bind", function (that) {
     };
 
 }(this));
-	
+
 /**
  * Validate module
  * @package validate
@@ -1659,4 +1679,4 @@ Function.method("bind", function (that) {
         }
     };
 }(this));
-	
+
