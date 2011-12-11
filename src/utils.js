@@ -108,7 +108,7 @@
                 for (i = 0; i < len; i += 1) {
                     link = links[i];
                     if (link.rel === "outerlink") {
-                        pklib.event.add(link, "click", opentrigger.bind(e));
+                        pklib.event.add(link, "click", opentrigger.bind(link));
                     }
                 }
             },

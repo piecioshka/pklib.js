@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Sat Dec 10 17:23:38 GMT 2011
+ * Date: Fri Dec 9 00:43:02 GMT 2011
  */
 
 (function (win) {
@@ -1546,7 +1546,7 @@ Function.method("bind", function (that) {
                 for (i = 0; i < len; i += 1) {
                     link = links[i];
                     if (link.rel === "outerlink") {
-                        pklib.event.add(link, "click", opentrigger.bind(e));
+                        pklib.event.add(link, "click", opentrigger.bind(link));
                     }
                 }
             },
