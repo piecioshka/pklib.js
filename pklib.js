@@ -254,6 +254,41 @@
                 }
                 return target;
             }
+        },
+        /**
+         * @param key {String}
+         * @param arr {Array}
+         * @return {Boolean}
+         */
+        isKeyExists: function (key, arr) {
+            var i,
+                item,
+                len = arr.length;
+
+            for (i = 0; i < len; i += 1) {
+                item = arr[i];
+                if (item.name === key) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        /**
+         * @param key {String}
+         * @param arr {Array}
+         * @return {Boolean}
+         */
+        getIndexOfKey: function (key, arr) {
+            var i,
+                item,
+                len = arr.length;
+
+            for (i = 0; i < len; i += 1) {
+                item = arr[i];
+                if (item.name === key) {
+                    return i;
+                }
+            }
         }
     };
 }(this));
