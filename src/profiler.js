@@ -4,6 +4,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         data = {};
 
@@ -32,5 +33,4 @@
             return data[name];
         }
     };
-
 }(this));

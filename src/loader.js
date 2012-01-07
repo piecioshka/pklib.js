@@ -6,6 +6,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         document = win.document || {},
         id = "pklib-loader-wrapper",

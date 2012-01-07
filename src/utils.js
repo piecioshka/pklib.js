@@ -5,6 +5,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         document = win.document || {};
 
@@ -97,7 +98,6 @@
             outerlink: function (area) {
                 area = area || document;
                 var i,
-                    e,
                     link,
                     links = pklib.dom.byTag("a"),
                     len = links.length,
@@ -150,5 +150,4 @@
             }
         }
     };
-
 }(this));

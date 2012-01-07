@@ -4,6 +4,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {};
 
     function getFunctionName(fun) {
@@ -145,5 +146,4 @@
             return response;
         }
     };
-
 }(this));

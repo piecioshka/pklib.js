@@ -4,6 +4,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {};
 
     pklib.array =  {
@@ -111,5 +112,4 @@
             }
         }
     };
-
 }(this));

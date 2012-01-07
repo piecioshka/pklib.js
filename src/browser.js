@@ -4,6 +4,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         navigator = win.navigator || {},
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];

@@ -4,6 +4,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         loc = win.location;
 

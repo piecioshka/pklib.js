@@ -29,6 +29,7 @@
 
 (function (win) {
     'use strict';
+
     win.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
