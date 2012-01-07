@@ -24,11 +24,12 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Fri Dec 9 00:43:02 GMT 2011
+ * Date: Sat Jan 7 11:09:06 GMT 2012
  */
 
 (function (win) {
     'use strict';
+
     win.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
@@ -43,6 +44,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         cache = [];
 
@@ -137,7 +139,6 @@
                 client.send(settings.params);
             }
         }
-
     };
 }(this));
 
@@ -147,6 +148,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {};
 
     pklib.array =  {
@@ -252,9 +254,43 @@
                 }
                 return target;
             }
+        },
+        /**
+         * @param key {String}
+         * @param arr {Array}
+         * @return {Boolean}
+         */
+        isKeyExists: function (key, arr) {
+            var i,
+                item,
+                len = arr.length;
+
+            for (i = 0; i < len; i += 1) {
+                item = arr[i];
+                if (item.name === key) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        /**
+         * @param key {String}
+         * @param arr {Array}
+         * @return {Boolean}
+         */
+        getIndexOfKey: function (key, arr) {
+            var i,
+                item,
+                len = arr.length;
+
+            for (i = 0; i < len; i += 1) {
+                item = arr[i];
+                if (item.name === key) {
+                    return i;
+                }
+            }
         }
     };
-
 }(this));
 
 /**
@@ -262,6 +298,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {};
 
     /**
@@ -289,6 +326,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         navigator = win.navigator || {},
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
@@ -341,6 +379,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         document = win.document || {};
 
@@ -402,6 +441,7 @@
         }
     };
 }(this));
+
 /**
  * Utils method related css on tags in DOM tree.
  * @package css
@@ -409,6 +449,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {};
 
     pklib.css = {
@@ -466,6 +507,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         document = win.document || {};
 
@@ -667,12 +709,14 @@
         }
     };
 }(this));
+
 /**
  * Helper about manage event on HTMLElement.
  * @package event
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {};
 
     pklib.event = {
@@ -724,6 +768,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         document = win.document || {};
 
@@ -796,9 +841,7 @@
                 });
             }
         };
-
     }());
-
 }(this));
 
 /**
@@ -809,6 +852,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         document = win.document || {},
         id = "pklib-glass-wrapper",
@@ -891,6 +935,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {};
 
     function getFunctionName(fun) {
@@ -1032,7 +1077,6 @@
             return response;
         }
     };
-
 }(this));
 
 /**
@@ -1043,6 +1087,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         document = win.document || {},
         id = "pklib-loader-wrapper",
@@ -1123,6 +1168,7 @@
 
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         document = win.document || {},
         id = "pklib-message-wrapper",
@@ -1203,6 +1249,7 @@
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         data = {};
 
@@ -1231,7 +1278,6 @@
             return data[name];
         }
     };
-
 }(this));
 
 /**
@@ -1259,6 +1305,7 @@ Function.method("bind", function (that) {
 
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {};
 
     pklib.string = {
@@ -1381,6 +1428,7 @@ Function.method("bind", function (that) {
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         loc = win.location;
 
@@ -1443,6 +1491,7 @@ Function.method("bind", function (that) {
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {},
         document = win.document || {};
 
@@ -1535,7 +1584,6 @@ Function.method("bind", function (that) {
             outerlink: function (area) {
                 area = area || document;
                 var i,
-                    e,
                     link,
                     links = pklib.dom.byTag("a"),
                     len = links.length,
@@ -1588,7 +1636,6 @@ Function.method("bind", function (that) {
             }
         }
     };
-
 }(this));
 
 /**
@@ -1598,6 +1645,7 @@ Function.method("bind", function (that) {
  */
 (function (win) {
     'use strict';
+
     var pklib = win.pklib || {};
 
     pklib.validate = {
