@@ -24,11 +24,11 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Sat Jan 7 11:09:06 GMT 2012
+ * Date: Tue Jan 10 18:32:14 GMT 2012
  */
 
 (function (win) {
-    'use strict';
+    "use strict";
 
     win.pklib = {
         author: "Piotr Kowalski",
@@ -43,7 +43,7 @@
  * @dependence array, utils
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         cache = [];
@@ -147,7 +147,7 @@
  * @package array
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {};
 
@@ -297,7 +297,7 @@
  * @package aspect
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {};
 
@@ -325,7 +325,7 @@
  * @package browser
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         navigator = win.navigator || {},
@@ -378,7 +378,7 @@
  * @package cookie
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         document = win.document || {};
@@ -448,7 +448,7 @@
  * @dependence string
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {};
 
@@ -506,7 +506,7 @@
  * @dependence browser, css, utils
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         document = win.document || {};
@@ -715,7 +715,7 @@
  * @package event
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {};
 
@@ -767,7 +767,7 @@
  * @package file
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         document = win.document || {};
@@ -851,7 +851,7 @@
  * @dependence browser, dom, event, utils
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         document = win.document || {},
@@ -934,7 +934,7 @@
  * @package json
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {};
 
@@ -1086,7 +1086,7 @@
  * @dependence dom, event, utils
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         document = win.document || {},
@@ -1167,7 +1167,7 @@
  */
 
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         document = win.document || {},
@@ -1248,7 +1248,7 @@
  * @package pklib.profiler
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         data = {};
@@ -1284,13 +1284,13 @@
  * @package prototypes
  */
 Function.prototype.method = function (name, func) {
-    'use strict';
+    "use strict";
     this.prototype[name] = func;
     return this;
 };
 
 Function.method("bind", function (that) {
-    'use strict';
+    "use strict";
     var method = this,
         slice = Array.prototype.slice,
         args = slice.apply(arguments, [1]);
@@ -1304,7 +1304,7 @@ Function.method("bind", function (that) {
  */
 
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {};
 
@@ -1427,7 +1427,7 @@ Function.method("bind", function (that) {
  * @package url
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         loc = win.location;
@@ -1490,7 +1490,7 @@ Function.method("bind", function (that) {
  * @dependence array, browser, dom, event, string
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         document = win.document || {};
@@ -1644,7 +1644,7 @@ Function.method("bind", function (that) {
  * @dependence array, utils
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {};
 
