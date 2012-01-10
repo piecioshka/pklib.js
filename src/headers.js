@@ -28,7 +28,7 @@
  */
 
 (function (win) {
-    'use strict';
+    "use strict";
 
     win.pklib = {
         author: "Piotr Kowalski",

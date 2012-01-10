@@ -3,7 +3,7 @@
  * @package event
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {};
 

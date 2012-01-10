@@ -2,13 +2,13 @@
  * @package prototypes
  */
 Function.prototype.method = function (name, func) {
-    'use strict';
+    "use strict";
     this.prototype[name] = func;
     return this;
 };
 
 Function.method("bind", function (that) {
-    'use strict';
+    "use strict";
     var method = this,
         slice = Array.prototype.slice,
         args = slice.apply(arguments, [1]);

@@ -3,7 +3,7 @@
  * @package browser
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         navigator = win.navigator || {},

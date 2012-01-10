@@ -5,7 +5,7 @@
  * @dependence dom, event, utils
  */
 (function (win) {
-    'use strict';
+    "use strict";
 
     var pklib = win.pklib || {},
         document = win.document || {},
