@@ -18,7 +18,7 @@
             window: function (name) {
                 var clientName;
                 if (typeof name === "undefined") {
-                    throw new TypeError("pklib.utils.size.window: Parameter name is mandatory");
+                    throw new TypeError("pklib.utils.size.window: @name: undefined");
                 }
                 name = pklib.string.capitalize(name);
                 clientName = win.document.documentElement["client" + name];
@@ -35,7 +35,7 @@
                     offsetBodyName,
                     offsetName;
                 if (typeof name === "undefined") {
-                    throw new TypeError("pklib.utils.size.document: Parameter name is mandatory");
+                    throw new TypeError("pklib.utils.size.document: @name: undefined");
                 }
                 name = pklib.string.capitalize(name);
                 clientName = document.documentElement["client" + name];
@@ -52,7 +52,7 @@
              */
             object: function (obj, name) {
                 if (typeof name === "undefined" || typeof obj === "undefined") {
-                    throw new TypeError("pklib.utils.size.object: Parameter name is mandatory");
+                    throw new TypeError("pklib.utils.size.object: @name: undefined");
                 }
                 name = pklib.string.capitalize(name);
                 var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];

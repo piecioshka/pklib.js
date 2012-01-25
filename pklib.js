@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Tue Jan 10 18:32:14 GMT 2012
+ * Date: Wed Jan 25 10:36:01 GMT 2012
  */
 
 (function (win) {
@@ -310,8 +310,11 @@
      */
     pklib.aspect = function (fun, asp) {
         var that = this;
-        if (typeof fun !== "function" || typeof asp !== "function") {
-            throw new TypeError("Params are not functions");
+        if (typeof fun !== "function") {
+            throw new TypeError("pklib.aspect: @func: not function");
+        }
+        if (typeof asp !== "function") {
+            throw new TypeError("pklib.aspect: @asp: not function");
         }
         return function () {
             asp.call(that);
@@ -459,8 +462,11 @@
          * @param cssClass {String}
          */
         addClass: function (cssClass, element) {
-            if (typeof element === "undefined" || element === null || typeof cssClass === "undefined") {
-                throw new TypeError("pklib.css.addClass: Element is undefined/null or cssClass is undefined");
+            if (typeof element === "undefined" || element === null) {
+                throw new TypeError("pklib.css.addClass: @element: undefined");
+            }
+            if (typeof cssClass === "undefined") {
+                throw new TypeError("pklib.css.addClass: @cssClass: undefined");
             }
             var classElement = element.className;
             if (!this.hasClass(cssClass, element)) {
@@ -478,8 +484,11 @@
          * @param cssClass {String}
          */
         removeClass: function (cssClass, element) {
-            if (typeof element === "undefined" || element === null || typeof cssClass === "undefined") {
-                throw new TypeError("pklib.css.removeClass: Element is undefined/null or cssClass is undefined");
+            if (typeof element === "undefined" || element === null) {
+                throw new TypeError("pklib.css.removeClass: @element: undefined");
+            }
+            if (typeof cssClass === "undefined") {
+                throw new TypeError("pklib.css.removeClass: @cssClass: undefined");
             }
             var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
             element.className = pklib.string.trim(element.className.replace(regexp, ""));
@@ -491,8 +500,11 @@
          * @return {Boolean}
          */
         hasClass: function (cssClass, element) {
-            if (typeof element === "undefined" || element === null || typeof cssClass === "undefined") {
-                throw new TypeError("pklib.css.hasClass: Element is undefined/null or cssClass is undefined");
+            if (typeof element === "undefined" || element === null) {
+                throw new TypeError("pklib.css.hasClass: @element: undefined");
+            }
+            if (typeof cssClass === "undefined") {
+                throw new TypeError("pklib.css.hasClass: @cssClass: undefined");
             }
             var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
             return regexp.test(element.className);
@@ -1034,7 +1046,7 @@
          */
         serialize: function (source, toJson) {
             if (typeof source !== "object" || source === null) {
-                throw new TypeError("pklib.json.serialize: Source is null or not object");
+                throw new TypeError("pklib.json.serialize: @source: not object");
             }
 
             var amp = false,
@@ -1504,7 +1516,7 @@ Function.method("bind", function (that) {
             window: function (name) {
                 var clientName;
                 if (typeof name === "undefined") {
-                    throw new TypeError("pklib.utils.size.window: Parameter name is mandatory");
+                    throw new TypeError("pklib.utils.size.window: @name: undefined");
                 }
                 name = pklib.string.capitalize(name);
                 clientName = win.document.documentElement["client" + name];
@@ -1521,7 +1533,7 @@ Function.method("bind", function (that) {
                     offsetBodyName,
                     offsetName;
                 if (typeof name === "undefined") {
-                    throw new TypeError("pklib.utils.size.document: Parameter name is mandatory");
+                    throw new TypeError("pklib.utils.size.document: @name: undefined");
                 }
                 name = pklib.string.capitalize(name);
                 clientName = document.documentElement["client" + name];
@@ -1538,7 +1550,7 @@ Function.method("bind", function (that) {
              */
             object: function (obj, name) {
                 if (typeof name === "undefined" || typeof obj === "undefined") {
-                    throw new TypeError("pklib.utils.size.object: Parameter name is mandatory");
+                    throw new TypeError("pklib.utils.size.object: @name: undefined");
                 }
                 name = pklib.string.capitalize(name);
                 var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];
@@ -1704,17 +1716,17 @@ Function.method("bind", function (that) {
                     }
                 };
             if (config === null || typeof config === "udnefined") {
-                throw new TypeError("pklib.validate.regexp: Config is undefined");
+                throw new TypeError("pklib.validate.regexp: @config: undefined");
             }
             settings = pklib.array.mixin(settings, config);
 
             if (settings.regexp === null) {
-                throw new TypeError("pklib.validate.regexp: Regular expressino is neeeded");
+                throw new TypeError("pklib.validate.regexp: @regexp: undefined");
             }
             exp = new RegExp(settings.regexp);
 
             if (settings.object === null) {
-                throw new TypeError("pklib.validate.regexp: Object is neeeded");
+                throw new TypeError("pklib.validate.regexp: @object: undefined");
             }
             if (exp.test(settings.object)) {
                 if (typeof settings.success === "function") {

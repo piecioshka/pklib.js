@@ -64,17 +64,17 @@
                     }
                 };
             if (config === null || typeof config === "udnefined") {
-                throw new TypeError("pklib.validate.regexp: Config is undefined");
+                throw new TypeError("pklib.validate.regexp: @config: undefined");
             }
             settings = pklib.array.mixin(settings, config);
 
             if (settings.regexp === null) {
-                throw new TypeError("pklib.validate.regexp: Regular expressino is neeeded");
+                throw new TypeError("pklib.validate.regexp: @regexp: undefined");
             }
             exp = new RegExp(settings.regexp);
 
             if (settings.object === null) {
-                throw new TypeError("pklib.validate.regexp: Object is neeeded");
+                throw new TypeError("pklib.validate.regexp: @object: undefined");
             }
             if (exp.test(settings.object)) {
                 if (typeof settings.success === "function") {

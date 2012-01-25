@@ -15,8 +15,11 @@
      */
     pklib.aspect = function (fun, asp) {
         var that = this;
-        if (typeof fun !== "function" || typeof asp !== "function") {
-            throw new TypeError("Params are not functions");
+        if (typeof fun !== "function") {
+            throw new TypeError("pklib.aspect: @func: not function");
+        }
+        if (typeof asp !== "function") {
+            throw new TypeError("pklib.aspect: @asp: not function");
         }
         return function () {
             asp.call(that);

@@ -103,7 +103,7 @@
          */
         serialize: function (source, toJson) {
             if (typeof source !== "object" || source === null) {
-                throw new TypeError("pklib.json.serialize: Source is null or not object");
+                throw new TypeError("pklib.json.serialize: @source: not object");
             }
 
             var amp = false,
