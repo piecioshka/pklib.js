@@ -94,7 +94,10 @@
         /**
          * Get element from  selector
          * @param {String} selector
+         * 
+         * TODO: Feature
          */
+        /*
         get: function (selector) {
             try {
                 var i,
@@ -116,6 +119,7 @@
                 }
             } catch (ignore) {}
         },
+        */
         /**
          * @param element {HTMLElement}
          * @return {Null or Number}
@@ -204,6 +208,38 @@
                 container.innerHTML += element;
             }
             return element;
+        },
+        /**
+         * @param node {HTMLElement}
+         * @return {HTMLElement | null}
+         */
+        prev: function (node) {
+            var pNode = null;
+            while (true) {
+                pNode = node.previousSibling;
+                if (pNode != null && pNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                    node = pNode;
+                } else {
+                    break;
+                }
+            }
+            return pNode;
+        },
+        /**
+         * @param node {HTMLElement}
+         * @return {HTMLElement | null}
+         */
+        next: function (node) {
+            var nNode = null;
+            while (true) {
+                nNode = node.nextSibling;
+                if (nNode != null && nNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                    node = nNode;
+                } else {
+                    break;
+                }
+            }
+            return nNode;
         }
     };
 }(this));
