@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.0.4
+ * pklib JavaScript library v1.0.4pre
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  * 
@@ -33,6 +33,6 @@
     win.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
-        version: "1.0.4"
+        version: "1.0.4pre"
     };
 }(this));

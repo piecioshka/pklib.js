@@ -240,6 +240,22 @@
                 }
             }
             return nNode;
+        },
+        /**
+         * @param node {HTMLElement}
+         * @return {HTMLElement | null}
+         */
+        parent: function (node) {
+            var parent = null;
+            while (true) {
+                parent = node.parentNode;
+                if (parent != null && parent.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                    node = parent;
+                } else {
+                    break;
+                }
+            }
+            return parent;
         }
     };
 }(this));

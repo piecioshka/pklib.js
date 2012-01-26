@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.0.4
+ * pklib JavaScript library v1.0.4pre
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  * 
@@ -33,7 +33,7 @@
     win.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
-        version: "1.0.4"
+        version: "1.0.4pre"
     };
 }(this));
 
@@ -754,6 +754,22 @@
                 }
             }
             return nNode;
+        },
+        /**
+         * @param node {HTMLElement}
+         * @return {HTMLElement | null}
+         */
+        parent: function (node) {
+            var parent = null;
+            while (true) {
+                parent = node.parentNode;
+                if (parent != null && parent.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                    node = parent;
+                } else {
+                    break;
+                }
+            }
+            return parent;
         }
     };
 }(this));
