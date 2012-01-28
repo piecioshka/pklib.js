@@ -2,10 +2,10 @@
  * Module to service array object.
  * @package array
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {};
+    var pklib = global.pklib || {};
 
     pklib.array =  {
 
@@ -33,7 +33,7 @@
         inArray: function (param, array) {
             var i = 0,
                 len = array.length;
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < len; ++i) {
                 if (array[i] === param) {
                     return true;
                 }
@@ -51,7 +51,7 @@
                 temp = [],
                 item,
                 len = array.length;
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < len; ++i) {
                 item = array[i];
                 if (this.inArray.call(null, item, temp) === false) {
                     temp.push(item);
@@ -73,7 +73,7 @@
                 params = Array.prototype.splice.call(arguments, 1),
                 len = params.length,
                 inside;
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < len; ++i) {
                 param = params[i];
                 inside = this.inArray(param, array);
                 if (inside !== false) {
@@ -94,7 +94,7 @@
                 item;
             if (this.isArray(target) && this.isArray(source)) {
                 len = source.length;
-                for (i = 0; i < len; i += 1) {
+                for (i = 0; i < len; ++i) {
                     element = source[i];
                     if (!this.inArray(element, target)) {
                         target.push(element);
@@ -121,7 +121,7 @@
                 item,
                 len = arr.length;
 
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < len; ++i) {
                 item = arr[i];
                 if (item.name === key) {
                     return true;
@@ -139,7 +139,7 @@
                 item,
                 len = arr.length;
 
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < len; ++i) {
                 item = arr[i];
                 if (item.name === key) {
                     return i;

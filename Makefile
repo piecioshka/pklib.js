@@ -18,9 +18,9 @@ fi
 
 echo -e "\tFile:\t\t\tSize:"
 
-for file in headers.js ajax.js array.js aspect.js browser.js cookie.js css.js\
+for file in header.js ajax.js array.js aspect.js browser.js cookie.js css.js\
  dom.js event.js file.js glass.js json.js loader.js message.js profiler.js\
- prototypes.js string.js url.js utils.js validate.js    
+ string.js url.js utils.js
 do
     size=$(du -bh $dir$file | tr "\t" " " | cut -d " " -f 1)
 

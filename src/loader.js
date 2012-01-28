@@ -4,11 +4,11 @@
  * @package loader
  * @dependence dom, event, utils
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
-        document = win.document || {},
+    var pklib = global.pklib || {},
+        document = global.document || {},
         id = "pklib-loader-wrapper",
         settings = {
             src: "http://pklib.com/img/icons/loader.gif",
@@ -50,7 +50,7 @@
             if (settings.center) {
                 pklib.dom.center(loader, settings.container);
 
-                pklib.event.add(win, "resize", function () {
+                pklib.event.add(global, "resize", function () {
                     pklib.dom.center(loader, settings.container);
                 });
             }

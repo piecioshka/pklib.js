@@ -2,11 +2,11 @@
  * Url helper manager
  * @package url
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
-        loc = win.location;
+    var pklib = global.pklib || {},
+        loc = global.location;
 
     pklib.url = {
         getProtocol: function () {
@@ -32,7 +32,7 @@
             }
             params = params.split("&");
             len = params.length;
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < len; ++i) {
                 item = params[i].split("=");
                 params_obj[item[0]] = item[1];
             }
@@ -47,7 +47,7 @@
                 params = params.substr(1);
             }
             params = params.split("&");
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < len; ++i) {
                 item = params[i].split("=");
                 if (item[0] === key) {
                     return item[1];

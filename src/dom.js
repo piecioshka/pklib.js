@@ -3,12 +3,18 @@
  * @package dom
  * @dependence browser, css, utils
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
-        document = win.document || {};
+    var pklib = global.pklib || {},
+        document = global.document || {};
 
+    /**
+     * Walking on every element in node
+     * @param node
+     * @param func
+     * @returns
+     */
     function walk_the_dom(node, func) {
         func(node);
         node = node.firstChild;
@@ -18,18 +24,7 @@
         }
     }
 
-    function getType(selector) {
-        if (/^\.(\w*)$/.test(selector)) {
-            return "class";
-        } else if (/^\#(\w*)$/.test(selector)) {
-            return "id";
-        } else {
-            return "tag";
-        }
-    }
-
     pklib.dom = {
-
         /**
          * Types of all available node
          */
@@ -48,42 +43,48 @@
             "NOTATION_NODE": 12
         },
         /**
-         * @param {HTMLElement} element
+         * @param node {Node}
          * @return {String}
          */
-        isNode: function (element) {
-            return ((element && element.nodeType) && element.nodeName) || null;
+        isNode: function (node) {
+            return ((node && node.nodeType) && node.nodeName) || false;
+        },
+        /**
+         * @param node {Node}
+         * @return {String}
+         */
+        isElement: function (node) {
+        	return (node && node.nodeType === this.nodeTypes.ELEMENT_NODE) || false;
         },
         /**
          * @param id {String}
-         * @param container {HTMLElement}
-         * @return {HTMLElement}
+         * @param wrapper {HTMLElement}
+         * @return {HTMLElement | null}
          */
-        byId: function (id, container) {
-            container = container || document;
-            return container.getElementById(id);
+        byId: function (id) {
+            return document.getElementById(id);
         },
         /**
          * @param tag {String}
-         * @param container {HTMLElement}
+         * @param element {Element}
          * @return {NodeList}
          */
-        byTag: function (tag, container) {
-            container = container || document;
-            return container.getElementsByTagName(tag);
+        byTag: function (tag, element) {
+        	element = element || document;
+            return element.getElementsByTagName(tag);
         },
         /**
          * @param cssClass {String}
-         * @param container {HTMLElement}
-         * @return {NodeList or array}
+         * @param wrapper {HTMLElement}
+         * @return {NodeList | Array}
          */
-        byClass: function (cssClass, container) {
-            container = container || document;
+        byClass: function (cssClass, wrapper) {
+        	wrapper = wrapper || document;
             var results = [];
-            if (container.getElementsByClassName) {
-                return container.getElementsByClassName(cssClass);
+            if (wrapper.getElementsByClassName) {
+                return wrapper.getElementsByClassName(cssClass);
             } else {
-                walk_the_dom(container, function (node) {
+                walk_the_dom(wrapper, function (node) {
                     if (pklib.css.hasClass(cssClass, node)) {
                         results.push(node);
                     }
@@ -99,14 +100,23 @@
          */
         /*
         get: function (selector) {
+		    function getType(selector) {
+		        if (/^\.(\w*)$/.test(selector)) {
+		            return "class";
+		        } else if (/^\#(\w*)$/.test(selector)) {
+		            return "id";
+		        } else {
+		            return "tag";
+		        }
+		    }
             try {
                 var i,
                     elements = selector.match(/[\.\#\w]+/g),
                     len = elements.length,
-                    scope = win,
+                    scope = global,
                     item,
                     type;
-                for (i = 0; i < len; i += 1) {
+                for (i = 0; i < len; ++i) {
                     item = elements[i];
                     type = getType(item);
                     if (type === "class") {
@@ -121,34 +131,34 @@
         },
         */
         /**
-         * @param element {HTMLElement}
-         * @return {Null or Number}
+         * @param node {Node}
+         * @return {Number | null}
          */
-        index: function (element) {
+        index: function (node) {
             var i,
-                parent = element.parentNode,
-                elements = this.children(parent),
-                len = elements.length,
-                item;
-            for (i = 0; i < len; i += 1) {
-                item = elements[i];
-                if (item === element) {
+                parent = this.parent(node),
+                childs = this.children(parent),
+                len = childs.length;
+
+            for (i = 0; i < len; ++i) {
+                if (childs[i] === node) {
                     return i;
                 }
             }
             return null;
         },
         /**
-         * @param element {HTMLElement}
+         * @param node {Node}
          * @return {Array}
          */
-        children: function (element) {
+        children: function (node) {
             var i,
                 array = [],
-                childs = element.childNodes,
+                childs = node.childNodes,
                 len = childs.length;
-            for (i = 0; i < len; i += 1) {
-                if (childs[i].nodeType === this.nodeTypes.ELEMENT_NODE) {
+
+            for (i = 0; i < len; ++i) {
+                if (this.isElement(childs[i])) {
                     array.push(childs[i]);
                 }
             }
@@ -156,18 +166,25 @@
         },
         /**
          * @param element {HTMLElement}
-         * @param container {HTMLElement}
+         * @param wrapper {HTMLElement}
+         * @throws {DOMException}
          * @return {Array}
          */
-        center: function (element, container) {
+        center: function (element, wrapper) {
             var left = null,
-                top = null;
-            if (container === document.body) {
-                left = (Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width")) - pklib.utils.size.object(element, "width")) / 2;
-                top = (Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height")) - pklib.utils.size.object(element, "height")) / 2;
+                top = null,
+            	pus = pklib.utils.size;
+            
+            if (!this.isElement(element)) {
+            	throw DOMException();
+            }
+
+            if (wrapper === document.body) {
+                left = (Math.max(pus.window("width"), pus.document("width")) - pus.object(element, "width")) / 2;
+                top = (Math.max(pus.window("height"), pus.document("height")) - pus.object(element, "height")) / 2;
             } else {
-                left = (pklib.utils.size.window("width") - pklib.utils.size.object(element, "width")) / 2;
-                top = (pklib.utils.size.window("height") - pklib.utils.size.object(element, "height")) / 2;
+                left = (pus.window("width") - pus.object(element, "width")) / 2;
+                top = (pus.window("height") - pus.object(element, "height")) / 2;
             }
             element.style.left = left + "px";
             element.style.top = top + "px";
@@ -176,21 +193,23 @@
         },
         /**
          * @param element {HTMLElement}
-         * @param container {HTMLElement}
+         * @param wrapper {HTMLElement}
          * @return {Array}
          */
-        maximize: function (element, container) {
+        maximize: function (element, wrapper) {
             var width = null,
-                height = null;
-            if (container === document.body) {
-                width = Math.max(pklib.utils.size.window("width"), pklib.utils.size.document("width"));
-                height = Math.max(pklib.utils.size.window("height"), pklib.utils.size.document("height"));
+                height = null,
+            	pus = pklib.utils.size;
+    
+            if (wrapper === document.body) {
+                width = Math.max(pus.window("width"), pus.document("width"));
+                height = Math.max(pus.window("height"), pus.document("height"));
                 if (pklib.browser.getName() === "msie") {
                     width -= 20;
                 }
             } else {
-                width = pklib.utils.size.object(container, "width");
-                height = pklib.utils.size.object(container, "height");
+                width = pus.object(wrapper, "width");
+                height = pus.object(wrapper, "height");
             }
             element.style.width = width;
             element.style.height = height;
@@ -198,16 +217,34 @@
         },
         /**
          * @param element {HTMLElement}
-         * @param container {HTMLElement}
+         * @param node {Node}
          * @return {HTMLElement}
          */
-        insert: function (element, container) {
+        insert: function (element, node) {
             if (this.isNode(element)) {
-                container.appendChild(element);
+            	node.appendChild(element);
             } else if (typeof element === "string") {
-                container.innerHTML += element;
+            	node.innerHTML += element;
             }
             return element;
+        },
+        /**
+         * @param node {Node}
+         */
+        remove: function (/* nodes */) {
+        	var i,
+        		node = null,
+        		parent = null,
+        		args = Array.prototype.slice.call(arguments),
+        		len = args.length;
+    	
+        	for(i = 0; i < len; ++i) {
+        		node = args[i];
+        		if (this.isNode(node)) {
+	        		parent = node.parentNode;
+	            	parent.removeChild(node);
+        		}
+        	}
         },
         /**
          * @param node {HTMLElement}

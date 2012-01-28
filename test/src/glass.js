@@ -1,3 +1,5 @@
-window.addEventListener("load", function () {
-    // pklib.glass.show();
+pklib.event.add(window, "load", function () {
+    
+	module("pklib.glass");
+	
 });

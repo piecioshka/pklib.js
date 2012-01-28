@@ -4,11 +4,11 @@
  * @dependence dom, event, utils
  */
 
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
-        document = win.document || {},
+    var pklib = global.pklib || {},
+        document = global.document || {},
         id = "pklib-message-wrapper",
         contents = null,
         settings = {
@@ -52,7 +52,7 @@
 
             pklib.dom.center(message, settings.container);
 
-            pklib.event.add(win, "resize", function () {
+            pklib.event.add(global, "resize", function () {
                 pklib.dom.center(message, settings.container);
             });
             if (typeof callback === "function") {

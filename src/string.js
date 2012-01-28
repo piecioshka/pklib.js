@@ -3,10 +3,10 @@
  * @package string
  */
 
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {};
+    var pklib = global.pklib || {};
 
     pklib.string = {
         /**

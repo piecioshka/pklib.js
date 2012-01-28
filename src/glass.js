@@ -4,11 +4,11 @@
  * @package glass
  * @dependence browser, dom, event, utils
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
-        document = win.document || {},
+    var pklib = global.pklib || {},
+        document = global.document || {},
         id = "pklib-glass-wrapper",
         settings = {
             container: null,
@@ -53,7 +53,7 @@
 
             pklib.dom.maximize(glass, settings.container);
 
-            pklib.event.add(win, "resize", function () {
+            pklib.event.add(global, "resize", function () {
                 that.close();
                 that.show(config, callback);
                 pklib.dom.maximize(glass, settings.container);

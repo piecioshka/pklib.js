@@ -1,46 +1,81 @@
 /**
  * Module to service asynchronous request.
  * @package ajax
- * @dependence array, utils
+ * @dependence array
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
+    var pklib = global.pklib || {},
         cache = [];
+    
+    /**
+     * @constructor
+     * @this {XHRError}
+     * @param {String} message
+     */
+    function XHRError (message) {
+    	this.name = "XHRError";
+    	this.message = message || "";
+    }
+    
+    XHRError.prototype = new Error();
+    XHRError.prototype.constructor = XHRError;
 
+    /**
+     * @param {Object} settings
+     * @param {XMLHttpRequest} xhr
+     */
     function handler(settings, xhr) {
-        var ct,
-            xmlct,
-            method = "responseText";
+        var contentType,
+            xmlContentType = ["application/xml", "text/xml"],
+            property = "responseText";
 
         if (xhr.readyState === 4) {
             cache[settings.url] = xhr;
 
-            ct = xhr.getResponseHeader("Content-Type");
-            xmlct = ["application/xml", "text/xml"];
+            contentType = xhr.getResponseHeader("Content-Type");
 
-            if (pklib.array.inArray(ct, xmlct)) {
-                method = "responseXML";
+            if (pklib.array.inArray(contentType, xmlContentType)) {
+            	property = "responseXML";
             }
 
-            settings.done.call(null, xhr[method]);
+            settings.done.call(null, xhr[property]);
         }
     }
-
+    /**
+     * @param {Object} settings
+     * @param {XMLHttpRequest} xhr
+     */
+    function timeoutHandler(settings, xhr) {
+        // pass
+    }
+    /**
+     * @param {Object} settings
+     * @param {XMLHttpRequest} xhr
+     */
+    function requestTimeout(settings, xhr) {
+        if (xhr.readyState !== 4) {
+        	xhr.abort();
+            timeoutHandler.call(null, settings, xhr);
+        }
+    }
+    /**
+     * @throws XHRError
+     * @return {Object}
+     */
     function getXhr() {
         var xhr;
         try {
             xhr = new XMLHttpRequest();
-        } catch (f) {
+        } catch (a) {
             try {
                 xhr = new ActiveXObject("Msxml2.XMLHTTP");
-            } catch (a) {
+            } catch (b) {
                 try {
                     xhr = new ActiveXObject("Microsoft.XMLHTTP");
-                } catch (b) {
-                    // not support ajax
-                    return null;
+                } catch (c) {
+                    throw new XHRError("XHRError: Cannot create XHR object");
                 }
             }
         }
@@ -55,25 +90,27 @@
          * @param config {Object}
          * <pre>
          * {
-         *      type {String|default /get/}
-         *      async {Boolean|default true}
-         *      cache {Boolean|default false}
+         *      type {String|default: "get"}
+         *      async {Boolean|default: true}
+         *      cache {Boolean|default: false}
          *      url {String}
-         *      params {Array or Object}
+         *      params {Object}
          *      headers {Object}
          *      done {Function}
          * }
          * </pre>
+         * @return {XMLHttpRequest}
          */
         load: function (config) {
             var header,
-                client = null,
+                xhr = null,
                 settings = {
                     type: "get",
                     async: true,
                     cache: false,
                     url: null,
                     params: null,
+                    timeout: 30000,
                     headers: {},
                     done: function () {
                         // pass
@@ -85,19 +122,26 @@
             if (settings.cache && cache[settings.url]) {
                 handler.call(null, settings, cache[settings.url]);
             } else {
-                client = getXhr();
-                client.onreadystatechange = function () {
-                    handler.call(null, settings, client);
-                };
-                client.open(settings.type, settings.url, settings.async);
+            	xhr = getXhr();
+            	xhr.onreadystatechange = handler.bind(null, settings, xhr);
+                xhr.open(settings.type, settings.url, settings.async);
+
                 if (settings.headers !== null) {
                     for (header in settings.headers) {
                         if (settings.headers.hasOwnProperty(header)) {
-                            client.setRequestHeader(header, settings.headers[header]);
+                        	xhr.setRequestHeader(header, settings.headers[header]);
                         }
                     }
                 }
-                client.send(settings.params);
+                xhr.send(settings.params);
+
+                if (typeof xhr.ontimeout === "function") {
+                    xhr.ontimeout = timeoutHandler.bind(null, settings, xhr);
+                } else {
+                    setTimeout(requestTimeout.bind(null, settings, xhr), settings.timeout);
+                }
+                
+                return xhr;
             }
         }
     };

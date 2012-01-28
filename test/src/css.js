@@ -1,15 +1,13 @@
-window.addEventListener("load", function () {
+pklib.event.add(window, "load", function () {
+	
     module("pklib.css");
 
-    // pklib.css.addClass
     test("addClass", function() {
         var element = document.createElement("span");
         var cssClass = "active";
         pklib.css.addClass(cssClass, element);
         ok(pklib.css.hasClass(cssClass, element), "Element has class: " + cssClass);
     });
-
-    // pklib.css.removeClass
     test("removeClass", function() {
         var element = document.createElement("span");
         var cssClass = "active";
@@ -20,8 +18,6 @@ window.addEventListener("load", function () {
             strictEqual(cond, false, "Element has not class: " + cssClass);
         }, 1000);
     });
-
-    // pklib.css.hasClass
     test("hasClass", function() {
         var element = document.createElement("span");
         var cssClass = "active";

@@ -3,11 +3,11 @@
  * @package utils
  * @dependence array, browser, dom, event, string
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
-        document = win.document || {};
+    var pklib = global.pklib || {},
+        document = global.document || {};
 
     pklib.utils = {
         size: {
@@ -21,8 +21,8 @@
                     throw new TypeError("pklib.utils.size.window: @name: undefined");
                 }
                 name = pklib.string.capitalize(name);
-                clientName = win.document.documentElement["client" + name];
-                return (win.document.compatMode === "CSS1Compat" && clientName) || win.document.body["client" + name] || clientName;
+                clientName = global.document.documentElement["client" + name];
+                return (global.document.compatMode === "CSS1Compat" && clientName) || global.document.body["client" + name] || clientName;
             },
             /**
              * @param {string} name
@@ -102,10 +102,10 @@
                     links = pklib.dom.byTag("a"),
                     len = links.length,
                     opentrigger = function (evt) {
-                        win.open(this.href);
+                        global.open(this.href);
                         evt.preventDefault();
                     };
-                for (i = 0; i < len; i += 1) {
+                for (i = 0; i < len; ++i) {
                     link = links[i];
                     if (link.rel === "outerlink") {
                         pklib.event.add(link, "click", opentrigger.bind(link));
@@ -122,7 +122,7 @@
                     text = text || "Sure?";
 
                     pklib.event.add(element, "click", function (evt) {
-                        response = win.confirm(text);
+                        response = global.confirm(text);
                         if (true === response) {
                             return true;
                         } else {
@@ -139,10 +139,10 @@
         scrollTo: function (param, animate) {
             var interval = null;
             if (true === animate) {
-                interval = win.setInterval(function () {
+                interval = global.setInterval(function () {
                     document.body.scrollTop -= 5;
                     if (document.body.scrollTop <= 0) {
-                        win.clearInterval(interval);
+                        global.clearInterval(interval);
                     }
                 }, 1);
             } else {

@@ -1,48 +1,60 @@
-window.addEventListener("load", function () {
+pklib.event.add(window, "load", function () {
+	
+	var DIR = "data/";
+	
+	function msg(file) {
+		return "File: " + file + ", contain good value";
+	}
+	function _test_txt() {
+	    pklib.ajax.load({
+	        "url": DIR + "data.txt",
+	        "done": function(txt) {
 
-    // pklib.ajax
-    pklib.ajax.load({
-        "url" : "data/data.txt",
-        "done" : function(txt) {
+	            module("pklib.ajax");
 
-            module("pklib.ajax");
+	            asyncTest("ajax(txt)", function() {
+	                strictEqual(txt, "data txt ;-)", msg("Data.txt"));
 
-            asyncTest("ajax(txt)", function() {
-                strictEqual(txt, "data txt ;-)", "Data.txt is contain good msg");
+	                _test_json();
 
-                pklib.ajax.load({
-                    "url" : "data/data.json",
-                    "done" : function(json) {
+	                start();
+	            });
+	        }
+	    });
+	}
+	function _test_json() {
+        pklib.ajax.load({
+            "url": DIR + "data.json",
+            "done": function(json) {
 
-                        module("pklib.ajax");
+                module("pklib.ajax");
 
-                        asyncTest("ajax(json)", function() {
-                            json = eval("[" + json + "]")[0];
-                            strictEqual(json.data, ":)", "Data.json is contain good msg");
+                asyncTest("ajax(json)", function() {
+                    json = eval("[" + json + "]")[0];
+                    strictEqual(json.data, ":)", msg("Data.json"));
 
-                            pklib.ajax.load({
-                                "url" : "data/data.xml",
-                                "done" : function(xml) {
+                    _test_xml();
 
-                                    module("pklib.ajax");
-
-                                    asyncTest("ajax(xml)", function() {
-                                        xml = xml.getElementsByTagName("response")[0];
-                                        var child = xml.getElementsByTagName("child")[0];
-                                        strictEqual(child.textContent, "data", "Data.xml is contain good msg");
-                                    });
-                                    start();
-                                }
-                            });
-
-                            start();
-                        });
-                    }
+                    start();
                 });
+            }
+        });
+	}
+	function _test_xml () {
+		pklib.ajax.load({
+            "url": DIR + "data.xml",
+            "done": function(xml) {
 
+                module("pklib.ajax");
+
+                asyncTest("ajax(xml)", function() {
+                    xml = xml.getElementsByTagName("response")[0];
+                    var child = xml.getElementsByTagName("child")[0];
+                    strictEqual(child.textContent, "data", msg("Data.xml"));
+                });
                 start();
-            });
-        }
-    });
-
+            }
+        });
+	}
+	_test_txt();
 });

@@ -2,11 +2,11 @@
  * File manager
  * @package file
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
-        document = win.document || {};
+    var pklib = global.pklib || {},
+        document = global.document || {};
 
     pklib.file = (function () {
         var lazy_file = 0;

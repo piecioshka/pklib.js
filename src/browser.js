@@ -2,11 +2,11 @@
  * Get best information about browser.
  * @package browser
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
-        navigator = win.navigator || {},
+    var pklib = global.pklib || {},
+        navigator = global.navigator || {},
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 
     pklib.browser = {
@@ -21,7 +21,7 @@
                 userAgent = navigator.userAgent.toLowerCase(),
                 browser;
 
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < len; ++i) {
                 browser = browsers[i];
                 if (new RegExp(browser).test(userAgent)) {
                     return browser;
@@ -40,7 +40,7 @@
                 browser,
                 cur;
 
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < len; ++i) {
                 browser = browsers[i];
                 cur = userAgent.indexOf(browser);
                 if (cur !== -1) {

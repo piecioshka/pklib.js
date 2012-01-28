@@ -2,10 +2,10 @@
  * JSON manager
  * @package json
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {};
+    var pklib = global.pklib || {};
 
     function getFunctionName(fun) {
         var text = fun.toString().split("\n")[0].replace("function ", "");
@@ -25,7 +25,7 @@
         var i,
             fix = "\t",
             source = "";
-        for (i = 0; i < len; i += 1) {
+        for (i = 0; i < len; ++i) {
             source += fix;
         }
         return source;
@@ -70,7 +70,7 @@
                 source = "[\n" + getIndent(index);
                 index += 1;
                 len = object.length;
-                for (i = 0; i < len; i += 1) {
+                for (i = 0; i < len; ++i) {
                     source += getIndent(index) + this.stringify(object[i], index);
                     if (i !== len - 1) {
                         source += ",\n";

@@ -1,4 +1,5 @@
-window.addEventListener("load", function () {
-    // pklib.message.content = "pklib.message - test";
-    // pklib.message.show();
+pklib.event.add(window, "load", function () {
+    
+	module("pklib.message");
+	
 });

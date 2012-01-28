@@ -2,11 +2,11 @@
  * Cookie service manager.
  * @package cookie
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
-        document = win.document || {};
+    var pklib = global.pklib || {},
+        document = global.document || {};
 
     pklib.cookie = {
 
@@ -34,7 +34,7 @@
         /**
          * Read cookie by it name.
          * @param name {String}
-         * @return {Null or String}
+         * @return {String | null}
          */
         read: function (name) {
             if (typeof name === "undefined") {
@@ -46,7 +46,7 @@
                 ca = document.cookie.split(";"),
                 len = ca.length;
 
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < len; ++i) {
                 c = ca[i];
                 while (c.charAt(0) === " ") {
                     c = c.substring(1, c.length);

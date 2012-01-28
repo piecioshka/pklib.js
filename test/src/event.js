@@ -1,45 +1,52 @@
-window.addEventListener("load", function () {
-    
-    module("pklib.event");
+pklib.event.add(window, "load", function() {
 
-    // pklib.event.add
-    test("add", function() {
+	module("pklib.event");
 
-        var element = document.createElement("a");
-        document.body.appendChild(element);
-
-        try {
-            pklib.event.add(element, "click", function() {
-                // pass
-            });
-            
-            ok(true, "Event was added");
-        } catch (e) {
-            
-        }
-    });
-
-    // pklib.event.remove
-    test("remove", function() {
-
-        var element = document.createElement("a");
-        document.body.appendChild(element);
-
-        var type = "click";
-        var event = pklib.event.add(element, type, function() {
-            alert(1);
-        });
-
-        try {
-            pklib.event.remove(element, type, function() {
-                alert(1);
-            });
-    
-            ok(true, "Event was removed");
-        } catch (e) {
-            // pass
-        }
-
-    });
-    
+	test("add", function() {
+		var a = null;
+		pklib.event.add(window, "load", function() {
+			a = 1;
+		});
+		pklib.event.add(window, "load", function() {
+			strictEqual(a, null, "Window loaded");
+		});
+	});
+	test("remove", function() {
+		var counter = 0;
+		var button = document.createElement("button");
+		pklib.dom.insert("click", button);
+		pklib.dom.insert(button, document.body);
+		pklib.event.add(button, "click", function() {
+			counter++;
+		});
+		pklib.event.trigger(button, "click");
+		// pklib.event.remove(button, "click");
+		// pklib.event.trigger(button, "click");
+		strictEqual(counter, 1, "Counter it's OK");
+		pklib.dom.remove(button);
+	});
+	test("get", function () {
+		var button = document.createElement("button");
+		pklib.dom.insert("click", button);
+		pklib.dom.insert(button, document.body);
+		pklib.event.add(button, "click", function clickHandler() {
+			console.log(new Date);
+		});
+		var events = pklib.event.get(button, "click");
+		strictEqual(Object(events).constructor, Array, "Events are Array");
+		strictEqual(events.length, 1, "Event click exists");
+		pklib.dom.remove(button);
+	});
+	test("trigger", function () {
+		var counter = 0;
+		var button = document.createElement("button");
+		pklib.dom.insert("click", button);
+		pklib.dom.insert(button, document.body);
+		pklib.event.add(button, "click", function() {
+			counter++;
+		});
+		pklib.event.trigger(button, "click");
+		strictEqual(counter, 1, "Counter it's OK");
+		pklib.dom.remove(button);
+	});
 });

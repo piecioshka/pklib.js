@@ -1,10 +1,10 @@
 /**
  * @package aspect
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {};
+    var pklib = global.pklib || {};
 
     /**
      * Create method with merge first and second.

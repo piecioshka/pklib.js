@@ -2,10 +2,10 @@
  * Time analyzer
  * @package pklib.profiler
  */
-(function (win) {
+(function (global) {
     "use strict";
 
-    var pklib = win.pklib || {},
+    var pklib = global.pklib || {},
         data = {};
 
     pklib.profiler = {
