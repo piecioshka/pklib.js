@@ -12,7 +12,7 @@
     /**
      * @constructor
      * @this {XHRError}
-     * @param {String} message
+     * @param message {String}
      */
     function XHRError (message) {
     	this.name = "XHRError";
@@ -23,8 +23,8 @@
     XHRError.prototype.constructor = XHRError;
 
     /**
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
+     * @param settings {Object}
+     * @param xhr {XMLHttpRequest}
      */
     function handler(settings, xhr) {
         var contentType,
@@ -44,15 +44,15 @@
         }
     }
     /**
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
+     * @param settings {Object}
+     * @param xhr {XMLHttpRequest}
      */
     function timeoutHandler(settings, xhr) {
         // pass
     }
     /**
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
+     * @param settings {Object}
+     * @param xhr {XMLHttpRequest}
      */
     function requestTimeout(settings, xhr) {
         if (xhr.readyState !== 4) {
@@ -75,7 +75,7 @@
                 try {
                     xhr = new ActiveXObject("Microsoft.XMLHTTP");
                 } catch (c) {
-                    throw new XHRError("XHRError: Cannot create XHR object");
+                    throw new XHRError("pklib.ajax: XHRError: Cannot create XHR object");
                 }
             }
         }
@@ -83,10 +83,8 @@
     }
 
     pklib.ajax = {
-
         /**
          * Lazy load file.
-         *
          * @param config {Object}
          * <pre>
          * {

@@ -99,7 +99,8 @@
         /**
          * @param object {Object}
          * @param toJson {Boolean}
-         * @returns {String}
+         * @throws {TypeError}
+         * @return {String}
          */
         serialize: function (source, toJson) {
             if (typeof source !== "object" || source === null) {

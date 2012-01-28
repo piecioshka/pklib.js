@@ -16,6 +16,10 @@ pklib.event.add(window, "load", function () {
         array.push(element);
         ok(pklib.array.inArray(element, array), "Element is in array");
     });
+    test("index", function () {
+    	var array = [1,2,3,4,5];
+    	strictEqual(pklib.array.index(4, array), 3, "Element index it's OK");
+    });
     test("unique", function() {
         var arrayRedundancy = [ 2, 3, 4, 2, 3, 4 ];
         var array = [ 2, 3, 4 ];
@@ -29,8 +33,7 @@ pklib.event.add(window, "load", function () {
         var element2 = 4;
         array.push(element);
         array.push(element2);
-        pklib.array.remove(array, element);
-        pklib.array.remove(array, element2);
+        pklib.array.remove(array, element, element2);
         deepEqual(array, temp, "Elements in array removed");
     });
     test("mixin", function() {

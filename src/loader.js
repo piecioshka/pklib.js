@@ -22,12 +22,10 @@
         };
 
     pklib.loader = {
-
         /**
          * @type string
          */
         objId: id,
-
         /**
          * @param {object} config
          * @param {function} callback

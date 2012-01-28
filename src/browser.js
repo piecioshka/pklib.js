@@ -10,7 +10,6 @@
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 
     pklib.browser = {
-
         /**
          * Get browser name by checking userAgent in global object navigator.
          * @return {String}
@@ -34,11 +33,8 @@
          * @return {String}
          */
         getVersion: function () {
-            var i,
-                len = browsers.length,
-                userAgent = navigator.userAgent.toLowerCase(),
-                browser,
-                cur;
+            var i, len = browsers.length, browser, cur,
+                userAgent = navigator.userAgent.toLowerCase();
 
             for (i = 0; i < len; ++i) {
                 browser = browsers[i];
