@@ -8,7 +8,6 @@
     var pklib = global.pklib || {};
 
     pklib.array =  {
-
         /**
          * Check if object is array,
          * Check by:
@@ -21,18 +20,19 @@
          * @return {Boolean}
          */
         isArray: function (obj) {
-            return typeof obj === "object" && obj !== null && typeof obj.length !== "undefined" && typeof obj.slice !== "undefined";
+            return typeof obj === "object" && 
+            	obj !== null && 
+            	typeof obj.length !== "undefined" && 
+            	typeof obj.slice !== "undefined";
         },
         /**
          * Check if element is in array by loop.
-         * 
-         * @param {var) param
-         * @param {Array} array
+         * @param param
+         * @param array {Array}
          * @return {Boolean}
          */
         inArray: function (param, array) {
-            var i = 0,
-                len = array.length;
+            var i, len = array.length;
             for (i = 0; i < len; ++i) {
                 if (array[i] === param) {
                     return true;
@@ -41,19 +41,32 @@
             return false;
         },
         /**
+         * Get index of element
+         * @param item
+         * @param array {Array}
+         * @throws {ReferenceError}
+         * @return {Boolean}
+         */
+        index: function (item, array) {
+            var i, len = array.length;
+            
+            for (i = 0; i < len; ++i) {
+                if (array[i] === item) {
+                    return i;
+                }
+            }
+            throw new ReferenceError("pklib.array.index: @item not exists");
+        },
+        /**
          * Unique array. Delete element what was duplicated.
-         * 
          * @param array {Array}
          * @return {Array}
          */
         unique: function (array) {
-            var i,
-                temp = [],
-                item,
-                len = array.length;
+            var i, item, temp = [], len = array.length;
             for (i = 0; i < len; ++i) {
                 item = array[i];
-                if (this.inArray.call(null, item, temp) === false) {
+                if (!this.inArray.call(null, item, temp)) {
                     temp.push(item);
                 }
             }
@@ -62,22 +75,19 @@
         /**
          * Remove element declarated in infinity params without first.
          * First parameter is array object.
-         * 
          * @param array {Array}
          * @param {var}
          * @return {Array}
          */
         remove: function (array) {
-            var i,
-                param,
-                params = Array.prototype.splice.call(arguments, 1),
-                len = params.length,
-                inside;
+            var i, param,
+                params = Array.prototype.slice.call(arguments, 1),
+                len = params.length;
+
             for (i = 0; i < len; ++i) {
                 param = params[i];
-                inside = this.inArray(param, array);
-                if (inside !== false) {
-                    array.splice(inside, 1);
+                if (this.inArray(param, array)) {
+                	array.splice(this.index(param, array), 1);
                 }
             }
             return array;
@@ -88,10 +98,8 @@
          * @return {Array}
          */
         mixin: function (target, source) {
-            var i,
-                len = 0,
-                element,
-                item;
+            var i, len = 0, element, item;
+
             if (this.isArray(target) && this.isArray(source)) {
                 len = source.length;
                 for (i = 0; i < len; ++i) {
@@ -109,41 +117,6 @@
                     }
                 }
                 return target;
-            }
-        },
-        /**
-         * @param key {String}
-         * @param arr {Array}
-         * @return {Boolean}
-         */
-        isKeyExists: function (key, arr) {
-            var i,
-                item,
-                len = arr.length;
-
-            for (i = 0; i < len; ++i) {
-                item = arr[i];
-                if (item.name === key) {
-                    return true;
-                }
-            }
-            return false;
-        },
-        /**
-         * @param key {String}
-         * @param arr {Array}
-         * @return {Boolean}
-         */
-        getIndexOfKey: function (key, arr) {
-            var i,
-                item,
-                len = arr.length;
-
-            for (i = 0; i < len; ++i) {
-                item = arr[i];
-                if (item.name === key) {
-                    return i;
-                }
             }
         }
     };

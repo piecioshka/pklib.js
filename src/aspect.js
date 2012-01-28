@@ -9,9 +9,9 @@
     /**
      * Create method with merge first and second.
      * Second method is run after first.
-     *
      * @param fun {Function} The function to bind aspect function
      * @param asp {Function} The aspect function
+     * @throws {TypeError}
      */
     pklib.aspect = function (fun, asp) {
         var that = this;

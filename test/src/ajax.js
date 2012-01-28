@@ -9,14 +9,12 @@ pklib.event.add(window, "load", function () {
 	    pklib.ajax.load({
 	        "url": DIR + "data.txt",
 	        "done": function(txt) {
-
+	        	
 	            module("pklib.ajax");
 
 	            asyncTest("ajax(txt)", function() {
 	                strictEqual(txt, "data txt ;-)", msg("Data.txt"));
-
 	                _test_json();
-
 	                start();
 	            });
 	        }
@@ -48,11 +46,11 @@ pklib.event.add(window, "load", function () {
                 module("pklib.ajax");
 
                 asyncTest("ajax(xml)", function() {
-                    xml = xml.getElementsByTagName("response")[0];
                     var child = xml.getElementsByTagName("child")[0];
-                    strictEqual(child.textContent, "data", msg("Data.xml"));
+                    var content = child.text || child.textContent;
+                    strictEqual(content, "data", msg("Data.xml"));
+                    start();
                 });
-                start();
             }
         });
 	}

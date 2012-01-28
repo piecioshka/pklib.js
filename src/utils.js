@@ -12,8 +12,9 @@
     pklib.utils = {
         size: {
             /**
-             * @param {string} name
-             * @returns {number}
+             * @param name {String}
+             * @throws {TypeError}
+             * @return {Number}
              */
             window: function (name) {
                 var clientName;
@@ -25,8 +26,8 @@
                 return (global.document.compatMode === "CSS1Compat" && clientName) || global.document.body["client" + name] || clientName;
             },
             /**
-             * @param {string} name
-             * @return {number}
+             * @param name {String}
+             * @return {Number}
              */
             document: function (name) {
                 var clientName,
@@ -46,8 +47,8 @@
                 return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
             },
             /**
-             * @param {HTMLElement} obj
-             * @param {string} name
+             * @param obj {HTMLElement}
+             * @param name {String}
              * @return {number}
              */
             object: function (obj, name) {
@@ -76,7 +77,7 @@
         },
         action: {
             /**
-             * @param {HTMLElement} obj
+             * @param obj {HTMLElement}
              */
             clearfocus: function (obj) {
                 if (typeof obj !== "undefined") {
@@ -93,7 +94,7 @@
                 }
             },
             /**
-             * @param {HTMLElement} area
+             * @param area {HTMLElement}
              */
             outerlink: function (area) {
                 area = area || document;
@@ -113,8 +114,8 @@
                 }
             },
             /**
-             * @param {HTMLElement} element
-             * @param {string} text
+             * @param element {HTMLElement}
+             * @param text {String}
              */
             confirm: function (element, text) {
                 var response;
@@ -133,8 +134,8 @@
             }
         },
         /**
-         * @param param
-         * @param {boolean} animate
+         * @param param {Number}
+         * @param animate {Boolean}
          */
         scrollTo: function (param, animate) {
             var interval = null;
@@ -146,7 +147,7 @@
                     }
                 }, 1);
             } else {
-                document.body.scrollTop = param;
+                document.body.scrollTop = param + "px";
             }
         }
     };

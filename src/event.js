@@ -74,6 +74,7 @@
         /**
          * @param target {HTMLElement}
          * @param eventName {String}
+         * @throws {ReferenceError}
          */
         trigger: function (target, eventName) {
         	if (typeof target.events === "undefined") {
@@ -88,7 +89,7 @@
 	        		events[i].call(target, events[i]);
 	        	}
         	} else {
-        		throw new ReferenceError("Event " + eventName + " is undefined");
+        		throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": undefined");
         	}
         }
     };

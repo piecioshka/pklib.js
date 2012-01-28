@@ -9,7 +9,6 @@
         document = global.document || {};
 
     pklib.cookie = {
-
         /**
          * Create cookie file with name, value and day expired.
          * @param name {String}

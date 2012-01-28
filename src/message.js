@@ -3,14 +3,12 @@
  * @package message
  * @dependence dom, event, utils
  */
-
 (function (global) {
     "use strict";
 
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-message-wrapper",
-        contents = null,
         settings = {
             container: null,
             style: {
@@ -21,8 +19,14 @@
         };
 
     pklib.message = {
+        /**
+         * @type string
+         */
         objId: id,
-        content: contents,
+        /**
+         * @type null
+         */
+        content: null,
         /**
          * @param config {Object}
          * @param callback {Function}
@@ -49,7 +53,6 @@
             }
 
             settings.container.appendChild(message);
-
             pklib.dom.center(message, settings.container);
 
             pklib.event.add(global, "resize", function () {
@@ -58,7 +61,6 @@
             if (typeof callback === "function") {
                 callback();
             }
-
             return message;
         },
         /**
@@ -75,7 +77,6 @@
             if (typeof callback === "function") {
                 callback();
             }
-
             return result;
         }
     };

@@ -11,8 +11,8 @@
 
     /**
      * Walking on every element in node
-     * @param node
-     * @param func
+     * @param node {Node}
+     * @param func {Function}
      * @returns
      */
     function walk_the_dom(node, func) {
@@ -232,9 +232,7 @@
          * @param node {Node}
          */
         remove: function (/* nodes */) {
-        	var i,
-        		node = null,
-        		parent = null,
+        	var i, node = null, parent = null,
         		args = Array.prototype.slice.call(arguments),
         		len = args.length;
     	

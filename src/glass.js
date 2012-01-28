@@ -23,12 +23,10 @@
         };
 
     pklib.glass = {
-
         /**
          * @type {String}
          */
         objId: id,
-
         /**
          * @param config {Object}
          * @param callback {Function}

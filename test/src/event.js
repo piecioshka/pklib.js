@@ -8,7 +8,7 @@ pklib.event.add(window, "load", function() {
 			a = 1;
 		});
 		pklib.event.add(window, "load", function() {
-			strictEqual(a, null, "Window loaded");
+			strictEqual(a, 1, "Window loaded");
 		});
 	});
 	test("remove", function() {
@@ -20,7 +20,7 @@ pklib.event.add(window, "load", function() {
 			counter++;
 		});
 		pklib.event.trigger(button, "click");
-		// pklib.event.remove(button, "click");
+		pklib.event.remove(button, "click");
 		// pklib.event.trigger(button, "click");
 		strictEqual(counter, 1, "Counter it's OK");
 		pklib.dom.remove(button);

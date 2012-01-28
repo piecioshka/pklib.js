@@ -10,14 +10,14 @@
 
     pklib.string = {
         /**
-         * @param source {var}
+         * @param source {String}
          * @return {Boolean}
          */
         isString: function (source) {
             return typeof source === "string";
         },
         /**
-         * @param source {var}
+         * @param source {String}
          * @return {Boolean}
          */
         isLetter: function (source) {
@@ -101,17 +101,18 @@
         },
         /**
          * @param source {String}
-         * @param len {Number}
+         * @param length {Number}
          * @return {String}
          */
-        slice: function (source, len) {
+        slice: function (source, length) {
             var item,
                 text = "",
                 num = source.length;
+            
             for (item = 0; item < num; item += 1) {
-                text += source[item];
-                if (item === len - 1) {
-                    if (num - len >= 1) {
+                text += source.substr(item, 1);
+                if (item === length - 1) {
+                    if (num - length >= 1) {
                         text += "...";
                     }
                     break;

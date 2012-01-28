@@ -1,6 +1,6 @@
 pklib.event.add(window, "load", function () {
     
-    module("pklib.aspect");
+    module("pklib");
 
     function test_aspect () {
         var x = "";
@@ -14,7 +14,7 @@ pklib.event.add(window, "load", function () {
             return x;
         };
     }
-    test("Simple ascpect", function () {
+    test("aspect", function () {
         var test = new test_aspect();
         test.a = pklib.aspect(test.a, test.b);
         test.a();
