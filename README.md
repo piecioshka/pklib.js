@@ -2,7 +2,7 @@
 
 **pklib** jest wynikiem ciągłego używania z tych samych wzorców w sieci web,<br />
 z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach.<br /> 
-Źródła biblioteki znajdują się na [Github.com](http://www.github.com/ "github.com").<br /><br />
+Źródła biblioteki znajdują się na [Github.com](http://www.github.com/).<br /><br />
 
 Biblioteka jest rozwijana z podziałem na moduły.
 
@@ -10,7 +10,7 @@ Przykład:
     moduł `pklib.profiler`<br />
     kod: `src/profiler.js`
 
-Biblioteki posiada unit testy w napisane zgodnie ze specyfikację (http://docs.jquery.com/Qunit "QUnit")
+Biblioteki posiada unit testy w napisane zgodnie ze specyfikację [QUnit](http://docs.jquery.com/Qunit)
 
 ## wersjonowanie
 
@@ -32,9 +32,9 @@ znajduje swoje praktyczne zastosowanie.
 
 ## dokumentacja
 
-(http://api.pklib.com "Dokumentacja")
+[http://docs.pklib.com](http://docs.pklib.com)
 
 ## szczegóły
 
-autor: **Piotr Kowalski** ( [http://piecioshka.pl/](http://piecioshka.pl/ "homepage") ) <br />
-licencja: **MIT License** ( [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php "license") ) 
+autor: **Piotr Kowalski** ( [http://piecioshka.pl/](http://piecioshka.pl/) ) <br />
+licencja: **MIT License** ( [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php) ) 
