@@ -13,9 +13,23 @@
             }
         }
     }
+    
+    function adjustHeight(obj) {
+    	var windowHeight = pklib.utils.size.window("height");
+    	obj.style.height = (windowHeight - 70) + "px";
+    }
+    function adjustColumns() {
+        var sidebar = pklib.dom.byClass("sidebar")[0],
+    		content = pklib.dom.byClass("content")[0];
+        adjustHeight(sidebar);
+        adjustHeight(content);
+    }
 
     jQuery(document).ready(function () {
         init(h);
+        
+        adjustColumns();
+        pklib.event.add(window, "resize", adjustColumns.bind(null));
         
         // Twitter bootstrap
         prettyPrint();

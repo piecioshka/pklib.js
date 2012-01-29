@@ -9,21 +9,15 @@
 
     pklib.array =  {
         /**
-         * Check if object is array,
-         * Check by:
-         * - typeof object
-         * - not null
-         * - typeof object.length
-         * - typeof object.slice
-         * 
-         * @param obj {HTMLElement}
+         * Check if param is array,
+         * @param array {Object}
          * @return {Boolean}
          */
-        isArray: function (obj) {
-            return typeof obj === "object" &&
-                obj !== null &&
-                typeof obj.length !== "undefined" &&
-                typeof obj.slice !== "undefined";
+        isArray: function (array) {
+            return typeof array === "object" &&
+            	array !== null &&
+                typeof array.length !== "undefined" &&
+                typeof array.slice !== "undefined";
         },
         /**
          * Check if element is in array by loop.
