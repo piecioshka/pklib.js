@@ -57,7 +57,7 @@
          * @param callback {Function}
          * @param is_continue {Bool}
          */
-        lazy_load: function (files, callback, is_continue) {
+        lazyLoad: function (files, callback, is_continue) {
             var that = this,
                 len = files.length,
                 file = files[lazy_file];
@@ -67,7 +67,7 @@
             loadjs(file, function () {
                 if (lazy_file < len - 1) {
                     lazy_file += 1;
-                    that.lazy_load(files, callback, true);
+                    that.lazyLoad(files, callback, true);
                 } else {
                     if (typeof callback === "function") {
                         callback();

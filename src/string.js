@@ -82,7 +82,7 @@
          * @param source {String}
          * @return {String}
          */
-        strip_tags: function (source) {
+        stripTags: function (source) {
             return source.replace(/\\<\\S\\>/g, "");
         },
         /**

@@ -39,9 +39,7 @@
         getParams: function () {
             var params = loc.search,
                 params_obj = {},
-                i,
-                item,
-                len = 0;
+                i, item, len = 0;
             if (params.substr(0, 1) === "?") {
                 params = params.substr(1);
             }

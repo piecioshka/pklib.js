@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	
+	<title>pklib :: dokumentacja</title>
+	
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	    <![endif]-->
+	
+	<link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/lib/prettify/prettify.css" rel="stylesheet" />
+	
+	<style>
+	.container {
+		width: 1120px;
+	}
+	
+	.container-fluid {
+		margin: 50px 0 0;
+	}
+	
+	.well-white {
+		background-color: #fff;
+		margin-bottom: 20px;
+		padding: 19px;
+		min-height: 20px;
+		border: 1px solid #eee;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+		-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	}
+	</style>
+	
+    <script src="lib/prettify/prettify.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/pklib.min.js"></script>
+	
+	<script src="lib/bootstrap/bootstrap-alerts.js"></script>
+	<script src="lib/bootstrap/bootstrap-buttons.js"></script>
+	<script src="lib/bootstrap/bootstrap-dropdown.js"></script>
+	<script src="lib/bootstrap/bootstrap-modal.js"></script>
+	<!-- <script src="lib/bootstrap/bootstrap-popover.js"></script> -->
+	<script src="lib/bootstrap/bootstrap-scrollspy.js"></script>
+	<script src="lib/bootstrap/bootstrap-tabs.js"></script>
+	<script src="lib/bootstrap/bootstrap-twipsy.js"></script>
+	
+	<script src="src/app.js"></script>
+</head>
+<body>
+	<div class="topbar-wrapper">
+		<div data-dropdown="dropdown" class="topbar" id="topbar-example">
+			<div class="topbar-inner">
+				<div class="container">
+					<h3>
+						<a href="#">pklib</a>
+					</h3>
+					<ul class="nav">
+						<li class="dropdown">
+                            <a class="dropdown-toggle" href="#pklib-ajax">ajax</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-ajax-load">load</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+					        <a class="dropdown-toggle" href="#pklib-array">array</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-array-isArray">isArray</a></li>
+								<li><a href="#pklib-array-inArray">inArray</a></li>
+								<li><a href="#pklib-array-index">index</a></li>
+								<li><a href="#pklib-array-unique">unique</a></li>
+								<li><a href="#pklib-array-remove">remove</a></li>
+								<li><a href="#pklib-array-mixin">mixin</a></li>
+							</ul>
+						</li>
+						<li><a href="#pklib-aspect">aspect</a></li>
+						<li class="dropdown">
+					        <a class="dropdown-toggle" href="#pklib-browser">browser</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-browser-getName">getName</a></li>
+								<li><a href="#pklib-browser-getVersion">getVersion</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-cookie">cookie</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-cookie-create">create</a></li>
+								<li><a href="#pklib-cookie-read">read</a></li>
+								<li><a href="#pklib-cookie-erase">erase</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-css">css</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-css-addClass">addClass</a></li>
+								<li><a href="#pklib-css-removeClass">removeClass</a></li>
+								<li><a href="#pklib-css-hasClass">hasClass</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-dom">dom</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-dom-nodeTypes">nodeTypes</a></li>
+								<li><a href="#pklib-dom-isNode">isNode</a></li>
+								<li><a href="#pklib-dom-isElement">isElement</a></li>
+								<li><a href="#pklib-dom-byId">byId</a></li>
+								<li><a href="#pklib-dom-byTag">byTag</a></li>
+								<li><a href="#pklib-dom-byClass">byClass</a></li>
+								<li><a href="#pklib-dom-index">index</a></li>
+								<li><a href="#pklib-dom-children">children</a></li>
+								<li><a href="#pklib-dom-center">center</a></li>
+								<li><a href="#pklib-dom-maximize">maximize</a></li>
+								<li><a href="#pklib-dom-insert">insert</a></li>
+								<li><a href="#pklib-dom-remove">remove</a></li>
+								<li><a href="#pklib-dom-prev">prev</a></li>
+								<li><a href="#pklib-dom-next">next</a></li>
+								<li><a href="#pklib-dom-parent">parent</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-event">event</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-event-add">add</a></li>
+								<li><a href="#pklib-event-remove">remove</a></li>
+								<li><a href="#pklib-event-get">get</a></li>
+								<li><a href="#pklib-event-trigger">trigger</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-file">file</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-file-load">load</a></li>
+								<li><a href="#pklib-file-lazy_load">lazy_load</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-glass">glass</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-glass-objId">objId</a></li>
+								<li><a href="#pklib-glass-show">show</a></li>
+								<li><a href="#pklib-glass-close">close</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-json">json</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-json-stringify">stringify</a></li>
+								<li><a href="#pklib-json-serialize">serialize</a></li>
+							</ul></li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-loader">loader</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-loader-objId">objId</a></li>
+								<li><a href="#pklib-loader-show">show</a></li>
+								<li><a href="#pklib-loader-close">close</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-message">message</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-message-objId">objId</a></li>
+								<li><a href="#pklib-message-content">content</a></li>
+								<li><a href="#pklib-message-show">show</a></li>
+								<li><a href="#pklib-message-close">close</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-profiler">profiler</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-profiler-start">start</a></li>
+								<li><a href="#pklib-profiler-stop">stop</a></li>
+								<li><a href="#pklib-profiler-getTime">getTime</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-string">string</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-string-isString">isString</a></li>
+								<li><a href="#pklib-string-isLetter">isLetter</a></li>
+								<li><a href="#pklib-string-trim">trim</a></li>
+								<li><a href="#pklib-string-slug">slug</a></li>
+								<li><a href="#pklib-string-capitalize">capitalize</a></li>
+								<li><a href="#pklib-string-delimiterSeparatedWords">delimiterSeparatedWords</a></li>
+								<li><a href="#pklib-string-stripTags">stripTags</a></li>
+								<li><a href="#pklib-string-camelCase">camelCase</a></li>
+								<li><a href="#pklib-string-slice">slice</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+					        <a class="dropdown-toggle" href="#pklib-uri">uri</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-uri-getProtocol">getProtocol</a></li>
+								<li><a href="#pklib-uri-getHost">getHost</a></li>
+								<li><a href="#pklib-uri-getPort">getPort</a></li>
+								<li><a href="#pklib-uri-getUri">getUri</a></li>
+								<li><a href="#pklib-uri-getParams">getParams</a></li>
+								<li><a href="#pklib-uri-getParam">getParam</a></li>
+								<li><a href="#pklib-uri-getHash">getHash</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" href="#pklib-utils">utils</a>
+							<ul class="dropdown-menu">
+								<li><a href="#pklib-utils-size">size</a>
+									<ul>
+										<li><a href="#pklib-utils-size-window">window</a></li>
+										<li><a href="#pklib-utils-size-document">document</a></li>
+										<li><a href="#pklib-utils-size-object">object</a></li>
+									</ul>
+								</li>
+								<li><a href="#pklib-utils-ascii">ascii</a></li>
+								<li><a href="#pklib-utils-date">date</a>
+									<ul>
+										<li><a href="#pklib-utils-date-getFullMonth">getFullMonth</a></li>
+									</ul>
+								</li>
+								<li><a href="#pklib-utils-action">action</a>
+									<ul>
+										<li><a href="#pklib-utils-action-clearfocus">clearfocus</a></li>
+										<li><a href="#pklib-utils-action-outerlink">outerlink</a></li>
+										<li><a href="#pklib-utils-action-confirm">confirm</a></li>
+									</ul>
+								</li>
+								<li><a href="#pklib-utils-scrollTo">scrollTo</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="sidebar">
+			<div class="well">
+				<h5>ajax</h5>
+				<ul>
+					<li><a href="#pklib-ajax-load">load</a></li>
+				</ul>
+				<h5>array</h5>
+				<ul>
+					<li><a href="#pklib-array-isArray">isArray</a></li>
+					<li><a href="#pklib-array-inArray">inArray</a></li>
+					<li><a href="#pklib-array-index">index</a></li>
+					<li><a href="#pklib-array-unique">unique</a></li>
+					<li><a href="#pklib-array-remove">remove</a></li>
+					<li><a href="#pklib-array-mixin">mixin</a></li>
+				</ul>
+				<h5>aspect</h5>
+			    <h5>browser</h5>
+				<ul>
+					<li><a href="#pklib-browser-getName">getName</a></li>
+					<li><a href="#pklib-browser-getVersion">getVersion</a></li>
+				</ul>
+				<h5>cookie</h5>
+				<ul>
+					<li><a href="#pklib-cookie-create">create</a></li>
+					<li><a href="#pklib-cookie-read">read</a></li>
+					<li><a href="#pklib-cookie-erase">erase</a></li>
+				</ul>
+				<h5>css</h5>
+				<ul>
+					<li><a href="#pklib-css-addClass">addClass</a></li>
+					<li><a href="#pklib-css-removeClass">removeClass</a></li>
+					<li><a href="#pklib-css-hasClass">hasClass</a></li>
+				</ul>
+				<h5>dom</h5>
+				<ul>
+					<li><a href="#pklib-dom-nodeTypes">nodeTypes</a></li>
+					<li><a href="#pklib-dom-isNode">isNode</a></li>
+					<li><a href="#pklib-dom-isElement">isElement</a></li>
+					<li><a href="#pklib-dom-byId">byId</a></li>
+					<li><a href="#pklib-dom-byTag">byTag</a></li>
+					<li><a href="#pklib-dom-byClass">byClass</a></li>
+					<li><a href="#pklib-dom-index">index</a></li>
+					<li><a href="#pklib-dom-children">children</a></li>
+					<li><a href="#pklib-dom-center">center</a></li>
+					<li><a href="#pklib-dom-maximize">maximize</a></li>
+					<li><a href="#pklib-dom-insert">insert</a></li>
+					<li><a href="#pklib-dom-remove">remove</a></li>
+					<li><a href="#pklib-dom-prev">prev</a></li>
+					<li><a href="#pklib-dom-next">next</a></li>
+					<li><a href="#pklib-dom-parent">parent</a></li>
+				</ul>
+				<h5>event</h5>
+				<ul>
+					<li><a href="#pklib-event-add">add</a></li>
+					<li><a href="#pklib-event-remove">remove</a></li>
+					<li><a href="#pklib-event-get">get</a></li>
+					<li><a href="#pklib-event-trigger">trigger</a></li>
+				</ul>
+				<h5>file</h5>
+				<ul>
+					<li><a href="#pklib-file-load">load</a></li>
+					<li><a href="#pklib-file-lazy_load">lazy_load</a></li>
+				</ul>
+				<h5>glass</h5>
+				<ul>
+					<li><a href="#pklib-glass-objId">objId</a></li>
+					<li><a href="#pklib-glass-show">show</a></li>
+					<li><a href="#pklib-glass-close">close</a></li>
+				</ul>
+				<h5>json</h5>
+				<ul>
+					<li><a href="#pklib-json-stringify">stringify</a></li>
+					<li><a href="#pklib-json-serialize">serialize</a></li>
+				</ul>
+				<h5>loader</h5>
+				<ul>
+					<li><a href="#pklib-loader-objId">objId</a></li>
+					<li><a href="#pklib-loader-show">show</a></li>
+					<li><a href="#pklib-loader-close">close</a></li>
+				</ul>
+				<h5>message</h5>
+				<ul>
+					<li><a href="#pklib-message-objId">objId</a></li>
+					<li><a href="#pklib-message-content">content</a></li>
+					<li><a href="#pklib-message-show">show</a></li>
+					<li><a href="#pklib-message-close">close</a></li>
+				</ul>
+				<h5>profiler</h5>
+				<ul>
+					<li><a href="#pklib-profiler-start">start</a></li>
+					<li><a href="#pklib-profiler-stop">stop</a></li>
+					<li><a href="#pklib-profiler-getTime">getTime</a></li>
+				</ul>
+				<h5>string</h5>
+				<ul>
+					<li><a href="#pklib-string-isString">isString</a></li>
+					<li><a href="#pklib-string-isLetter">isLetter</a></li>
+					<li><a href="#pklib-string-trim">trim</a></li>
+					<li><a href="#pklib-string-slug">slug</a></li>
+					<li><a href="#pklib-string-capitalize">capitalize</a></li>
+					<li><a href="#pklib-string-delimiterSeparatedWords">delimiterSeparatedWords</a></li>
+					<li><a href="#pklib-string-stripTags">stripTags</a></li>
+					<li><a href="#pklib-string-camelCase">camelCase</a></li>
+					<li><a href="#pklib-string-slice">slice</a></li>
+				</ul>
+				<h5>uri</h5>
+				<ul>
+					<li><a href="#pklib-uri-getProtocol">getProtocol</a></li>
+					<li><a href="#pklib-uri-getHost">getHost</a></li>
+					<li><a href="#pklib-uri-getPort">getPort</a></li>
+					<li><a href="#pklib-uri-getUri">getUri</a></li>
+					<li><a href="#pklib-uri-getParams">getParams</a></li>
+					<li><a href="#pklib-uri-getParam">getParam</a></li>
+					<li><a href="#pklib-uri-getHash">getHash</a></li>
+				</ul>
+				<h5>utils</h5>
+				<ul>
+					<li><h5>size</h5>
+						<ul>
+							<li><a href="#pklib-utils-size-window">window</a></li>
+							<li><a href="#pklib-utils-size-document">document</a></li>
+							<li><a href="#pklib-utils-size-object">object</a></li>
+						</ul></li>
+					<li><a href="#pklib-utils-ascii">ascii</a></li>
+					<li><h5>date</h5>
+						<ul>
+							<li><a href="#pklib-utils-date-getFullMonth">getFullMonth</a></li>
+						</ul></li>
+					<li><h5>action</h5>
+						<ul>
+							<li><a href="#pklib-utils-action-clearfocus">clearfocus</a></li>
+							<li><a href="#pklib-utils-action-outerlink">outerlink</a></li>
+							<li><a href="#pklib-utils-action-confirm">confirm</a></li>
+						</ul></li>
+					<li><a href="#pklib-utils-scrollTo">scrollTo</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="content">
+			<div class="hero-unit">
+				<h1>pklib - biblioteka JavaScript</h1>
+				<p>Dokumentacja modułów zawartych w bibliotece</p>
+			</div>
+            <div id="pklib-ajax" class="page-header">
+                <h1>pklib.ajax <small>{Object}</small></h1>
+                
+                <div class="well">
+                    <h2 id="pklib-ajax-load">pklib.ajax.load</h2>
+                    
+                    <div class="well-white">
+		                <ul class="tabs">
+		                    <li class="active"><a href="#pklib-ajax-load-desc">Opis</a></li>
+		                    <li><a href="#pklib-ajax-load-code-example">Przykład</a></li>
+		                </ul>
+		                <div class="pill-content">
+		                    <div class="active" id="pklib-ajax-load-desc">
+		                    <p>
+		                        Tutaj będzie <a href="#" data-placement="below" rel='twipsy' title='Some title text'>ciekawy</a> opis.
+		                    </p>
+		                    </div>
+		                    <div id="pklib-ajax-load-code-example">
+		                        <p>Przykład:</p>
+								<pre class="prettyprint lang-css linenums">
+								&lt;script type="text/javascript"&gt;
+		                        pklib.file.load("pklib.message.js", function(file){
+		                            pklib.message.show();
+		                        });
+		                        &lt;/script&gt;
+								</pre>
+		                    </div>
+		                </div>
+                    </div>
+                </div>
+            </div>
+            <div id="pklib-array" class="page-header">
+                <h1>pklib.array <small>{Object}</small></h1>
+				
+				<div class="well">
+					
+					<h2 id="pklib-array-isArray">pklib.array.isArray</h2>
+					
+                    <div class="well-white">
+		                <ul class="tabs">
+		                    <li class="active"><a href="#pklib-array-isArray-desc">Opis</a></li>
+		                    <li><a href="#pklib-array-isArray-code-example">Przykład</a></li>
+		                </ul>
+		                <div class="pill-content">
+		                    <div class="active" id="pklib-array-isArray-desc">Opis...</div>
+		                    <div id="pklib-array-isArray-code-example">
+		                        <p>Przykład:</p>
+								<pre class="prettyprint lang-css linenums">
+								&lt;script type="text/javascript"&gt;
+		                        pklib.array.isArray();
+                                &lt;/script&gt;
+								</pre>
+		                    </div>
+		                </div>
+	                </div>
+	                
+	                <h2 id="pklib-array-inArray">pklib.array.inArray</h2>
+	                
+                    <div class="well-white">
+		                <ul class="tabs">
+		                    <li class="active"><a href="#pklib-array-inArray-desc">Opis</a></li>
+		                    <li><a href="#pklib-array-inArray-code-example">Przykład</a></li>
+		                </ul>
+		                <div class="pill-content">
+		                    <div class="active" id="pklib-array-inArray-desc">Opis...</div>
+		                    <div id="pklib-array-inArray-code-example">
+		                        <p>Przykład:</p>
+		                        <pre class="prettyprint lang-css linenums">
+		                        pklib.array.inArray();
+		                        </pre>
+		                    </div>
+		                </div>
+	                </div>
+	                
+	                <h2 id="pklib-array-index">pklib.array.index</h2>
+	                
+                    <div class="well-white">
+		                <ul class="tabs">
+		                    <li class="active"><a href="#pklib-array-index-desc">Opis</a></li>
+		                    <li><a href="#pklib-array-index-code-example">Przykład</a></li>
+		                </ul>
+		                <div class="pill-content">
+		                    <div class="active" id="pklib-array-index-desc">Opis...</div>
+		                    <div id="pklib-array-index-code-example">
+		                        <p>Przykład:</p>
+		                        <pre class="prettyprint lang-css linenums">
+		                        pklib.array.inArray();
+		                        </pre>
+		                    </div>
+		                </div>
+	                </div>
+	                
+	                <h2 id="pklib-array-unique">pklib.array.unique</h2>
+	                
+                    <div class="well-white">
+		                <ul class="tabs">
+		                    <li class="active"><a href="#pklib-array-unique-desc">Opis</a></li>
+		                    <li><a href="#pklib-array-unique-code-example">Przykład</a></li>
+		                </ul>
+		                <div class="pill-content">
+		                    <div class="active" id="pklib-array-unique-desc">Opis...</div>
+		                    <div id="pklib-array-unique-code-example">
+		                        <p>Przykład:</p>
+		                        <pre class="prettyprint lang-css linenums">
+		                        pklib.array.unique();
+		                        </pre>
+		                    </div>
+		                </div>
+	                </div>
+	                
+	                <h2 id="pklib-array-remove">pklib.array.remove</h2>
+	                
+                    <div class="well-white">
+		                <ul class="tabs">
+		                    <li class="active"><a href="#pklib-array-remove-desc">Opis</a></li>
+		                    <li><a href="#pklib-array-remove-code-example">Przykład</a></li>
+		                </ul>
+		                <div class="pill-content">
+		                    <div class="active" id="pklib-array-remove-desc">Opis...</div>
+		                    <div id="pklib-array-remove-code-example">
+		                        <p>Przykład:</p>
+		                        <pre class="prettyprint lang-css linenums">
+		                        pklib.array.remove();
+		                        </pre>
+		                    </div>
+		                </div>
+	                </div>
+	                
+	                <h2 id="pklib-array-mixin">pklib.array.mixin</h2>
+	                
+                    <div class="well-white">
+		                <ul class="tabs">
+		                    <li class="active"><a href="#pklib-array-mixin-desc">Opis</a></li>
+		                    <li><a href="#pklib-array-mixin-code-example">Przykład</a></li>
+		                </ul>
+		                <div class="pill-content">
+		                    <div class="active" id="pklib-array-mixin-desc">Opis...</div>
+		                    <div id="pklib-array-mixin-code-example">
+		                        <p>Przykład:</p>
+		                        <pre class="prettyprint lang-css linenums">
+		                        pklib.array.mixin();
+		                        </pre>
+		                    </div>
+	                    </div>
+	                </div>
+                </div>
+            </div>
+            <div id="pklib-apect" class="page-header">
+                <h1>pklib.aspect <small>{Function}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-browser" class="page-header">
+                <h1>pklib.browser <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-cookie" class="page-header">
+                <h1>pklib.cookie <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-css" class="page-header">
+                <h1>pklib.css <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-dom" class="page-header">
+                <h1>pklib.dom <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-event" class="page-header">
+                <h1>pklib.event <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-file" class="page-header">
+                <h1>pklib.file <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-glass" class="page-header">
+                <h1>pklib.glass <small>{Object}</small></h1>
+                
+                <div class="well">
+	                <p>
+	                    Wartwa przysłaniająca cały content strony. <br />
+	                    Dzięki przroczystości otrzymamy efekt dezaktywacji strony. <br />
+	                    Layer służy do wyłączenia częśći bądź całęj strony aby przykładowo wyświetlić komunikat.
+	                </p>
+	                
+	                <h2 id="pklib-glass-show">pklib.glass.show</h2>
+	                
+	                <div class="well-white">
+	                    <ul class="tabs">
+	                        <li class="active"><a href="#pklib-glass-show-desc">Opis</a></li>
+	                        <li><a href="#pklib-glass-show-code-example">Przykład</a></li>
+	                    </ul>
+	                    <div class="pill-content">
+	                        <div class="active" id="pklib-glass-show-desc">Opis...</div>
+	                        <div id="pklib-glass-show-code-example">
+	                            <p>Przykład:</p>
+	                            <pre class="prettyprint lang-css linenums">
+	                            pklib.glass.show();
+	                            </pre>
+	                        </div>
+	                    </div>
+	                </div>
+	                
+	                <h2 id="pklib-glass-close">pklib.glass.close</h2>
+	                
+	                <div class="well-white">
+	                    <ul class="tabs">
+	                        <li class="active"><a href="#pklib-glass-close-desc">Opis</a></li>
+	                        <li><a href="#pklib-glass-close-code-example">Przykład</a></li>
+	                    </ul>
+	                    <div class="pill-content">
+	                        <div class="active" id="pklib-glass-close-desc">Opis...</div>
+	                        <div id="pklib-glass-close-code-example">
+	                            <p>Przykład:</p>
+	                            <pre class="prettyprint lang-css linenums">
+	                            pklib.glass.close();
+	                            </pre>
+	                        </div>
+	                    </div>
+	                </div>
+                </div>
+            </div>
+            <div id="pklib-json" class="page-header">
+                <h1>pklib.json <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-laoder" class="page-header">
+                <h1>pklib.laoder <small>{Object}</small></h1>
+                
+                <div class="well">
+	                <p>
+					Obsługa loadera, który jest dodawanym do drzewa DOM elementem o określonych parametrach.
+					Wymiary obrazka jak i link do obrazka jest łatwo konfigurowalny.
+					Gdy tylko pokażemy loader za pomocą metody **pklib.loader.show** zostanie on z default'u wycentrowany.
+					Kontener w którym chcemy umieścić (pre)loader jest łatwy do zmiany, gdyż nie zawsze chcemy aby 
+					loader znajdował się na środku całej strony, ale być może tylko w danym kontenerze na stronie.  
+	                </p>
+                </div>
+            </div>
+            <div id="pklib-message" class="page-header">
+                <h1>pklib.message <small>{Object}</small></h1>
+                
+                <div class="well">
+	                <p>
+	                Top layer, który jest ponad wszystkimi elementami w drzewie DOM.
+	                Pomocny gdy chcemy wyświetlić informację, wiadomość bądź komunikat użytkownikowi.
+	                Dzięki dobremu algorytmowi, warstwa której jasno zdefiniujemy wymiary zawsze pozostanie na środku strony.
+	                Obłsuga layera posiada "zamykanie", a tak na prawdę usuwanie z drzewa DOM elementu będącego top layerem, 
+	                layera, tj. usunięcie z widoku warstwy reprezentującej komunikat dla użytkownika.
+	                </p>
+                </div>
+            </div>
+            <div id="pklib-profiler" class="page-header">
+                <h1>pklib.profiler <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-string" class="page-header">
+                <h1>pklib.string <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-url" class="page-header">
+                <h1>pklib.url <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+            <div id="pklib-utils" class="page-header">
+                <h1>pklib.utils <small>{Object}</small></h1>
+                
+                <div class="well">
+                </div>
+            </div>
+		</div>
+
+		<footer>
+			<p>
+				&copy; <a class="red" href="http://piecioshka.pl" rel="outerlink">piecioshka</a>
+			</p>
+		</footer>
+	</div>
+	<!-- /container -->
+
+</body>
+</html>

@@ -1,3 +1,21 @@
+1.0.4
+* poprawienie nazw parametrów
+* poprawienie JSDoc'a
+* dodanie usługi pojedynczych testów
+* dodanie obsługi timeout'a do pklib.ajax
+* dodanie pklib.array.index do wyznaczania liczby porządkowej elementu
+* poprawienie usuwania i odnajdywania klasy css w elemencie DOM
+* dodanie metody pklib.dom.isElement do sprawdzania czy obiekt jest Elementem
+* poprawienie pklib.dom.byId 
+* przeniesienie metody pklib.dom.get do listy TODO i oznaczenie jako feature
+* optymalizacja metody pklib.dom.center oraz pklib.dom.maximize
+* dodanie metody pklib.dom.remove do usuniecia elementu z drzewa DOM
+* poprawnie całego obiektu pklib.event
+* dodanie metody pklib.event.get do pobrania eventów elementu
+* dodanie metody pklib.event.trigger do uruchomienia konkretnego eventu
+* poprawienie metody pklib.string.slice
+* usuniecie obiektu pklib.validate
+
 1.0.3
 * poprawienie licencji
 * dodanie walidacji przez JSLint'a ( http://www.jslint.com/ )

@@ -1001,7 +1001,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param callback {Function}
          * @param is_continue {Bool}
          */
-        lazy_load: function (files, callback, is_continue) {
+        lazyLoad: function (files, callback, is_continue) {
             var that = this,
                 len = files.length,
                 file = files[lazy_file];
@@ -1011,7 +1011,7 @@ if (typeof Function.prototype.bind !== "function") {
             loadjs(file, function () {
                 if (lazy_file < len - 1) {
                     lazy_file += 1;
-                    that.lazy_load(files, callback, true);
+                    that.lazyLoad(files, callback, true);
                 } else {
                     if (typeof callback === "function") {
                         callback();
@@ -1540,7 +1540,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param source {String}
          * @return {String}
          */
-        strip_tags: function (source) {
+        stripTags: function (source) {
             return source.replace(/\\<\\S\\>/g, "");
         },
         /**
@@ -1622,9 +1622,7 @@ if (typeof Function.prototype.bind !== "function") {
         getParams: function () {
             var params = loc.search,
                 params_obj = {},
-                i,
-                item,
-                len = 0;
+                i, item, len = 0;
             if (params.substr(0, 1) === "?") {
                 params = params.substr(1);
             }

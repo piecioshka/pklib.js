@@ -1,9 +1,14 @@
 # pklib - darmowa biblioteka JavaScript
 
-**pklib** jest wynikiem ciągłego używania z tych samych wzorców w sieci web, 
-z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach. 
-Źródła biblioteki są w całości na Git'cie, korzystając z usługi [GitHub.com](http://www.github.com "GitHub").<br />
-Biblioteka jest rozwijana z podziałem na moduły, np. moduł **pklib.profiler** ma swoje źródła w pliku profiler.js w katalogu "src"
+**pklib** jest wynikiem ciągłego używania z tych samych wzorców w sieci web,<br />
+z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach.<br /> 
+Źródła biblioteki znajdują się na (http://www.github.com/ "github.com).<br /><br />
+
+Biblioteka jest rozwijana z podziałem na moduły.
+
+Przykład:
+    moduł `pklib.profiler`<br />
+    kod: `src/profiler.js`
 
 ## wersje
 
@@ -13,7 +18,7 @@ Wersję release'ów bibilioteki są iterowane w następujący sposób:
 * Druga cyfra jest aktualizowane gdy następuje ogromna porcja nowych obiektów bądź metod w dowolnym namespace'sie
 * Trzecia cyferka jest bardzo często inkrementowana, z uwagi na proces dewelopmentu całej biblioteki
 
-Do *core* biblioteki zostały napisane unit testy w [QUnit](http://docs.jquery.com/Qunit "QUnit")
+Biblioteki posiada unit testy w napisane zgodnie ze specyfikację (http://docs.jquery.com/Qunit "QUnit")
 
 ## budowa biblioteki
 
@@ -25,34 +30,11 @@ znajduje swoje praktyczne zastosowanie.
 
 `piecioshka:~/lib/pklib$ ./Makefile`
 
+## dokumentacja
 
-## opis modułów prezentacyjnych
-
-* **pklib.loader** - obsługa loadera, który jest dodawanym do drzewa DOM elementem o określonych parametrach.
-Wymiary obrazka jak i link do obrazka jest łatwo konfigurowalny.
-Gdy tylko pokażemy loader za pomocą metody **pklib.loader.show** zostanie on z default'u wycentrowany.
-Kontener w którym chcemy umieścić (pre)loader jest łatwy do zmiany, gdyż nie zawsze chcemy aby 
-loader znajdował się na środku całej strony, ale być może tylko w danym kontenerze na stronie.  
-* **pklib.message** - top layer, który jest ponad wszystkimi elementami w drzewie DOM.
-Pomocny gdy chcemy wyświetlić informację, wiadomość bądź komunikat użytkownikowi.
-Dzięki dobremu algorytmowi, warstwa której jasno zdefiniujemy wymiary zawsze pozostanie na środku strony.
-Obłsuga layera posiada "zamykanie", a tak na prawdę usuwanie z drzewa DOM elementu będącego top layerem, 
-layera, tj. usunięcie z widoku warstwy reprezentującej komunikat dla użytkownika.
-* **pklib.glass** - wartwa przysłaniająca cały content strony. 
-Dzięki przroczystości otrzymamy efekt dezaktywacji strony. 
-Layer służy do wyłączenia częśći bądź całęj strony aby przykładowo wyświetlić komunikat.
+(http://api.pklib.com "Dokumentacja")
 
 ## szczegóły
 
-Autor: **Piotr Kowalski** ( [http://piecioshka.pl/](http://piecioshka.pl/ "homepage") ) <br />
-Licencja: **MIT License** ( [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php "license") ) 
-
-
-## przykład
-
-```js
-pklib.file.load("pklib.message.js", function(file){
-    pklib.message.show();
-});
-```
-
+autor: **Piotr Kowalski** ( [http://piecioshka.pl/](http://piecioshka.pl/ "homepage") ) <br />
+licencja: **MIT License** ( [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php "license") ) 
