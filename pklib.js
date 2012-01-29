@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Sat Jan 28 20:04:54 GMT 2012
+ * Date: Sun Jan 29 14:00:16 GMT 2012
  */
 
 (function (global) {
@@ -58,18 +58,19 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     var pklib = global.pklib || {},
+        setTimeout = global.setTimeout,
         cache = [];
-    
+
     /**
      * @constructor
      * @this {XHRError}
      * @param message {String}
      */
-    function XHRError (message) {
-    	this.name = "XHRError";
-    	this.message = message || "";
+    function XHRError(message) {
+        this.name = "XHRError";
+        this.message = message || "";
     }
-    
+
     XHRError.prototype = new Error();
     XHRError.prototype.constructor = XHRError;
 
@@ -88,7 +89,7 @@ if (typeof Function.prototype.bind !== "function") {
             contentType = xhr.getResponseHeader("Content-Type");
 
             if (pklib.array.inArray(contentType, xmlContentType)) {
-            	property = "responseXML";
+                property = "responseXML";
             }
 
             settings.done.call(null, xhr[property]);
@@ -107,7 +108,7 @@ if (typeof Function.prototype.bind !== "function") {
      */
     function requestTimeout(settings, xhr) {
         if (xhr.readyState !== 4) {
-        	xhr.abort();
+            xhr.abort();
             timeoutHandler.call(null, settings, xhr);
         }
     }
@@ -171,14 +172,14 @@ if (typeof Function.prototype.bind !== "function") {
             if (settings.cache && cache[settings.url]) {
                 handler.call(null, settings, cache[settings.url]);
             } else {
-            	xhr = getXhr();
-            	xhr.onreadystatechange = handler.bind(null, settings, xhr);
+                xhr = getXhr();
+                xhr.onreadystatechange = handler.bind(null, settings, xhr);
                 xhr.open(settings.type, settings.url, settings.async);
 
                 if (settings.headers !== null) {
                     for (header in settings.headers) {
                         if (settings.headers.hasOwnProperty(header)) {
-                        	xhr.setRequestHeader(header, settings.headers[header]);
+                            xhr.setRequestHeader(header, settings.headers[header]);
                         }
                     }
                 }
@@ -189,7 +190,7 @@ if (typeof Function.prototype.bind !== "function") {
                 } else {
                     setTimeout(requestTimeout.bind(null, settings, xhr), settings.timeout);
                 }
-                
+
                 return xhr;
             }
         }
@@ -218,10 +219,10 @@ if (typeof Function.prototype.bind !== "function") {
          * @return {Boolean}
          */
         isArray: function (obj) {
-            return typeof obj === "object" && 
-            	obj !== null && 
-            	typeof obj.length !== "undefined" && 
-            	typeof obj.slice !== "undefined";
+            return typeof obj === "object" &&
+                obj !== null &&
+                typeof obj.length !== "undefined" &&
+                typeof obj.slice !== "undefined";
         },
         /**
          * Check if element is in array by loop.
@@ -247,7 +248,6 @@ if (typeof Function.prototype.bind !== "function") {
          */
         index: function (item, array) {
             var i, len = array.length;
-            
             for (i = 0; i < len; ++i) {
                 if (array[i] === item) {
                     return i;
@@ -285,7 +285,7 @@ if (typeof Function.prototype.bind !== "function") {
             for (i = 0; i < len; ++i) {
                 param = params[i];
                 if (this.inArray(param, array)) {
-                	array.splice(this.index(param, array), 1);
+                    array.splice(this.index(param, array), 1);
                 }
             }
             return array;
@@ -475,24 +475,24 @@ if (typeof Function.prototype.bind !== "function") {
 (function (global) {
     "use strict";
 
-    var pklib = global.pklib || {};
-	var rspace = /\s+/;
-	var rclass = /[\n\t\r]/g;
+    var pklib = global.pklib || {},
+        rspace = /\s+/,
+        rclass = /[\n\t\r]/g;
 
     /**
      * @param cssClass {String}
      * @param element {HTMLElement}
      * @throws {TypeError}
      */
-    function checkParams (cssClass, element) {
-        if (Object(cssClass).constructor !== String) {
+    function checkParams(cssClass, element) {
+        if (typeof cssClass !== "string") {
             throw new TypeError("pklib.css.addClass: @cssClass: not String");
         }
         if (!pklib.dom.isNode(element)) {
             throw new TypeError("pklib.css.addClass: @element: not HTMLElement");
         }
     }
-    
+
     pklib.css = {
         /**
          * Add CSS class to element define in second parameter.
@@ -501,7 +501,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @throws {TypeError}
          */
         addClass: function (cssClass, element) {
-        	checkParams (cssClass, element);
+            checkParams(cssClass, element);
             var classElement = element.className;
             if (!this.hasClass(cssClass, element)) {
                 if (classElement.length) {
@@ -519,19 +519,22 @@ if (typeof Function.prototype.bind !== "function") {
          * @throws {TypeError}
          */
         removeClass: function (cssClass, element) {
-        	checkParams (cssClass, element);
-        	var trim = pklib.string.trim;
-        	
-        	var classNames = ( element.className || "" ).split( rspace );
-        	if (classNames) {
-        		var className = (" " + element.className + " ").replace( rclass, " " );
-				for (var c = 0, cl = classNames.length; c < cl; c++ ) {
-					className = className.replace(" " + classNames[c] + " ", " ");
-				}
-				element.className = trim( className );
-        	} else {
-        		element.className = "";
-        	}
+            checkParams(cssClass, element);
+            var trim = pklib.string.trim,
+                c = 0,
+                className = "",
+                classNames = (element.className || "").split(rspace),
+                cl = classNames.length;
+
+            if (classNames) {
+                className = (" " + element.className + " ").replace(rclass, " ");
+                for (c = 0; c < cl; c++) {
+                    className = className.replace(" " + classNames[c] + " ", " ");
+                }
+                element.className = trim(className);
+            } else {
+                element.className = "";
+            }
         },
         /**
          * Check if element has CSS class
@@ -541,9 +544,9 @@ if (typeof Function.prototype.bind !== "function") {
          * @return {Boolean}
          */
         hasClass: function (cssClass, element) {
-        	checkParams (cssClass, element);
-    		var className = " " + cssClass + " ";
-    		return ((" " + element.className + " ").replace(rclass, " ").indexOf( className ) > -1 );
+            checkParams(cssClass, element);
+            var className = " " + cssClass + " ";
+            return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
         }
     };
 }(this));
@@ -604,7 +607,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @return {String}
          */
         isElement: function (node) {
-        	return (node && node.nodeType === this.nodeTypes.ELEMENT_NODE) || false;
+            return (node && node.nodeType === this.nodeTypes.ELEMENT_NODE) || false;
         },
         /**
          * @param id {String}
@@ -620,7 +623,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @return {NodeList}
          */
         byTag: function (tag, element) {
-        	element = element || document;
+            element = element || document;
             return element.getElementsByTagName(tag);
         },
         /**
@@ -629,7 +632,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @return {NodeList | Array}
          */
         byClass: function (cssClass, wrapper) {
-        	wrapper = wrapper || document;
+            wrapper = wrapper || document;
             var results = [];
             if (wrapper.getElementsByClassName) {
                 return wrapper.getElementsByClassName(cssClass);
@@ -723,10 +726,10 @@ if (typeof Function.prototype.bind !== "function") {
         center: function (element, wrapper) {
             var left = null,
                 top = null,
-            	pus = pklib.utils.size;
-            
+                pus = pklib.utils.size;
+
             if (!this.isElement(element)) {
-            	throw DOMException();
+                throw DOMException();
             }
 
             if (wrapper === document.body) {
@@ -749,8 +752,8 @@ if (typeof Function.prototype.bind !== "function") {
         maximize: function (element, wrapper) {
             var width = null,
                 height = null,
-            	pus = pklib.utils.size;
-    
+                pus = pklib.utils.size;
+
             if (wrapper === document.body) {
                 width = Math.max(pus.window("width"), pus.document("width"));
                 height = Math.max(pus.window("height"), pus.document("height"));
@@ -772,27 +775,27 @@ if (typeof Function.prototype.bind !== "function") {
          */
         insert: function (element, node) {
             if (this.isNode(element)) {
-            	node.appendChild(element);
+                node.appendChild(element);
             } else if (typeof element === "string") {
-            	node.innerHTML += element;
+                node.innerHTML += element;
             }
             return element;
         },
         /**
          * @param node {Node}
          */
-        remove: function (/* nodes */) {
-        	var i, node = null, parent = null,
-        		args = Array.prototype.slice.call(arguments),
-        		len = args.length;
-    	
-        	for(i = 0; i < len; ++i) {
-        		node = args[i];
-        		if (this.isNode(node)) {
-	        		parent = node.parentNode;
-	            	parent.removeChild(node);
-        		}
-        	}
+        remove: function () {
+            var i, node = null, parent = null,
+                args = Array.prototype.slice.call(arguments),
+                len = args.length;
+
+            for (i = 0; i < len; ++i) {
+                node = args[i];
+                if (this.isNode(node)) {
+                    parent = node.parentNode;
+                    parent.removeChild(node);
+                }
+            }
         },
         /**
          * @param node {HTMLElement}
@@ -861,17 +864,17 @@ if (typeof Function.prototype.bind !== "function") {
          * @param handler {Function}
          */
         add: function (target, eventName, handler) {
-        	if (typeof target.events === "undefined") {
-        		target.events = {};
-        	}
-        	
-        	var event = target.events[eventName];
-        	
-        	if (typeof event === "undefined") {
-        		target.events[eventName] = [];
-        	}
-        	target.events[eventName].push(handler);
-        			
+            if (typeof target.events === "undefined") {
+                target.events = {};
+            }
+
+            var event = target.events[eventName];
+
+            if (typeof event === "undefined") {
+                target.events[eventName] = [];
+            }
+            target.events[eventName].push(handler);
+
             if (target.attachEvent) {
                 target.attachEvent("on" + eventName, handler);
             } else if (target.addEventListener) {
@@ -883,28 +886,28 @@ if (typeof Function.prototype.bind !== "function") {
          * @param eventName {String}
          * @param handler {Function}
          */
-        remove: function (target, eventName, handler) {
-        	if (typeof target.events === "undefined") {
-        		target.events = {};
-        	}
-        	
-        	var removeEvent;
-        	if (target.detachEvent) {
-        		removeEvent = "detachEvent";
-        	} else if (target.removeEventListener) {
-        		removeEvent = "removeEventListener";
-        	}
-        	
-        	var events = target.events[eventName];
-        	if (typeof events !== "undefined") {
-	        	var len = events.length;
-	        	
-	        	for (var i = 0; i < len; ++i) {
-	        		var handler = events[i];
-	        		target[removeEvent](eventName, handler);
-	        		delete target.events[eventName];
-	        	}
-        	}
+        remove: function (target, eventName) {
+            if (typeof target.events === "undefined") {
+                target.events = {};
+            }
+
+            var removeEvent, events, len = 0, i, handler;
+            if (target.detachEvent) {
+                removeEvent = "detachEvent";
+            } else if (target.removeEventListener) {
+                removeEvent = "removeEventListener";
+            }
+
+            events = target.events[eventName];
+            if (typeof events !== "undefined") {
+                len = events.length;
+
+                for (i = 0; i < len; ++i) {
+                    handler = events[i];
+                    target[removeEvent](eventName, handler);
+                    delete target.events[eventName];
+                }
+            }
         },
         /**
          * @param target {HTMLElement}
@@ -912,11 +915,10 @@ if (typeof Function.prototype.bind !== "function") {
          * @return {Array | undefined}
          */
         get: function (target, eventName) {
-        	if (typeof target.events === "undefined") {
-        		target.events = {};
-        	}
-        	
-        	return target.events[eventName];
+            if (typeof target.events === "undefined") {
+                target.events = {};
+            }
+            return target.events[eventName];
         },
         /**
          * @param target {HTMLElement}
@@ -924,20 +926,20 @@ if (typeof Function.prototype.bind !== "function") {
          * @throws {ReferenceError}
          */
         trigger: function (target, eventName) {
-        	if (typeof target.events === "undefined") {
-        		target.events = {};
-        	}
-        	
-        	var events = target.events[eventName];
-        	if (typeof events !== "undefined") {
-	        	var len = events.length;
-	        	
-	        	for (var i = 0; i < len; ++i) {
-	        		events[i].call(target, events[i]);
-	        	}
-        	} else {
-        		throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": undefined");
-        	}
+            if (typeof target.events === "undefined") {
+                target.events = {};
+            }
+
+            var events = target.events[eventName], len, i;
+            if (typeof events !== "undefined") {
+                len = events.length;
+
+                for (i = 0; i < len; ++i) {
+                    events[i].call(target, events[i]);
+                }
+            } else {
+                throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": undefined");
+            }
         }
     };
 }(this));
@@ -952,7 +954,7 @@ if (typeof Function.prototype.bind !== "function") {
     var pklib = global.pklib || {},
         document = global.document || {},
         lazy_file = 0;
-        
+
     function loadjs(url, callback) {
         var script = document.createElement("script");
         script.type = "text/javascript";
@@ -1566,7 +1568,7 @@ if (typeof Function.prototype.bind !== "function") {
             var item,
                 text = "",
                 num = source.length;
-            
+
             for (item = 0; item < num; item += 1) {
                 text += source.substr(item, 1);
                 if (item === length - 1) {
@@ -1592,37 +1594,37 @@ if (typeof Function.prototype.bind !== "function") {
         loc = global.location;
 
     pklib.url = {
-		/**
-		 * @return {String}
-		 */
+        /**
+         * @return {String}
+         */
         getProtocol: function () {
             return loc.protocol;
         },
-		/**
-		 * @return {String}
-		 */
+        /**
+         * @return {String}
+         */
         getHost: function () {
             return loc.host;
         },
-		/**
-		 * @return {String}
-		 */
+        /**
+         * @return {String}
+         */
         getPort: function () {
             return loc.port || 80;
         },
-		/**
-		 * @return {String}
-		 */
+        /**
+         * @return {String}
+         */
         getUri: function () {
             return loc.pathname;
         },
-		/**
-		 * @return {Array}
-		 */
+        /**
+         * @return {Array}
+         */
         getParams: function () {
-            var params = loc.search,
-                params_obj = {},
-                i, item, len = 0;
+            var i, item, len = 0,
+                params = loc.search,
+                params_obj = {};
             if (params.substr(0, 1) === "?") {
                 params = params.substr(1);
             }
@@ -1634,10 +1636,10 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return params_obj;
         },
-		/**
-		 * @param key {String}
-		 * @return {String}
-		 */
+        /**
+         * @param key {String}
+         * @return {String}
+         */
         getParam: function (key) {
             var params = loc.search,
                 i,
@@ -1654,9 +1656,9 @@ if (typeof Function.prototype.bind !== "function") {
                 }
             }
         },
-		/**
-		 * @return {String}
-		 */
+        /**
+         * @return {String}
+         */
         getHash: function () {
             return loc.hash;
         }

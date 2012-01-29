@@ -20,10 +20,10 @@
          * @return {Boolean}
          */
         isArray: function (obj) {
-            return typeof obj === "object" && 
-            	obj !== null && 
-            	typeof obj.length !== "undefined" && 
-            	typeof obj.slice !== "undefined";
+            return typeof obj === "object" &&
+                obj !== null &&
+                typeof obj.length !== "undefined" &&
+                typeof obj.slice !== "undefined";
         },
         /**
          * Check if element is in array by loop.
@@ -49,7 +49,6 @@
          */
         index: function (item, array) {
             var i, len = array.length;
-            
             for (i = 0; i < len; ++i) {
                 if (array[i] === item) {
                     return i;
@@ -87,7 +86,7 @@
             for (i = 0; i < len; ++i) {
                 param = params[i];
                 if (this.inArray(param, array)) {
-                	array.splice(this.index(param, array), 1);
+                    array.splice(this.index(param, array), 1);
                 }
             }
             return array;

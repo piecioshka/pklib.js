@@ -54,7 +54,7 @@
          * @return {String}
          */
         isElement: function (node) {
-        	return (node && node.nodeType === this.nodeTypes.ELEMENT_NODE) || false;
+            return (node && node.nodeType === this.nodeTypes.ELEMENT_NODE) || false;
         },
         /**
          * @param id {String}
@@ -70,7 +70,7 @@
          * @return {NodeList}
          */
         byTag: function (tag, element) {
-        	element = element || document;
+            element = element || document;
             return element.getElementsByTagName(tag);
         },
         /**
@@ -79,7 +79,7 @@
          * @return {NodeList | Array}
          */
         byClass: function (cssClass, wrapper) {
-        	wrapper = wrapper || document;
+            wrapper = wrapper || document;
             var results = [];
             if (wrapper.getElementsByClassName) {
                 return wrapper.getElementsByClassName(cssClass);
@@ -173,10 +173,10 @@
         center: function (element, wrapper) {
             var left = null,
                 top = null,
-            	pus = pklib.utils.size;
-            
+                pus = pklib.utils.size;
+
             if (!this.isElement(element)) {
-            	throw DOMException();
+                throw DOMException();
             }
 
             if (wrapper === document.body) {
@@ -199,8 +199,8 @@
         maximize: function (element, wrapper) {
             var width = null,
                 height = null,
-            	pus = pklib.utils.size;
-    
+                pus = pklib.utils.size;
+
             if (wrapper === document.body) {
                 width = Math.max(pus.window("width"), pus.document("width"));
                 height = Math.max(pus.window("height"), pus.document("height"));
@@ -222,27 +222,27 @@
          */
         insert: function (element, node) {
             if (this.isNode(element)) {
-            	node.appendChild(element);
+                node.appendChild(element);
             } else if (typeof element === "string") {
-            	node.innerHTML += element;
+                node.innerHTML += element;
             }
             return element;
         },
         /**
          * @param node {Node}
          */
-        remove: function (/* nodes */) {
-        	var i, node = null, parent = null,
-        		args = Array.prototype.slice.call(arguments),
-        		len = args.length;
-    	
-        	for(i = 0; i < len; ++i) {
-        		node = args[i];
-        		if (this.isNode(node)) {
-	        		parent = node.parentNode;
-	            	parent.removeChild(node);
-        		}
-        	}
+        remove: function () {
+            var i, node = null, parent = null,
+                args = Array.prototype.slice.call(arguments),
+                len = args.length;
+
+            for (i = 0; i < len; ++i) {
+                node = args[i];
+                if (this.isNode(node)) {
+                    parent = node.parentNode;
+                    parent.removeChild(node);
+                }
+            }
         },
         /**
          * @param node {HTMLElement}

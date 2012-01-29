@@ -108,7 +108,7 @@
             var item,
                 text = "",
                 num = source.length;
-            
+
             for (item = 0; item < num; item += 1) {
                 text += source.substr(item, 1);
                 if (item === length - 1) {

@@ -8,7 +8,7 @@
     var pklib = global.pklib || {},
         document = global.document || {},
         lazy_file = 0;
-        
+
     function loadjs(url, callback) {
         var script = document.createElement("script");
         script.type = "text/javascript";

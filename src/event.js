@@ -14,17 +14,17 @@
          * @param handler {Function}
          */
         add: function (target, eventName, handler) {
-        	if (typeof target.events === "undefined") {
-        		target.events = {};
-        	}
-        	
-        	var event = target.events[eventName];
-        	
-        	if (typeof event === "undefined") {
-        		target.events[eventName] = [];
-        	}
-        	target.events[eventName].push(handler);
-        			
+            if (typeof target.events === "undefined") {
+                target.events = {};
+            }
+
+            var event = target.events[eventName];
+
+            if (typeof event === "undefined") {
+                target.events[eventName] = [];
+            }
+            target.events[eventName].push(handler);
+
             if (target.attachEvent) {
                 target.attachEvent("on" + eventName, handler);
             } else if (target.addEventListener) {
@@ -36,28 +36,28 @@
          * @param eventName {String}
          * @param handler {Function}
          */
-        remove: function (target, eventName, handler) {
-        	if (typeof target.events === "undefined") {
-        		target.events = {};
-        	}
-        	
-        	var removeEvent;
-        	if (target.detachEvent) {
-        		removeEvent = "detachEvent";
-        	} else if (target.removeEventListener) {
-        		removeEvent = "removeEventListener";
-        	}
-        	
-        	var events = target.events[eventName];
-        	if (typeof events !== "undefined") {
-	        	var len = events.length;
-	        	
-	        	for (var i = 0; i < len; ++i) {
-	        		var handler = events[i];
-	        		target[removeEvent](eventName, handler);
-	        		delete target.events[eventName];
-	        	}
-        	}
+        remove: function (target, eventName) {
+            if (typeof target.events === "undefined") {
+                target.events = {};
+            }
+
+            var removeEvent, events, len = 0, i, handler;
+            if (target.detachEvent) {
+                removeEvent = "detachEvent";
+            } else if (target.removeEventListener) {
+                removeEvent = "removeEventListener";
+            }
+
+            events = target.events[eventName];
+            if (typeof events !== "undefined") {
+                len = events.length;
+
+                for (i = 0; i < len; ++i) {
+                    handler = events[i];
+                    target[removeEvent](eventName, handler);
+                    delete target.events[eventName];
+                }
+            }
         },
         /**
          * @param target {HTMLElement}
@@ -65,11 +65,10 @@
          * @return {Array | undefined}
          */
         get: function (target, eventName) {
-        	if (typeof target.events === "undefined") {
-        		target.events = {};
-        	}
-        	
-        	return target.events[eventName];
+            if (typeof target.events === "undefined") {
+                target.events = {};
+            }
+            return target.events[eventName];
         },
         /**
          * @param target {HTMLElement}
@@ -77,20 +76,20 @@
          * @throws {ReferenceError}
          */
         trigger: function (target, eventName) {
-        	if (typeof target.events === "undefined") {
-        		target.events = {};
-        	}
-        	
-        	var events = target.events[eventName];
-        	if (typeof events !== "undefined") {
-	        	var len = events.length;
-	        	
-	        	for (var i = 0; i < len; ++i) {
-	        		events[i].call(target, events[i]);
-	        	}
-        	} else {
-        		throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": undefined");
-        	}
+            if (typeof target.events === "undefined") {
+                target.events = {};
+            }
+
+            var events = target.events[eventName], len, i;
+            if (typeof events !== "undefined") {
+                len = events.length;
+
+                for (i = 0; i < len; ++i) {
+                    events[i].call(target, events[i]);
+                }
+            } else {
+                throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": undefined");
+            }
         }
     };
 }(this));

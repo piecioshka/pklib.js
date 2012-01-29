@@ -9,37 +9,37 @@
         loc = global.location;
 
     pklib.url = {
-		/**
-		 * @return {String}
-		 */
+        /**
+         * @return {String}
+         */
         getProtocol: function () {
             return loc.protocol;
         },
-		/**
-		 * @return {String}
-		 */
+        /**
+         * @return {String}
+         */
         getHost: function () {
             return loc.host;
         },
-		/**
-		 * @return {String}
-		 */
+        /**
+         * @return {String}
+         */
         getPort: function () {
             return loc.port || 80;
         },
-		/**
-		 * @return {String}
-		 */
+        /**
+         * @return {String}
+         */
         getUri: function () {
             return loc.pathname;
         },
-		/**
-		 * @return {Array}
-		 */
+        /**
+         * @return {Array}
+         */
         getParams: function () {
-            var params = loc.search,
-                params_obj = {},
-                i, item, len = 0;
+            var i, item, len = 0,
+                params = loc.search,
+                params_obj = {};
             if (params.substr(0, 1) === "?") {
                 params = params.substr(1);
             }
@@ -51,10 +51,10 @@
             }
             return params_obj;
         },
-		/**
-		 * @param key {String}
-		 * @return {String}
-		 */
+        /**
+         * @param key {String}
+         * @return {String}
+         */
         getParam: function (key) {
             var params = loc.search,
                 i,
@@ -71,9 +71,9 @@
                 }
             }
         },
-		/**
-		 * @return {String}
-		 */
+        /**
+         * @return {String}
+         */
         getHash: function () {
             return loc.hash;
         }

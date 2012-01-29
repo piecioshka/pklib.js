@@ -7,18 +7,19 @@
     "use strict";
 
     var pklib = global.pklib || {},
+        setTimeout = global.setTimeout,
         cache = [];
-    
+
     /**
      * @constructor
      * @this {XHRError}
      * @param message {String}
      */
-    function XHRError (message) {
-    	this.name = "XHRError";
-    	this.message = message || "";
+    function XHRError(message) {
+        this.name = "XHRError";
+        this.message = message || "";
     }
-    
+
     XHRError.prototype = new Error();
     XHRError.prototype.constructor = XHRError;
 
@@ -37,7 +38,7 @@
             contentType = xhr.getResponseHeader("Content-Type");
 
             if (pklib.array.inArray(contentType, xmlContentType)) {
-            	property = "responseXML";
+                property = "responseXML";
             }
 
             settings.done.call(null, xhr[property]);
@@ -56,7 +57,7 @@
      */
     function requestTimeout(settings, xhr) {
         if (xhr.readyState !== 4) {
-        	xhr.abort();
+            xhr.abort();
             timeoutHandler.call(null, settings, xhr);
         }
     }
@@ -120,14 +121,14 @@
             if (settings.cache && cache[settings.url]) {
                 handler.call(null, settings, cache[settings.url]);
             } else {
-            	xhr = getXhr();
-            	xhr.onreadystatechange = handler.bind(null, settings, xhr);
+                xhr = getXhr();
+                xhr.onreadystatechange = handler.bind(null, settings, xhr);
                 xhr.open(settings.type, settings.url, settings.async);
 
                 if (settings.headers !== null) {
                     for (header in settings.headers) {
                         if (settings.headers.hasOwnProperty(header)) {
-                        	xhr.setRequestHeader(header, settings.headers[header]);
+                            xhr.setRequestHeader(header, settings.headers[header]);
                         }
                     }
                 }
@@ -138,7 +139,7 @@
                 } else {
                     setTimeout(requestTimeout.bind(null, settings, xhr), settings.timeout);
                 }
-                
+
                 return xhr;
             }
         }
