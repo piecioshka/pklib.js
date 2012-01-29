@@ -49,6 +49,7 @@ pklib.event.add(window, "load", function () {
         } catch (e) {
             strictEqual(e.constructor, TypeError, "No size defined");
         }
+        pklib.dom.remove(element);
     });
 
     module("pklib.utils.date");

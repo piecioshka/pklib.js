@@ -4,11 +4,12 @@ pklib.event.add(window, "load", function () {
 
     test("isArray", function() {
         var element = document.createElement("div");
-        element.id = "pklib-utils-dom-center";
-        document.body.appendChild(element);
+        element.id = "_test_pklib_array_isArray";
+        pklib.dom.insert(element, document.body);
         var center = pklib.dom.center(pklib.dom.byId(element.id));
         ok(pklib.array.isArray(center), "Params are in array");
         strictEqual(center.length, 2, "Two params");
+        pklib.dom.remove(element);
     });
     test("inArray", function() {
         var array = [];

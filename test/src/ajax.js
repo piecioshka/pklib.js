@@ -30,9 +30,7 @@ pklib.event.add(window, "load", function () {
                 asyncTest("ajax(json)", function() {
                     json = eval("[" + json + "]")[0];
                     strictEqual(json.data, ":)", msg("Data.json"));
-
                     _test_xml();
-
                     start();
                 });
             }

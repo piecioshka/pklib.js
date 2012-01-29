@@ -167,7 +167,7 @@
         /**
          * @param element {HTMLElement}
          * @param wrapper {HTMLElement}
-         * @throws {DOMException}
+         * @throws {TypeError}
          * @return {Array}
          */
         center: function (element, wrapper) {
@@ -176,7 +176,7 @@
                 pus = pklib.utils.size;
 
             if (!this.isElement(element)) {
-                throw DOMException();
+                throw new TypeError("pklib.dom.center: @element: not Element");
             }
 
             if (wrapper === document.body) {
