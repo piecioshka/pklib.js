@@ -16,7 +16,7 @@
 	<style> 
 	html { overflow: hidden; }
     .container {
-        width: 1120px;
+        width: 1420px;
     }
     .container-fluid {
         margin: 50px 0 0;
@@ -37,7 +37,6 @@
 		margin-bottom: 20px;
 		padding: 19px;
 		min-height: 20px;
-		border: 1px solid #eee;
 		border: 1px solid rgba(0, 0, 0, 0.15);
 		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
@@ -114,8 +113,8 @@
 						    <a class="dropdown-toggle" href="#pklib-cookie">cookie</a>
 							<ul class="dropdown-menu">
 								<li><a href="#pklib-cookie-create">create</a></li>
-								<li><a href="#pklib-cookie-read">read</a></li>
-								<li><a href="#pklib-cookie-erase">erase</a></li>
+								<li><a href="#pklib-cookie-get">read</a></li>
+								<li><a href="#pklib-cookie-remove">erase</a></li>
 							</ul>
 						</li>
 						<li class="dropdown">
@@ -137,8 +136,6 @@
 								<li><a href="#pklib-dom-byClass">byClass</a></li>
 								<li><a href="#pklib-dom-index">index</a></li>
 								<li><a href="#pklib-dom-children">children</a></li>
-								<li><a href="#pklib-dom-center">center</a></li>
-								<li><a href="#pklib-dom-maximize">maximize</a></li>
 								<li><a href="#pklib-dom-insert">insert</a></li>
 								<li><a href="#pklib-dom-remove">remove</a></li>
 								<li><a href="#pklib-dom-prev">prev</a></li>
@@ -158,41 +155,16 @@
 						<li class="dropdown">
 						    <a class="dropdown-toggle" href="#pklib-file">file</a>
 							<ul class="dropdown-menu">
-								<li><a href="#pklib-file-load">load</a></li>
-								<li><a href="#pklib-file-lazyLoad">lazyLoad</a></li>
+								<li><a href="#pklib-file-loadjs">loadjs</a></li>
 							</ul>
 						</li>
-						<li class="dropdown">
-						    <a class="dropdown-toggle" href="#pklib-glass">glass</a>
-							<ul class="dropdown-menu">
-								<li><a href="#pklib-glass-objId">objId</a></li>
-								<li><a href="#pklib-glass-show">show</a></li>
-								<li><a href="#pklib-glass-close">close</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-						    <a class="dropdown-toggle" href="#pklib-json">json</a>
-							<ul class="dropdown-menu">
-								<li><a href="#pklib-json-stringify">stringify</a></li>
-								<li><a href="#pklib-json-serialize">serialize</a></li>
-							</ul></li>
-						<li class="dropdown">
-						    <a class="dropdown-toggle" href="#pklib-loader">loader</a>
-							<ul class="dropdown-menu">
-								<li><a href="#pklib-loader-objId">objId</a></li>
-								<li><a href="#pklib-loader-show">show</a></li>
-								<li><a href="#pklib-loader-close">close</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-						    <a class="dropdown-toggle" href="#pklib-message">message</a>
-							<ul class="dropdown-menu">
-								<li><a href="#pklib-message-objId">objId</a></li>
-								<li><a href="#pklib-message-content">content</a></li>
-								<li><a href="#pklib-message-show">show</a></li>
-								<li><a href="#pklib-message-close">close</a></li>
-							</ul>
-						</li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#pklib-json">json</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#pklib-json-stringify">stringify</a></li>
+                                <li><a href="#pklib-json-serialize">serialize</a></li>
+                            </ul>
+                        </li>
 						<li class="dropdown">
 						    <a class="dropdown-toggle" href="#pklib-profiler">profiler</a>
 							<ul class="dropdown-menu">
@@ -215,6 +187,51 @@
 								<li><a href="#pklib-string-slice">slice</a></li>
 							</ul>
 						</li>
+				
+                        <li><a href="#pklib-ui-center">center</a></li>
+                        <li><a href="#pklib-ui-maximize">maximize</a></li>
+                        
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#pklib-ui-glass">glass</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#pklib-ui-glass-objId">objId</a></li>
+                                <li><a href="#pklib-ui-glass-show">show</a></li>
+                                <li><a href="#pklib-ui-glass-close">close</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#pklib-ui-glass">glass</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#pklib-ui-glass-objId">objId</a></li>
+                                <li><a href="#pklib-ui-glass-show">show</a></li>
+                                <li><a href="#pklib-ui-glass-close">close</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#pklib-ui-loader">loader</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#pklib-ui-loader-objId">objId</a></li>
+                                <li><a href="#pklib-ui-loader-show">show</a></li>
+                                <li><a href="#pklib-ui-loader-close">close</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#pklib-ui-message">message</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#pklib-ui-message-objId">objId</a></li>
+                                <li><a href="#pklib-ui-message-content">content</a></li>
+                                <li><a href="#pklib-ui-message-show">show</a></li>
+                                <li><a href="#pklib-ui-message-close">close</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#pklib-ui-size">size</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#pklib-ui-size-window">window</a></li>
+                                <li><a href="#pklib-ui-size-document">document</a></li>
+                                <li><a href="#pklib-ui-size-object">object</a></li>
+                            </ul>
+                        </li>
 						<li class="dropdown">
 					        <a class="dropdown-toggle" href="#pklib-url">url</a>
 							<ul class="dropdown-menu">
@@ -230,13 +247,6 @@
 						<li class="dropdown">
 						    <a class="dropdown-toggle" href="#pklib-utils">utils</a>
 							<ul class="dropdown-menu">
-								<li><a href="#pklib-utils-size">size</a>
-									<ul>
-										<li><a href="#pklib-utils-size-window">window</a></li>
-										<li><a href="#pklib-utils-size-document">document</a></li>
-										<li><a href="#pklib-utils-size-object">object</a></li>
-									</ul>
-								</li>
 								<li><a href="#pklib-utils-ascii">ascii</a></li>
 								<li><a href="#pklib-utils-date">date</a>
 									<ul>
@@ -262,11 +272,11 @@
 	<div class="container-fluid">
 		<div class="sidebar">
 			<div class="well">
-				<h5>ajax</h5>
+				<h5><a href="#pklib-ajax">ajax</a></h5>
 				<ul>
 					<li><a href="#pklib-ajax-load">load</a></li>
 				</ul>
-				<h5>array</h5>
+				<h5><a href="#pklib-array">array</a></h5>
 				<ul>
 					<li><a href="#pklib-array-isArray">isArray</a></li>
 					<li><a href="#pklib-array-inArray">inArray</a></li>
@@ -276,24 +286,24 @@
 					<li><a href="#pklib-array-mixin">mixin</a></li>
 				</ul>
 				<h5><a href="#pklib-aspect">aspect</a></h5>
-			    <h5>browser</h5>
+			    <h5><a href="#pklib-browser">browser</a></h5>
 				<ul>
 					<li><a href="#pklib-browser-getName">getName</a></li>
 					<li><a href="#pklib-browser-getVersion">getVersion</a></li>
 				</ul>
-				<h5>cookie</h5>
+                <h5><a href="#pklib-cookie">cookie</a></h5>
 				<ul>
 					<li><a href="#pklib-cookie-create">create</a></li>
-					<li><a href="#pklib-cookie-read">read</a></li>
-					<li><a href="#pklib-cookie-erase">erase</a></li>
+					<li><a href="#pklib-cookie-get">read</a></li>
+					<li><a href="#pklib-cookie-remove">erase</a></li>
 				</ul>
-				<h5>css</h5>
+                <h5><a href="#pklib-css">css</a></h5>
 				<ul>
 					<li><a href="#pklib-css-addClass">addClass</a></li>
 					<li><a href="#pklib-css-removeClass">removeClass</a></li>
 					<li><a href="#pklib-css-hasClass">hasClass</a></li>
 				</ul>
-				<h5>dom</h5>
+                <h5><a href="#pklib-dom">dom</a></h5>
 				<ul>
 					<li><a href="#pklib-dom-nodeTypes">nodeTypes</a></li>
 					<li><a href="#pklib-dom-isNode">isNode</a></li>
@@ -303,69 +313,81 @@
 					<li><a href="#pklib-dom-byClass">byClass</a></li>
 					<li><a href="#pklib-dom-index">index</a></li>
 					<li><a href="#pklib-dom-children">children</a></li>
-					<li><a href="#pklib-dom-center">center</a></li>
-					<li><a href="#pklib-dom-maximize">maximize</a></li>
 					<li><a href="#pklib-dom-insert">insert</a></li>
 					<li><a href="#pklib-dom-remove">remove</a></li>
 					<li><a href="#pklib-dom-prev">prev</a></li>
 					<li><a href="#pklib-dom-next">next</a></li>
 					<li><a href="#pklib-dom-parent">parent</a></li>
 				</ul>
-				<h5>event</h5>
+                <h5><a href="#pklib-event">event</a></h5>
 				<ul>
 					<li><a href="#pklib-event-add">add</a></li>
 					<li><a href="#pklib-event-remove">remove</a></li>
 					<li><a href="#pklib-event-get">get</a></li>
 					<li><a href="#pklib-event-trigger">trigger</a></li>
 				</ul>
-				<h5>file</h5>
+                <h5><a href="#pklib-file">file</a></h5>
 				<ul>
-					<li><a href="#pklib-file-load">load</a></li>
-					<li><a href="#pklib-file-lazyLoad">lazyLoad</a></li>
+					<li><a href="#pklib-file-loadjs">load</a></li>
 				</ul>
-				<h5>glass</h5>
+                <h5><a href="#pklib-json">json</a></h5>
+                <ul>
+                    <li><a href="#pklib-json-stringify">stringify</a></li>
+                    <li><a href="#pklib-json-serialize">serialize</a></li>
+                </ul>
+                <h5><a href="#pklib-profiler">profiler</a></h5>
+                <ul>
+                    <li><a href="#pklib-profiler-start">start</a></li>
+                    <li><a href="#pklib-profiler-stop">stop</a></li>
+                    <li><a href="#pklib-profiler-getTime">getTime</a></li>
+                </ul>
+                <h5><a href="#pklib-string">string</a></h5>
+                <ul>
+                    <li><a href="#pklib-string-isString">isString</a></li>
+                    <li><a href="#pklib-string-isLetter">isLetter</a></li>
+                    <li><a href="#pklib-string-trim">trim</a></li>
+                    <li><a href="#pklib-string-slug">slug</a></li>
+                    <li><a href="#pklib-string-capitalize">capitalize</a></li>
+                    <li><a href="#pklib-string-delimiterSeparatedWords">delimiterSeparatedWords</a></li>
+                    <li><a href="#pklib-string-stripTags">stripTags</a></li>
+                    <li><a href="#pklib-string-camelCase">camelCase</a></li>
+                    <li><a href="#pklib-string-slice">slice</a></li>
+                </ul>
+                <h5><a href="#pklib-ui">ui</a></h5>
 				<ul>
-					<li><a href="#pklib-glass-objId">objId</a></li>
-					<li><a href="#pklib-glass-show">show</a></li>
-					<li><a href="#pklib-glass-close">close</a></li>
+                    <li><a href="#pklib-ui-center">center</a></li>
+                    <li><a href="#pklib-ui-maximize">maximize</a></li>
+                    <li><a href="#pklib-ui-glass">glass</a>
+        				<ul>
+        					<li><a href="#pklib-ui-glass-objId">objId</a></li>
+        					<li><a href="#pklib-ui-glass-show">show</a></li>
+        					<li><a href="#pklib-ui-glass-close">close</a></li>
+        				</ul>
+                    </li>
+                    <li><a href="#pklib-ui-loader">loader</a>
+        				<ul>
+        					<li><a href="#pklib-ui-loader-objId">objId</a></li>
+        					<li><a href="#pklib-ui-loader-show">show</a></li>
+        					<li><a href="#pklib-ui-loader-close">close</a></li>
+        				</ul>
+    				</li>
+                    <li><a href="#pklib-ui-message">message</a>
+        				<ul>
+        					<li><a href="#pklib-ui-message-objId">objId</a></li>
+        					<li><a href="#pklib-ui-message-content">content</a></li>
+        					<li><a href="#pklib-ui-message-show">show</a></li>
+        					<li><a href="#pklib-ui-message-close">close</a></li>
+        				</ul>
+                    </li>
+                    <li><a href="#pklib-ui-size">size</a>
+                        <ul>
+                            <li><a href="#pklib-ui-size-window">window</a></li>
+                            <li><a href="#pklib-ui-size-document">document</a></li>
+                            <li><a href="#pklib-ui-size-object">object</a></li>
+                        </ul>
+                    </li>
 				</ul>
-				<h5>json</h5>
-				<ul>
-					<li><a href="#pklib-json-stringify">stringify</a></li>
-					<li><a href="#pklib-json-serialize">serialize</a></li>
-				</ul>
-				<h5>loader</h5>
-				<ul>
-					<li><a href="#pklib-loader-objId">objId</a></li>
-					<li><a href="#pklib-loader-show">show</a></li>
-					<li><a href="#pklib-loader-close">close</a></li>
-				</ul>
-				<h5>message</h5>
-				<ul>
-					<li><a href="#pklib-message-objId">objId</a></li>
-					<li><a href="#pklib-message-content">content</a></li>
-					<li><a href="#pklib-message-show">show</a></li>
-					<li><a href="#pklib-message-close">close</a></li>
-				</ul>
-				<h5>profiler</h5>
-				<ul>
-					<li><a href="#pklib-profiler-start">start</a></li>
-					<li><a href="#pklib-profiler-stop">stop</a></li>
-					<li><a href="#pklib-profiler-getTime">getTime</a></li>
-				</ul>
-				<h5>string</h5>
-				<ul>
-					<li><a href="#pklib-string-isString">isString</a></li>
-					<li><a href="#pklib-string-isLetter">isLetter</a></li>
-					<li><a href="#pklib-string-trim">trim</a></li>
-					<li><a href="#pklib-string-slug">slug</a></li>
-					<li><a href="#pklib-string-capitalize">capitalize</a></li>
-					<li><a href="#pklib-string-delimiterSeparatedWords">delimiterSeparatedWords</a></li>
-					<li><a href="#pklib-string-stripTags">stripTags</a></li>
-					<li><a href="#pklib-string-camelCase">camelCase</a></li>
-					<li><a href="#pklib-string-slice">slice</a></li>
-				</ul>
-				<h5>url</h5>
+                <h5><a href="#pklib-url">url</a></h5>
 				<ul>
 					<li><a href="#pklib-url-getProtocol">getProtocol</a></li>
 					<li><a href="#pklib-url-getHost">getHost</a></li>
@@ -375,20 +397,15 @@
 					<li><a href="#pklib-url-getParam">getParam</a></li>
 					<li><a href="#pklib-url-getHash">getHash</a></li>
 				</ul>
-				<h5>utils</h5>
+                <h5><a href="#pklib-utils">utils</a></h5>
 				<ul>
-					<li><h5>size</h5>
-						<ul>
-							<li><a href="#pklib-utils-size-window">window</a></li>
-							<li><a href="#pklib-utils-size-document">document</a></li>
-							<li><a href="#pklib-utils-size-object">object</a></li>
-						</ul></li>
 					<li><a href="#pklib-utils-ascii">ascii</a></li>
-					<li><h5>date</h5>
+					<li><h5><a href="#pklib-date">date</a></h5>
 						<ul>
 							<li><a href="#pklib-utils-date-getFullMonth">getFullMonth</a></li>
-						</ul></li>
-					<li><h5>action</h5>
+						</ul>
+					</li>
+                    <li><h5><a href="#pklib-action">action</a></h5>
 						<ul>
 							<li><a href="#pklib-utils-action-clearfocus">clearfocus</a></li>
 							<li><a href="#pklib-utils-action-outerlink">outerlink</a></li>
@@ -704,16 +721,16 @@ pklib.cookie.create();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-cookie-read">pklib.cookie.get</h2>
+                    <h2 id="pklib-cookie-get">pklib.cookie.get</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-cookie-read-desc">Opis</a></li>
-                            <li><a href="#pklib-cookie-read-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-cookie-get-desc">Opis</a></li>
+                            <li><a href="#pklib-cookie-get-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-cookie-read-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-cookie-read-code">
+                            <div class="active" id="pklib-cookie-get-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-cookie-get-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.cookie.get();
@@ -723,16 +740,16 @@ pklib.cookie.get();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-cookie-erase">pklib.cookie.remove</h2>
+                    <h2 id="pklib-cookie-remove">pklib.cookie.remove</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-cookie-erase-desc">Opis</a></li>
-                            <li><a href="#pklib-cookie-erase-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-cookie-remove-desc">Opis</a></li>
+                            <li><a href="#pklib-cookie-remove-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-cookie-erase-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-cookie-erase-code">
+                            <div class="active" id="pklib-cookie-remove-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-cookie-remove-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.cookie.remove();
@@ -961,44 +978,6 @@ pklib.dom.children();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-dom-center">pklib.ui.center</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-dom-center-desc">Opis</a></li>
-                            <li><a href="#pklib-dom-center-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-dom-center-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-dom-center-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.center();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h2 id="pklib-dom-maximize">pklib.ui.maximize</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-dom-maximize-desc">Opis</a></li>
-                            <li><a href="#pklib-dom-maximize-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-dom-maximize-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-dom-maximize-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.maximize();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <h2 id="pklib-dom-insert">pklib.dom.insert</h2>
                     
                     <div class="well-white">
@@ -1184,12 +1163,12 @@ pklib.event.trigger();
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-file-load-desc">Opis</a></li>
-                            <li><a href="#pklib-file-load-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-file-loadjs-desc">Opis</a></li>
+                            <li><a href="#pklib-file-loadjs-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-file-load-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-file-load-code">
+                            <div class="active" id="pklib-file-loadjs-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-file-loadjs-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.file.loadjs();
@@ -1199,19 +1178,44 @@ pklib.file.loadjs();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-file-lazyLoad">pklib.file.lazyLoad</h2>
+                </div>
+            </div>
+        
+            <div id="pklib-ui" class="page-header">
+                
+                <div class="well">
+                    <h2 id="pklib-ui-center">pklib.ui.center</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-file-lazyLoad-desc">Opis</a></li>
-                            <li><a href="#pklib-file-lazyLoad-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-center-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-center-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-file-lazyLoad-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-file-lazyLoad-code">
+                            <div class="active" id="pklib-ui-center-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-center-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.file.lazyLoad();
+pklib.ui.center();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2 id="pklib-ui-maximize">pklib.ui.maximize</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-maximize-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-maximize-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-maximize-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-maximize-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.maximize();
 &lt;/script&gt;
 </pre>
                             </div>
@@ -1219,7 +1223,8 @@ pklib.file.lazyLoad();
                     </div>
                 </div>
             </div>
-            <div id="pklib-glass" class="page-header">
+                
+            <div id="pklib-ui-glass" class="page-header">
                 <h1>pklib.ui.glass <small>{Object}</small></h1>
                 
                 <div class="well">
@@ -1229,16 +1234,16 @@ pklib.file.lazyLoad();
 	                    Layer służy do wyłączenia częśći bądź całęj strony aby przykładowo wyświetlić komunikat.
 	                </p>
 	                
-                    <h2 id="pklib-glass-objId">pklib.ui.glass.objId</h2>
+                    <h2 id="pklib-ui-glass-objId">pklib.ui.glass.objId</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-glass-objId-desc">Opis</a></li>
-                            <li><a href="#pklib-glass-objId-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-glass-objId-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-glass-objId-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-glass-objId-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-glass-objId-code">
+                            <div class="active" id="pklib-ui-glass-objId-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-glass-objId-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.glass.objId();
@@ -1248,16 +1253,16 @@ pklib.ui.glass.objId();
                         </div>
                     </div>
 	                
-	                <h2 id="pklib-glass-show">pklib.ui.glass.show</h2>
+	                <h2 id="pklib-ui-glass-show">pklib.ui.glass.show</h2>
 	                
 	                <div class="well-white">
 	                    <ul class="tabs">
-	                        <li class="active"><a href="#pklib-glass-show-desc">Opis</a></li>
-	                        <li><a href="#pklib-glass-show-code">Przykład</a></li>
+	                        <li class="active"><a href="#pklib-ui-glass-show-desc">Opis</a></li>
+	                        <li><a href="#pklib-ui-glass-show-code">Przykład</a></li>
 	                    </ul>
 	                    <div class="pill-content">
-	                        <div class="active" id="pklib-glass-show-desc">[Brak dokumentacji]</div>
-	                        <div id="pklib-glass-show-code">
+	                        <div class="active" id="pklib-ui-glass-show-desc">[Brak dokumentacji]</div>
+	                        <div id="pklib-ui-glass-show-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.glass.show();
@@ -1267,16 +1272,16 @@ pklib.ui.glass.show();
 	                    </div>
 	                </div>
 	                
-	                <h2 id="pklib-glass-close">pklib.ui.glass.close</h2>
+	                <h2 id="pklib-ui-glass-close">pklib.ui.glass.close</h2>
 	                
 	                <div class="well-white">
 	                    <ul class="tabs">
-	                        <li class="active"><a href="#pklib-glass-close-desc">Opis</a></li>
-	                        <li><a href="#pklib-glass-close-code">Przykład</a></li>
+	                        <li class="active"><a href="#pklib-ui-glass-close-desc">Opis</a></li>
+	                        <li><a href="#pklib-ui-glass-close-code">Przykład</a></li>
 	                    </ul>
 	                    <div class="pill-content">
-	                        <div class="active" id="pklib-glass-close-desc">[Brak dokumentacji]</div>
-	                        <div id="pklib-glass-close-code">
+	                        <div class="active" id="pklib-ui-glass-close-desc">[Brak dokumentacji]</div>
+	                        <div id="pklib-ui-glass-close-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.glass.close();
@@ -1330,7 +1335,7 @@ pklib.json.serialize();
                     </div>
                 </div>
             </div>
-            <div id="pklib-loader" class="page-header">
+            <div id="pklib-ui-loader" class="page-header">
                 <h1>pklib.ui.loader <small>{Object}</small></h1>
                 
                 <div class="well">
@@ -1342,16 +1347,16 @@ pklib.json.serialize();
 					loader znajdował się na środku całej strony, ale być może tylko w danym kontenerze na stronie.  
 	                </p>
 	                
-                    <h2 id="pklib-loader-objId">pklib.ui.loader.objId</h2>
+                    <h2 id="pklib-ui-loader-objId">pklib.ui.loader.objId</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-loader-objId-desc">Opis</a></li>
-                            <li><a href="#pklib-loader-objId-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-loader-objId-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-loader-objId-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-loader-objId-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-loader-objId-code">
+                            <div class="active" id="pklib-ui-loader-objId-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-loader-objId-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.loader.objId();
@@ -1361,16 +1366,16 @@ pklib.ui.loader.objId();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-loader-show">pklib.ui.loader.show</h2>
+                    <h2 id="pklib-ui-loader-show">pklib.ui.loader.show</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-loader.show-desc">Opis</a></li>
-                            <li><a href="#pklib-loader-show-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-loader.show-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-loader-show-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-loader-show-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-loader-show-code">
+                            <div class="active" id="pklib-ui-loader-show-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-loader-show-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.loader.show();
@@ -1380,16 +1385,16 @@ pklib.ui.loader.show();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-loader-close">pklib.ui.loader.close</h2>
+                    <h2 id="pklib-ui-loader-close">pklib.ui.loader.close</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-loader-close-desc">Opis</a></li>
-                            <li><a href="#pklib-loader-close-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-loader-close-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-loader-close-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-loader-close-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-loader-close-code">
+                            <div class="active" id="pklib-ui-loader-close-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-loader-close-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.loader.close();
@@ -1400,7 +1405,7 @@ pklib.ui.loader.close();
                     </div>
                 </div>
             </div>
-            <div id="pklib-message" class="page-header">
+            <div id="pklib-ui-message" class="page-header">
                 <h1>pklib.ui.message <small>{Object}</small></h1>
                 
                 <div class="well">
@@ -1412,16 +1417,16 @@ pklib.ui.loader.close();
 	                layera, tj. usunięcie z widoku warstwy reprezentującej komunikat dla użytkownika.
 	                </p>
 	                
-                    <h2 id="pklib-message-objId">pklib.ui.message.objId</h2>
+                    <h2 id="pklib-ui-message-objId">pklib.ui.message.objId</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-message-objId-desc">Opis</a></li>
-                            <li><a href="#pklib-message-objId-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-message-objId-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-message-objId-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-message-objId-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-message-objId-code">
+                            <div class="active" id="pklib-ui-message-objId-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-message-objId-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.message.objId();
@@ -1431,16 +1436,16 @@ pklib.ui.message.objId();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-message-content">pklib.ui.message.content</h2>
+                    <h2 id="pklib-ui-message-content">pklib.ui.message.content</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-message-content-desc">Opis</a></li>
-                            <li><a href="#pklib-message-content-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-message-content-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-message-content-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-message-content-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-message-content-code">
+                            <div class="active" id="pklib-ui-message-content-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-message-content-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.message.content();
@@ -1450,16 +1455,16 @@ pklib.ui.message.content();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-message-show">pklib.ui.message.show</h2>
+                    <h2 id="pklib-ui-message-show">pklib.ui.message.show</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-message-show-desc">Opis</a></li>
-                            <li><a href="#pklib-message-show-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-message-show-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-message-show-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-message-show-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-message-show-code">
+                            <div class="active" id="pklib-ui-message-show-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-message-show-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.message.show();
@@ -1469,16 +1474,16 @@ pklib.ui.message.show();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-message-close">pklib.ui.message.close</h2>
+                    <h2 id="pklib-ui-message-close">pklib.ui.message.close</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-message-close-desc">Opis</a></li>
-                            <li><a href="#pklib-message-close-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-message-close-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-message-close-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-message-close-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-message-close-code">
+                            <div class="active" id="pklib-ui-message-close-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-message-close-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.message.close();
@@ -1874,16 +1879,16 @@ pklib.url.getHash();
                 <div class="well">
                     <h2>pklib.ui.size <small>{Object}</small></h2>
                 
-                    <h3 id="pklib-utils-size-window">pklib.ui.size.window</h3>
+                    <h3 id="pklib-ui-size-window">pklib.ui.size.window</h3>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-utils-size-window-desc">Opis</a></li>
-                            <li><a href="#pklib-utils-size-window-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-size-window-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-size-window-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-utils-size-window-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-utils-size-window-code">
+                            <div class="active" id="pklib-ui-size-window-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-size-window-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.size.window();
@@ -1893,16 +1898,16 @@ pklib.ui.size.window();
                         </div>
                     </div>
                 
-                    <h3 id="pklib-utils-size-document">pklib.ui.size.document</h3>
+                    <h3 id="pklib-ui-size-document">pklib.ui.size.document</h3>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-utils-size-document-desc">Opis</a></li>
-                            <li><a href="#pklib-utils-size-document-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-size-document-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-size-document-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-utils-size-document-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-utils-size-document-code">
+                            <div class="active" id="pklib-ui-size-document-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-size-document-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.size.document();
@@ -1912,16 +1917,16 @@ pklib.ui.size.document();
                         </div>
                     </div>
                 
-                    <h3 id="pklib-utils-size-object">pklib.ui.size.object</h3>
+                    <h3 id="pklib-ui-size-object">pklib.ui.size.object</h3>
                     
                     <div class="well-white">
                         <ul class="tabs">
-                            <li class="active"><a href="#pklib-utils-size-object-desc">Opis</a></li>
-                            <li><a href="#pklib-utils-size-object-code">Przykład</a></li>
+                            <li class="active"><a href="#pklib-ui-size-object-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-size-object-code">Przykład</a></li>
                         </ul>
                         <div class="pill-content">
-                            <div class="active" id="pklib-utils-size-object-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-utils-size-object-code">
+                            <div class="active" id="pklib-ui-size-object-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-size-object-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.ui.size.object();

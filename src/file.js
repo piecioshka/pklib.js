@@ -41,7 +41,7 @@
          * @param files {String | Array}
          * @param callback {Function}
          */
-        loadjs: function (files, callback) {
+        loadjs: function (files, callback, is_continue) {
             if (typeof files === "string") {
                 var src = files;
                 loadjs(src, function (script) {
@@ -60,7 +60,7 @@
                 loadjs(file, function () {
                     if (lazy_file < len - 1) {
                         lazy_file += 1;
-                        that.lazyLoad(files, callback, true);
+                        that.loadjs(files, callback, true);
                     } else {
                         if (typeof callback === "function") {
                             callback();
