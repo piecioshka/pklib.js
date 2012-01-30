@@ -1,7 +1,7 @@
 1.0.5
 * zmiana nazw funkcji w cookie
 * utworzenie nowego namespace ui
-* dodanie loader, glass, message do namespace'a ui
+* przeniesienie loader, glass, message, utils.size do namespace'a ui
 
 1.0.4
 * poprawienie nazw parametrów
