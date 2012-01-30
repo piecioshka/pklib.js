@@ -515,21 +515,8 @@ if (typeof Function.prototype.bind !== "function") {
          */
         removeClass: function (cssClass, element) {
             checkParams(cssClass, element);
-            var trim = pklib.string.trim,
-                c = 0,
-                className = "",
-                classNames = (element.className || "").split(rspace),
-                cl = classNames.length;
-
-            if (classNames) {
-                className = (" " + element.className + " ").replace(rclass, " ");
-                for (c = 0; c < cl; c++) {
-                    className = className.replace(" " + classNames[c] + " ", " ");
-                }
-                element.className = trim(className);
-            } else {
-                element.className = "";
-            }
+            var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
+            element.className = pklib.string.trim(element.className.replace(regexp, ""));
         },
         /**
          * Check if element has CSS class
@@ -931,7 +918,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param files {String | Array}
          * @param callback {Function}
          */
-        loadjs: function (files, callback) {
+        loadjs: function (files, callback, is_continue) {
             if (typeof files === "string") {
                 var src = files;
                 loadjs(src, function (script) {
@@ -950,7 +937,7 @@ if (typeof Function.prototype.bind !== "function") {
                 loadjs(file, function () {
                     if (lazy_file < len - 1) {
                         lazy_file += 1;
-                        that.lazyLoad(files, callback, true);
+                        that.loadjs(files, callback, true);
                     } else {
                         if (typeof callback === "function") {
                             callback();

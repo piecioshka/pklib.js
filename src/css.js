@@ -51,21 +51,8 @@
          */
         removeClass: function (cssClass, element) {
             checkParams(cssClass, element);
-            var trim = pklib.string.trim,
-                c = 0,
-                className = "",
-                classNames = (element.className || "").split(rspace),
-                cl = classNames.length;
-
-            if (classNames) {
-                className = (" " + element.className + " ").replace(rclass, " ");
-                for (c = 0; c < cl; c++) {
-                    className = className.replace(" " + classNames[c] + " ", " ");
-                }
-                element.className = trim(className);
-            } else {
-                element.className = "";
-            }
+            var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
+            element.className = pklib.string.trim(element.className.replace(regexp, ""));
         },
         /**
          * Check if element has CSS class
