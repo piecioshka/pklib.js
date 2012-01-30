@@ -1,5 +1,5 @@
 /**
- * Module to service array object.
+ * Module to service array object
  * @package pklib.array
  */
 (function (global) {
@@ -15,7 +15,7 @@
          */
         isArray: function (array) {
             return typeof array === "object" &&
-            	array !== null &&
+                array !== null &&
                 typeof array.length !== "undefined" &&
                 typeof array.slice !== "undefined";
         },

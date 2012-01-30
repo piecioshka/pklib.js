@@ -1,5 +1,5 @@
 /**
- * Cookie service manager.
+ * Cookie service manager
  * @package pklib.cookie
  */
 (function (global) {
@@ -40,8 +40,7 @@
                 return null;
             }
             name = name + "=";
-            var i,
-                c,
+            var i, c,
                 ca = document.cookie.split(";"),
                 len = ca.length;
 

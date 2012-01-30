@@ -1,7 +1,7 @@
 /**
  * Utils tools
  * @package pklib.utils
- * @dependence pklib.array, pklib.browser, pklib.dom, pklib.event, pklib.string
+ * @dependence pklib.dom, pklib.event
  */
 (function (global) {
     "use strict";
@@ -14,15 +14,6 @@
             letters: {
                 lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
                 upper: [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
-            }
-        },
-        date: {
-            /**
-             * @return {string}
-             */
-            getFullMonth: function () {
-                var month = (parseInt(new Date().getMonth(), 10) + 1);
-                return (month < 10) ? "0" + month : month;
             }
         },
         action: {
@@ -56,6 +47,7 @@
                         global.open(this.href);
                         evt.preventDefault();
                     };
+
                 for (i = 0; i < len; ++i) {
                     link = links[i];
                     if (link.rel === "outerlink") {
@@ -81,23 +73,6 @@
                         }
                     });
                 }
-            }
-        },
-        /**
-         * @param param {Number}
-         * @param animate {Boolean}
-         */
-        scrollTo: function (param, animate) {
-            var interval = null;
-            if (true === animate) {
-                interval = global.setInterval(function () {
-                    document.body.scrollTop -= 5;
-                    if (document.body.scrollTop <= 0) {
-                        global.clearInterval(interval);
-                    }
-                }, 1);
-            } else {
-                document.body.scrollTop = param + "px";
             }
         }
     };

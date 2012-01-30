@@ -20,7 +20,7 @@
          * @return {Boolean}
          */
         isLetter: function (source) {
-            return typeof source === "string" && /^[a-zA-Z]$/.test(source);
+            return this.isString(source) && /^[a-zA-Z]$/.test(source);
         },
         /**
          * @param source {String}

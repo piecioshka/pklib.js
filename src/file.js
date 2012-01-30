@@ -1,6 +1,6 @@
 /**
  * JS file laoder
- * @package pklib.file
+ * @package pklib.file, pklib.string
  */
 (function (global) {
     "use strict";
@@ -42,18 +42,18 @@
          * @param callback {Function}
          */
         loadjs: function (files, callback, is_continue) {
-            if (typeof files === "string") {
-                var src = files;
+            var that = this, src, len, file;
+            if (pklib.string.isString(files)) {
+                src = files;
                 loadjs(src, function (script) {
                     if (typeof callback === "function") {
                         callback(script);
                     }
                 });
             } else {
-                var that = this,
-                len = files.length,
+                len = files.length;
                 file = files[lazy_file];
-        
+
                 if (!is_continue) {
                     lazy_file = 0;
                 }

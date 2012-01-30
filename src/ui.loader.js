@@ -11,7 +11,7 @@
         document = global.document || {},
         id = "pklib-loader-wrapper",
         settings = {
-            src: "http://pklib.com/img/icons/loader.gif",
+            src: "",
             container: null,
             style: {
                 width: 31,
@@ -20,6 +20,10 @@
             },
             center: true
         };
+
+    if (typeof pklib.ui === "undefined") {
+        pklib.ui = {};
+    }
 
     pklib.ui.loader = {
         /**

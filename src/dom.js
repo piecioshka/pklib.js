@@ -1,7 +1,7 @@
 /**
- * Helper related with DOM service.
+ * Helper related with DOM service
  * @package pklib.dom
- * @dependence pklib.browser, pklib.css, pklib.utils
+ * @dependence pklib.browser, pklib.css, pklib.string, pklib.utils
  */
 (function (global) {
     "use strict";
@@ -172,7 +172,7 @@
         insert: function (element, node) {
             if (this.isNode(element)) {
                 node.appendChild(element);
-            } else if (typeof element === "string") {
+            } else if (pklib.string.isString(element)) {
                 node.innerHTML += element;
             }
             return element;

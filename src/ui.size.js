@@ -1,10 +1,17 @@
 /**
+ * Check ui dimensions
  * @package pklib.ui.size
+ * @dependence pklib.string
  */
 (function (global) {
     "use strict";
-    
-    var pklib = global.pklib || {};
+
+    var pklib = global.pklib || {},
+        document = global.document;
+
+    if (typeof pklib.ui === "undefined") {
+        pklib.ui = {};
+    }
 
     pklib.ui.size = {
         /**

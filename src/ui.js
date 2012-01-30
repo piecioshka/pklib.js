@@ -1,11 +1,13 @@
 /**
+ * User Interface
  * @package pklib.ui
  * @dependence pklib.string. pklib.dom
  */
 (function (global) {
     "use strict";
 
-    var pklib = global.pklib || {};
+    var pklib = global.pklib || {},
+        document = global.document;
 
     pklib.ui = {
         /**
@@ -58,6 +60,23 @@
             element.style.width = width;
             element.style.height = height;
             return [width, height];
+        },
+        /**
+         * @param param {Number}
+         * @param animate {Boolean}
+         */
+        scrollTo: function (param, animate) {
+            var interval = null;
+            if (true === animate) {
+                interval = global.setInterval(function () {
+                    document.body.scrollTop -= 5;
+                    if (document.body.scrollTop <= 0) {
+                        global.clearInterval(interval);
+                    }
+                }, 1);
+            } else {
+                document.body.scrollTop = param + "px";
+            }
         }
     };
 }(this));

@@ -1,6 +1,5 @@
 /**
- * Glass Adapter.
- * Show this on dimensions on browser. 
+ * Show glass on dimensions on browser
  * @package pklib.glass
  * @dependence pklib.browser, pklib.dom, pklib.event, pklib.utils
  */
@@ -22,10 +21,10 @@
             }
         };
 
-    if (typeof pklib.ui === "undefined" ) {
+    if (typeof pklib.ui === "undefined") {
         pklib.ui = {};
     }
-    
+
     pklib.ui.glass = {
         /**
          * @type {String}

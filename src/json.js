@@ -1,6 +1,6 @@
 /**
  * JSON manager
- * @package pklib.json
+ * @package pklib.json, pklib.string
  */
 (function (global) {
     "use strict";
@@ -56,7 +56,7 @@
             } else if (typeof object === "number") {
                 // Number
                 return object;
-            } else if (typeof object === "string") {
+            } else if (pklib.string.isString(object)) {
                 // String
                 return '"' + object + '"';
             } else if (typeof object === "function") {

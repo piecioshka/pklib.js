@@ -248,9 +248,9 @@
 						    <a class="dropdown-toggle" href="#pklib-utils">utils</a>
 							<ul class="dropdown-menu">
 								<li><a href="#pklib-utils-ascii">ascii</a></li>
-								<li><a href="#pklib-utils-date">date</a>
+								<li><a href="#pklib-date">date</a>
 									<ul>
-										<li><a href="#pklib-utils-date-getFullMonth">getFullMonth</a></li>
+										<li><a href="#pklib-date-getFullMonth">getFullMonth</a></li>
 									</ul>
 								</li>
 								<li><a href="#pklib-utils-action">action</a>
@@ -294,8 +294,8 @@
                 <h5><a href="#pklib-cookie">cookie</a></h5>
 				<ul>
 					<li><a href="#pklib-cookie-create">create</a></li>
-					<li><a href="#pklib-cookie-get">read</a></li>
-					<li><a href="#pklib-cookie-remove">erase</a></li>
+					<li><a href="#pklib-cookie-get">get</a></li>
+					<li><a href="#pklib-cookie-remove">remove</a></li>
 				</ul>
                 <h5><a href="#pklib-css">css</a></h5>
 				<ul>
@@ -303,6 +303,10 @@
 					<li><a href="#pklib-css-removeClass">removeClass</a></li>
 					<li><a href="#pklib-css-hasClass">hasClass</a></li>
 				</ul>
+                <h5><a href="#pklib-date">date</a></h5>
+                <ul>
+                    <li><a href="#pklib-date-getFullMonth">getFullMonth</a></li>
+                </ul>
                 <h5><a href="#pklib-dom">dom</a></h5>
 				<ul>
 					<li><a href="#pklib-dom-nodeTypes">nodeTypes</a></li>
@@ -328,7 +332,7 @@
 				</ul>
                 <h5><a href="#pklib-file">file</a></h5>
 				<ul>
-					<li><a href="#pklib-file-loadjs">load</a></li>
+					<li><a href="#pklib-file-loadjs">loadjs</a></li>
 				</ul>
                 <h5><a href="#pklib-json">json</a></h5>
                 <ul>
@@ -400,12 +404,7 @@
                 <h5><a href="#pklib-utils">utils</a></h5>
 				<ul>
 					<li><a href="#pklib-utils-ascii">ascii</a></li>
-					<li><h5><a href="#pklib-date">date</a></h5>
-						<ul>
-							<li><a href="#pklib-utils-date-getFullMonth">getFullMonth</a></li>
-						</ul>
-					</li>
-                    <li><h5><a href="#pklib-action">action</a></h5>
+                    <li><h5><a href="#pklib-utils-action">action</a></h5>
 						<ul>
 							<li><a href="#pklib-utils-action-clearfocus">clearfocus</a></li>
 							<li><a href="#pklib-utils-action-outerlink">outerlink</a></li>
@@ -822,6 +821,29 @@ pklib.css.hasClass();
                     </div>
                 </div>
             </div>
+            <div id="pklib-date" class="page-header">
+                <h1>pklib.date <small>{Object}</small></h1>
+                    
+                <div class="well">
+                    <h3 id="pklib-date-getFullMonth">pklib.date.getFullMonth</h3>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-date-getFullMonth-desc">Opis</a></li>
+                            <li><a href="#pklib-date-getFullMonth-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-date-getFullMonth-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-date-getFullMonth-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.date.getFullMonth(); // "01"
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <div id="pklib-dom" class="page-header">
                 <h1>pklib.dom <small>{Object}</small></h1>
                 
@@ -1159,7 +1181,7 @@ pklib.event.trigger();
                 <h1>pklib.file <small>{Object}</small></h1>
                 
                 <div class="well">
-                    <h2 id="pklib-file-load">pklib.file.loadjs</h2>
+                    <h2 id="pklib-file-loadjs">pklib.file.loadjs</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1180,118 +1202,7 @@ pklib.file.loadjs();
                     
                 </div>
             </div>
-        
-            <div id="pklib-ui" class="page-header">
-                
-                <div class="well">
-                    <h2 id="pklib-ui-center">pklib.ui.center</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-center-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-center-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-center-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-center-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.center();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h2 id="pklib-ui-maximize">pklib.ui.maximize</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-maximize-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-maximize-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-maximize-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-maximize-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.maximize();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                
-            <div id="pklib-ui-glass" class="page-header">
-                <h1>pklib.ui.glass <small>{Object}</small></h1>
-                
-                <div class="well">
-	                <p>
-	                    Wartwa przysłaniająca cały content strony. <br />
-	                    Dzięki przroczystości otrzymamy efekt dezaktywacji strony. <br />
-	                    Layer służy do wyłączenia częśći bądź całęj strony aby przykładowo wyświetlić komunikat.
-	                </p>
-	                
-                    <h2 id="pklib-ui-glass-objId">pklib.ui.glass.objId</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-glass-objId-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-glass-objId-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-glass-objId-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-glass-objId-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.glass.objId();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-	                
-	                <h2 id="pklib-ui-glass-show">pklib.ui.glass.show</h2>
-	                
-	                <div class="well-white">
-	                    <ul class="tabs">
-	                        <li class="active"><a href="#pklib-ui-glass-show-desc">Opis</a></li>
-	                        <li><a href="#pklib-ui-glass-show-code">Przykład</a></li>
-	                    </ul>
-	                    <div class="pill-content">
-	                        <div class="active" id="pklib-ui-glass-show-desc">[Brak dokumentacji]</div>
-	                        <div id="pklib-ui-glass-show-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.glass.show();
-&lt;/script&gt;
-</pre>
-	                        </div>
-	                    </div>
-	                </div>
-	                
-	                <h2 id="pklib-ui-glass-close">pklib.ui.glass.close</h2>
-	                
-	                <div class="well-white">
-	                    <ul class="tabs">
-	                        <li class="active"><a href="#pklib-ui-glass-close-desc">Opis</a></li>
-	                        <li><a href="#pklib-ui-glass-close-code">Przykład</a></li>
-	                    </ul>
-	                    <div class="pill-content">
-	                        <div class="active" id="pklib-ui-glass-close-desc">[Brak dokumentacji]</div>
-	                        <div id="pklib-ui-glass-close-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.glass.close();
-&lt;/script&gt;
-</pre>
-	                        </div>
-	                    </div>
-	                </div>
-                </div>
-            </div>
+            
             <div id="pklib-json" class="page-header">
                 <h1>pklib.json <small>{Object}</small></h1>
                 
@@ -1328,165 +1239,6 @@ pklib.json.stringify();
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.json.serialize();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="pklib-ui-loader" class="page-header">
-                <h1>pklib.ui.loader <small>{Object}</small></h1>
-                
-                <div class="well">
-	                <p>
-					Obsługa loadera, który jest dodawanym do drzewa DOM elementem o określonych parametrach.
-					Wymiary obrazka jak i link do obrazka jest łatwo konfigurowalny.
-					Gdy tylko pokażemy loader za pomocą metody **pklib.ui.loader.show** zostanie on z default'u wycentrowany.
-					Kontener w którym chcemy umieścić (pre)loader jest łatwy do zmiany, gdyż nie zawsze chcemy aby 
-					loader znajdował się na środku całej strony, ale być może tylko w danym kontenerze na stronie.  
-	                </p>
-	                
-                    <h2 id="pklib-ui-loader-objId">pklib.ui.loader.objId</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-loader-objId-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-loader-objId-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-loader-objId-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-loader-objId-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.loader.objId();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h2 id="pklib-ui-loader-show">pklib.ui.loader.show</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-loader.show-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-loader-show-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-loader-show-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-loader-show-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.loader.show();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h2 id="pklib-ui-loader-close">pklib.ui.loader.close</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-loader-close-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-loader-close-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-loader-close-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-loader-close-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.loader.close();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="pklib-ui-message" class="page-header">
-                <h1>pklib.ui.message <small>{Object}</small></h1>
-                
-                <div class="well">
-	                <p>
-	                Top layer, który jest ponad wszystkimi elementami w drzewie DOM.
-	                Pomocny gdy chcemy wyświetlić informację, wiadomość bądź komunikat użytkownikowi.
-	                Dzięki dobremu algorytmowi, warstwa której jasno zdefiniujemy wymiary zawsze pozostanie na środku strony.
-	                Obłsuga layera posiada "zamykanie", a tak na prawdę usuwanie z drzewa DOM elementu będącego top layerem, 
-	                layera, tj. usunięcie z widoku warstwy reprezentującej komunikat dla użytkownika.
-	                </p>
-	                
-                    <h2 id="pklib-ui-message-objId">pklib.ui.message.objId</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-message-objId-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-message-objId-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-message-objId-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-message-objId-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.message.objId();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h2 id="pklib-ui-message-content">pklib.ui.message.content</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-message-content-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-message-content-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-message-content-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-message-content-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.message.content();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h2 id="pklib-ui-message-show">pklib.ui.message.show</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-message-show-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-message-show-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-message-show-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-message-show-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.message.show();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h2 id="pklib-ui-message-close">pklib.ui.message.close</h2>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-message-close-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-message-close-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-message-close-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-message-close-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.message.close();
 &lt;/script&gt;
 </pre>
                             </div>
@@ -1734,6 +1486,337 @@ pklib.string.slice();
                     </div>
                 </div>
             </div>
+        
+            <div id="pklib-ui" class="page-header">
+                <h2>pklib.ui</h2>
+                
+                <div class="well">
+                    <h2 id="pklib-ui-center">pklib.ui.center</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-center-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-center-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-center-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-center-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.center();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2 id="pklib-ui-maximize">pklib.ui.maximize</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-maximize-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-maximize-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-maximize-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-maximize-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.maximize();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            <div id="pklib-ui-glass" class="page-header">
+                <h1>pklib.ui.glass <small>{Object}</small></h1>
+                
+                <div class="well">
+	                <p>
+	                    Wartwa przysłaniająca cały content strony. <br />
+	                    Dzięki przroczystości otrzymamy efekt dezaktywacji strony. <br />
+	                    Layer służy do wyłączenia częśći bądź całęj strony aby przykładowo wyświetlić komunikat.
+	                </p>
+	                
+                    <h2 id="pklib-ui-glass-objId">pklib.ui.glass.objId</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-glass-objId-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-glass-objId-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-glass-objId-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-glass-objId-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.glass.objId();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+	                
+	                <h2 id="pklib-ui-glass-show">pklib.ui.glass.show</h2>
+	                
+	                <div class="well-white">
+	                    <ul class="tabs">
+	                        <li class="active"><a href="#pklib-ui-glass-show-desc">Opis</a></li>
+	                        <li><a href="#pklib-ui-glass-show-code">Przykład</a></li>
+	                    </ul>
+	                    <div class="pill-content">
+	                        <div class="active" id="pklib-ui-glass-show-desc">[Brak dokumentacji]</div>
+	                        <div id="pklib-ui-glass-show-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.glass.show();
+&lt;/script&gt;
+</pre>
+	                        </div>
+	                    </div>
+	                </div>
+	                
+	                <h2 id="pklib-ui-glass-close">pklib.ui.glass.close</h2>
+	                
+	                <div class="well-white">
+	                    <ul class="tabs">
+	                        <li class="active"><a href="#pklib-ui-glass-close-desc">Opis</a></li>
+	                        <li><a href="#pklib-ui-glass-close-code">Przykład</a></li>
+	                    </ul>
+	                    <div class="pill-content">
+	                        <div class="active" id="pklib-ui-glass-close-desc">[Brak dokumentacji]</div>
+	                        <div id="pklib-ui-glass-close-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.glass.close();
+&lt;/script&gt;
+</pre>
+	                        </div>
+	                    </div>
+	                </div>
+                </div>
+            </div>
+            <div id="pklib-ui-loader" class="page-header">
+                <h1>pklib.ui.loader <small>{Object}</small></h1>
+                
+                <div class="well">
+	                <p>
+					Obsługa loadera, który jest dodawanym do drzewa DOM elementem o określonych parametrach.
+					Wymiary obrazka jak i link do obrazka jest łatwo konfigurowalny.
+					Gdy tylko pokażemy loader za pomocą metody **pklib.ui.loader.show** zostanie on z default'u wycentrowany.
+					Kontener w którym chcemy umieścić (pre)loader jest łatwy do zmiany, gdyż nie zawsze chcemy aby 
+					loader znajdował się na środku całej strony, ale być może tylko w danym kontenerze na stronie.  
+	                </p>
+	                
+                    <h2 id="pklib-ui-loader-objId">pklib.ui.loader.objId</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-loader-objId-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-loader-objId-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-loader-objId-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-loader-objId-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.loader.objId();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2 id="pklib-ui-loader-show">pklib.ui.loader.show</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-loader.show-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-loader-show-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-loader-show-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-loader-show-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.loader.show();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2 id="pklib-ui-loader-close">pklib.ui.loader.close</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-loader-close-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-loader-close-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-loader-close-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-loader-close-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.loader.close();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="pklib-ui-message" class="page-header">
+                <h1>pklib.ui.message <small>{Object}</small></h1>
+                
+                <div class="well">
+	                <p>
+	                Top layer, który jest ponad wszystkimi elementami w drzewie DOM.
+	                Pomocny gdy chcemy wyświetlić informację, wiadomość bądź komunikat użytkownikowi.
+	                Dzięki dobremu algorytmowi, warstwa której jasno zdefiniujemy wymiary zawsze pozostanie na środku strony.
+	                Obłsuga layera posiada "zamykanie", a tak na prawdę usuwanie z drzewa DOM elementu będącego top layerem, 
+	                layera, tj. usunięcie z widoku warstwy reprezentującej komunikat dla użytkownika.
+	                </p>
+	                
+                    <h2 id="pklib-ui-message-objId">pklib.ui.message.objId</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-message-objId-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-message-objId-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-message-objId-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-message-objId-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.message.objId();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2 id="pklib-ui-message-content">pklib.ui.message.content</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-message-content-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-message-content-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-message-content-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-message-content-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.message.content();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2 id="pklib-ui-message-show">pklib.ui.message.show</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-message-show-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-message-show-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-message-show-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-message-show-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.message.show();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2 id="pklib-ui-message-close">pklib.ui.message.close</h2>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-message-close-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-message-close-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-message-close-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-message-close-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.message.close();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2 id="pklib-ui-size">pklib.ui.size <small>{Object}</small></h2>
+                
+                    <h3 id="pklib-ui-size-window">pklib.ui.size.window</h3>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-size-window-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-size-window-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-size-window-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-size-window-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.size.window();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <h3 id="pklib-ui-size-document">pklib.ui.size.document</h3>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-size-document-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-size-document-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-size-document-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-size-document-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.size.document();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <h3 id="pklib-ui-size-object">pklib.ui.size.object</h3>
+                    
+                    <div class="well-white">
+                        <ul class="tabs">
+                            <li class="active"><a href="#pklib-ui-size-object-desc">Opis</a></li>
+                            <li><a href="#pklib-ui-size-object-code">Przykład</a></li>
+                        </ul>
+                        <div class="pill-content">
+                            <div class="active" id="pklib-ui-size-object-desc">[Brak dokumentacji]</div>
+                            <div id="pklib-ui-size-object-code">
+<pre class="prettyprint lang-css linenums">
+&lt;script type="text/javascript"&gt;
+pklib.ui.size.object();
+&lt;/script&gt;
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="pklib-url" class="page-header">
                 <h1>pklib.url <small>{Object}</small></h1>
                 
@@ -1877,64 +1960,6 @@ pklib.url.getHash();
                 <h1>pklib.utils <small>{Object}</small></h1>
                 
                 <div class="well">
-                    <h2>pklib.ui.size <small>{Object}</small></h2>
-                
-                    <h3 id="pklib-ui-size-window">pklib.ui.size.window</h3>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-size-window-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-size-window-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-size-window-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-size-window-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.size.window();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <h3 id="pklib-ui-size-document">pklib.ui.size.document</h3>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-size-document-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-size-document-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-size-document-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-size-document-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.size.document();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <h3 id="pklib-ui-size-object">pklib.ui.size.object</h3>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-ui-size-object-desc">Opis</a></li>
-                            <li><a href="#pklib-ui-size-object-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-ui-size-object-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-ui-size-object-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.ui.size.object();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
                     
                     <h2 id="pklib-utils-ascii">pklib.utils.ascii</h2>
                     
@@ -1949,27 +1974,6 @@ pklib.ui.size.object();
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
 pklib.utils.ascii();
-&lt;/script&gt;
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h2 id="pklib-utils-date">pklib.utils.date</h2>
-                    
-                    <h3 id="pklib-utils-date-getFullMonth">pklib.utils.date.getFullMonth</h3>
-                    
-                    <div class="well-white">
-                        <ul class="tabs">
-                            <li class="active"><a href="#pklib-utils-date-getFullMonth-desc">Opis</a></li>
-                            <li><a href="#pklib-utils-date-getFullMonth-code">Przykład</a></li>
-                        </ul>
-                        <div class="pill-content">
-                            <div class="active" id="pklib-utils-date-getFullMonth-desc">[Brak dokumentacji]</div>
-                            <div id="pklib-utils-date-getFullMonth-code">
-<pre class="prettyprint lang-css linenums">
-&lt;script type="text/javascript"&gt;
-pklib.utils.date.getFullMonth();
 &lt;/script&gt;
 </pre>
                             </div>

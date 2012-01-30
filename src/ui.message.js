@@ -1,7 +1,7 @@
 /**
  * Show layer on special place.
  * @package pklib.message
- * @dependence pklib.dom, pklib.event, pklib.utils
+ * @dependence pklib.dom, pklib.event, pklib.string, pklib.utils
  */
 (function (global) {
     "use strict";
@@ -17,6 +17,10 @@
                 zIndex: 1010
             }
         };
+
+    if (typeof pklib.ui === "undefined") {
+        pklib.ui = {};
+    }
 
     pklib.ui.message = {
         /**
@@ -46,7 +50,7 @@
                 }
             }
 
-            if (typeof this.content === "string") {
+            if (pklib.string.isString(this.content)) {
                 message.innerHTML = this.content;
             } else if (pklib.dom.isNode(this.content)) {
                 message.appendChild(this.content);

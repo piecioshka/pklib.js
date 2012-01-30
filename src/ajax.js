@@ -1,5 +1,5 @@
 /**
- * Module to service asynchronous request.
+ * Module to service asynchronous request
  * @package pklib.ajax
  * @dependence pklib.array
  */

@@ -1,4 +1,5 @@
 /**
+ * Bind function to aspect
  * @package pklib.aspect
  */
 (function (global) {

@@ -1,5 +1,5 @@
 /**
- * Helper about manage event on HTMLElement.
+ * Helper about manage event on HTMLElement
  * @package pklib.event
  */
 (function (global) {

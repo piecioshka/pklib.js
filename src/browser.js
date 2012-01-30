@@ -1,5 +1,5 @@
 /**
- * Get best information about browser.
+ * Get best information about browser
  * @package pklib.browser
  */
 (function (global) {

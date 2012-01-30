@@ -1,5 +1,5 @@
 /**
- * Utils method related css on tags in DOM tree.
+ * Utils method related css on tags in DOM tree
  * @package pklib.css
  * @dependence pklib.string. pklib.dom
  */
@@ -7,20 +7,21 @@
     "use strict";
 
     var pklib = global.pklib || {},
-        rspace = /\s+/,
         rclass = /[\n\t\r]/g;
 
     /**
+     * Check typeof params
      * @param cssClass {String}
      * @param element {HTMLElement}
      * @throws {TypeError}
      */
-    function checkParams(cssClass, element) {
+    function checkParams(cssClass, element, call_func_name) {
+        var prefix = "pklib.css." + call_func_name;
         if (typeof cssClass !== "string") {
-            throw new TypeError("pklib.css.addClass: @cssClass: not String");
+            throw new TypeError(prefix + ": @cssClass: not String");
         }
         if (!pklib.dom.isNode(element)) {
-            throw new TypeError("pklib.css.addClass: @element: not HTMLElement");
+            throw new TypeError(prefix + ": @element: not HTMLElement");
         }
     }
 
@@ -32,7 +33,7 @@
          * @throws {TypeError}
          */
         addClass: function (cssClass, element) {
-            checkParams(cssClass, element);
+            checkParams(cssClass, element, "addClass");
             var classElement = element.className;
             if (!this.hasClass(cssClass, element)) {
                 if (classElement.length) {
@@ -50,7 +51,7 @@
          * @throws {TypeError}
          */
         removeClass: function (cssClass, element) {
-            checkParams(cssClass, element);
+            checkParams(cssClass, element, "removeClass");
             var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
             element.className = pklib.string.trim(element.className.replace(regexp, ""));
         },
@@ -62,7 +63,7 @@
          * @return {Boolean}
          */
         hasClass: function (cssClass, element) {
-            checkParams(cssClass, element);
+            checkParams(cssClass, element, "hasClass");
             var className = " " + cssClass + " ";
             return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
         }

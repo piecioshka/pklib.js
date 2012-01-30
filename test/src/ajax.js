@@ -1,6 +1,8 @@
 pklib.event.add(window, "load", function () {
 	
-	var DIR = "data/";
+	var uriArray = pklib.url.getUri().split("/");
+	var PREFIX = "/" + uriArray[1] + "/" + uriArray[2] + "/";
+	var DIR = PREFIX + "data/";
 	
 	function msg(file) {
 		return "File: " + file + ", contain good value";
