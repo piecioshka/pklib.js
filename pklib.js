@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.0.4
+ * pklib JavaScript library v1.0.5pre
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  * 
@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Sun Jan 29 14:00:16 GMT 2012
+ * Date: Mon Jan 30 10:55:11 GMT 2012
  */
 
 (function (global) {
@@ -51,8 +51,8 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * Module to service asynchronous request.
- * @package ajax
- * @dependence array
+ * @package pklib.ajax
+ * @dependence pklib.array
  */
 (function (global) {
     "use strict";
@@ -199,7 +199,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * Module to service array object.
- * @package array
+ * @package pklib.array
  */
 (function (global) {
     "use strict";
@@ -315,7 +315,7 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * @package aspect
+ * @package pklib.aspect
  */
 (function (global) {
     "use strict";
@@ -328,6 +328,7 @@ if (typeof Function.prototype.bind !== "function") {
      * @param fun {Function} The function to bind aspect function
      * @param asp {Function} The aspect function
      * @throws {TypeError}
+     * @return {Function}
      */
     pklib.aspect = function (fun, asp) {
         var that = this;
@@ -346,7 +347,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * Get best information about browser.
- * @package browser
+ * @package pklib.browser
  */
 (function (global) {
     "use strict";
@@ -395,7 +396,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * Cookie service manager.
- * @package cookie
+ * @package pklib.cookie
  */
 (function (global) {
     "use strict";
@@ -423,14 +424,14 @@ if (typeof Function.prototype.bind !== "function") {
 
             document.cookie = name + "=" + value + expires + "; path=/";
 
-            return this.read(name);
+            return this.get(name);
         },
         /**
          * Read cookie by it name.
          * @param name {String}
          * @return {String | null}
          */
-        read: function (name) {
+        get: function (name) {
             if (typeof name === "undefined") {
                 return null;
             }
@@ -455,7 +456,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param name {String}
          * @return {String}
          */
-        erase: function (name) {
+        remove: function (name) {
             return this.create(name, undefined, -1);
         }
     };
@@ -463,8 +464,8 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * Utils method related css on tags in DOM tree.
- * @package css
- * @dependence string. dom
+ * @package pklib.css
+ * @dependence pklib.string. pklib.dom
  */
 (function (global) {
     "use strict";
@@ -547,8 +548,8 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * Helper related with DOM service.
- * @package dom
- * @dependence browser, css, utils
+ * @package pklib.dom
+ * @dependence pklib.browser, pklib.css, pklib.utils
  */
 (function (global) {
     "use strict";
@@ -713,57 +714,6 @@ if (typeof Function.prototype.bind !== "function") {
         },
         /**
          * @param element {HTMLElement}
-         * @param wrapper {HTMLElement}
-         * @throws {TypeError}
-         * @return {Array}
-         */
-        center: function (element, wrapper) {
-            var left = null,
-                top = null,
-                pus = pklib.ui.size;
-
-            if (!this.isElement(element)) {
-                throw new TypeError("pklib.ui.center: @element: not Element");
-            }
-
-            if (wrapper === document.body) {
-                left = (Math.max(pus.window("width"), pus.document("width")) - pus.object(element, "width")) / 2;
-                top = (Math.max(pus.window("height"), pus.document("height")) - pus.object(element, "height")) / 2;
-            } else {
-                left = (pus.window("width") - pus.object(element, "width")) / 2;
-                top = (pus.window("height") - pus.object(element, "height")) / 2;
-            }
-            element.style.left = left + "px";
-            element.style.top = top + "px";
-            element.style.position = "absolute";
-            return [left, top];
-        },
-        /**
-         * @param element {HTMLElement}
-         * @param wrapper {HTMLElement}
-         * @return {Array}
-         */
-        maximize: function (element, wrapper) {
-            var width = null,
-                height = null,
-                pus = pklib.ui.size;
-
-            if (wrapper === document.body) {
-                width = Math.max(pus.window("width"), pus.document("width"));
-                height = Math.max(pus.window("height"), pus.document("height"));
-                if (pklib.browser.getName() === "msie") {
-                    width -= 20;
-                }
-            } else {
-                width = pus.object(wrapper, "width");
-                height = pus.object(wrapper, "height");
-            }
-            element.style.width = width;
-            element.style.height = height;
-            return [width, height];
-        },
-        /**
-         * @param element {HTMLElement}
          * @param node {Node}
          * @return {HTMLElement}
          */
@@ -844,7 +794,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * Helper about manage event on HTMLElement.
- * @package event
+ * @package pklib.event
  */
 (function (global) {
     "use strict";
@@ -939,8 +889,8 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * File manager
- * @package file
+ * JS file laoder
+ * @package pklib.file
  */
 (function (global) {
     "use strict";
@@ -977,133 +927,44 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.file = {
         /**
-         * Lazy load scripts.
-         * Append script to HEAD section.
-         * @param src {String}
+         * Lazy load JS files
+         * @param files {String | Array}
          * @param callback {Function}
          */
-        load: function (src, callback) {
-            loadjs(src, function (script) {
-                if (typeof callback === "function") {
-                    callback(script);
-                }
-            });
-        },
-        /**
-         * Lazy load menu files with dependencies which is que 
-         * files in array.
-         * Append script to HEAD section.
-         * @param files {Array}
-         * @param callback {Function}
-         * @param is_continue {Bool}
-         */
-        lazyLoad: function (files, callback, is_continue) {
-            var that = this,
+        loadjs: function (files, callback) {
+            if (typeof files === "string") {
+                var src = files;
+                loadjs(src, function (script) {
+                    if (typeof callback === "function") {
+                        callback(script);
+                    }
+                });
+            } else {
+                var that = this,
                 len = files.length,
                 file = files[lazy_file];
-            if (!is_continue) {
-                lazy_file = 0;
-            }
-            loadjs(file, function () {
-                if (lazy_file < len - 1) {
-                    lazy_file += 1;
-                    that.lazyLoad(files, callback, true);
-                } else {
-                    if (typeof callback === "function") {
-                        callback();
+        
+                if (!is_continue) {
+                    lazy_file = 0;
+                }
+                loadjs(file, function () {
+                    if (lazy_file < len - 1) {
+                        lazy_file += 1;
+                        that.lazyLoad(files, callback, true);
+                    } else {
+                        if (typeof callback === "function") {
+                            callback();
+                        }
                     }
-                }
-            });
-        }
-    };
-}(this));
-
-/**
- * Glass Adapter.
- * Show this on dimensions on browser. 
- * @package glass
- * @dependence browser, dom, event, utils
- */
-(function (global) {
-    "use strict";
-
-    var pklib = global.pklib || {},
-        document = global.document || {},
-        id = "pklib-glass-wrapper",
-        settings = {
-            container: null,
-            style: {
-                position: "absolute",
-                left: 0,
-                top: 0,
-                background: "#000",
-                opacity: 0.5,
-                zIndex: 1000
+                });
             }
-        };
-
-    pklib.ui.glass = {
-        /**
-         * @type {String}
-         */
-        objId: id,
-        /**
-         * @param config {Object}
-         * @param callback {Function}
-         */
-        show: function (config, callback) {
-            var that = this,
-                glass = document.createElement("div"),
-                glassStyle = glass.style,
-                style;
-            settings.container = document.body;
-            settings = pklib.array.mixin(settings, config);
-            settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
-
-            glass.setAttribute("id", this.objId);
-            for (style in settings.style) {
-                if (settings.style.hasOwnProperty(style)) {
-                    glassStyle[style] = settings.style[style];
-                }
-            }
-
-            settings.container.appendChild(glass);
-
-            pklib.ui.maximize(glass, settings.container);
-
-            pklib.event.add(global, "resize", function () {
-                that.close();
-                that.show(config, callback);
-                pklib.ui.maximize(glass, settings.container);
-            });
-            if (typeof callback === "function") {
-                callback();
-            }
-            return glass;
-        },
-        /**
-         * @param callback {Function}
-         * @return {Boolean}
-         */
-        close: function (callback) {
-            var glass = pklib.dom.byId(this.objId),
-                result = false;
-            if (glass !== null) {
-                glass.parentNode.removeChild(glass);
-                this.close(callback);
-                result = true;
-            }
-            if (typeof callback === "function") {
-                callback();
-            }
-            return result;
         }
     };
 }(this));
 
 /**
  * JSON manager
- * @package json
+ * @package pklib.json
  */
 (function (global) {
     "use strict";
@@ -1253,169 +1114,6 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * Loader adapter.
- * Show animate image (GIF) on special place.
- * @package loader
- * @dependence dom, event, utils
- */
-(function (global) {
-    "use strict";
-
-    var pklib = global.pklib || {},
-        document = global.document || {},
-        id = "pklib-loader-wrapper",
-        settings = {
-            src: "http://pklib.com/img/icons/loader.gif",
-            container: null,
-            style: {
-                width: 31,
-                height: 31,
-                zIndex: 1010
-            },
-            center: true
-        };
-
-    pklib.ui.loader = {
-        /**
-         * @type string
-         */
-        objId: id,
-        /**
-         * @param {object} config
-         * @param {function} callback
-         */
-        show: function (config, callback) {
-            settings.container = document.body;
-            settings = pklib.array.mixin(settings, config);
-
-            var loader = document.createElement("img"),
-                loaderStyle = loader.style,
-                style;
-
-            loader.setAttribute("id", this.objId);
-            loader.setAttribute("src", settings.src);
-            for (style in settings.style) {
-                if (settings.style.hasOwnProperty(style)) {
-                    loaderStyle[style] = settings.style[style];
-                }
-            }
-            if (settings.center) {
-                pklib.ui.center(loader, settings.container);
-
-                pklib.event.add(global, "resize", function () {
-                    pklib.ui.center(loader, settings.container);
-                });
-            }
-            settings.container.appendChild(loader);
-            if (typeof callback === "function") {
-                callback();
-            }
-            loader = null;
-        },
-        /**
-         * @param callback {Function}
-         */
-        close: function (callback) {
-            var loader = pklib.dom.byId(this.objId),
-                result = false;
-            if (loader !== null) {
-                loader.parentNode.removeChild(loader);
-                this.close(callback);
-                result = true;
-            }
-            if (typeof callback === "function") {
-                callback();
-            }
-            return result;
-        }
-    };
-}(this));
-
-/**
- * Show layer on special place.
- * @package message
- * @dependence dom, event, utils
- */
-(function (global) {
-    "use strict";
-
-    var pklib = global.pklib || {},
-        document = global.document || {},
-        id = "pklib-message-wrapper",
-        settings = {
-            container: null,
-            style: {
-                width: 300,
-                height: 300,
-                zIndex: 1010
-            }
-        };
-
-    pklib.ui.message = {
-        /**
-         * @type string
-         */
-        objId: id,
-        /**
-         * @type null
-         */
-        content: null,
-        /**
-         * @param config {Object}
-         * @param callback {Function}
-         */
-        show: function (config, callback) {
-            settings.container = document.body;
-            settings = pklib.array.mixin(settings, config);
-
-            var message = document.createElement("div"),
-                messageStyle = message.style,
-                style;
-
-            message.setAttribute("id", this.objId);
-            for (style in settings.style) {
-                if (settings.style.hasOwnProperty(style)) {
-                    messageStyle[style] = settings.style[style];
-                }
-            }
-
-            if (typeof this.content === "string") {
-                message.innerHTML = this.content;
-            } else if (pklib.dom.isNode(this.content)) {
-                message.appendChild(this.content);
-            }
-
-            settings.container.appendChild(message);
-            pklib.ui.center(message, settings.container);
-
-            pklib.event.add(global, "resize", function () {
-                pklib.ui.center(message, settings.container);
-            });
-            if (typeof callback === "function") {
-                callback();
-            }
-            return message;
-        },
-        /**
-         * @param callback {Function}
-         */
-        close: function (callback) {
-            var message = pklib.dom.byId(this.objId),
-                result = false;
-            if (message !== null) {
-                message.parentNode.removeChild(message);
-                this.close(callback);
-                result = true;
-            }
-            if (typeof callback === "function") {
-                callback();
-            }
-            return result;
-        }
-    };
-}(this));
-
-/**
  * Time analyzer
  * @package pklib.profiler
  */
@@ -1454,9 +1152,8 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * String service manager
- * @package string
+ * @package pklib.string
  */
-
 (function (global) {
     "use strict";
 
@@ -1579,7 +1276,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * Url helper manager
- * @package url
+ * @package pklib.url
  */
 (function (global) {
     "use strict";
@@ -1661,8 +1358,8 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * Utils tools
- * @package utils
- * @dependence array, browser, dom, event, string
+ * @package pklib.utils
+ * @dependence pklib.array, pklib.browser, pklib.dom, pklib.event, pklib.string
  */
 (function (global) {
     "use strict";
@@ -1671,56 +1368,6 @@ if (typeof Function.prototype.bind !== "function") {
         document = global.document || {};
 
     pklib.utils = {
-        size: {
-            /**
-             * @param name {String}
-             * @throws {TypeError}
-             * @return {Number}
-             */
-            window: function (name) {
-                var clientName;
-                if (typeof name === "undefined") {
-                    throw new TypeError("pklib.ui.size.window: @name: undefined");
-                }
-                name = pklib.string.capitalize(name);
-                clientName = global.document.documentElement["client" + name];
-                return (global.document.compatMode === "CSS1Compat" && clientName) || global.document.body["client" + name] || clientName;
-            },
-            /**
-             * @param name {String}
-             * @return {Number}
-             */
-            document: function (name) {
-                var clientName,
-                    scrollBodyName,
-                    scrollName,
-                    offsetBodyName,
-                    offsetName;
-                if (typeof name === "undefined") {
-                    throw new TypeError("pklib.ui.size.document: @name: undefined");
-                }
-                name = pklib.string.capitalize(name);
-                clientName = document.documentElement["client" + name];
-                scrollBodyName = document.body["scroll" + name];
-                scrollName = document.documentElement["scroll" + name];
-                offsetBodyName = document.body["offset" + name];
-                offsetName = document.documentElement["offset" + name];
-                return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
-            },
-            /**
-             * @param obj {HTMLElement}
-             * @param name {String}
-             * @return {number}
-             */
-            object: function (obj, name) {
-                if (typeof name === "undefined" || typeof obj === "undefined") {
-                    throw new TypeError("pklib.ui.size.object: @name: undefined");
-                }
-                name = pklib.string.capitalize(name);
-                var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];
-                return Math.max(client, scroll, offset);
-            }
-        },
         ascii: {
             letters: {
                 lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
@@ -1810,6 +1457,379 @@ if (typeof Function.prototype.bind !== "function") {
             } else {
                 document.body.scrollTop = param + "px";
             }
+        }
+    };
+}(this));
+
+/**
+ * @package pklib.ui
+ * @dependence pklib.string. pklib.dom
+ */
+(function (global) {
+    "use strict";
+
+    var pklib = global.pklib || {};
+
+    pklib.ui = {
+        /**
+         * @param element {HTMLElement}
+         * @param wrapper {HTMLElement}
+         * @throws {TypeError}
+         * @return {Array}
+         */
+        center: function (element, wrapper) {
+            var left = null,
+                top = null,
+                pus = this.size;
+
+            if (!pklib.dom.isElement(element)) {
+                throw new TypeError("pklib.ui.center: @element: not Element");
+            }
+
+            if (wrapper === document.body) {
+                left = (Math.max(pus.window("width"), pus.document("width")) - pus.object(element, "width")) / 2;
+                top = (Math.max(pus.window("height"), pus.document("height")) - pus.object(element, "height")) / 2;
+            } else {
+                left = (pus.window("width") - pus.object(element, "width")) / 2;
+                top = (pus.window("height") - pus.object(element, "height")) / 2;
+            }
+            element.style.left = left + "px";
+            element.style.top = top + "px";
+            element.style.position = "absolute";
+            return [left, top];
+        },
+        /**
+         * @param element {HTMLElement}
+         * @param wrapper {HTMLElement}
+         * @return {Array}
+         */
+        maximize: function (element, wrapper) {
+            var width = null,
+                height = null,
+                pus = pklib.ui.size;
+
+            if (wrapper === document.body) {
+                width = Math.max(pus.window("width"), pus.document("width"));
+                height = Math.max(pus.window("height"), pus.document("height"));
+                if (pklib.browser.getName() === "msie") {
+                    width -= 20;
+                }
+            } else {
+                width = pus.object(wrapper, "width");
+                height = pus.object(wrapper, "height");
+            }
+            element.style.width = width;
+            element.style.height = height;
+            return [width, height];
+        }
+    };
+}(this));
+/**
+ * Loader adapter.
+ * Show animate image (GIF) on special place.
+ * @package pklib.loader
+ * @dependence pklib.dom, pklib.event, pklib.utils
+ */
+(function (global) {
+    "use strict";
+
+    var pklib = global.pklib || {},
+        document = global.document || {},
+        id = "pklib-loader-wrapper",
+        settings = {
+            src: "http://pklib.com/img/icons/loader.gif",
+            container: null,
+            style: {
+                width: 31,
+                height: 31,
+                zIndex: 1010
+            },
+            center: true
+        };
+
+    pklib.ui.loader = {
+        /**
+         * @type string
+         */
+        objId: id,
+        /**
+         * @param {object} config
+         * @param {function} callback
+         */
+        show: function (config, callback) {
+            settings.container = document.body;
+            settings = pklib.array.mixin(settings, config);
+
+            var loader = document.createElement("img"),
+                loaderStyle = loader.style,
+                style;
+
+            loader.setAttribute("id", this.objId);
+            loader.setAttribute("src", settings.src);
+            for (style in settings.style) {
+                if (settings.style.hasOwnProperty(style)) {
+                    loaderStyle[style] = settings.style[style];
+                }
+            }
+            if (settings.center) {
+                pklib.ui.center(loader, settings.container);
+
+                pklib.event.add(global, "resize", function () {
+                    pklib.ui.center(loader, settings.container);
+                });
+            }
+            settings.container.appendChild(loader);
+            if (typeof callback === "function") {
+                callback();
+            }
+            loader = null;
+        },
+        /**
+         * @param callback {Function}
+         */
+        close: function (callback) {
+            var loader = pklib.dom.byId(this.objId),
+                result = false;
+            if (loader !== null) {
+                loader.parentNode.removeChild(loader);
+                this.close(callback);
+                result = true;
+            }
+            if (typeof callback === "function") {
+                callback();
+            }
+            return result;
+        }
+    };
+}(this));
+
+/**
+ * Show layer on special place.
+ * @package pklib.message
+ * @dependence pklib.dom, pklib.event, pklib.utils
+ */
+(function (global) {
+    "use strict";
+
+    var pklib = global.pklib || {},
+        document = global.document || {},
+        id = "pklib-message-wrapper",
+        settings = {
+            container: null,
+            style: {
+                width: 300,
+                height: 300,
+                zIndex: 1010
+            }
+        };
+
+    pklib.ui.message = {
+        /**
+         * @type string
+         */
+        objId: id,
+        /**
+         * @type null
+         */
+        content: null,
+        /**
+         * @param config {Object}
+         * @param callback {Function}
+         */
+        show: function (config, callback) {
+            settings.container = document.body;
+            settings = pklib.array.mixin(settings, config);
+
+            var message = document.createElement("div"),
+                messageStyle = message.style,
+                style;
+
+            message.setAttribute("id", this.objId);
+            for (style in settings.style) {
+                if (settings.style.hasOwnProperty(style)) {
+                    messageStyle[style] = settings.style[style];
+                }
+            }
+
+            if (typeof this.content === "string") {
+                message.innerHTML = this.content;
+            } else if (pklib.dom.isNode(this.content)) {
+                message.appendChild(this.content);
+            }
+
+            settings.container.appendChild(message);
+            pklib.ui.center(message, settings.container);
+
+            pklib.event.add(global, "resize", function () {
+                pklib.ui.center(message, settings.container);
+            });
+            if (typeof callback === "function") {
+                callback();
+            }
+            return message;
+        },
+        /**
+         * @param callback {Function}
+         */
+        close: function (callback) {
+            var message = pklib.dom.byId(this.objId),
+                result = false;
+            if (message !== null) {
+                message.parentNode.removeChild(message);
+                this.close(callback);
+                result = true;
+            }
+            if (typeof callback === "function") {
+                callback();
+            }
+            return result;
+        }
+    };
+}(this));
+
+/**
+ * Glass Adapter.
+ * Show this on dimensions on browser. 
+ * @package pklib.glass
+ * @dependence pklib.browser, pklib.dom, pklib.event, pklib.utils
+ */
+(function (global) {
+    "use strict";
+
+    var pklib = global.pklib || {},
+        document = global.document || {},
+        id = "pklib-glass-wrapper",
+        settings = {
+            container: null,
+            style: {
+                position: "absolute",
+                left: 0,
+                top: 0,
+                background: "#000",
+                opacity: 0.5,
+                zIndex: 1000
+            }
+        };
+
+    if (typeof pklib.ui === "undefined" ) {
+        pklib.ui = {};
+    }
+    
+    pklib.ui.glass = {
+        /**
+         * @type {String}
+         */
+        objId: id,
+        /**
+         * @param config {Object}
+         * @param callback {Function}
+         */
+        show: function (config, callback) {
+            var that = this,
+                glass = document.createElement("div"),
+                glassStyle = glass.style,
+                style;
+            settings.container = document.body;
+            settings = pklib.array.mixin(settings, config);
+            settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
+
+            glass.setAttribute("id", this.objId);
+            for (style in settings.style) {
+                if (settings.style.hasOwnProperty(style)) {
+                    glassStyle[style] = settings.style[style];
+                }
+            }
+
+            settings.container.appendChild(glass);
+
+            pklib.ui.maximize(glass, settings.container);
+
+            pklib.event.add(global, "resize", function () {
+                that.close();
+                that.show(config, callback);
+                pklib.ui.maximize(glass, settings.container);
+            });
+            if (typeof callback === "function") {
+                callback();
+            }
+            return glass;
+        },
+        /**
+         * @param callback {Function}
+         * @return {Boolean}
+         */
+        close: function (callback) {
+            var glass = pklib.dom.byId(this.objId),
+                result = false;
+            if (glass !== null) {
+                glass.parentNode.removeChild(glass);
+                this.close(callback);
+                result = true;
+            }
+            if (typeof callback === "function") {
+                callback();
+            }
+            return result;
+        }
+    };
+}(this));
+
+/**
+ * @package pklib.ui.size
+ */
+(function (global) {
+    "use strict";
+    
+    var pklib = global.pklib || {};
+
+    pklib.ui.size = {
+        /**
+         * @param name {String}
+         * @throws {TypeError}
+         * @return {Number}
+         */
+        window: function (name) {
+            var clientName;
+            if (typeof name === "undefined") {
+                throw new TypeError("pklib.ui.size.window: @name: undefined");
+            }
+            name = pklib.string.capitalize(name);
+            clientName = global.document.documentElement["client" + name];
+            return (global.document.compatMode === "CSS1Compat" && clientName) || global.document.body["client" + name] || clientName;
+        },
+        /**
+         * @param name {String}
+         * @return {Number}
+         */
+        document: function (name) {
+            var clientName,
+                scrollBodyName,
+                scrollName,
+                offsetBodyName,
+                offsetName;
+            if (typeof name === "undefined") {
+                throw new TypeError("pklib.ui.size.document: @name: undefined");
+            }
+            name = pklib.string.capitalize(name);
+            clientName = document.documentElement["client" + name];
+            scrollBodyName = document.body["scroll" + name];
+            scrollName = document.documentElement["scroll" + name];
+            offsetBodyName = document.body["offset" + name];
+            offsetName = document.documentElement["offset" + name];
+            return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
+        },
+        /**
+         * @param obj {HTMLElement}
+         * @param name {String}
+         * @return {number}
+         */
+        object: function (obj, name) {
+            if (typeof name === "undefined" || typeof obj === "undefined") {
+                throw new TypeError("pklib.ui.size.object: @name: undefined");
+            }
+            name = pklib.string.capitalize(name);
+            var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];
+            return Math.max(client, scroll, offset);
         }
     };
 }(this));

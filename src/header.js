@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.0.4
+ * pklib JavaScript library v1.0.5pre
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  * 
@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Sun Jan 29 14:00:16 GMT 2012
+ * Date: Mon Jan 30 10:55:11 GMT 2012
  */
 
 (function (global) {
