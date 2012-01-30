@@ -98,26 +98,26 @@ var Pklib = {
 				case 'e':
 					result += "e";
 					break;
-				case 'ó':
+				case 'Ã³':
 					result += "o";
 					break;
-				case '¹':
+				case 'Ä…':
 					result += "a";
 					break;
-				case 'œ›':
+				case 'Å›':
 					result += "s";
 					break;
-				case '³':
+				case 'Å‚':
 					result += "l";
 					break;
-				case 'Ÿ':
-				case '¿':
+				case 'Å¼':
+				case 'Åº':
 					result += "z";
 					break;
-				case 'æ':
+				case 'Ä‡':
 					result += "c";
 					break;
-				case 'ñ':
+				case 'Å„':
 					result += "n";
 					break;
 

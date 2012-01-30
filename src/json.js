@@ -1,6 +1,6 @@
 /**
  * JSON manager
- * @package json
+ * @package pklib.json
  */
 (function (global) {
     "use strict";

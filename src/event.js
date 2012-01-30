@@ -1,6 +1,6 @@
 /**
  * Helper about manage event on HTMLElement.
- * @package event
+ * @package pklib.event
  */
 (function (global) {
     "use strict";

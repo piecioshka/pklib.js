@@ -1,5 +1,5 @@
 /**
- * @package aspect
+ * @package pklib.aspect
  */
 (function (global) {
     "use strict";
@@ -12,6 +12,7 @@
      * @param fun {Function} The function to bind aspect function
      * @param asp {Function} The aspect function
      * @throws {TypeError}
+     * @return {Function}
      */
     pklib.aspect = function (fun, asp) {
         var that = this;

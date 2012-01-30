@@ -720,10 +720,10 @@ if (typeof Function.prototype.bind !== "function") {
         center: function (element, wrapper) {
             var left = null,
                 top = null,
-                pus = pklib.utils.size;
+                pus = pklib.ui.size;
 
             if (!this.isElement(element)) {
-                throw new TypeError("pklib.dom.center: @element: not Element");
+                throw new TypeError("pklib.ui.center: @element: not Element");
             }
 
             if (wrapper === document.body) {
@@ -746,7 +746,7 @@ if (typeof Function.prototype.bind !== "function") {
         maximize: function (element, wrapper) {
             var width = null,
                 height = null,
-                pus = pklib.utils.size;
+                pus = pklib.ui.size;
 
             if (wrapper === document.body) {
                 width = Math.max(pus.window("width"), pus.document("width"));
@@ -1042,7 +1042,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
         };
 
-    pklib.glass = {
+    pklib.ui.glass = {
         /**
          * @type {String}
          */
@@ -1069,12 +1069,12 @@ if (typeof Function.prototype.bind !== "function") {
 
             settings.container.appendChild(glass);
 
-            pklib.dom.maximize(glass, settings.container);
+            pklib.ui.maximize(glass, settings.container);
 
             pklib.event.add(global, "resize", function () {
                 that.close();
                 that.show(config, callback);
-                pklib.dom.maximize(glass, settings.container);
+                pklib.ui.maximize(glass, settings.container);
             });
             if (typeof callback === "function") {
                 callback();
@@ -1275,7 +1275,7 @@ if (typeof Function.prototype.bind !== "function") {
             center: true
         };
 
-    pklib.loader = {
+    pklib.ui.loader = {
         /**
          * @type string
          */
@@ -1300,10 +1300,10 @@ if (typeof Function.prototype.bind !== "function") {
                 }
             }
             if (settings.center) {
-                pklib.dom.center(loader, settings.container);
+                pklib.ui.center(loader, settings.container);
 
                 pklib.event.add(global, "resize", function () {
-                    pklib.dom.center(loader, settings.container);
+                    pklib.ui.center(loader, settings.container);
                 });
             }
             settings.container.appendChild(loader);
@@ -1351,7 +1351,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
         };
 
-    pklib.message = {
+    pklib.ui.message = {
         /**
          * @type string
          */
@@ -1386,10 +1386,10 @@ if (typeof Function.prototype.bind !== "function") {
             }
 
             settings.container.appendChild(message);
-            pklib.dom.center(message, settings.container);
+            pklib.ui.center(message, settings.container);
 
             pklib.event.add(global, "resize", function () {
-                pklib.dom.center(message, settings.container);
+                pklib.ui.center(message, settings.container);
             });
             if (typeof callback === "function") {
                 callback();
@@ -1680,7 +1680,7 @@ if (typeof Function.prototype.bind !== "function") {
             window: function (name) {
                 var clientName;
                 if (typeof name === "undefined") {
-                    throw new TypeError("pklib.utils.size.window: @name: undefined");
+                    throw new TypeError("pklib.ui.size.window: @name: undefined");
                 }
                 name = pklib.string.capitalize(name);
                 clientName = global.document.documentElement["client" + name];
@@ -1697,7 +1697,7 @@ if (typeof Function.prototype.bind !== "function") {
                     offsetBodyName,
                     offsetName;
                 if (typeof name === "undefined") {
-                    throw new TypeError("pklib.utils.size.document: @name: undefined");
+                    throw new TypeError("pklib.ui.size.document: @name: undefined");
                 }
                 name = pklib.string.capitalize(name);
                 clientName = document.documentElement["client" + name];
@@ -1714,7 +1714,7 @@ if (typeof Function.prototype.bind !== "function") {
              */
             object: function (obj, name) {
                 if (typeof name === "undefined" || typeof obj === "undefined") {
-                    throw new TypeError("pklib.utils.size.object: @name: undefined");
+                    throw new TypeError("pklib.ui.size.object: @name: undefined");
                 }
                 name = pklib.string.capitalize(name);
                 var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];

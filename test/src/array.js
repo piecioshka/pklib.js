@@ -6,7 +6,7 @@ pklib.event.add(window, "load", function () {
         var element = document.createElement("div");
         element.id = "_test_pklib_array_isArray";
         pklib.dom.insert(element, document.body);
-        var center = pklib.dom.center(pklib.dom.byId(element.id));
+        var center = pklib.ui.center(pklib.dom.byId(element.id));
         ok(pklib.array.isArray(center), "Params are in array");
         strictEqual(center.length, 2, "Two params");
         pklib.dom.remove(element);

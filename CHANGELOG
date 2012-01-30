@@ -1,3 +1,8 @@
+1.0.5
+* zmiana nazw funkcji w cookie
+* utworzenie nowego namespace ui
+* dodanie loader, glass, message do namespace'a ui
+
 1.0.4
 * poprawienie nazw parametrów
 * poprawienie JSDoc'a
@@ -8,7 +13,7 @@
 * dodanie metody pklib.dom.isElement do sprawdzania czy obiekt jest Elementem
 * poprawienie pklib.dom.byId 
 * przeniesienie metody pklib.dom.get do listy TODO i oznaczenie jako feature
-* optymalizacja metody pklib.dom.center oraz pklib.dom.maximize
+* optymalizacja metody pklib.ui.center oraz pklib.ui.maximize
 * dodanie metody pklib.dom.remove do usuniecia elementu z drzewa DOM
 * poprawnie całego obiektu pklib.event
 * dodanie metody pklib.event.get do pobrania eventów elementu

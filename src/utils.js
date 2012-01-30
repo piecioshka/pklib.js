@@ -1,7 +1,7 @@
 /**
  * Utils tools
- * @package utils
- * @dependence array, browser, dom, event, string
+ * @package pklib.utils
+ * @dependence pklib.array, pklib.browser, pklib.dom, pklib.event, pklib.string
  */
 (function (global) {
     "use strict";
@@ -10,56 +10,6 @@
         document = global.document || {};
 
     pklib.utils = {
-        size: {
-            /**
-             * @param name {String}
-             * @throws {TypeError}
-             * @return {Number}
-             */
-            window: function (name) {
-                var clientName;
-                if (typeof name === "undefined") {
-                    throw new TypeError("pklib.utils.size.window: @name: undefined");
-                }
-                name = pklib.string.capitalize(name);
-                clientName = global.document.documentElement["client" + name];
-                return (global.document.compatMode === "CSS1Compat" && clientName) || global.document.body["client" + name] || clientName;
-            },
-            /**
-             * @param name {String}
-             * @return {Number}
-             */
-            document: function (name) {
-                var clientName,
-                    scrollBodyName,
-                    scrollName,
-                    offsetBodyName,
-                    offsetName;
-                if (typeof name === "undefined") {
-                    throw new TypeError("pklib.utils.size.document: @name: undefined");
-                }
-                name = pklib.string.capitalize(name);
-                clientName = document.documentElement["client" + name];
-                scrollBodyName = document.body["scroll" + name];
-                scrollName = document.documentElement["scroll" + name];
-                offsetBodyName = document.body["offset" + name];
-                offsetName = document.documentElement["offset" + name];
-                return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
-            },
-            /**
-             * @param obj {HTMLElement}
-             * @param name {String}
-             * @return {number}
-             */
-            object: function (obj, name) {
-                if (typeof name === "undefined" || typeof obj === "undefined") {
-                    throw new TypeError("pklib.utils.size.object: @name: undefined");
-                }
-                name = pklib.string.capitalize(name);
-                var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];
-                return Math.max(client, scroll, offset);
-            }
-        },
         ascii: {
             letters: {
                 lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],

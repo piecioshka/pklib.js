@@ -1,6 +1,6 @@
 /**
  * Url helper manager
- * @package url
+ * @package pklib.url
  */
 (function (global) {
     "use strict";

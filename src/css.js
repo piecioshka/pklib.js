@@ -1,7 +1,7 @@
 /**
  * Utils method related css on tags in DOM tree.
- * @package css
- * @dependence string. dom
+ * @package pklib.css
+ * @dependence pklib.string. pklib.dom
  */
 (function (global) {
     "use strict";

@@ -1,8 +1,7 @@
 /**
  * String service manager
- * @package string
+ * @package pklib.string
  */
-
 (function (global) {
     "use strict";
 

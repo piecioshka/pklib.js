@@ -1,6 +1,6 @@
 /**
  * Module to service array object.
- * @package array
+ * @package pklib.array
  */
 (function (global) {
     "use strict";

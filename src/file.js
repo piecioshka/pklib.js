@@ -1,6 +1,6 @@
 /**
- * File manager
- * @package file
+ * JS file laoder
+ * @package pklib.file
  */
 (function (global) {
     "use strict";
@@ -37,43 +37,37 @@
 
     pklib.file = {
         /**
-         * Lazy load scripts.
-         * Append script to HEAD section.
-         * @param src {String}
+         * Lazy load JS files
+         * @param files {String | Array}
          * @param callback {Function}
          */
-        load: function (src, callback) {
-            loadjs(src, function (script) {
-                if (typeof callback === "function") {
-                    callback(script);
-                }
-            });
-        },
-        /**
-         * Lazy load menu files with dependencies which is que 
-         * files in array.
-         * Append script to HEAD section.
-         * @param files {Array}
-         * @param callback {Function}
-         * @param is_continue {Bool}
-         */
-        lazyLoad: function (files, callback, is_continue) {
-            var that = this,
+        loadjs: function (files, callback) {
+            if (typeof files === "string") {
+                var src = files;
+                loadjs(src, function (script) {
+                    if (typeof callback === "function") {
+                        callback(script);
+                    }
+                });
+            } else {
+                var that = this,
                 len = files.length,
                 file = files[lazy_file];
-            if (!is_continue) {
-                lazy_file = 0;
-            }
-            loadjs(file, function () {
-                if (lazy_file < len - 1) {
-                    lazy_file += 1;
-                    that.lazyLoad(files, callback, true);
-                } else {
-                    if (typeof callback === "function") {
-                        callback();
-                    }
+        
+                if (!is_continue) {
+                    lazy_file = 0;
                 }
-            });
+                loadjs(file, function () {
+                    if (lazy_file < len - 1) {
+                        lazy_file += 1;
+                        that.lazyLoad(files, callback, true);
+                    } else {
+                        if (typeof callback === "function") {
+                            callback();
+                        }
+                    }
+                });
+            }
         }
     };
 }(this));

@@ -1,8 +1,8 @@
 /**
  * Glass Adapter.
  * Show this on dimensions on browser. 
- * @package glass
- * @dependence browser, dom, event, utils
+ * @package pklib.glass
+ * @dependence pklib.browser, pklib.dom, pklib.event, pklib.utils
  */
 (function (global) {
     "use strict";
@@ -22,7 +22,11 @@
             }
         };
 
-    pklib.glass = {
+    if (typeof pklib.ui === "undefined" ) {
+        pklib.ui = {};
+    }
+    
+    pklib.ui.glass = {
         /**
          * @type {String}
          */
@@ -49,12 +53,12 @@
 
             settings.container.appendChild(glass);
 
-            pklib.dom.maximize(glass, settings.container);
+            pklib.ui.maximize(glass, settings.container);
 
             pklib.event.add(global, "resize", function () {
                 that.close();
                 that.show(config, callback);
-                pklib.dom.maximize(glass, settings.container);
+                pklib.ui.maximize(glass, settings.container);
             });
             if (typeof callback === "function") {
                 callback();

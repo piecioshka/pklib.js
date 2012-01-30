@@ -15,7 +15,7 @@
     }
     
     function adjustHeight(obj) {
-    	var windowHeight = pklib.utils.size.window("height");
+    	var windowHeight = pklib.ui.size.window("height");
     	obj.style.height = (windowHeight - 70) + "px";
     }
     function adjustColumns() {

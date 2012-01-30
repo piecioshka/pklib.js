@@ -1,7 +1,7 @@
 /**
  * Module to service asynchronous request.
- * @package ajax
- * @dependence array
+ * @package pklib.ajax
+ * @dependence pklib.array
  */
 (function (global) {
     "use strict";

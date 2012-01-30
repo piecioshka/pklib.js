@@ -704,7 +704,7 @@ pklib.cookie.create();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-cookie-read">pklib.cookie.read</h2>
+                    <h2 id="pklib-cookie-read">pklib.cookie.get</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -716,14 +716,14 @@ pklib.cookie.create();
                             <div id="pklib-cookie-read-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.cookie.read();
+pklib.cookie.get();
 &lt;/script&gt;
 </pre>
                             </div>
                         </div>
                     </div>
                     
-                    <h2 id="pklib-cookie-erase">pklib.cookie.erase</h2>
+                    <h2 id="pklib-cookie-erase">pklib.cookie.remove</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -735,7 +735,7 @@ pklib.cookie.read();
                             <div id="pklib-cookie-erase-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.cookie.erase();
+pklib.cookie.remove();
 &lt;/script&gt;
 </pre>
                             </div>
@@ -961,7 +961,7 @@ pklib.dom.children();
                         </div>
                     </div>
                     
-                    <h2 id="pklib-dom-center">pklib.dom.center</h2>
+                    <h2 id="pklib-dom-center">pklib.ui.center</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -973,14 +973,14 @@ pklib.dom.children();
                             <div id="pklib-dom-center-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.dom.center();
+pklib.ui.center();
 &lt;/script&gt;
 </pre>
                             </div>
                         </div>
                     </div>
                     
-                    <h2 id="pklib-dom-maximize">pklib.dom.maximize</h2>
+                    <h2 id="pklib-dom-maximize">pklib.ui.maximize</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -992,7 +992,7 @@ pklib.dom.center();
                             <div id="pklib-dom-maximize-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.dom.maximize();
+pklib.ui.maximize();
 &lt;/script&gt;
 </pre>
                             </div>
@@ -1180,7 +1180,7 @@ pklib.event.trigger();
                 <h1>pklib.file <small>{Object}</small></h1>
                 
                 <div class="well">
-                    <h2 id="pklib-file-load">pklib.file.load</h2>
+                    <h2 id="pklib-file-load">pklib.file.loadjs</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1192,7 +1192,7 @@ pklib.event.trigger();
                             <div id="pklib-file-load-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.file.load();
+pklib.file.loadjs();
 &lt;/script&gt;
 </pre>
                             </div>
@@ -1220,7 +1220,7 @@ pklib.file.lazyLoad();
                 </div>
             </div>
             <div id="pklib-glass" class="page-header">
-                <h1>pklib.glass <small>{Object}</small></h1>
+                <h1>pklib.ui.glass <small>{Object}</small></h1>
                 
                 <div class="well">
 	                <p>
@@ -1229,7 +1229,7 @@ pklib.file.lazyLoad();
 	                    Layer służy do wyłączenia częśći bądź całęj strony aby przykładowo wyświetlić komunikat.
 	                </p>
 	                
-                    <h2 id="pklib-glass-objId">pklib.glass.objId</h2>
+                    <h2 id="pklib-glass-objId">pklib.ui.glass.objId</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1241,14 +1241,14 @@ pklib.file.lazyLoad();
                             <div id="pklib-glass-objId-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.glass.objId();
+pklib.ui.glass.objId();
 &lt;/script&gt;
 </pre>
                             </div>
                         </div>
                     </div>
 	                
-	                <h2 id="pklib-glass-show">pklib.glass.show</h2>
+	                <h2 id="pklib-glass-show">pklib.ui.glass.show</h2>
 	                
 	                <div class="well-white">
 	                    <ul class="tabs">
@@ -1260,14 +1260,14 @@ pklib.glass.objId();
 	                        <div id="pklib-glass-show-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.glass.show();
+pklib.ui.glass.show();
 &lt;/script&gt;
 </pre>
 	                        </div>
 	                    </div>
 	                </div>
 	                
-	                <h2 id="pklib-glass-close">pklib.glass.close</h2>
+	                <h2 id="pklib-glass-close">pklib.ui.glass.close</h2>
 	                
 	                <div class="well-white">
 	                    <ul class="tabs">
@@ -1279,7 +1279,7 @@ pklib.glass.show();
 	                        <div id="pklib-glass-close-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.glass.close();
+pklib.ui.glass.close();
 &lt;/script&gt;
 </pre>
 	                        </div>
@@ -1331,18 +1331,18 @@ pklib.json.serialize();
                 </div>
             </div>
             <div id="pklib-loader" class="page-header">
-                <h1>pklib.loader <small>{Object}</small></h1>
+                <h1>pklib.ui.loader <small>{Object}</small></h1>
                 
                 <div class="well">
 	                <p>
 					Obsługa loadera, który jest dodawanym do drzewa DOM elementem o określonych parametrach.
 					Wymiary obrazka jak i link do obrazka jest łatwo konfigurowalny.
-					Gdy tylko pokażemy loader za pomocą metody **pklib.loader.show** zostanie on z default'u wycentrowany.
+					Gdy tylko pokażemy loader za pomocą metody **pklib.ui.loader.show** zostanie on z default'u wycentrowany.
 					Kontener w którym chcemy umieścić (pre)loader jest łatwy do zmiany, gdyż nie zawsze chcemy aby 
 					loader znajdował się na środku całej strony, ale być może tylko w danym kontenerze na stronie.  
 	                </p>
 	                
-                    <h2 id="pklib-loader-objId">pklib.loader.objId</h2>
+                    <h2 id="pklib-loader-objId">pklib.ui.loader.objId</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1354,14 +1354,14 @@ pklib.json.serialize();
                             <div id="pklib-loader-objId-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.loader.objId();
+pklib.ui.loader.objId();
 &lt;/script&gt;
 </pre>
                             </div>
                         </div>
                     </div>
                     
-                    <h2 id="pklib-loader-show">pklib.loader.show</h2>
+                    <h2 id="pklib-loader-show">pklib.ui.loader.show</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1373,14 +1373,14 @@ pklib.loader.objId();
                             <div id="pklib-loader-show-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.loader.show();
+pklib.ui.loader.show();
 &lt;/script&gt;
 </pre>
                             </div>
                         </div>
                     </div>
                     
-                    <h2 id="pklib-loader-close">pklib.loader.close</h2>
+                    <h2 id="pklib-loader-close">pklib.ui.loader.close</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1392,7 +1392,7 @@ pklib.loader.show();
                             <div id="pklib-loader-close-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.loader.close();
+pklib.ui.loader.close();
 &lt;/script&gt;
 </pre>
                             </div>
@@ -1401,7 +1401,7 @@ pklib.loader.close();
                 </div>
             </div>
             <div id="pklib-message" class="page-header">
-                <h1>pklib.message <small>{Object}</small></h1>
+                <h1>pklib.ui.message <small>{Object}</small></h1>
                 
                 <div class="well">
 	                <p>
@@ -1412,7 +1412,7 @@ pklib.loader.close();
 	                layera, tj. usunięcie z widoku warstwy reprezentującej komunikat dla użytkownika.
 	                </p>
 	                
-                    <h2 id="pklib-message-objId">pklib.message.objId</h2>
+                    <h2 id="pklib-message-objId">pklib.ui.message.objId</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1424,14 +1424,14 @@ pklib.loader.close();
                             <div id="pklib-message-objId-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.message.objId();
+pklib.ui.message.objId();
 &lt;/script&gt;
 </pre>
                             </div>
                         </div>
                     </div>
                     
-                    <h2 id="pklib-message-content">pklib.message.content</h2>
+                    <h2 id="pklib-message-content">pklib.ui.message.content</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1443,14 +1443,14 @@ pklib.message.objId();
                             <div id="pklib-message-content-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.message.content();
+pklib.ui.message.content();
 &lt;/script&gt;
 </pre>
                             </div>
                         </div>
                     </div>
                     
-                    <h2 id="pklib-message-show">pklib.message.show</h2>
+                    <h2 id="pklib-message-show">pklib.ui.message.show</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1462,14 +1462,14 @@ pklib.message.content();
                             <div id="pklib-message-show-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.message.show();
+pklib.ui.message.show();
 &lt;/script&gt;
 </pre>
                             </div>
                         </div>
                     </div>
                     
-                    <h2 id="pklib-message-close">pklib.message.close</h2>
+                    <h2 id="pklib-message-close">pklib.ui.message.close</h2>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1481,7 +1481,7 @@ pklib.message.show();
                             <div id="pklib-message-close-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.message.close();
+pklib.ui.message.close();
 &lt;/script&gt;
 </pre>
                             </div>
@@ -1872,9 +1872,9 @@ pklib.url.getHash();
                 <h1>pklib.utils <small>{Object}</small></h1>
                 
                 <div class="well">
-                    <h2>pklib.utils.size <small>{Object}</small></h2>
+                    <h2>pklib.ui.size <small>{Object}</small></h2>
                 
-                    <h3 id="pklib-utils-size-window">pklib.utils.size.window</h3>
+                    <h3 id="pklib-utils-size-window">pklib.ui.size.window</h3>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1886,14 +1886,14 @@ pklib.url.getHash();
                             <div id="pklib-utils-size-window-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.utils.size.window();
+pklib.ui.size.window();
 &lt;/script&gt;
 </pre>
                             </div>
                         </div>
                     </div>
                 
-                    <h3 id="pklib-utils-size-document">pklib.utils.size.document</h3>
+                    <h3 id="pklib-utils-size-document">pklib.ui.size.document</h3>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1905,14 +1905,14 @@ pklib.utils.size.window();
                             <div id="pklib-utils-size-document-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.utils.size.document();
+pklib.ui.size.document();
 &lt;/script&gt;
 </pre>
                             </div>
                         </div>
                     </div>
                 
-                    <h3 id="pklib-utils-size-object">pklib.utils.size.object</h3>
+                    <h3 id="pklib-utils-size-object">pklib.ui.size.object</h3>
                     
                     <div class="well-white">
                         <ul class="tabs">
@@ -1924,7 +1924,7 @@ pklib.utils.size.document();
                             <div id="pklib-utils-size-object-code">
 <pre class="prettyprint lang-css linenums">
 &lt;script type="text/javascript"&gt;
-pklib.utils.size.object();
+pklib.ui.size.object();
 &lt;/script&gt;
 </pre>
                             </div>

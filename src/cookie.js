@@ -1,6 +1,6 @@
 /**
  * Cookie service manager.
- * @package cookie
+ * @package pklib.cookie
  */
 (function (global) {
     "use strict";
@@ -28,14 +28,14 @@
 
             document.cookie = name + "=" + value + expires + "; path=/";
 
-            return this.read(name);
+            return this.get(name);
         },
         /**
          * Read cookie by it name.
          * @param name {String}
          * @return {String | null}
          */
-        read: function (name) {
+        get: function (name) {
             if (typeof name === "undefined") {
                 return null;
             }
@@ -60,7 +60,7 @@
          * @param name {String}
          * @return {String}
          */
-        erase: function (name) {
+        remove: function (name) {
             return this.create(name, undefined, -1);
         }
     };

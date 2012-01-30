@@ -1,8 +1,8 @@
 /**
  * Loader adapter.
  * Show animate image (GIF) on special place.
- * @package loader
- * @dependence dom, event, utils
+ * @package pklib.loader
+ * @dependence pklib.dom, pklib.event, pklib.utils
  */
 (function (global) {
     "use strict";
@@ -21,7 +21,7 @@
             center: true
         };
 
-    pklib.loader = {
+    pklib.ui.loader = {
         /**
          * @type string
          */
@@ -46,10 +46,10 @@
                 }
             }
             if (settings.center) {
-                pklib.dom.center(loader, settings.container);
+                pklib.ui.center(loader, settings.container);
 
                 pklib.event.add(global, "resize", function () {
-                    pklib.dom.center(loader, settings.container);
+                    pklib.ui.center(loader, settings.container);
                 });
             }
             settings.container.appendChild(loader);

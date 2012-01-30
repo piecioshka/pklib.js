@@ -1,6 +1,6 @@
 /**
  * Get best information about browser.
- * @package browser
+ * @package pklib.browser
  */
 (function (global) {
     "use strict";

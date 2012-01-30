@@ -60,14 +60,6 @@ pklib.event.add(window, "load", function () {
         deepEqual(pklib.dom.children(pklib.dom.byId(area.id)), [ element, element2 ], "Element " + area.nodeType + " have 2 childs");
         pklib.dom.remove(area);
     });
-    test("center", function() {
-    	// TODO: write this
-    	console.warn("[-] pklib.dom.center");
-    });
-    test("maximize", function () {
-    	// TODO: write this
-    	console.warn("[-] pklib.dom.maximize");
-    });
     test("insert", function () {
     	var wrapper = document.createElement("div");
     	wrapper.style.display = "none";

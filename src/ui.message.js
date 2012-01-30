@@ -1,7 +1,7 @@
 /**
  * Show layer on special place.
- * @package message
- * @dependence dom, event, utils
+ * @package pklib.message
+ * @dependence pklib.dom, pklib.event, pklib.utils
  */
 (function (global) {
     "use strict";
@@ -18,7 +18,7 @@
             }
         };
 
-    pklib.message = {
+    pklib.ui.message = {
         /**
          * @type string
          */
@@ -53,10 +53,10 @@
             }
 
             settings.container.appendChild(message);
-            pklib.dom.center(message, settings.container);
+            pklib.ui.center(message, settings.container);
 
             pklib.event.add(global, "resize", function () {
-                pklib.dom.center(message, settings.container);
+                pklib.ui.center(message, settings.container);
             });
             if (typeof callback === "function") {
                 callback();
