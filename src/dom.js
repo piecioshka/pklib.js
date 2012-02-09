@@ -13,14 +13,16 @@
      * Walking on every element in node
      * @param node {Node}
      * @param func {Function}
-     * @returns
+     * @return
      */
     function walk_the_dom(node, func) {
-        func(node);
-        node = node.firstChild;
-        while (node) {
-            walk_the_dom(node, func);
-            node = node.nextSibling;
+        if (!!node) {
+            func(node);
+            node = node.firstChild;
+            while (node) {
+                walk_the_dom(node, func);
+                node = node.nextSibling;
+            }
         }
     }
 
@@ -93,43 +95,16 @@
             }
         },
         /**
-         * Get element from  selector
+         * Get element from selector
          * @param {String} selector
-         * 
-         * TODO: Feature
+         * @return {NodeList | Array}
          */
-        /*
         get: function (selector) {
-		    function getType(selector) {
-		        if (/^\.(\w*)$/.test(selector)) {
-		            return "class";
-		        } else if (/^\#(\w*)$/.test(selector)) {
-		            return "id";
-		        } else {
-		            return "tag";
-		        }
-		    }
-            try {
-                var i,
-                    elements = selector.match(/[\.\#\w]+/g),
-                    len = elements.length,
-                    scope = global,
-                    item,
-                    type;
-                for (i = 0; i < len; ++i) {
-                    item = elements[i];
-                    type = getType(item);
-                    if (type === "class") {
-                        scope = this.byClass(item.substr(1), scope);
-                    } else if (type === "id") {
-                        scope = this.byId(item.substr(1), scope);
-                    } else {
-                        scope = this.byTag(item, scope);
-                    }
-                }
-            } catch (ignore) {}
+            if (document.querySelectorAll) {
+                return document.querySelectorAll(selector);
+            }
+            return [];
         },
-        */
         /**
          * @param node {Node}
          * @return {Number | null}
