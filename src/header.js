@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Mon Jan 30 10:55:11 GMT 2012
+ * Date: Fri Feb 10 00:05:14 GMT 2012
  */
 
 (function (global) {
@@ -33,7 +33,7 @@
     global.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
-        version: "1.0.4"
+        version: "1.0.5pre"
     };
 }(this));
 
