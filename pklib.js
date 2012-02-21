@@ -569,14 +569,16 @@ if (typeof Function.prototype.bind !== "function") {
      * Walking on every element in node
      * @param node {Node}
      * @param func {Function}
-     * @returns
+     * @return
      */
     function walk_the_dom(node, func) {
-        func(node);
-        node = node.firstChild;
-        while (node) {
-            walk_the_dom(node, func);
-            node = node.nextSibling;
+        if (!!node) {
+            func(node);
+            node = node.firstChild;
+            while (node) {
+                walk_the_dom(node, func);
+                node = node.nextSibling;
+            }
         }
     }
 
@@ -649,43 +651,16 @@ if (typeof Function.prototype.bind !== "function") {
             }
         },
         /**
-         * Get element from  selector
+         * Get element from selector
          * @param {String} selector
-         * 
-         * TODO: Feature
+         * @return {NodeList | Array}
          */
-        /*
         get: function (selector) {
-		    function getType(selector) {
-		        if (/^\.(\w*)$/.test(selector)) {
-		            return "class";
-		        } else if (/^\#(\w*)$/.test(selector)) {
-		            return "id";
-		        } else {
-		            return "tag";
-		        }
-		    }
-            try {
-                var i,
-                    elements = selector.match(/[\.\#\w]+/g),
-                    len = elements.length,
-                    scope = global,
-                    item,
-                    type;
-                for (i = 0; i < len; ++i) {
-                    item = elements[i];
-                    type = getType(item);
-                    if (type === "class") {
-                        scope = this.byClass(item.substr(1), scope);
-                    } else if (type === "id") {
-                        scope = this.byId(item.substr(1), scope);
-                    } else {
-                        scope = this.byTag(item, scope);
-                    }
-                }
-            } catch (ignore) {}
+            if (document.querySelectorAll) {
+                return document.querySelectorAll(selector);
+            }
+            return [];
         },
-        */
         /**
          * @param node {Node}
          * @return {Number | null}
@@ -939,31 +914,24 @@ if (typeof Function.prototype.bind !== "function") {
          * @param files {String | Array}
          * @param callback {Function}
          */
-        loadjs: function (files, callback, is_continue) {
-            var that = this, src, len, file;
-            if (pklib.string.isString(files)) {
-                src = files;
-                loadjs(src, function (script) {
+        loadjs: function (files, callback) {
+            if (typeof files === "string") {
+                loadjs(files, function (script) {
                     if (typeof callback === "function") {
                         callback(script);
                     }
                 });
             } else {
-                len = files.length;
-                file = files[lazy_file];
-
-                if (!is_continue) {
-                    lazy_file = 0;
+                var that = this,
+                    file = files.shift();
+        
+                if (typeof file === "undefined") {
+                    if (typeof callback === "function") {
+                        callback();
+                    }
                 }
                 loadjs(file, function () {
-                    if (lazy_file < len - 1) {
-                        lazy_file += 1;
-                        that.loadjs(files, callback, true);
-                    } else {
-                        if (typeof callback === "function") {
-                            callback();
-                        }
-                    }
+                    that.loadjs(files, callback);
                 });
             }
         }

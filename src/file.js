@@ -41,31 +41,24 @@
          * @param files {String | Array}
          * @param callback {Function}
          */
-        loadjs: function (files, callback, is_continue) {
-            var that = this, src, len, file;
-            if (pklib.string.isString(files)) {
-                src = files;
-                loadjs(src, function (script) {
+        loadjs: function (files, callback) {
+            if (typeof files === "string") {
+                loadjs(files, function (script) {
                     if (typeof callback === "function") {
                         callback(script);
                     }
                 });
             } else {
-                len = files.length;
-                file = files[lazy_file];
-
-                if (!is_continue) {
-                    lazy_file = 0;
+                var that = this,
+                    file = files.shift();
+        
+                if (typeof file === "undefined") {
+                    if (typeof callback === "function") {
+                        callback();
+                    }
                 }
                 loadjs(file, function () {
-                    if (lazy_file < len - 1) {
-                        lazy_file += 1;
-                        that.loadjs(files, callback, true);
-                    } else {
-                        if (typeof callback === "function") {
-                            callback();
-                        }
-                    }
+                    that.loadjs(files, callback);
                 });
             }
         }
