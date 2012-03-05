@@ -82,7 +82,10 @@
          * @return {String}
          */
         stripTags: function (source) {
-            return source.replace(/\\<\\S\\>/g, "");
+        	if (source && source.length !== 0) {
+        		return source.replace(/\\<\\S\\>/g, "");
+        	}
+        	return source;
         },
         /**
          * @param source {String}
