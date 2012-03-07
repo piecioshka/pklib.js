@@ -13,11 +13,11 @@
          * @param array {Object}
          * @return {Boolean}
          */
-        isArray: function (array) {
-            return typeof array === "object" &&
+        isArray: function isArray(array) {
+            return pklib.common.assert(typeof array === "object" &&
                 array !== null &&
                 typeof array.length !== "undefined" &&
-                typeof array.slice !== "undefined";
+                typeof array.slice !== "undefined", true);
         },
         /**
          * Check if element is in array by loop.
@@ -25,7 +25,7 @@
          * @param array {Array}
          * @return {Boolean}
          */
-        inArray: function (param, array) {
+        inArray: function inArray(param, array) {
             var i, len = array.length;
             for (i = 0; i < len; ++i) {
                 if (array[i] === param) {
@@ -41,7 +41,7 @@
          * @throws {ReferenceError}
          * @return {Boolean}
          */
-        index: function (item, array) {
+        index: function index(item, array) {
             var i, len = array.length;
             for (i = 0; i < len; ++i) {
                 if (array[i] === item) {
@@ -55,7 +55,7 @@
          * @param array {Array}
          * @return {Array}
          */
-        unique: function (array) {
+        unique: function unique(array) {
             var i, item, temp = [], len = array.length;
             for (i = 0; i < len; ++i) {
                 item = array[i];
@@ -69,10 +69,10 @@
          * Remove element declarated in infinity params without first.
          * First parameter is array object.
          * @param array {Array}
-         * @param {var}
+         * @param {Undefined}
          * @return {Array}
          */
-        remove: function (array) {
+        remove: function remove(array) {
             var i, param,
                 params = Array.prototype.slice.call(arguments, 1),
                 len = params.length;
@@ -86,11 +86,11 @@
             return array;
         },
         /**
-         * @param target {Array or Object}
-         * @param source {Array or Object}
+         * @param target {Array | Object}
+         * @param source {Array | Object}
          * @return {Array}
          */
-        mixin: function (target, source) {
+        mixin: function mixin(target, source) {
             var i, len = 0, element, item;
 
             if (this.isArray(target) && this.isArray(source)) {

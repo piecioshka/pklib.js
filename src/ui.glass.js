@@ -34,7 +34,7 @@
          * @param config {Object}
          * @param callback {Function}
          */
-        show: function (config, callback) {
+        show: function show(config, callback) {
             var that = this,
                 glass = document.createElement("div"),
                 glassStyle = glass.style,
@@ -68,7 +68,7 @@
          * @param callback {Function}
          * @return {Boolean}
          */
-        close: function (callback) {
+        close: function close(callback) {
             var glass = pklib.dom.byId(this.objId),
                 result = false;
             if (glass !== null) {

@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.0.5pre
+ * pklib JavaScript library v1.0.5
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  * 
@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Fri Feb 10 00:05:14 GMT 2012
+ * Date: Wed Mar  7 01:00:03 GMT 2012
  */
 
 (function (global) {
@@ -33,12 +33,12 @@
     global.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
-        version: "1.0.5pre"
+        version: "1.0.5"
     };
 }(this));
 
 if (typeof Function.prototype.bind !== "function") {
-	Function.prototype.bind = function (that) {
+	Function.prototype.bind = function bind(that) {
 	    "use strict";
 	    var method = this,
 	        slice = Array.prototype.slice,
@@ -93,14 +93,25 @@ if (typeof Function.prototype.bind !== "function") {
             }
 
             settings.done.call(null, xhr[property]);
+
+            if (typeof xhr.destroy === "function") {
+                xhr.destroy();
+            } else {
+
+                xhr = null;
+            }
         }
     }
     /**
      * @param settings {Object}
      * @param xhr {XMLHttpRequest}
+     * @throws XHRError
      */
     function timeoutHandler(settings, xhr) {
-        // pass
+        // clear memory
+        xhr = null;
+        // throw exception
+        throw new XHRError("pklib.ajax: XHRError: Timeout on: " + settings.url);
     }
     /**
      * @param settings {Object}
@@ -120,13 +131,13 @@ if (typeof Function.prototype.bind !== "function") {
         var xhr;
         try {
             xhr = new XMLHttpRequest();
-        } catch (a) {
+        } catch (ignore) {
             try {
                 xhr = new ActiveXObject("Msxml2.XMLHTTP");
-            } catch (b) {
+            } catch (ignored) {
                 try {
                     xhr = new ActiveXObject("Microsoft.XMLHTTP");
-                } catch (c) {
+                } catch (ignored) {
                     throw new XHRError("pklib.ajax: XHRError: Cannot create XHR object");
                 }
             }
@@ -149,9 +160,9 @@ if (typeof Function.prototype.bind !== "function") {
          *      done {Function}
          * }
          * </pre>
-         * @return {XMLHttpRequest}
+         * @return {XMLHttpRequest | Null}
          */
-        load: function (config) {
+        load: function load(config) {
             var header,
                 xhr = null,
                 settings = {
@@ -162,7 +173,7 @@ if (typeof Function.prototype.bind !== "function") {
                     params: null,
                     timeout: 30000,
                     headers: {},
-                    done: function () {
+                    done: function done() {
                         // pass
                     }
                 };
@@ -171,6 +182,7 @@ if (typeof Function.prototype.bind !== "function") {
 
             if (settings.cache && cache[settings.url]) {
                 handler.call(null, settings, cache[settings.url]);
+                return null;
             } else {
                 xhr = getXhr();
                 xhr.onreadystatechange = handler.bind(null, settings, xhr);
@@ -212,11 +224,11 @@ if (typeof Function.prototype.bind !== "function") {
          * @param array {Object}
          * @return {Boolean}
          */
-        isArray: function (array) {
-            return typeof array === "object" &&
+        isArray: function isArray(array) {
+            return pklib.common.assert(typeof array === "object" &&
                 array !== null &&
                 typeof array.length !== "undefined" &&
-                typeof array.slice !== "undefined";
+                typeof array.slice !== "undefined", true);
         },
         /**
          * Check if element is in array by loop.
@@ -224,7 +236,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param array {Array}
          * @return {Boolean}
          */
-        inArray: function (param, array) {
+        inArray: function inArray(param, array) {
             var i, len = array.length;
             for (i = 0; i < len; ++i) {
                 if (array[i] === param) {
@@ -240,7 +252,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @throws {ReferenceError}
          * @return {Boolean}
          */
-        index: function (item, array) {
+        index: function index(item, array) {
             var i, len = array.length;
             for (i = 0; i < len; ++i) {
                 if (array[i] === item) {
@@ -254,7 +266,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param array {Array}
          * @return {Array}
          */
-        unique: function (array) {
+        unique: function unique(array) {
             var i, item, temp = [], len = array.length;
             for (i = 0; i < len; ++i) {
                 item = array[i];
@@ -268,10 +280,10 @@ if (typeof Function.prototype.bind !== "function") {
          * Remove element declarated in infinity params without first.
          * First parameter is array object.
          * @param array {Array}
-         * @param {var}
+         * @param {Undefined}
          * @return {Array}
          */
-        remove: function (array) {
+        remove: function remove(array) {
             var i, param,
                 params = Array.prototype.slice.call(arguments, 1),
                 len = params.length;
@@ -285,11 +297,11 @@ if (typeof Function.prototype.bind !== "function") {
             return array;
         },
         /**
-         * @param target {Array or Object}
-         * @param source {Array or Object}
+         * @param target {Array | Object}
+         * @param source {Array | Object}
          * @return {Array}
          */
-        mixin: function (target, source) {
+        mixin: function mixin(target, source) {
             var i, len = 0, element, item;
 
             if (this.isArray(target) && this.isArray(source)) {
@@ -331,7 +343,7 @@ if (typeof Function.prototype.bind !== "function") {
      * @throws {TypeError}
      * @return {Function}
      */
-    pklib.aspect = function (fun, asp) {
+    pklib.aspect = function aspect(fun, asp) {
         var that = this;
         if (typeof fun !== "function") {
             throw new TypeError("pklib.aspect: @func: not function");
@@ -354,7 +366,6 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     var pklib = global.pklib || {},
-        navigator = global.navigator || {},
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 
     pklib.browser = {
@@ -362,11 +373,10 @@ if (typeof Function.prototype.bind !== "function") {
          * Get browser name by checking userAgent in global object navigator.
          * @return {String}
          */
-        getName: function () {
-            var i,
+        getName: function getName() {
+            var i, browser,
                 len = browsers.length,
-                userAgent = navigator.userAgent.toLowerCase(),
-                browser;
+                userAgent = navigator.userAgent.toLowerCase();
 
             for (i = 0; i < len; ++i) {
                 browser = browsers[i];
@@ -374,13 +384,14 @@ if (typeof Function.prototype.bind !== "function") {
                     return browser;
                 }
             }
+            return "undefined";
         },
         /**
          * Get browser version by checking userAgent.
          * Parse userAgent to find next 3 characters.
          * @return {String}
          */
-        getVersion: function () {
+        getVersion: function getVersion() {
             var i, len = browsers.length, browser, cur,
                 userAgent = navigator.userAgent.toLowerCase();
 
@@ -391,10 +402,28 @@ if (typeof Function.prototype.bind !== "function") {
                     return userAgent.substr(cur + len + 1, 3);
                 }
             }
+            return "-1";
         }
     };
 }(this));
 
+/**
+ * Common stuff
+ * @package pklib.common
+ */
+(function (global) {
+    "use strict";
+    var pklib = global.pklib;
+
+    pklib.common = {
+        assert: function assert(v, r) {
+            return v === r;
+        },
+        defer: function defer(func) {
+            setTimeout(func, 0);
+        }
+    };
+}(this));
 /**
  * Cookie service manager
  * @package pklib.cookie
@@ -413,7 +442,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param days {Number}
          * @return {string}
          */
-        create: function (name, value, days) {
+        create: function create(name, value, days) {
             value = value || null;
             var expires = "",
                 date = new Date();
@@ -430,13 +459,13 @@ if (typeof Function.prototype.bind !== "function") {
         /**
          * Read cookie by it name.
          * @param name {String}
-         * @return {String | null}
+         * @return {String | Null}
          */
-        get: function (name) {
+        get: function get(name) {
             if (typeof name === "undefined") {
                 return null;
             }
-            name = name + "=";
+            name += "=";
             var i, c,
                 ca = document.cookie.split(";"),
                 len = ca.length;
@@ -450,13 +479,14 @@ if (typeof Function.prototype.bind !== "function") {
                     return c.substring(name.length, c.length);
                 }
             }
+            return null;
         },
         /**
          * Delete cookie by it name.
          * @param name {String}
          * @return {String}
          */
-        remove: function (name) {
+        remove: function remove(name) {
             return this.create(name, undefined, -1);
         }
     };
@@ -479,8 +509,8 @@ if (typeof Function.prototype.bind !== "function") {
      * @param element {HTMLElement}
      * @throws {TypeError}
      */
-    function checkParams(cssClass, element, call_func_name) {
-        var prefix = "pklib.css." + call_func_name;
+    function checkParams(cssClass, element, callFuncName) {
+        var prefix = "pklib.css." + callFuncName;
         if (typeof cssClass !== "string") {
             throw new TypeError(prefix + ": @cssClass: not String");
         }
@@ -496,7 +526,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param element {HTMLElement}
          * @throws {TypeError}
          */
-        addClass: function (cssClass, element) {
+        addClass: function addClass(cssClass, element) {
             checkParams(cssClass, element, "addClass");
             var classElement = element.className;
             if (!this.hasClass(cssClass, element)) {
@@ -514,7 +544,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param element {HTMLElement}
          * @throws {TypeError}
          */
-        removeClass: function (cssClass, element) {
+        removeClass: function removeClass(cssClass, element) {
             checkParams(cssClass, element, "removeClass");
             var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
             element.className = pklib.string.trim(element.className.replace(regexp, ""));
@@ -526,7 +556,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @throws {TypeError}
          * @return {Boolean}
          */
-        hasClass: function (cssClass, element) {
+        hasClass: function hasClass(cssClass, element) {
             checkParams(cssClass, element, "hasClass");
             var className = " " + cssClass + " ";
             return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
@@ -547,7 +577,7 @@ if (typeof Function.prototype.bind !== "function") {
         /**
          * @return {string}
          */
-        getFullMonth: function () {
+        getFullMonth: function getFullMonth() {
             var month = (parseInt(new Date().getMonth(), 10) + 1);
             return (month < 10) ? "0" + month : month;
         }
@@ -571,12 +601,12 @@ if (typeof Function.prototype.bind !== "function") {
      * @param func {Function}
      * @return
      */
-    function walk_the_dom(node, func) {
+    function walkTheDom(node, func) {
         if (!!node) {
             func(node);
             node = node.firstChild;
             while (node) {
-                walk_the_dom(node, func);
+                walkTheDom(node, func);
                 node = node.nextSibling;
             }
         }
@@ -604,22 +634,21 @@ if (typeof Function.prototype.bind !== "function") {
          * @param node {Node}
          * @return {String}
          */
-        isNode: function (node) {
-            return ((node && node.nodeType) && node.nodeName) || false;
+        isNode: function isNode(node) {
+            return pklib.common.assert(Boolean(node && node.nodeType && node.nodeName), true);
         },
         /**
          * @param node {Node}
          * @return {String}
          */
-        isElement: function (node) {
+        isElement: function isElement(node) {
             return (node && node.nodeType === this.nodeTypes.ELEMENT_NODE) || false;
         },
         /**
          * @param id {String}
-         * @param wrapper {HTMLElement}
-         * @return {HTMLElement | null}
+         * @return {HTMLElement | Null}
          */
-        byId: function (id) {
+        byId: function byId(id) {
             return document.getElementById(id);
         },
         /**
@@ -627,7 +656,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param element {Element}
          * @return {NodeList}
          */
-        byTag: function (tag, element) {
+        byTag: function byTag(tag, element) {
             element = element || document;
             return element.getElementsByTagName(tag);
         },
@@ -636,13 +665,13 @@ if (typeof Function.prototype.bind !== "function") {
          * @param wrapper {HTMLElement}
          * @return {NodeList | Array}
          */
-        byClass: function (cssClass, wrapper) {
+        byClass: function byClass(cssClass, wrapper) {
             wrapper = wrapper || document;
             var results = [];
             if (wrapper.getElementsByClassName) {
                 return wrapper.getElementsByClassName(cssClass);
             } else {
-                walk_the_dom(wrapper, function (node) {
+                walkTheDom(wrapper, function (node) {
                     if (pklib.css.hasClass(cssClass, node)) {
                         results.push(node);
                     }
@@ -655,7 +684,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param {String} selector
          * @return {NodeList | Array}
          */
-        get: function (selector) {
+        get: function get(selector) {
             if (document.querySelectorAll) {
                 return document.querySelectorAll(selector);
             }
@@ -663,9 +692,9 @@ if (typeof Function.prototype.bind !== "function") {
         },
         /**
          * @param node {Node}
-         * @return {Number | null}
+         * @return {Number | Null}
          */
-        index: function (node) {
+        index: function index(node) {
             var i,
                 parent = this.parent(node),
                 childs = this.children(parent),
@@ -682,7 +711,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param node {Node}
          * @return {Array}
          */
-        children: function (node) {
+        children: function children(node) {
             var i,
                 array = [],
                 childs = node.childNodes,
@@ -700,7 +729,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param node {Node}
          * @return {HTMLElement}
          */
-        insert: function (element, node) {
+        insert: function insert(element, node) {
             if (this.isNode(element)) {
                 node.appendChild(element);
             } else if (pklib.string.isString(element)) {
@@ -709,9 +738,9 @@ if (typeof Function.prototype.bind !== "function") {
             return element;
         },
         /**
-         * @param node {Node}
+         * @param {Node}
          */
-        remove: function () {
+        remove: function remove() {
             var i, node = null, parent = null,
                 args = Array.prototype.slice.call(arguments),
                 len = args.length;
@@ -726,13 +755,13 @@ if (typeof Function.prototype.bind !== "function") {
         },
         /**
          * @param node {HTMLElement}
-         * @return {HTMLElement | null}
+         * @return {HTMLElement | Null}
          */
-        prev: function (node) {
-            var pNode = null;
+        prev: function prev(node) {
+            var pNode;
             while (true) {
                 pNode = node.previousSibling;
-                if (pNode != null && pNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                if (typeof pNode !== "undefined" && pNode !== null && pNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
                     node = pNode;
                 } else {
                     break;
@@ -742,13 +771,13 @@ if (typeof Function.prototype.bind !== "function") {
         },
         /**
          * @param node {HTMLElement}
-         * @return {HTMLElement | null}
+         * @return {HTMLElement | Null}
          */
-        next: function (node) {
-            var nNode = null;
+        next: function next(node) {
+            var nNode;
             while (true) {
                 nNode = node.nextSibling;
-                if (nNode != null && nNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                if (typeof nNode !== "undefined" && nNode !== null && nNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
                     node = nNode;
                 } else {
                     break;
@@ -758,19 +787,19 @@ if (typeof Function.prototype.bind !== "function") {
         },
         /**
          * @param node {HTMLElement}
-         * @return {HTMLElement | null}
+         * @return {HTMLElement | Null}
          */
-        parent: function (node) {
-            var parent = null;
+        parent: function parent(node) {
+            var prNode;
             while (true) {
-                parent = node.parentNode;
-                if (parent != null && parent.nodeType !== this.nodeTypes.ELEMENT_NODE) {
-                    node = parent;
+                prNode = node.parentNode;
+                if (typeof prNode !== "undefined" && prNode !== null && prNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                    node = prNode;
                 } else {
                     break;
                 }
             }
-            return parent;
+            return prNode;
         }
     };
 }(this));
@@ -790,7 +819,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param eventName {String}
          * @param handler {Function}
          */
-        add: function (target, eventName, handler) {
+        add: function add(target, eventName, handler) {
             if (typeof target.events === "undefined") {
                 target.events = {};
             }
@@ -811,9 +840,8 @@ if (typeof Function.prototype.bind !== "function") {
         /**
          * @param target {HTMLElement}
          * @param eventName {String}
-         * @param handler {Function}
          */
-        remove: function (target, eventName) {
+        remove: function remove(target, eventName) {
             if (typeof target.events === "undefined") {
                 target.events = {};
             }
@@ -841,7 +869,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param eventName {String}
          * @return {Array | undefined}
          */
-        get: function (target, eventName) {
+        get: function get(target, eventName) {
             if (typeof target.events === "undefined") {
                 target.events = {};
             }
@@ -852,20 +880,20 @@ if (typeof Function.prototype.bind !== "function") {
          * @param eventName {String}
          * @throws {ReferenceError}
          */
-        trigger: function (target, eventName) {
+        trigger: function trigger(target, eventName) {
             if (typeof target.events === "undefined") {
                 target.events = {};
             }
 
             var events = target.events[eventName], len, i;
-            if (typeof events !== "undefined") {
+            if (typeof events === "undefined") {
+                throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": undefined");
+            } else {
                 len = events.length;
 
                 for (i = 0; i < len; ++i) {
                     events[i].call(target, events[i]);
                 }
-            } else {
-                throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": undefined");
             }
         }
     };
@@ -879,15 +907,14 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     var pklib = global.pklib || {},
-        document = global.document || {},
-        lazy_file = 0;
+        document = global.document || {};
 
-    function loadjs(url, callback) {
+    function simpleLoadJS(url, callback) {
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.src = url;
         if (script.readyState) {
-            script.onreadystatechange = function () {
+            script.onreadystatechange = function onreadystatechange() {
                 if (script.readyState === "loaded" || script.readyState === "complete") {
                     script.onreadystatechange = null;
                     if (typeof callback === "function") {
@@ -896,7 +923,7 @@ if (typeof Function.prototype.bind !== "function") {
                 }
             };
         } else {
-            script.onload = function () {
+            script.onload = function onload() {
                 if (typeof callback === "function") {
                     callback(script);
                 }
@@ -914,9 +941,9 @@ if (typeof Function.prototype.bind !== "function") {
          * @param files {String | Array}
          * @param callback {Function}
          */
-        loadjs: function (files, callback) {
+        loadjs: function loadjs(files, callback) {
             if (typeof files === "string") {
-                loadjs(files, function (script) {
+                simpleLoadJS(files, function (script) {
                     if (typeof callback === "function") {
                         callback(script);
                     }
@@ -930,7 +957,7 @@ if (typeof Function.prototype.bind !== "function") {
                         callback();
                     }
                 }
-                loadjs(file, function () {
+                simpleLoadJS(file, function () {
                     that.loadjs(files, callback);
                 });
             }
@@ -976,7 +1003,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param object {Array}
          * @return {String}
          */
-        stringify: function (object) {
+        stringify: function stringify(object) {
             var source = "",
                 args = Array.prototype.slice.call(arguments),
                 index = args[1] || 0,
@@ -1037,13 +1064,13 @@ if (typeof Function.prototype.bind !== "function") {
             return source;
         },
         /**
-         * @param object {Object}
+         * @param source {Object}
          * @param toJson {Boolean}
          * @throws {TypeError}
          * @return {String}
          */
-        serialize: function (source, toJson) {
-            if (typeof source !== "object" || source === null) {
+        serialize: function serialize(source, toJson) {
+            if (typeof source !== "object" || pklib.common.assert(source, null)) {
                 throw new TypeError("pklib.json.serialize: @source: not object");
             }
 
@@ -1104,7 +1131,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param name {String}
          * @return {Number}
          */
-        start: function (name) {
+        start: function start(name) {
             data[name] = new Date();
             return data[name];
         },
@@ -1112,7 +1139,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param name {String}
          * @return {Number}
          */
-        stop: function (name) {
+        stop: function stop(name) {
             data[name] = new Date() - data[name];
             return new Date((new Date()).getTime() + data[name]);
         },
@@ -1120,7 +1147,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param name {String}
          * @return {Number}
          */
-        getTime: function (name) {
+        getTime: function getTime(name) {
             return data[name];
         }
     };
@@ -1140,31 +1167,31 @@ if (typeof Function.prototype.bind !== "function") {
          * @param source {String}
          * @return {Boolean}
          */
-        isString: function (source) {
+        isString: function isString(source) {
             return typeof source === "string";
         },
         /**
          * @param source {String}
          * @return {Boolean}
          */
-        isLetter: function (source) {
+        isLetter: function isLetter(source) {
             return this.isString(source) && /^[a-zA-Z]$/.test(source);
         },
         /**
          * @param source {String}
          * @return {String}
          */
-        trim: function (source) {
+        trim: function trim(source) {
             return source.replace(/^\s+|\s+$/g, "");
         },
         /**
          * @param source {String}
          * @return {String}
          */
-        slug: function (source) {
+        slug: function slug(source) {
             var result = source.toLowerCase().replace(/\s/mg, "-");
             result = result.replace(/[^a-zA-Z0-9\-]/mg, function (ch) {
-                switch (ch.charCodeAt()) {
+                switch (ch.charCodeAt(0)) {
                 case 261:
                     return String.fromCharCode(97);
                 case 281:
@@ -1193,14 +1220,14 @@ if (typeof Function.prototype.bind !== "function") {
          * @param source {String}
          * @return {String}
          */
-        capitalize: function (source) {
+        capitalize: function capitalize(source) {
             return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
         },
         /**
          * @param source {String}
          * @return {String}
          */
-        delimiterSeparatedWords: function (source) {
+        delimiterSeparatedWords: function delimiterSeparatedWords(source) {
             return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function (match) {
                 return "-" + match.toLowerCase();
             });
@@ -1209,17 +1236,17 @@ if (typeof Function.prototype.bind !== "function") {
          * @param source {String}
          * @return {String}
          */
-        stripTags: function (source) {
-        	if (source && source.length !== 0) {
-        		return source.replace(/\\<\\S\\>/g, "");
-        	}
-        	return source;
+        stripTags: function stripTags(source) {
+            if (source && source.length !== 0) {
+                return source.replace(/\\<\\S\\>/g, "");
+            }
+            return source;
         },
         /**
          * @param source {String}
          * @return {String}
          */
-        camelCase: function (source) {
+        camelCase: function camelCase(source) {
             while (source.indexOf("-") !== -1) {
                 var pos = source.indexOf("-"),
                     pre = source.substr(0, pos),
@@ -1234,7 +1261,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param length {Number}
          * @return {String}
          */
-        slice: function (source, length) {
+        slice: function slice(source, length) {
             var item,
                 text = "",
                 num = source.length;
@@ -1271,7 +1298,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @throws {TypeError}
          * @return {Array}
          */
-        center: function (element, wrapper) {
+        center: function center(element, wrapper) {
             var left = null,
                 top = null,
                 pus = this.size;
@@ -1297,7 +1324,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param wrapper {HTMLElement}
          * @return {Array}
          */
-        maximize: function (element, wrapper) {
+        maximize: function maximize(element, wrapper) {
             var width = null,
                 height = null,
                 pus = pklib.ui.size;
@@ -1320,13 +1347,13 @@ if (typeof Function.prototype.bind !== "function") {
          * @param param {Number}
          * @param animate {Boolean}
          */
-        scrollTo: function (param, animate) {
+        scrollTo: function scrollTo(param, animate) {
             var interval = null;
-            if (true === animate) {
-                interval = global.setInterval(function () {
+            if (pklib.common.assert(animate, true)) {
+                interval = setInterval(function () {
                     document.body.scrollTop -= 5;
                     if (document.body.scrollTop <= 0) {
-                        global.clearInterval(interval);
+                        clearInterval(interval);
                     }
                 }, 1);
             } else {
@@ -1371,7 +1398,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param config {Object}
          * @param callback {Function}
          */
-        show: function (config, callback) {
+        show: function show(config, callback) {
             var that = this,
                 glass = document.createElement("div"),
                 glassStyle = glass.style,
@@ -1405,7 +1432,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param callback {Function}
          * @return {Boolean}
          */
-        close: function (callback) {
+        close: function close(callback) {
             var glass = pklib.dom.byId(this.objId),
                 result = false;
             if (glass !== null) {
@@ -1457,7 +1484,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param {object} config
          * @param {function} callback
          */
-        show: function (config, callback) {
+        show: function show(config, callback) {
             settings.container = document.body;
             settings = pklib.array.mixin(settings, config);
 
@@ -1483,12 +1510,13 @@ if (typeof Function.prototype.bind !== "function") {
             if (typeof callback === "function") {
                 callback();
             }
+            // clear memory
             loader = null;
         },
         /**
          * @param callback {Function}
          */
-        close: function (callback) {
+        close: function close(callback) {
             var loader = pklib.dom.byId(this.objId),
                 result = false;
             if (loader !== null) {
@@ -1534,14 +1562,14 @@ if (typeof Function.prototype.bind !== "function") {
          */
         objId: id,
         /**
-         * @type null
+         * @type Null
          */
         content: null,
         /**
          * @param config {Object}
          * @param callback {Function}
          */
-        show: function (config, callback) {
+        show: function show(config, callback) {
             settings.container = document.body;
             settings = pklib.array.mixin(settings, config);
 
@@ -1576,7 +1604,7 @@ if (typeof Function.prototype.bind !== "function") {
         /**
          * @param callback {Function}
          */
-        close: function (callback) {
+        close: function close(callback) {
             var message = pklib.dom.byId(this.objId),
                 result = false;
             if (message !== null) {
@@ -1613,20 +1641,22 @@ if (typeof Function.prototype.bind !== "function") {
          * @throws {TypeError}
          * @return {Number}
          */
-        window: function (name) {
+        window: function pklib_ui_size_window(name) {
             var clientName;
             if (typeof name === "undefined") {
                 throw new TypeError("pklib.ui.size.window: @name: undefined");
             }
             name = pklib.string.capitalize(name);
-            clientName = global.document.documentElement["client" + name];
-            return (global.document.compatMode === "CSS1Compat" && clientName) || global.document.body["client" + name] || clientName;
+            clientName = document.documentElement["client" + name];
+            return (document.compatMode === "CSS1Compat" && clientName) ||
+                document.body["client" + name] ||
+                clientName;
         },
         /**
          * @param name {String}
          * @return {Number}
          */
-        document: function (name) {
+        document: function pklib_ui_size_document(name) {
             var clientName,
                 scrollBodyName,
                 scrollName,
@@ -1648,7 +1678,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @param name {String}
          * @return {number}
          */
-        object: function (obj, name) {
+        object: function pklib_ui_size_object(obj, name) {
             if (typeof name === "undefined" || typeof obj === "undefined") {
                 throw new TypeError("pklib.ui.size.object: @name: undefined");
             }
@@ -1673,34 +1703,34 @@ if (typeof Function.prototype.bind !== "function") {
         /**
          * @return {String}
          */
-        getProtocol: function () {
+        getProtocol: function getProtocol() {
             return loc.protocol;
         },
         /**
          * @return {String}
          */
-        getHost: function () {
+        getHost: function getHost() {
             return loc.host;
         },
         /**
          * @return {String}
          */
-        getPort: function () {
+        getPort: function getPort() {
             return loc.port || 80;
         },
         /**
          * @return {String}
          */
-        getUri: function () {
+        getUri: function getUri() {
             return loc.pathname;
         },
         /**
          * @return {Array}
          */
-        getParams: function () {
-            var i, item, len = 0,
+        getParams: function getParams() {
+            var i, item, len,
                 params = loc.search,
-                params_obj = {};
+                paramsList = {};
             if (params.substr(0, 1) === "?") {
                 params = params.substr(1);
             }
@@ -1708,18 +1738,17 @@ if (typeof Function.prototype.bind !== "function") {
             len = params.length;
             for (i = 0; i < len; ++i) {
                 item = params[i].split("=");
-                params_obj[item[0]] = item[1];
+                paramsList[item[0]] = item[1];
             }
-            return params_obj;
+            return paramsList;
         },
         /**
          * @param key {String}
          * @return {String}
          */
-        getParam: function (key) {
+        getParam: function getParam(key) {
             var params = loc.search,
-                i,
-                item,
+                i, item,
                 len = params.length;
             if (params.substr(0, 1) === "?") {
                 params = params.substr(1);
@@ -1731,11 +1760,12 @@ if (typeof Function.prototype.bind !== "function") {
                     return item[1];
                 }
             }
+            return null;
         },
         /**
          * @return {String}
          */
-        getHash: function () {
+        getHash: function getHash() {
             return loc.hash;
         }
     };
@@ -1744,7 +1774,7 @@ if (typeof Function.prototype.bind !== "function") {
 /**
  * Utils tools
  * @package pklib.utils
- * @dependence pklib.dom, pklib.event
+ * @dependence pklib.common, pklib.dom, pklib.event
  */
 (function (global) {
     "use strict";
@@ -1763,7 +1793,7 @@ if (typeof Function.prototype.bind !== "function") {
             /**
              * @param obj {HTMLElement}
              */
-            clearfocus: function (obj) {
+            clearfocus: function clearfocus(obj) {
                 if (typeof obj !== "undefined") {
                     pklib.event.add(obj, "focus", function () {
                         if (this.value === this.defaultValue) {
@@ -1780,16 +1810,17 @@ if (typeof Function.prototype.bind !== "function") {
             /**
              * @param area {HTMLElement}
              */
-            outerlink: function (area) {
+            outerlink: function outerlink(area) {
                 area = area || document;
                 var i,
                     link,
-                    links = pklib.dom.byTag("a"),
-                    len = links.length,
-                    opentrigger = function (evt) {
-                        global.open(this.href);
-                        evt.preventDefault();
-                    };
+                    links = pklib.dom.byTag("a", area),
+                    len = links.length;
+
+                function opentrigger(evt) {
+                    global.open(this.href);
+                    evt.preventDefault();
+                }
 
                 for (i = 0; i < len; ++i) {
                     link = links[i];
@@ -1802,14 +1833,14 @@ if (typeof Function.prototype.bind !== "function") {
              * @param element {HTMLElement}
              * @param text {String}
              */
-            confirm: function (element, text) {
+            confirm: function confirm(element, text) {
                 var response;
                 if (typeof element !== "undefined") {
                     text = text || "Sure?";
 
                     pklib.event.add(element, "click", function (evt) {
                         response = global.confirm(text);
-                        if (true === response) {
+                        if (pklib.common.assert(response, true)) {
                             return true;
                         } else {
                             evt.preventDefault();

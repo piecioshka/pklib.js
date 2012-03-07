@@ -1,7 +1,7 @@
 /**
  * Utils tools
  * @package pklib.utils
- * @dependence pklib.dom, pklib.event
+ * @dependence pklib.common, pklib.dom, pklib.event
  */
 (function (global) {
     "use strict";
@@ -20,7 +20,7 @@
             /**
              * @param obj {HTMLElement}
              */
-            clearfocus: function (obj) {
+            clearfocus: function clearfocus(obj) {
                 if (typeof obj !== "undefined") {
                     pklib.event.add(obj, "focus", function () {
                         if (this.value === this.defaultValue) {
@@ -37,16 +37,17 @@
             /**
              * @param area {HTMLElement}
              */
-            outerlink: function (area) {
+            outerlink: function outerlink(area) {
                 area = area || document;
                 var i,
                     link,
-                    links = pklib.dom.byTag("a"),
-                    len = links.length,
-                    opentrigger = function (evt) {
-                        global.open(this.href);
-                        evt.preventDefault();
-                    };
+                    links = pklib.dom.byTag("a", area),
+                    len = links.length;
+
+                function opentrigger(evt) {
+                    global.open(this.href);
+                    evt.preventDefault();
+                }
 
                 for (i = 0; i < len; ++i) {
                     link = links[i];
@@ -59,14 +60,14 @@
              * @param element {HTMLElement}
              * @param text {String}
              */
-            confirm: function (element, text) {
+            confirm: function confirm(element, text) {
                 var response;
                 if (typeof element !== "undefined") {
                     text = text || "Sure?";
 
                     pklib.event.add(element, "click", function (evt) {
                         response = global.confirm(text);
-                        if (true === response) {
+                        if (pklib.common.assert(response, true)) {
                             return true;
                         } else {
                             evt.preventDefault();

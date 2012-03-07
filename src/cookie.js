@@ -16,7 +16,7 @@
          * @param days {Number}
          * @return {string}
          */
-        create: function (name, value, days) {
+        create: function create(name, value, days) {
             value = value || null;
             var expires = "",
                 date = new Date();
@@ -33,13 +33,13 @@
         /**
          * Read cookie by it name.
          * @param name {String}
-         * @return {String | null}
+         * @return {String | Null}
          */
-        get: function (name) {
+        get: function get(name) {
             if (typeof name === "undefined") {
                 return null;
             }
-            name = name + "=";
+            name += "=";
             var i, c,
                 ca = document.cookie.split(";"),
                 len = ca.length;
@@ -53,13 +53,14 @@
                     return c.substring(name.length, c.length);
                 }
             }
+            return null;
         },
         /**
          * Delete cookie by it name.
          * @param name {String}
          * @return {String}
          */
-        remove: function (name) {
+        remove: function remove(name) {
             return this.create(name, undefined, -1);
         }
     };

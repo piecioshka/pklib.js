@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.0.5pre
+ * pklib JavaScript library v1.0.5
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  * 
@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Fri Feb 10 00:05:14 GMT 2012
+ * Date: Wed Mar  7 01:00:03 GMT 2012
  */
 
 (function (global) {
@@ -33,12 +33,12 @@
     global.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
-        version: "1.0.5pre"
+        version: "1.0.5"
     };
 }(this));
 
 if (typeof Function.prototype.bind !== "function") {
-	Function.prototype.bind = function (that) {
+	Function.prototype.bind = function bind(that) {
 	    "use strict";
 	    var method = this,
 	        slice = Array.prototype.slice,

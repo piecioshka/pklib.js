@@ -34,7 +34,7 @@
          * @param {object} config
          * @param {function} callback
          */
-        show: function (config, callback) {
+        show: function show(config, callback) {
             settings.container = document.body;
             settings = pklib.array.mixin(settings, config);
 
@@ -60,12 +60,13 @@
             if (typeof callback === "function") {
                 callback();
             }
+            // clear memory
             loader = null;
         },
         /**
          * @param callback {Function}
          */
-        close: function (callback) {
+        close: function close(callback) {
             var loader = pklib.dom.byId(this.objId),
                 result = false;
             if (loader !== null) {

@@ -19,20 +19,22 @@
          * @throws {TypeError}
          * @return {Number}
          */
-        window: function (name) {
+        window: function pklib_ui_size_window(name) {
             var clientName;
             if (typeof name === "undefined") {
                 throw new TypeError("pklib.ui.size.window: @name: undefined");
             }
             name = pklib.string.capitalize(name);
-            clientName = global.document.documentElement["client" + name];
-            return (global.document.compatMode === "CSS1Compat" && clientName) || global.document.body["client" + name] || clientName;
+            clientName = document.documentElement["client" + name];
+            return (document.compatMode === "CSS1Compat" && clientName) ||
+                document.body["client" + name] ||
+                clientName;
         },
         /**
          * @param name {String}
          * @return {Number}
          */
-        document: function (name) {
+        document: function pklib_ui_size_document(name) {
             var clientName,
                 scrollBodyName,
                 scrollName,
@@ -54,7 +56,7 @@
          * @param name {String}
          * @return {number}
          */
-        object: function (obj, name) {
+        object: function pklib_ui_size_object(obj, name) {
             if (typeof name === "undefined" || typeof obj === "undefined") {
                 throw new TypeError("pklib.ui.size.object: @name: undefined");
             }

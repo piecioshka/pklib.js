@@ -12,34 +12,34 @@
         /**
          * @return {String}
          */
-        getProtocol: function () {
+        getProtocol: function getProtocol() {
             return loc.protocol;
         },
         /**
          * @return {String}
          */
-        getHost: function () {
+        getHost: function getHost() {
             return loc.host;
         },
         /**
          * @return {String}
          */
-        getPort: function () {
+        getPort: function getPort() {
             return loc.port || 80;
         },
         /**
          * @return {String}
          */
-        getUri: function () {
+        getUri: function getUri() {
             return loc.pathname;
         },
         /**
          * @return {Array}
          */
-        getParams: function () {
-            var i, item, len = 0,
+        getParams: function getParams() {
+            var i, item, len,
                 params = loc.search,
-                params_obj = {};
+                paramsList = {};
             if (params.substr(0, 1) === "?") {
                 params = params.substr(1);
             }
@@ -47,18 +47,17 @@
             len = params.length;
             for (i = 0; i < len; ++i) {
                 item = params[i].split("=");
-                params_obj[item[0]] = item[1];
+                paramsList[item[0]] = item[1];
             }
-            return params_obj;
+            return paramsList;
         },
         /**
          * @param key {String}
          * @return {String}
          */
-        getParam: function (key) {
+        getParam: function getParam(key) {
             var params = loc.search,
-                i,
-                item,
+                i, item,
                 len = params.length;
             if (params.substr(0, 1) === "?") {
                 params = params.substr(1);
@@ -70,11 +69,12 @@
                     return item[1];
                 }
             }
+            return null;
         },
         /**
          * @return {String}
          */
-        getHash: function () {
+        getHash: function getHash() {
             return loc.hash;
         }
     };

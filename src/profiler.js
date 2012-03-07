@@ -13,7 +13,7 @@
          * @param name {String}
          * @return {Number}
          */
-        start: function (name) {
+        start: function start(name) {
             data[name] = new Date();
             return data[name];
         },
@@ -21,7 +21,7 @@
          * @param name {String}
          * @return {Number}
          */
-        stop: function (name) {
+        stop: function stop(name) {
             data[name] = new Date() - data[name];
             return new Date((new Date()).getTime() + data[name]);
         },
@@ -29,7 +29,7 @@
          * @param name {String}
          * @return {Number}
          */
-        getTime: function (name) {
+        getTime: function getTime(name) {
             return data[name];
         }
     };

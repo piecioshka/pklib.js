@@ -13,7 +13,7 @@
          * @param eventName {String}
          * @param handler {Function}
          */
-        add: function (target, eventName, handler) {
+        add: function add(target, eventName, handler) {
             if (typeof target.events === "undefined") {
                 target.events = {};
             }
@@ -34,9 +34,8 @@
         /**
          * @param target {HTMLElement}
          * @param eventName {String}
-         * @param handler {Function}
          */
-        remove: function (target, eventName) {
+        remove: function remove(target, eventName) {
             if (typeof target.events === "undefined") {
                 target.events = {};
             }
@@ -64,7 +63,7 @@
          * @param eventName {String}
          * @return {Array | undefined}
          */
-        get: function (target, eventName) {
+        get: function get(target, eventName) {
             if (typeof target.events === "undefined") {
                 target.events = {};
             }
@@ -75,20 +74,20 @@
          * @param eventName {String}
          * @throws {ReferenceError}
          */
-        trigger: function (target, eventName) {
+        trigger: function trigger(target, eventName) {
             if (typeof target.events === "undefined") {
                 target.events = {};
             }
 
             var events = target.events[eventName], len, i;
-            if (typeof events !== "undefined") {
+            if (typeof events === "undefined") {
+                throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": undefined");
+            } else {
                 len = events.length;
 
                 for (i = 0; i < len; ++i) {
                     events[i].call(target, events[i]);
                 }
-            } else {
-                throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": undefined");
             }
         }
     };

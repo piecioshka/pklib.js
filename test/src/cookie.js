@@ -23,6 +23,6 @@ pklib.event.add(window, "load", function () {
         strictEqual(pklib.cookie.get(cookie_name), cookie_data, "Data in cookie: " + cookie_name + " is OK");
         pklib.cookie.remove(cookie_name);
         notEqual(pklib.cookie.get(cookie_name), cookie_data, "Cookie: " + cookie_name + " don't have data:" + cookie_data);
-        strictEqual(pklib.cookie.get(cookie_name), undefined, "Cookie: " + cookie_name + " is erase");
+        strictEqual(pklib.cookie.get(cookie_name), null, "Cookie: " + cookie_name + " is erase");
     });
 });

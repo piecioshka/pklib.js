@@ -28,14 +28,14 @@
          */
         objId: id,
         /**
-         * @type null
+         * @type Null
          */
         content: null,
         /**
          * @param config {Object}
          * @param callback {Function}
          */
-        show: function (config, callback) {
+        show: function show(config, callback) {
             settings.container = document.body;
             settings = pklib.array.mixin(settings, config);
 
@@ -70,7 +70,7 @@
         /**
          * @param callback {Function}
          */
-        close: function (callback) {
+        close: function close(callback) {
             var message = pklib.dom.byId(this.objId),
                 result = false;
             if (message !== null) {

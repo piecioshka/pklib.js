@@ -15,7 +15,7 @@
      * @throws {TypeError}
      * @return {Function}
      */
-    pklib.aspect = function (fun, asp) {
+    pklib.aspect = function aspect(fun, asp) {
         var that = this;
         if (typeof fun !== "function") {
             throw new TypeError("pklib.aspect: @func: not function");

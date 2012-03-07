@@ -16,7 +16,7 @@
          * @throws {TypeError}
          * @return {Array}
          */
-        center: function (element, wrapper) {
+        center: function center(element, wrapper) {
             var left = null,
                 top = null,
                 pus = this.size;
@@ -42,7 +42,7 @@
          * @param wrapper {HTMLElement}
          * @return {Array}
          */
-        maximize: function (element, wrapper) {
+        maximize: function maximize(element, wrapper) {
             var width = null,
                 height = null,
                 pus = pklib.ui.size;
@@ -65,13 +65,13 @@
          * @param param {Number}
          * @param animate {Boolean}
          */
-        scrollTo: function (param, animate) {
+        scrollTo: function scrollTo(param, animate) {
             var interval = null;
-            if (true === animate) {
-                interval = global.setInterval(function () {
+            if (pklib.common.assert(animate, true)) {
+                interval = setInterval(function () {
                     document.body.scrollTop -= 5;
                     if (document.body.scrollTop <= 0) {
-                        global.clearInterval(interval);
+                        clearInterval(interval);
                     }
                 }, 1);
             } else {

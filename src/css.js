@@ -15,8 +15,8 @@
      * @param element {HTMLElement}
      * @throws {TypeError}
      */
-    function checkParams(cssClass, element, call_func_name) {
-        var prefix = "pklib.css." + call_func_name;
+    function checkParams(cssClass, element, callFuncName) {
+        var prefix = "pklib.css." + callFuncName;
         if (typeof cssClass !== "string") {
             throw new TypeError(prefix + ": @cssClass: not String");
         }
@@ -32,7 +32,7 @@
          * @param element {HTMLElement}
          * @throws {TypeError}
          */
-        addClass: function (cssClass, element) {
+        addClass: function addClass(cssClass, element) {
             checkParams(cssClass, element, "addClass");
             var classElement = element.className;
             if (!this.hasClass(cssClass, element)) {
@@ -50,7 +50,7 @@
          * @param element {HTMLElement}
          * @throws {TypeError}
          */
-        removeClass: function (cssClass, element) {
+        removeClass: function removeClass(cssClass, element) {
             checkParams(cssClass, element, "removeClass");
             var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
             element.className = pklib.string.trim(element.className.replace(regexp, ""));
@@ -62,7 +62,7 @@
          * @throws {TypeError}
          * @return {Boolean}
          */
-        hasClass: function (cssClass, element) {
+        hasClass: function hasClass(cssClass, element) {
             checkParams(cssClass, element, "hasClass");
             var className = " " + cssClass + " ";
             return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);

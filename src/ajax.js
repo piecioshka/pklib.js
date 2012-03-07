@@ -42,14 +42,25 @@
             }
 
             settings.done.call(null, xhr[property]);
+
+            if (typeof xhr.destroy === "function") {
+                xhr.destroy();
+            } else {
+
+                xhr = null;
+            }
         }
     }
     /**
      * @param settings {Object}
      * @param xhr {XMLHttpRequest}
+     * @throws XHRError
      */
     function timeoutHandler(settings, xhr) {
-        // pass
+        // clear memory
+        xhr = null;
+        // throw exception
+        throw new XHRError("pklib.ajax: XHRError: Timeout on: " + settings.url);
     }
     /**
      * @param settings {Object}
@@ -69,13 +80,13 @@
         var xhr;
         try {
             xhr = new XMLHttpRequest();
-        } catch (a) {
+        } catch (ignore) {
             try {
                 xhr = new ActiveXObject("Msxml2.XMLHTTP");
-            } catch (b) {
+            } catch (ignored) {
                 try {
                     xhr = new ActiveXObject("Microsoft.XMLHTTP");
-                } catch (c) {
+                } catch (ignored) {
                     throw new XHRError("pklib.ajax: XHRError: Cannot create XHR object");
                 }
             }
@@ -98,9 +109,9 @@
          *      done {Function}
          * }
          * </pre>
-         * @return {XMLHttpRequest}
+         * @return {XMLHttpRequest | Null}
          */
-        load: function (config) {
+        load: function load(config) {
             var header,
                 xhr = null,
                 settings = {
@@ -111,7 +122,7 @@
                     params: null,
                     timeout: 30000,
                     headers: {},
-                    done: function () {
+                    done: function done() {
                         // pass
                     }
                 };
@@ -120,6 +131,7 @@
 
             if (settings.cache && cache[settings.url]) {
                 handler.call(null, settings, cache[settings.url]);
+                return null;
             } else {
                 xhr = getXhr();
                 xhr.onreadystatechange = handler.bind(null, settings, xhr);

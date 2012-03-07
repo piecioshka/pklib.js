@@ -6,15 +6,14 @@
     "use strict";
 
     var pklib = global.pklib || {},
-        document = global.document || {},
-        lazy_file = 0;
+        document = global.document || {};
 
-    function loadjs(url, callback) {
+    function simpleLoadJS(url, callback) {
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.src = url;
         if (script.readyState) {
-            script.onreadystatechange = function () {
+            script.onreadystatechange = function onreadystatechange() {
                 if (script.readyState === "loaded" || script.readyState === "complete") {
                     script.onreadystatechange = null;
                     if (typeof callback === "function") {
@@ -23,7 +22,7 @@
                 }
             };
         } else {
-            script.onload = function () {
+            script.onload = function onload() {
                 if (typeof callback === "function") {
                     callback(script);
                 }
@@ -41,9 +40,9 @@
          * @param files {String | Array}
          * @param callback {Function}
          */
-        loadjs: function (files, callback) {
+        loadjs: function loadjs(files, callback) {
             if (typeof files === "string") {
-                loadjs(files, function (script) {
+                simpleLoadJS(files, function (script) {
                     if (typeof callback === "function") {
                         callback(script);
                     }
@@ -57,7 +56,7 @@
                         callback();
                     }
                 }
-                loadjs(file, function () {
+                simpleLoadJS(file, function () {
                     that.loadjs(files, callback);
                 });
             }

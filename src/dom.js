@@ -15,12 +15,12 @@
      * @param func {Function}
      * @return
      */
-    function walk_the_dom(node, func) {
+    function walkTheDom(node, func) {
         if (!!node) {
             func(node);
             node = node.firstChild;
             while (node) {
-                walk_the_dom(node, func);
+                walkTheDom(node, func);
                 node = node.nextSibling;
             }
         }
@@ -48,22 +48,21 @@
          * @param node {Node}
          * @return {String}
          */
-        isNode: function (node) {
-            return ((node && node.nodeType) && node.nodeName) || false;
+        isNode: function isNode(node) {
+            return pklib.common.assert(Boolean(node && node.nodeType && node.nodeName), true);
         },
         /**
          * @param node {Node}
          * @return {String}
          */
-        isElement: function (node) {
+        isElement: function isElement(node) {
             return (node && node.nodeType === this.nodeTypes.ELEMENT_NODE) || false;
         },
         /**
          * @param id {String}
-         * @param wrapper {HTMLElement}
-         * @return {HTMLElement | null}
+         * @return {HTMLElement | Null}
          */
-        byId: function (id) {
+        byId: function byId(id) {
             return document.getElementById(id);
         },
         /**
@@ -71,7 +70,7 @@
          * @param element {Element}
          * @return {NodeList}
          */
-        byTag: function (tag, element) {
+        byTag: function byTag(tag, element) {
             element = element || document;
             return element.getElementsByTagName(tag);
         },
@@ -80,13 +79,13 @@
          * @param wrapper {HTMLElement}
          * @return {NodeList | Array}
          */
-        byClass: function (cssClass, wrapper) {
+        byClass: function byClass(cssClass, wrapper) {
             wrapper = wrapper || document;
             var results = [];
             if (wrapper.getElementsByClassName) {
                 return wrapper.getElementsByClassName(cssClass);
             } else {
-                walk_the_dom(wrapper, function (node) {
+                walkTheDom(wrapper, function (node) {
                     if (pklib.css.hasClass(cssClass, node)) {
                         results.push(node);
                     }
@@ -99,7 +98,7 @@
          * @param {String} selector
          * @return {NodeList | Array}
          */
-        get: function (selector) {
+        get: function get(selector) {
             if (document.querySelectorAll) {
                 return document.querySelectorAll(selector);
             }
@@ -107,9 +106,9 @@
         },
         /**
          * @param node {Node}
-         * @return {Number | null}
+         * @return {Number | Null}
          */
-        index: function (node) {
+        index: function index(node) {
             var i,
                 parent = this.parent(node),
                 childs = this.children(parent),
@@ -126,7 +125,7 @@
          * @param node {Node}
          * @return {Array}
          */
-        children: function (node) {
+        children: function children(node) {
             var i,
                 array = [],
                 childs = node.childNodes,
@@ -144,7 +143,7 @@
          * @param node {Node}
          * @return {HTMLElement}
          */
-        insert: function (element, node) {
+        insert: function insert(element, node) {
             if (this.isNode(element)) {
                 node.appendChild(element);
             } else if (pklib.string.isString(element)) {
@@ -153,9 +152,9 @@
             return element;
         },
         /**
-         * @param node {Node}
+         * @param {Node}
          */
-        remove: function () {
+        remove: function remove() {
             var i, node = null, parent = null,
                 args = Array.prototype.slice.call(arguments),
                 len = args.length;
@@ -170,13 +169,13 @@
         },
         /**
          * @param node {HTMLElement}
-         * @return {HTMLElement | null}
+         * @return {HTMLElement | Null}
          */
-        prev: function (node) {
-            var pNode = null;
+        prev: function prev(node) {
+            var pNode;
             while (true) {
                 pNode = node.previousSibling;
-                if (pNode != null && pNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                if (typeof pNode !== "undefined" && pNode !== null && pNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
                     node = pNode;
                 } else {
                     break;
@@ -186,13 +185,13 @@
         },
         /**
          * @param node {HTMLElement}
-         * @return {HTMLElement | null}
+         * @return {HTMLElement | Null}
          */
-        next: function (node) {
-            var nNode = null;
+        next: function next(node) {
+            var nNode;
             while (true) {
                 nNode = node.nextSibling;
-                if (nNode != null && nNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                if (typeof nNode !== "undefined" && nNode !== null && nNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
                     node = nNode;
                 } else {
                     break;
@@ -202,19 +201,19 @@
         },
         /**
          * @param node {HTMLElement}
-         * @return {HTMLElement | null}
+         * @return {HTMLElement | Null}
          */
-        parent: function (node) {
-            var parent = null;
+        parent: function parent(node) {
+            var prNode;
             while (true) {
-                parent = node.parentNode;
-                if (parent != null && parent.nodeType !== this.nodeTypes.ELEMENT_NODE) {
-                    node = parent;
+                prNode = node.parentNode;
+                if (typeof prNode !== "undefined" && prNode !== null && prNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                    node = prNode;
                 } else {
                     break;
                 }
             }
-            return parent;
+            return prNode;
         }
     };
 }(this));

@@ -12,31 +12,31 @@
          * @param source {String}
          * @return {Boolean}
          */
-        isString: function (source) {
+        isString: function isString(source) {
             return typeof source === "string";
         },
         /**
          * @param source {String}
          * @return {Boolean}
          */
-        isLetter: function (source) {
+        isLetter: function isLetter(source) {
             return this.isString(source) && /^[a-zA-Z]$/.test(source);
         },
         /**
          * @param source {String}
          * @return {String}
          */
-        trim: function (source) {
+        trim: function trim(source) {
             return source.replace(/^\s+|\s+$/g, "");
         },
         /**
          * @param source {String}
          * @return {String}
          */
-        slug: function (source) {
+        slug: function slug(source) {
             var result = source.toLowerCase().replace(/\s/mg, "-");
             result = result.replace(/[^a-zA-Z0-9\-]/mg, function (ch) {
-                switch (ch.charCodeAt()) {
+                switch (ch.charCodeAt(0)) {
                 case 261:
                     return String.fromCharCode(97);
                 case 281:
@@ -65,14 +65,14 @@
          * @param source {String}
          * @return {String}
          */
-        capitalize: function (source) {
+        capitalize: function capitalize(source) {
             return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
         },
         /**
          * @param source {String}
          * @return {String}
          */
-        delimiterSeparatedWords: function (source) {
+        delimiterSeparatedWords: function delimiterSeparatedWords(source) {
             return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function (match) {
                 return "-" + match.toLowerCase();
             });
@@ -81,17 +81,17 @@
          * @param source {String}
          * @return {String}
          */
-        stripTags: function (source) {
-        	if (source && source.length !== 0) {
-        		return source.replace(/\\<\\S\\>/g, "");
-        	}
-        	return source;
+        stripTags: function stripTags(source) {
+            if (source && source.length !== 0) {
+                return source.replace(/\\<\\S\\>/g, "");
+            }
+            return source;
         },
         /**
          * @param source {String}
          * @return {String}
          */
-        camelCase: function (source) {
+        camelCase: function camelCase(source) {
             while (source.indexOf("-") !== -1) {
                 var pos = source.indexOf("-"),
                     pre = source.substr(0, pos),
@@ -106,7 +106,7 @@
          * @param length {Number}
          * @return {String}
          */
-        slice: function (source, length) {
+        slice: function slice(source, length) {
             var item,
                 text = "",
                 num = source.length;

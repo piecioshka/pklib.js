@@ -36,7 +36,7 @@
          * @param object {Array}
          * @return {String}
          */
-        stringify: function (object) {
+        stringify: function stringify(object) {
             var source = "",
                 args = Array.prototype.slice.call(arguments),
                 index = args[1] || 0,
@@ -97,13 +97,13 @@
             return source;
         },
         /**
-         * @param object {Object}
+         * @param source {Object}
          * @param toJson {Boolean}
          * @throws {TypeError}
          * @return {String}
          */
-        serialize: function (source, toJson) {
-            if (typeof source !== "object" || source === null) {
+        serialize: function serialize(source, toJson) {
+            if (typeof source !== "object" || pklib.common.assert(source, null)) {
                 throw new TypeError("pklib.json.serialize: @source: not object");
             }
 
