@@ -1,7 +1,10 @@
 1.0.5
-* zmiana nazw funkcji w cookie
-* utworzenie nowego namespace ui
+* nowy pakiet pklib.common - do wspólnego użytku
+* zmiana nazw funkcji w pklib.cookie
+* utworzenie nowego namespace pklib.ui
 * przeniesienie loader, glass, message, utils.size do namespace'a ui
+* wprowadzenie poprawek zgłoszonych przez IDE Intellij
+* poprawienie JSDoc'a
 
 1.0.4
 * poprawienie nazw parametrów

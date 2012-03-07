@@ -34,6 +34,16 @@ znajduje swoje praktyczne zastosowanie.
 
 [http://docs.pklib.com](http://docs.pklib.com)
 
+## przykład użycia
+
+```
+pklib.common.defer(function () {
+	pklib.file.loadjs("test.js", function () {
+		console.log("pklik załadowany");
+	});
+});
+```
+
 ## szczegóły
 
 autor: **Piotr Kowalski** ( [http://piecioshka.pl/](http://piecioshka.pl/) ) <br />
