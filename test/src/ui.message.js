@@ -1,7 +1,7 @@
 pklib.event.add(window, "load", function () {
     
-	module("pklib.ui.message");
-	
-	console.warn("[-] pklib.ui.message");
-	
+    module("pklib.ui.message");
+    
+    console.warn("[-] pklib.ui.message");
+    
 });

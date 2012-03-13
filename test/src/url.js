@@ -13,8 +13,8 @@ pklib.event.add(window, "load", function () {
         strictEqual(pH, dH, "No diferrence");
     });
     test("getPort", function() {
-    	var pP = pklib.url.getPort();
-    	strictEqual(pP, 80, "Port is the same");
+        var pP = pklib.url.getPort();
+        strictEqual(pP, 80, "Port is the same");
     });
     test("getUri", function() {
         var pU = pklib.url.getUri();

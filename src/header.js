@@ -38,13 +38,13 @@
 }(this));
 
 if (typeof Function.prototype.bind !== "function") {
-	Function.prototype.bind = function bind(that) {
-	    "use strict";
-	    var method = this,
-	        slice = Array.prototype.slice,
-	        args = slice.apply(arguments, [1]);
-	    return function () {
-	        return method.apply(that, args.concat(slice.apply(arguments, [0])));
-	    };
-	};
+    Function.prototype.bind = function bind(that) {
+        "use strict";
+        var method = this,
+            slice = Array.prototype.slice,
+            args = slice.apply(arguments, [1]);
+        return function () {
+            return method.apply(that, args.concat(slice.apply(arguments, [0])));
+        };
+    };
 }

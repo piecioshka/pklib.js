@@ -1,28 +1,28 @@
 pklib.event.add(window, "load", function () {
-	
-	var uriArray = pklib.url.getUri().split("/");
-	var PREFIX = "/" + uriArray[1] + "/" + uriArray[2] + "/";
-	var DIR = PREFIX + "data/";
-	
-	function msg(file) {
-		return "File: " + file + ", contain good value";
-	}
-	function _test_txt() {
-	    pklib.ajax.load({
-	        "url": DIR + "data.txt",
-	        "done": function(txt) {
-	        	
-	            module("pklib.ajax");
+    
+    var uriArray = pklib.url.getUri().split("/");
+    var PREFIX = "/" + uriArray[1] + "/" + uriArray[2] + "/";
+    var DIR = PREFIX + "data/";
+    
+    function msg(file) {
+        return "File: " + file + ", contain good value";
+    }
+    function _test_txt() {
+        pklib.ajax.load({
+            "url": DIR + "data.txt",
+            "done": function(txt) {
+                
+                module("pklib.ajax");
 
-	            asyncTest("ajax(txt)", function() {
-	                strictEqual(txt, "data txt ;-)", msg("Data.txt"));
-	                _test_json();
-	                start();
-	            });
-	        }
-	    });
-	}
-	function _test_json() {
+                asyncTest("ajax(txt)", function() {
+                    strictEqual(txt, "data txt ;-)", msg("Data.txt"));
+                    _test_json();
+                    start();
+                });
+            }
+        });
+    }
+    function _test_json() {
         pklib.ajax.load({
             "url": DIR + "data.json",
             "done": function(json) {
@@ -37,9 +37,9 @@ pklib.event.add(window, "load", function () {
                 });
             }
         });
-	}
-	function _test_xml () {
-		pklib.ajax.load({
+    }
+    function _test_xml () {
+        pklib.ajax.load({
             "url": DIR + "data.xml",
             "done": function(xml) {
 
@@ -53,6 +53,6 @@ pklib.event.add(window, "load", function () {
                 });
             }
         });
-	}
-	_test_txt();
+    }
+    _test_txt();
 });

@@ -1,9 +1,9 @@
 pklib.event.add(window, "load", function () {
-	
+    
     module("pklib.css");
 
     test("addClass", function() {
-    	var c = pklib.css;
+        var c = pklib.css;
         var element = document.createElement("span");
         var klass = "active";
         c.addClass(klass, element);
@@ -13,7 +13,7 @@ pklib.event.add(window, "load", function () {
         strictEqual(c.hasClass(klass, element), true, "Element has class: " + klass);
     });
     test("removeClass", function() {
-    	var c = pklib.css;
+        var c = pklib.css;
         var element = document.createElement("span");
         var klass = "active";
         element.className = klass + " active-fix dumny-active";
@@ -30,7 +30,7 @@ pklib.event.add(window, "load", function () {
         strictEqual(c.hasClass(klass, element), false, "Class: " + element.className);
     });
     test("hasClass", function() {
-    	var c = pklib.css;
+        var c = pklib.css;
         var element = document.createElement("span");
         var klass = "active";
         element.className = klass;

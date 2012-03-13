@@ -38,9 +38,9 @@ znajduje swoje praktyczne zastosowanie.
 
 ```
 pklib.common.defer(function () {
-	pklib.file.loadjs("test.js", function () {
-		console.log("pklik załadowany");
-	});
+    pklib.file.loadjs("test.js", function () {
+        console.log("pklik załadowany");
+    });
 });
 ```
 

@@ -1,14 +1,14 @@
 pklib.event.add(window, "load", function () {
-	
-	var uriArray = pklib.url.getUri().split("/");
-	var PREFIX = "/" + uriArray[1] + "/" + uriArray[2] + "/";
-	var DIR = PREFIX + "data/";
+    
+    var uriArray = pklib.url.getUri().split("/");
+    var PREFIX = "/" + uriArray[1] + "/" + uriArray[2] + "/";
+    var DIR = PREFIX + "data/";
     
     module("pklib.file");
 
     function _test_any_file() {
         pklib.file.loadjs(DIR + "data.js", function(file) {
-        	
+            
             module("pklib.file");
             
             asyncTest("load(get)", function() {

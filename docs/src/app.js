@@ -15,12 +15,12 @@
     }
     
     function adjustHeight(obj) {
-    	var windowHeight = pklib.ui.size.window("height");
-    	obj.style.height = (windowHeight - 70) + "px";
+        var windowHeight = pklib.ui.size.window("height");
+        obj.style.height = (windowHeight - 70) + "px";
     }
     function adjustColumns() {
         var sidebar = pklib.dom.byClass("sidebar")[0],
-    		content = pklib.dom.byClass("content")[0];
+            content = pklib.dom.byClass("content")[0];
         adjustHeight(sidebar);
         adjustHeight(content);
     }
@@ -34,9 +34,9 @@
         // Twitter bootstrap
         prettyPrint();
         jQuery('.tabs').tabs();
-		$("a[rel=twipsy]").twipsy({
-			live: true
-		});
+        $("a[rel=twipsy]").twipsy({
+            live: true
+        });
     });
 
 }(this));

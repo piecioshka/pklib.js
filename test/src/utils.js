@@ -1,5 +1,5 @@
 pklib.event.add(window, "load", function () {
-	
+    
     module("pklib.utils.action");
 
     test("clearfocus", function() {

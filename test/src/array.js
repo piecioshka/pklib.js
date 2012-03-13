@@ -18,8 +18,8 @@ pklib.event.add(window, "load", function () {
         ok(pklib.array.inArray(element, array), "Element is in array");
     });
     test("index", function () {
-    	var array = [1,2,3,4,5];
-    	strictEqual(pklib.array.index(4, array), 3, "Element index it's OK");
+        var array = [1,2,3,4,5];
+        strictEqual(pklib.array.index(4, array), 3, "Element index it's OK");
     });
     test("unique", function() {
         var arrayRedundancy = [ 2, 3, 4, 2, 3, 4 ];
