@@ -38,15 +38,15 @@
 }(this));
 
 if (typeof Function.prototype.bind !== "function") {
-	Function.prototype.bind = function bind(that) {
-	    "use strict";
-	    var method = this,
-	        slice = Array.prototype.slice,
-	        args = slice.apply(arguments, [1]);
-	    return function () {
-	        return method.apply(that, args.concat(slice.apply(arguments, [0])));
-	    };
-	};
+    Function.prototype.bind = function bind(that) {
+        "use strict";
+        var method = this,
+            slice = Array.prototype.slice,
+            args = slice.apply(arguments, [1]);
+        return function () {
+            return method.apply(that, args.concat(slice.apply(arguments, [0])));
+        };
+    };
 }
 
 /**
@@ -1794,15 +1794,15 @@ if (typeof Function.prototype.bind !== "function") {
              * @param obj {HTMLElement}
              */
             clearfocus: function clearfocus(obj) {
-                if (typeof obj !== "undefined") {
+                if (pklib.dom.isElement(obj)) {
                     pklib.event.add(obj, "focus", function () {
-                        if (this.value === this.defaultValue) {
-                            this.value = "";
+                        if (obj.value === obj.defaultValue) {
+                            obj.value = "";
                         }
                     });
                     pklib.event.add(obj, "blur", function () {
-                        if (this.value === "") {
-                            this.value = this.defaultValue;
+                        if (obj.value === "") {
+                            obj.value = obj.defaultValue;
                         }
                     });
                 }
