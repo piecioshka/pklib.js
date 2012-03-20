@@ -106,7 +106,11 @@
             } else {
                 for (item in source) {
                     if (source.hasOwnProperty(item)) {
-                        target[item] = source[item];
+                        if (typeof target[item] === "object") {
+                            target[item] = this.mixin(target[item], source[item]);
+                        } else {
+                            target[item] = source[item];
+                        }
                     }
                 }
                 return target;
