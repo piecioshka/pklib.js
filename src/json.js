@@ -4,7 +4,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {};
 
     function getFunctionName(fun) {
@@ -71,7 +70,7 @@
                 index += 1;
                 len = object.length;
                 for (i = 0; i < len; ++i) {
-                    source += getIndent(index) + this.stringify(object[i], index);
+                    source += getIndent(index) + pklib.json.stringify(object[i], index);
                     if (i !== len - 1) {
                         source += ",\n";
                     }
@@ -84,7 +83,7 @@
                 index += 1;
                 for (item in object) {
                     if (object.hasOwnProperty(item)) {
-                        source += getIndent(index) + '"' + item + '": ' + this.stringify(object[item], index);
+                        source += getIndent(index) + '"' + item + '": ' + pklib.json.stringify(object[item], index);
                         if (item !== getLastElement(object)) {
                             source += ",\n";
                         }

@@ -5,7 +5,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         rclass = /[\n\t\r]/g;
 
@@ -35,7 +34,7 @@
         addClass: function addClass(cssClass, element) {
             checkParams(cssClass, element, "addClass");
             var classElement = element.className;
-            if (!this.hasClass(cssClass, element)) {
+            if (!pklib.css.hasClass(cssClass, element)) {
                 if (classElement.length) {
                     classElement += " " + cssClass;
                 } else {

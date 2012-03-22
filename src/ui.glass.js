@@ -5,7 +5,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-glass-wrapper",
@@ -40,8 +39,8 @@
                 glassStyle = glass.style,
                 style;
             settings.container = document.body;
-            settings = pklib.array.mixin(settings, config);
-            settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
+            settings = pklib.object.mixin(settings, config);
+            settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity) * 100 + ")";
 
             glass.setAttribute("id", this.objId);
             for (style in settings.style) {

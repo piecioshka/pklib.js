@@ -4,7 +4,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {};
 
     pklib.array =  {
@@ -59,7 +58,7 @@
             var i, item, temp = [], len = array.length;
             for (i = 0; i < len; ++i) {
                 item = array[i];
-                if (!this.inArray.call(null, item, temp)) {
+                if (!pklib.array.inArray.call(null, item, temp)) {
                     temp.push(item);
                 }
             }
@@ -79,42 +78,11 @@
 
             for (i = 0; i < len; ++i) {
                 param = params[i];
-                if (this.inArray(param, array)) {
-                    array.splice(this.index(param, array), 1);
+                if (pklib.array.inArray(param, array)) {
+                    array.splice(pklib.array.index(param, array), 1);
                 }
             }
             return array;
-        },
-        /**
-         * @param target {Array | Object}
-         * @param source {Array | Object}
-         * @return {Array}
-         */
-        mixin: function mixin(target, source) {
-            var i, len = 0, element, item;
-
-            if (this.isArray(target) && this.isArray(source)) {
-                len = source.length;
-                for (i = 0; i < len; ++i) {
-                    element = source[i];
-                    if (!this.inArray(element, target)) {
-                        target.push(element);
-                    }
-                }
-                target.sort();
-                return target;
-            } else {
-                for (item in source) {
-                    if (source.hasOwnProperty(item)) {
-                        if (typeof target[item] === "object") {
-                            target[item] = this.mixin(target[item], source[item]);
-                        } else {
-                            target[item] = source[item];
-                        }
-                    }
-                }
-                return target;
-            }
         }
     };
 }(this));

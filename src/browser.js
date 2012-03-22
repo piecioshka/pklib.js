@@ -4,7 +4,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 

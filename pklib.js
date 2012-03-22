@@ -29,7 +29,6 @@
 
 (function (global) {
     "use strict";
-
     global.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
@@ -56,7 +55,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         setTimeout = global.setTimeout,
         cache = [];
@@ -94,12 +92,7 @@ if (typeof Function.prototype.bind !== "function") {
 
             settings.done.call(null, xhr[property]);
 
-            if (typeof xhr.destroy === "function") {
-                xhr.destroy();
-            } else {
-
-                xhr = null;
-            }
+            xhr = null;
         }
     }
     /**
@@ -177,7 +170,7 @@ if (typeof Function.prototype.bind !== "function") {
                         // pass
                     }
                 };
-            settings = pklib.array.mixin(settings, config);
+            settings = pklib.object.mixin(settings, config);
             settings.type = settings.type.toUpperCase();
 
             if (settings.cache && cache[settings.url]) {
@@ -215,7 +208,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {};
 
     pklib.array =  {
@@ -270,7 +262,7 @@ if (typeof Function.prototype.bind !== "function") {
             var i, item, temp = [], len = array.length;
             for (i = 0; i < len; ++i) {
                 item = array[i];
-                if (!this.inArray.call(null, item, temp)) {
+                if (!pklib.array.inArray.call(null, item, temp)) {
                     temp.push(item);
                 }
             }
@@ -290,42 +282,11 @@ if (typeof Function.prototype.bind !== "function") {
 
             for (i = 0; i < len; ++i) {
                 param = params[i];
-                if (this.inArray(param, array)) {
-                    array.splice(this.index(param, array), 1);
+                if (pklib.array.inArray(param, array)) {
+                    array.splice(pklib.array.index(param, array), 1);
                 }
             }
             return array;
-        },
-        /**
-         * @param target {Array | Object}
-         * @param source {Array | Object}
-         * @return {Array}
-         */
-        mixin: function mixin(target, source) {
-            var i, len = 0, element, item;
-
-            if (this.isArray(target) && this.isArray(source)) {
-                len = source.length;
-                for (i = 0; i < len; ++i) {
-                    element = source[i];
-                    if (!this.inArray(element, target)) {
-                        target.push(element);
-                    }
-                }
-                target.sort();
-                return target;
-            } else {
-                for (item in source) {
-                    if (source.hasOwnProperty(item)) {
-                        if (typeof target[item] === "object") {
-                            target[item] = this.mixin(target[item], source[item]);
-                        } else {
-                            target[item] = source[item];
-                        }
-                    }
-                }
-                return target;
-            }
         }
     };
 }(this));
@@ -336,7 +297,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {};
 
     /**
@@ -368,7 +328,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 
@@ -434,7 +393,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {};
 
@@ -458,7 +416,7 @@ if (typeof Function.prototype.bind !== "function") {
 
             document.cookie = name + "=" + value + expires + "; path=/";
 
-            return this.get(name);
+            return pklib.cookie.get(name);
         },
         /**
          * Read cookie by it name.
@@ -491,7 +449,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @return {String}
          */
         remove: function remove(name) {
-            return this.create(name, undefined, -1);
+            return pklib.cookie.create(name, undefined, -1);
         }
     };
 }(this));
@@ -503,7 +461,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         rclass = /[\n\t\r]/g;
 
@@ -533,7 +490,7 @@ if (typeof Function.prototype.bind !== "function") {
         addClass: function addClass(cssClass, element) {
             checkParams(cssClass, element, "addClass");
             var classElement = element.className;
-            if (!this.hasClass(cssClass, element)) {
+            if (!pklib.css.hasClass(cssClass, element)) {
                 if (classElement.length) {
                     classElement += " " + cssClass;
                 } else {
@@ -574,7 +531,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib;
 
     pklib.date = {
@@ -595,7 +551,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {};
 
@@ -646,7 +601,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @return {String}
          */
         isElement: function isElement(node) {
-            return (node && node.nodeType === this.nodeTypes.ELEMENT_NODE) || false;
+            return (node && node.nodeType === pklib.dom.nodeTypes.ELEMENT_NODE) || false;
         },
         /**
          * @param id {String}
@@ -700,8 +655,8 @@ if (typeof Function.prototype.bind !== "function") {
          */
         index: function index(node) {
             var i,
-                parent = this.parent(node),
-                childs = this.children(parent),
+                parent = pklib.dom.parent(node),
+                childs = pklib.dom.children(parent),
                 len = childs.length;
 
             for (i = 0; i < len; ++i) {
@@ -722,7 +677,7 @@ if (typeof Function.prototype.bind !== "function") {
                 len = childs.length;
 
             for (i = 0; i < len; ++i) {
-                if (this.isElement(childs[i])) {
+                if (pklib.dom.isElement(childs[i])) {
                     array.push(childs[i]);
                 }
             }
@@ -734,7 +689,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @return {HTMLElement}
          */
         insert: function insert(element, node) {
-            if (this.isNode(element)) {
+            if (pklib.dom.isNode(element)) {
                 node.appendChild(element);
             } else if (pklib.string.isString(element)) {
                 node.innerHTML += element;
@@ -751,7 +706,7 @@ if (typeof Function.prototype.bind !== "function") {
 
             for (i = 0; i < len; ++i) {
                 node = args[i];
-                if (this.isNode(node)) {
+                if (pklib.dom.isNode(node)) {
                     parent = node.parentNode;
                     parent.removeChild(node);
                 }
@@ -765,7 +720,7 @@ if (typeof Function.prototype.bind !== "function") {
             var pNode;
             while (true) {
                 pNode = node.previousSibling;
-                if (typeof pNode !== "undefined" && pNode !== null && pNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                if (typeof pNode !== "undefined" && pNode !== null && pNode.nodeType !== pklib.dom.nodeTypes.ELEMENT_NODE) {
                     node = pNode;
                 } else {
                     break;
@@ -781,7 +736,7 @@ if (typeof Function.prototype.bind !== "function") {
             var nNode;
             while (true) {
                 nNode = node.nextSibling;
-                if (typeof nNode !== "undefined" && nNode !== null && nNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                if (typeof nNode !== "undefined" && nNode !== null && nNode.nodeType !== pklib.dom.nodeTypes.ELEMENT_NODE) {
                     node = nNode;
                 } else {
                     break;
@@ -797,7 +752,7 @@ if (typeof Function.prototype.bind !== "function") {
             var prNode;
             while (true) {
                 prNode = node.parentNode;
-                if (typeof prNode !== "undefined" && prNode !== null && prNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                if (typeof prNode !== "undefined" && prNode !== null && prNode.nodeType !== pklib.dom.nodeTypes.ELEMENT_NODE) {
                     node = prNode;
                 } else {
                     break;
@@ -814,7 +769,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {};
 
     pklib.event = {
@@ -909,7 +863,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {};
 
@@ -975,7 +928,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {};
 
     function getFunctionName(fun) {
@@ -1042,7 +994,7 @@ if (typeof Function.prototype.bind !== "function") {
                 index += 1;
                 len = object.length;
                 for (i = 0; i < len; ++i) {
-                    source += getIndent(index) + this.stringify(object[i], index);
+                    source += getIndent(index) + pklib.json.stringify(object[i], index);
                     if (i !== len - 1) {
                         source += ",\n";
                     }
@@ -1055,7 +1007,7 @@ if (typeof Function.prototype.bind !== "function") {
                 index += 1;
                 for (item in object) {
                     if (object.hasOwnProperty(item)) {
-                        source += getIndent(index) + '"' + item + '": ' + this.stringify(object[item], index);
+                        source += getIndent(index) + '"' + item + '": ' + pklib.json.stringify(object[item], index);
                         if (item !== getLastElement(object)) {
                             source += ",\n";
                         }
@@ -1121,12 +1073,64 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
+ * Module to service object
+ * @package pklib.object
+ */
+(function (global) {
+    "use strict";
+    var pklib = global.pklib || {};
+
+    pklib.object =  {
+        /**
+         * Check if is object
+         * @param o {Object}
+         * @return {Boolean}
+         */
+        isObject: function (o) {
+            return o && typeof o === "object" &&
+                typeof o.hasOwnProperty === "function" &&
+                typeof o.isPrototypeOf === "function" &&
+                typeof o.length === "undefined";
+        },
+        /**
+         * @param target {Array | Object}
+         * @param source {Array | Object}
+         * @return {Array}
+         */
+        mixin: function mixin(target, source) {
+            var i, len = 0, element, item;
+
+            if (pklib.array.isArray(target) && pklib.array.isArray(source)) {
+                len = source.length;
+                for (i = 0; i < len; ++i) {
+                    element = source[i];
+                    if (!pklib.array.inArray(element, target)) {
+                        target.push(element);
+                    }
+                }
+                target.sort();
+                return target;
+            } else {
+                for (item in source) {
+                    if (source.hasOwnProperty(item)) {
+                        if (pklib.object.isObject(target[item])) {
+                            target[item] = pklib.object.mixin(target[item], source[item]);
+                        } else {
+                            target[item] = source[item];
+                        }
+                    }
+                }
+                return target;
+            }
+        }
+    };
+}(this));
+/**
  * Time analyzer
  * @package pklib.profiler
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         data = {};
 
@@ -1163,7 +1167,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {};
 
     pklib.string = {
@@ -1179,7 +1182,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @return {Boolean}
          */
         isLetter: function isLetter(source) {
-            return this.isString(source) && /^[a-zA-Z]$/.test(source);
+            return pklib.string.isString(source) && /^[a-zA-Z]$/.test(source);
         },
         /**
          * @param source {String}
@@ -1291,7 +1294,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document;
 
@@ -1373,7 +1375,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-glass-wrapper",
@@ -1408,8 +1409,8 @@ if (typeof Function.prototype.bind !== "function") {
                 glassStyle = glass.style,
                 style;
             settings.container = document.body;
-            settings = pklib.array.mixin(settings, config);
-            settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity, 10) * 100 + ")";
+            settings = pklib.object.mixin(settings, config);
+            settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity) * 100 + ")";
 
             glass.setAttribute("id", this.objId);
             for (style in settings.style) {
@@ -1460,7 +1461,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-loader-wrapper",
@@ -1490,7 +1490,7 @@ if (typeof Function.prototype.bind !== "function") {
          */
         show: function show(config, callback) {
             settings.container = document.body;
-            settings = pklib.array.mixin(settings, config);
+            settings = pklib.object.mixin(settings, config);
 
             var loader = document.createElement("img"),
                 loaderStyle = loader.style,
@@ -1543,7 +1543,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-message-wrapper",
@@ -1575,7 +1574,7 @@ if (typeof Function.prototype.bind !== "function") {
          */
         show: function show(config, callback) {
             settings.container = document.body;
-            settings = pklib.array.mixin(settings, config);
+            settings = pklib.object.mixin(settings, config);
 
             var message = document.createElement("div"),
                 messageStyle = message.style,
@@ -1631,7 +1630,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document;
 
@@ -1699,7 +1697,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         loc = global.location;
 
@@ -1782,7 +1779,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {};
 

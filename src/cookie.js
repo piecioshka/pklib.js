@@ -4,7 +4,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {};
 
@@ -28,7 +27,7 @@
 
             document.cookie = name + "=" + value + expires + "; path=/";
 
-            return this.get(name);
+            return pklib.cookie.get(name);
         },
         /**
          * Read cookie by it name.
@@ -61,7 +60,7 @@
          * @return {String}
          */
         remove: function remove(name) {
-            return this.create(name, undefined, -1);
+            return pklib.cookie.create(name, undefined, -1);
         }
     };
 }(this));

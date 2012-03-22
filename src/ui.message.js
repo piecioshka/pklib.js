@@ -5,7 +5,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-message-wrapper",
@@ -37,7 +36,7 @@
          */
         show: function show(config, callback) {
             settings.container = document.body;
-            settings = pklib.array.mixin(settings, config);
+            settings = pklib.object.mixin(settings, config);
 
             var message = document.createElement("div"),
                 messageStyle = message.style,

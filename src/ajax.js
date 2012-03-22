@@ -5,7 +5,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         setTimeout = global.setTimeout,
         cache = [];
@@ -43,12 +42,7 @@
 
             settings.done.call(null, xhr[property]);
 
-            if (typeof xhr.destroy === "function") {
-                xhr.destroy();
-            } else {
-
-                xhr = null;
-            }
+            xhr = null;
         }
     }
     /**
@@ -126,7 +120,7 @@
                         // pass
                     }
                 };
-            settings = pklib.array.mixin(settings, config);
+            settings = pklib.object.mixin(settings, config);
             settings.type = settings.type.toUpperCase();
 
             if (settings.cache && cache[settings.url]) {

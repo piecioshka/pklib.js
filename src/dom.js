@@ -5,7 +5,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {};
 
@@ -56,7 +55,7 @@
          * @return {String}
          */
         isElement: function isElement(node) {
-            return (node && node.nodeType === this.nodeTypes.ELEMENT_NODE) || false;
+            return (node && node.nodeType === pklib.dom.nodeTypes.ELEMENT_NODE) || false;
         },
         /**
          * @param id {String}
@@ -110,8 +109,8 @@
          */
         index: function index(node) {
             var i,
-                parent = this.parent(node),
-                childs = this.children(parent),
+                parent = pklib.dom.parent(node),
+                childs = pklib.dom.children(parent),
                 len = childs.length;
 
             for (i = 0; i < len; ++i) {
@@ -132,7 +131,7 @@
                 len = childs.length;
 
             for (i = 0; i < len; ++i) {
-                if (this.isElement(childs[i])) {
+                if (pklib.dom.isElement(childs[i])) {
                     array.push(childs[i]);
                 }
             }
@@ -144,7 +143,7 @@
          * @return {HTMLElement}
          */
         insert: function insert(element, node) {
-            if (this.isNode(element)) {
+            if (pklib.dom.isNode(element)) {
                 node.appendChild(element);
             } else if (pklib.string.isString(element)) {
                 node.innerHTML += element;
@@ -161,7 +160,7 @@
 
             for (i = 0; i < len; ++i) {
                 node = args[i];
-                if (this.isNode(node)) {
+                if (pklib.dom.isNode(node)) {
                     parent = node.parentNode;
                     parent.removeChild(node);
                 }
@@ -175,7 +174,7 @@
             var pNode;
             while (true) {
                 pNode = node.previousSibling;
-                if (typeof pNode !== "undefined" && pNode !== null && pNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                if (typeof pNode !== "undefined" && pNode !== null && pNode.nodeType !== pklib.dom.nodeTypes.ELEMENT_NODE) {
                     node = pNode;
                 } else {
                     break;
@@ -191,7 +190,7 @@
             var nNode;
             while (true) {
                 nNode = node.nextSibling;
-                if (typeof nNode !== "undefined" && nNode !== null && nNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                if (typeof nNode !== "undefined" && nNode !== null && nNode.nodeType !== pklib.dom.nodeTypes.ELEMENT_NODE) {
                     node = nNode;
                 } else {
                     break;
@@ -207,7 +206,7 @@
             var prNode;
             while (true) {
                 prNode = node.parentNode;
-                if (typeof prNode !== "undefined" && prNode !== null && prNode.nodeType !== this.nodeTypes.ELEMENT_NODE) {
+                if (typeof prNode !== "undefined" && prNode !== null && prNode.nodeType !== pklib.dom.nodeTypes.ELEMENT_NODE) {
                     node = prNode;
                 } else {
                     break;

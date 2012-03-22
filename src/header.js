@@ -29,7 +29,6 @@
 
 (function (global) {
     "use strict";
-
     global.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",

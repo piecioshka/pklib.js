@@ -6,7 +6,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-loader-wrapper",
@@ -36,7 +35,7 @@
          */
         show: function show(config, callback) {
             settings.container = document.body;
-            settings = pklib.array.mixin(settings, config);
+            settings = pklib.object.mixin(settings, config);
 
             var loader = document.createElement("img"),
                 loaderStyle = loader.style,

@@ -4,7 +4,6 @@
  */
 (function (global) {
     "use strict";
-
     var pklib = global.pklib || {};
 
     pklib.string = {
@@ -20,7 +19,7 @@
          * @return {Boolean}
          */
         isLetter: function isLetter(source) {
-            return this.isString(source) && /^[a-zA-Z]$/.test(source);
+            return pklib.string.isString(source) && /^[a-zA-Z]$/.test(source);
         },
         /**
          * @param source {String}
