@@ -1,35 +1,42 @@
 /**
- * Time analyzer
  * @package pklib.profiler
  */
 (function (global) {
     "use strict";
-    var pklib = global.pklib || {},
-        data = {};
 
-    pklib.profiler = {
+    /** @namespace */
+    var pklib = global.pklib || {},
+        data = {},
+
         /**
-         * @param name {String}
-         * @return {Number}
+         * Time analyzer
+         * @namespace
          */
-        start: function start(name) {
-            data[name] = new Date();
-            return data[name];
-        },
-        /**
-         * @param name {String}
-         * @return {Number}
-         */
-        stop: function stop(name) {
-            data[name] = new Date() - data[name];
-            return new Date((new Date()).getTime() + data[name]);
-        },
-        /**
-         * @param name {String}
-         * @return {Number}
-         */
-        getTime: function getTime(name) {
-            return data[name];
-        }
-    };
+        profiler = {
+            /**
+             * @param name {String}
+             * @returns {Number}
+             */
+            start: function (name) {
+                data[name] = new Date();
+                return data[name];
+            },
+            /**
+             * @param name {String}
+             * @returns {Number}
+             */
+            stop: function (name) {
+                data[name] = new Date() - data[name];
+                return new Date((new Date()).getTime() + data[name]);
+            },
+            /**
+             * @param name {String}
+             * @returns {Number}
+             */
+            getTime: function (name) {
+                return data[name];
+            }
+        };
+
+    pklib.profiler = profiler;
 }(this));

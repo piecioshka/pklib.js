@@ -1,81 +1,89 @@
 /**
- * User Interface
  * @package pklib.ui
  * @dependence pklib.string. pklib.dom
  */
 (function (global) {
     "use strict";
+
+    /** @namespace */
     var pklib = global.pklib || {},
-        document = global.document;
+        document = global.document,
 
-    pklib.ui = {
         /**
-         * @param element {HTMLElement}
-         * @param wrapper {HTMLElement}
-         * @throws {TypeError}
-         * @return {Array}
+         * User Interface
+         * @namespace
          */
-        center: function center(element, wrapper) {
-            var left = null,
-                top = null,
-                pus = this.size;
+        ui = {
+            /**
+             * @param {HTMLElement} element
+             * @param {HTMLElement} wrapper
+             * @throws {TypeError} If first param is not HTMLElement
+             * @returns {Array}
+             */
+            center: function (element, wrapper) {
+                var left = null,
+                    top = null,
+                    pus = this.size;
 
-            if (!pklib.dom.isElement(element)) {
-                throw new TypeError("pklib.ui.center: @element: not Element");
-            }
-
-            if (wrapper === document.body) {
-                left = (Math.max(pus.window("width"), pus.document("width")) - pus.object(element, "width")) / 2;
-                top = (Math.max(pus.window("height"), pus.document("height")) - pus.object(element, "height")) / 2;
-            } else {
-                left = (pus.window("width") - pus.object(element, "width")) / 2;
-                top = (pus.window("height") - pus.object(element, "height")) / 2;
-            }
-            element.style.left = left + "px";
-            element.style.top = top + "px";
-            element.style.position = "absolute";
-            return [left, top];
-        },
-        /**
-         * @param element {HTMLElement}
-         * @param wrapper {HTMLElement}
-         * @return {Array}
-         */
-        maximize: function maximize(element, wrapper) {
-            var width = null,
-                height = null,
-                pus = pklib.ui.size;
-
-            if (wrapper === document.body) {
-                width = Math.max(pus.window("width"), pus.document("width"));
-                height = Math.max(pus.window("height"), pus.document("height"));
-                if (pklib.browser.getName() === "msie") {
-                    width -= 20;
+                if (!pklib.dom.isElement(element)) {
+                    throw new TypeError("pklib.ui.center: @element: not Element");
                 }
-            } else {
-                width = pus.object(wrapper, "width");
-                height = pus.object(wrapper, "height");
-            }
-            element.style.width = width;
-            element.style.height = height;
-            return [width, height];
-        },
-        /**
-         * @param param {Number}
-         * @param animate {Boolean}
-         */
-        scrollTo: function scrollTo(param, animate) {
-            var interval = null;
-            if (pklib.common.assert(animate, true)) {
-                interval = setInterval(function () {
-                    document.body.scrollTop -= 5;
-                    if (document.body.scrollTop <= 0) {
-                        clearInterval(interval);
+
+                if (wrapper === document.body) {
+                    left = (Math.max(pus.window("width"), pus.document("width")) - pus.object(element, "width")) / 2;
+                    top = (Math.max(pus.window("height"), pus.document("height")) - pus.object(element, "height")) / 2;
+                } else {
+                    left = (pus.window("width") - pus.object(element, "width")) / 2;
+                    top = (pus.window("height") - pus.object(element, "height")) / 2;
+                }
+                element.style.left = left + "px";
+                element.style.top = top + "px";
+                element.style.position = "absolute";
+
+                return [left, top];
+            },
+            /**
+             * @param {HTMLElement} element
+             * @param {HTMLElement} wrapper
+             * @returns {Array}
+             */
+            maximize: function (element, wrapper) {
+                var width = null,
+                    height = null,
+                    pus = pklib.ui.size;
+
+                if (wrapper === document.body) {
+                    width = Math.max(pus.window("width"), pus.document("width"));
+                    height = Math.max(pus.window("height"), pus.document("height"));
+                    if (pklib.browser.getName() === "msie") {
+                        width -= 20;
                     }
-                }, 1);
-            } else {
-                document.body.scrollTop = param + "px";
+                } else {
+                    width = pus.object(wrapper, "width");
+                    height = pus.object(wrapper, "height");
+                }
+                element.style.width = width;
+                element.style.height = height;
+                return [width, height];
+            },
+            /**
+             * @param {Number} param
+             * @param {Boolean} animate
+             */
+            scrollTo: function (param, animate) {
+                var interval = null;
+                if (pklib.common.assert(animate, true)) {
+                    interval = setInterval(function () {
+                        document.body.scrollTop -= 5;
+                        if (document.body.scrollTop <= 0) {
+                            clearInterval(interval);
+                        }
+                    }, 1);
+                } else {
+                    document.body.scrollTop = param + "px";
+                }
             }
-        }
-    };
+        };
+
+    pklib.ui = ui;
 }(this));

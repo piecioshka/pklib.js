@@ -3,15 +3,18 @@ pklib.event.add(window, "load", function () {
     module("pklib.utils.action");
 
     test("clearfocus", function() {
-        // TODO: write this
-        console.warn("[-] pklib.utils.action.clearfocus");
+        var input = pklib.dom.byId("input-example-text");
+        if (input) {
+            pklib.utils.action.clearfocus(input);
+        }
     });
     test("outerlink", function() {
-        // TODO: write this
-        console.warn("[-] pklib.utils.action.outerlink");
+        pklib.utils.action.outerlink();
     });
     test("confirm", function() {
-        // TODO: write this
-        console.warn("[-] pklib.utils.action.confirm");
+        var link = pklib.dom.byId("confirm-link-example-org");
+        if (link) {
+            pklib.utils.action.confirm(link);
+        }
     });
 });

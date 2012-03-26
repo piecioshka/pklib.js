@@ -26,18 +26,23 @@
  * 
  * Date: Wed Mar  7 01:00:03 GMT 2012
  */
-
 (function (global) {
     "use strict";
-    global.pklib = {
+
+    /**
+     * Global object, contain modules
+     */
+    var pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
         version: "1.0.5"
     };
+
+    global.pklib = pklib;
 }(this));
 
 if (typeof Function.prototype.bind !== "function") {
-    Function.prototype.bind = function bind(that) {
+    Function.prototype.bind = function (that) {
         "use strict";
         var method = this,
             slice = Array.prototype.slice,

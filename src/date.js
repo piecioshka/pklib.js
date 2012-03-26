@@ -1,18 +1,25 @@
 /**
- * Utils stack to Date object
  * @package pklib.date
  */
 (function (global) {
     "use strict";
-    var pklib = global.pklib;
 
-    pklib.date = {
+    /** @namespace */
+    var pklib = global.pklib || {},
+
         /**
-         * @return {string}
+         * Utils stack to Date object
+         * @namespace
          */
-        getFullMonth: function getFullMonth() {
-            var month = (parseInt(new Date().getMonth(), 10) + 1);
-            return (month < 10) ? "0" + month : month;
-        }
-    };
+        date = {
+            /**
+             * @returns {String}
+             */
+            getFullMonth: function () {
+                var month = (parseInt(new Date().getMonth(), 10) + 1);
+                return (month < 10) ? "0" + month : month;
+            }
+        };
+
+    pklib.date = date;
 }(this));

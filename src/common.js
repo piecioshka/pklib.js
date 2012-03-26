@@ -1,17 +1,24 @@
 /**
- * Common stuff
  * @package pklib.common
  */
 (function (global) {
     "use strict";
-    var pklib = global.pklib;
 
-    pklib.common = {
-        assert: function assert(v, r) {
-            return v === r;
-        },
-        defer: function defer(func) {
-            setTimeout(func, 0);
-        }
-    };
+    /** @namespace */
+    var pklib = global.pklib || {},
+
+        /**
+         * Common stuff
+         * @namespace
+         */
+        common = {
+            assert: function (v, r) {
+                return v === r;
+            },
+            defer: function (func) {
+                setTimeout(func, 0);
+            }
+        };
+
+    pklib.common = common;
 }(this));

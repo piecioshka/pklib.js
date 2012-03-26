@@ -1,0 +1,21 @@
+#!/bin/bash
+
+clear
+
+echo -n "     "
+echo -e '\E[27;44m'"\033[1mpklib JavaScript library\033[0m"
+echo; echo
+echo -e "\033[1mGenerate documentation: \033[0m"
+echo
+
+library=../pklib.js
+dir=jsdoc-toolkit/
+doc_dir=../docs2
+
+if [ -f $doc_dir ]
+then
+    find ${doc_dir} | xargs rm -rf
+    mkdir ${doc_dir}
+fi
+
+java -jar ${dir}jsrun.jar ${dir}app/run.js -d=${doc_dir} -a -t=${dir}templates/jsdoc -p ${library}
