@@ -4,11 +4,9 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document,
-
         /**
          * Check ui dimensions
          * @namespace

@@ -3,10 +3,8 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Bind function to aspect
          * Create method with merge first and second.

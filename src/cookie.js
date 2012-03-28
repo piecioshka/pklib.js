@@ -3,15 +3,9 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
-        /**
-         * Document of window
-         */
         document = global.document || {},
-
         /**
          * Cookie service manager
          * @namespace

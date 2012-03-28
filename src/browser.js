@@ -3,15 +3,12 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Array with browsers name
          */
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"],
-
         /**
          * Get best information about browser
          * @namespace

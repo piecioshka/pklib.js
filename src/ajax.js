@@ -4,7 +4,6 @@
  */
 (function (global) {
     "use strict";
-
     /**
      * @constructor
      * @param {String} [message=""]
@@ -19,12 +18,10 @@
 
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Array containt key as url, value as ajax response
          */
         cache = [],
-
         /**
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
@@ -48,7 +45,6 @@
                 xhr = null;
             }
         },
-
         /**
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
@@ -60,7 +56,6 @@
             // throw exception
             throw new XHRError("pklib.ajax: XHRError: Timeout on: " + settings.url);
         },
-
         /**
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
@@ -72,7 +67,6 @@
                 timeoutHandler.call(null, settings, xhr);
             }
         },
-
         /**
          * @throws {XHRError} If cannot create XMLHttpRequest object
          * @returns {Object|Undefined} ActiveXObject object
@@ -90,7 +84,6 @@
             }
             return xhr;
         },
-
         /**
          * @throws {XHRError} If cannot create XMLHttpRequest object
          * @returns {Object|Undefined} XMLHttpRequest object
@@ -104,7 +97,6 @@
             }
             return xhr;
         },
-
         /**
          * Module to service asynchronous request
          * @namespace

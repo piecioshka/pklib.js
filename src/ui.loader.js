@@ -4,7 +4,6 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
@@ -19,7 +18,6 @@
             },
             center: true
         },
-
         /**
          * Loader adapter.
          * Show animate image (GIF) on special place.

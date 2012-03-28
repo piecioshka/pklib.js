@@ -28,7 +28,6 @@
  */
 (function (global) {
     "use strict";
-
     /**
      * Global object, contain modules
      */

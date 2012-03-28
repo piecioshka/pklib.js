@@ -3,11 +3,9 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         data = {},
-
         /**
          * Time analyzer
          * @namespace

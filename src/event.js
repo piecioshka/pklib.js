@@ -3,10 +3,8 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Helper about manage event on HTMLElement
          * @namespace

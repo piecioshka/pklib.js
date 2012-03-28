@@ -3,11 +3,9 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
-
         /**
          * @param {String} url
          * @param {Function} callback
@@ -49,7 +47,6 @@
             }
             document.head.appendChild(script);
         },
-
         /**
          * JS file laoder
          * @namespace

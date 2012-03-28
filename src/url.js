@@ -3,15 +3,12 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Document.location object
          */
         loc = global.location,
-
         /**
          * Url helper manager
          * @namespace

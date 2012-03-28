@@ -4,15 +4,12 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * RegExp use to delete white chars
          */
         rclass = /[\n\t\r]/g,
-
         /**
          * Check typeof params
          * @param {String} cssClass
@@ -28,7 +25,6 @@
                 throw new TypeError(prefix + ": @element: not HTMLElement");
             }
         },
-
         /**
          * Utils method related css on tags in DOM tree
          * @namespace

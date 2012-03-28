@@ -3,10 +3,8 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Module to service object
          * @namespace

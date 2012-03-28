@@ -3,15 +3,22 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
+        /**
+         * @private
+         * @function
+         * @param {Function} fun
+         */
         getFunctionName = function (fun) {
             var text = fun.toString().split("\n")[0].replace("function ", "");
             return text.substr(0, text.indexOf("(")) + "()";
         },
-
+        /**
+         * @private
+         * @function
+         * @param {Object} object
+         */
         getLastElement = function (object) {
             var i,
                 len = 0;
@@ -22,7 +29,11 @@
             }
             return len;
         },
-
+        /**
+         * @private
+         * @function
+         * @param {Number} len
+         */
         getIndent = function (len) {
             var i,
                 fix = "\t",
@@ -32,13 +43,14 @@
             }
             return source;
         },
-
         /**
          * JSON manager
          * @namespace
          */
         json = {
             /**
+             * @memberOf pklib.json
+             * @function
              * @param {Array} object
              * @returns {String}
              */
@@ -103,6 +115,8 @@
                 return source;
             },
             /**
+             * @memberOf pklib.json
+             * @function
              * @param {Object} source
              * @param {Boolean} toJson
              * @throws {TypeError} If first param is not object, second is null

@@ -3,10 +3,8 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Utils stack to Date object
          * @namespace

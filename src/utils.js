@@ -4,28 +4,65 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
+        /**
+         * @private
+         * @function
+         */
+        opentrigger = function (evt) {
+            var url = "";
 
+            if (evt.originalTarget &&
+                typeof evt.originalTarget === "object" &&
+                typeof evt.originalTarget.href !== "undefined") {
+                url = evt.originalTarget.href;
+            } else if (evt.toElement &&
+                typeof evt.toElement === "object" &&
+                typeof evt.toElement.href !== "undefined") {
+                url = evt.toElement.href;
+            } else if (evt.srcElement &&
+                typeof evt.srcElement === "object" &&
+                typeof typeof evt.srcElement !== "undefined") {
+                url = evt.srcElement.href;
+            }
+
+            open(url);
+            try {
+                evt.preventDefault();
+            } catch (ignore) {
+                return false;
+            }
+        },
         /**
          * Utils tools
          * @namespace
+         * @memberOf pklib
          */
         utils = {
-            /** @namespace */
+            /**
+             * @memberOf pklib.utils
+             * @namespace
+             */
             ascii: {
-                /** @namespace */
+                /**
+                 * @namespace
+                 * @memberOf pklib.utils.ascii
+                 */
                 letters: {
                     lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
                     upper: [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
                 }
             },
-
-            /** @namespace */
+            /**
+             * @namespace
+             * @memberOf pklib.utils
+             */
             action: {
                 /**
+                 * @memberOf pklib.utils.action
+                 * @function
                  * @param {HTMLElement} obj
                  */
                 clearfocus: function (obj) {
@@ -43,6 +80,8 @@
                     }
                 },
                 /**
+                 * @memberOf pklib.utils.action
+                 * @function
                  * @param {HTMLElement} area
                  */
                 outerlink: function (area) {
@@ -52,31 +91,6 @@
                         links = pklib.dom.byTag("a", area),
                         len = links.length;
 
-                    function opentrigger(evt) {
-                        var url = "";
-
-                        if (evt.originalTarget &&
-                                typeof evt.originalTarget === "object" &&
-                                typeof evt.originalTarget.href !== "undefined") {
-                            url = evt.originalTarget.href;
-                        } else if (evt.toElement &&
-                                typeof evt.toElement === "object" &&
-                                typeof evt.toElement.href !== "undefined") {
-                            url = evt.toElement.href;
-                        } else if (evt.srcElement &&
-                                typeof evt.srcElement === "object" &&
-                                typeof typeof evt.srcElement !== "undefined") {
-                            url = evt.srcElement.href;
-                        }
-
-                        open(url);
-                        try {
-                            evt.preventDefault();
-                        } catch (ignore) {
-                            return false;
-                        }
-                    }
-
                     for (i = 0; i < len; ++i) {
                         link = links[i];
                         if (link.rel === "outerlink") {
@@ -85,6 +99,8 @@
                     }
                 },
                 /**
+                 * @memberOf pklib.utils.action
+                 * @function
                  * @param {HTMLElement} element
                  * @param {String} [text="Sure?"]
                  */

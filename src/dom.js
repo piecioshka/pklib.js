@@ -4,11 +4,9 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
-
         /**
          * Walking on every element in node
          * @param {Node} node
@@ -24,7 +22,6 @@
                 }
             }
         },
-
         /**
          * Helper related with DOM service
          * @namespace

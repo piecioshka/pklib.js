@@ -4,10 +4,8 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         document = global.document || {},
         id = "pklib-glass-wrapper",
         settings = {
@@ -21,7 +19,6 @@
                 zIndex: 1000
             }
         },
-
         /**
          * Show glass on dimensions on browser
          * @namespace

@@ -4,7 +4,6 @@
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
@@ -17,7 +16,6 @@
                 zIndex: 1010
             }
         },
-
         /**
          * Show layer on special place.
          * @namespace

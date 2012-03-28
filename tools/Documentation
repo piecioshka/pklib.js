@@ -18,4 +18,5 @@ then
     mkdir ${doc_dir}
 fi
 
-java -jar ${dir}jsrun.jar ${dir}app/run.js -d=${doc_dir} -a -t=${dir}templates/jsdoc -p ${library}
+java -jar ${dir}jsrun.jar ${dir}app/run.js -d=${doc_dir}\
+    -v -a -t=${dir}templates/jsdoc -p ${library}

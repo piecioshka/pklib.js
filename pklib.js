@@ -1629,7 +1629,6 @@ if (typeof Function.prototype.bind !== "function") {
 (function (global) {
     "use strict";
 
-    /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-loader-wrapper",
