@@ -12,6 +12,8 @@
         object =  {
             /**
              * Check if is object
+             * @memberOf object
+             * @function
              * @param {Object} o
              * @returns {Boolean}
              */
@@ -22,6 +24,8 @@
                     typeof o.length === "undefined";
             },
             /**
+             * @memberOf object
+             * @function
              * @param {Array|Object} target
              * @param {Array|Object} source
              * @returns {Array}

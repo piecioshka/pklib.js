@@ -11,7 +11,7 @@
          */
         common = {
             /**
-             * @memberOf pklib.common
+             * @memberOf common
              * @function
              * @param {Object} v
              * @param {Object} r
@@ -20,7 +20,7 @@
                 return v === r;
             },
             /**
-             * @memberOf pklib.common
+             * @memberOf common
              * @function
              * @param {Function} func
              */

@@ -12,7 +12,9 @@
          */
         profiler = {
             /**
-             * @param name {String}
+             * @memberOf profiler
+             * @function
+             * @param {String} name
              * @returns {Number}
              */
             start: function (name) {
@@ -20,7 +22,9 @@
                 return data[name];
             },
             /**
-             * @param name {String}
+             * @memberOf profiler
+             * @function
+             * @param {String} name
              * @returns {Number}
              */
             stop: function (name) {
@@ -28,7 +32,9 @@
                 return new Date((new Date()).getTime() + data[name]);
             },
             /**
-             * @param name {String}
+             * @memberOf profiler
+             * @function
+             * @param {String} name
              * @returns {Number}
              */
             getTime: function (name) {

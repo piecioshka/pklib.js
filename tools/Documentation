@@ -8,9 +8,9 @@ echo; echo
 echo -e "\033[1mGenerate documentation: \033[0m"
 echo
 
-library=../pklib.js
 dir=jsdoc-toolkit/
 doc_dir=../docs2
+src_dir=../src
 
 if [ -f $doc_dir ]
 then
@@ -19,4 +19,4 @@ then
 fi
 
 java -jar ${dir}jsrun.jar ${dir}app/run.js -d=${doc_dir}\
-    -v -a -t=${dir}templates/jsdoc -p ${library}
+    -v -a -t=${dir}templates/jsdoc -p ${src_dir}

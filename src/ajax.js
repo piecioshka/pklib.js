@@ -4,18 +4,6 @@
  */
 (function (global) {
     "use strict";
-    /**
-     * @constructor
-     * @param {String} [message=""]
-     */
-    function XHRError(message) {
-        this.name = "XHRError";
-        this.message = message || "";
-    }
-
-    XHRError.prototype = new Error();
-    XHRError.prototype.constructor = XHRError;
-
     /** @namespace */
     var pklib = global.pklib || {},
         /**
@@ -48,18 +36,18 @@
         /**
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
-         * @throws {XHRError} If exists timeout on request
+         * @throws {Error} If exists timeout on request
          */
         timeoutHandler = function (settings, xhr) {
             // clear memory
             xhr = null;
             // throw exception
-            throw new XHRError("pklib.ajax: XHRError: Timeout on: " + settings.url);
+            throw new Error("pklib.ajax: Error: Timeout on: " + settings.url);
         },
         /**
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
-         * @throws {XHRError} If exists timeout on request
+         * @throws {Error} If exists timeout on request
          */
         requestTimeout = function (settings, xhr) {
             if (xhr.readyState !== 4) {
@@ -68,7 +56,7 @@
             }
         },
         /**
-         * @throws {XHRError} If cannot create XMLHttpRequest object
+         * @throws {Error} If cannot create XMLHttpRequest object
          * @returns {Object|Undefined} ActiveXObject object
          */
         get_microsoft_xhr = function () {
@@ -79,13 +67,13 @@
                 try {
                     xhr = new ActiveXObject("Microsoft.XMLHTTP");
                 } catch (ignored) {
-                    throw new XHRError("pklib.ajax: XHRError: Cannot create XHR object");
+                    throw new Error("pklib.ajax: Error: Cannot create XHR object");
                 }
             }
             return xhr;
         },
         /**
-         * @throws {XHRError} If cannot create XMLHttpRequest object
+         * @throws {Error} If cannot create XMLHttpRequest object
          * @returns {Object|Undefined} XMLHttpRequest object
          */
         get_xhr = function () {
@@ -103,7 +91,9 @@
          */
         ajax = {
             /**
-             * Lazy load file.
+             * Lazy load file
+             * @memberOf ajax
+             * @function
              * @param config {Object}
              * <pre>
              * {

@@ -13,6 +13,8 @@
          */
         ui = {
             /**
+             * @memberOf ui
+             * @function
              * @param {HTMLElement} element
              * @param {HTMLElement} wrapper
              * @throws {TypeError} If first param is not HTMLElement
@@ -41,6 +43,8 @@
                 return [left, top];
             },
             /**
+             * @memberOf ui
+             * @function
              * @param {HTMLElement} element
              * @param {HTMLElement} wrapper
              * @returns {Array}
@@ -65,6 +69,8 @@
                 return [width, height];
             },
             /**
+             * @memberOf ui
+             * @function
              * @param {Number} param
              * @param {Boolean} animate
              */

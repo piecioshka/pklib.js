@@ -11,6 +11,8 @@
          */
         date = {
             /**
+             * @memberOf date
+             * @function
              * @returns {String}
              */
             getFullMonth: function () {

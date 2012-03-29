@@ -10,6 +10,7 @@
         /**
          * @private
          * @function
+         * @param {Event} evt
          */
         opentrigger = function (evt) {
             var url = "";
@@ -38,17 +39,17 @@
         /**
          * Utils tools
          * @namespace
-         * @memberOf pklib
          */
         utils = {
             /**
-             * @memberOf pklib.utils
+             * Numbers of chars in ASCII system
+             * @memberOf utils
              * @namespace
              */
             ascii: {
                 /**
+                 * @memberOf utils.ascii
                  * @namespace
-                 * @memberOf pklib.utils.ascii
                  */
                 letters: {
                     lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
@@ -57,11 +58,11 @@
             },
             /**
              * @namespace
-             * @memberOf pklib.utils
+             * @memberOf utils
              */
             action: {
                 /**
-                 * @memberOf pklib.utils.action
+                 * @memberOf utils.action
                  * @function
                  * @param {HTMLElement} obj
                  */
@@ -80,7 +81,7 @@
                     }
                 },
                 /**
-                 * @memberOf pklib.utils.action
+                 * @memberOf utils.action
                  * @function
                  * @param {HTMLElement} area
                  */
@@ -99,7 +100,7 @@
                     }
                 },
                 /**
-                 * @memberOf pklib.utils.action
+                 * @memberOf utils.action
                  * @function
                  * @param {HTMLElement} element
                  * @param {String} [text="Sure?"]

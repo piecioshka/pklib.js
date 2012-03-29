@@ -7,6 +7,8 @@
     var pklib = global.pklib || {},
         document = global.document || {},
         /**
+         * @private
+         * @function
          * @param {String} url
          * @param {Function} callback
          */
@@ -21,7 +23,8 @@
             if (typeof script.readyState !== "undefined") {
                 /**
                  * Method run when request has change state
-                 * @static
+                 * @memberOf script
+                 * @function
                  */
                 script.onreadystatechange = function () {
                     if (script.readyState === "loaded" || script.readyState === "complete") {
@@ -31,10 +34,11 @@
                         }
                     }
                 };
-            } else if (typeof script.onload !== "undefined") {
+            } else {
                 /**
                  * Method run when request has ended
-                 * @static
+                 * @memberOf script
+                 * @function
                  */
                 script.onload = function () {
                     if (typeof callback === "function") {
@@ -54,19 +58,24 @@
         file = {
             /**
              * Lazy load JS files
+             * @memberOf file
+             * @function
              * @param {String|Array} files
              * @param {Function} callback
              */
             loadjs: function (files, callback) {
+                var file,
+                    self = this;
+
                 if (typeof files === "string") {
-                    simpleLoadJS(files, function (script) {
+                    file = files;
+                    simpleLoadJS(file, function (script) {
                         if (typeof callback === "function") {
                             callback(script);
                         }
                     });
                 } else {
-                    var that = this,
-                        file = files.shift();
+                    file = files.shift();
 
                     if (typeof file === "undefined") {
                         if (typeof callback === "function") {
@@ -74,7 +83,7 @@
                         }
                     }
                     simpleLoadJS(file, function () {
-                        that.loadjs(files, callback);
+                        self.loadjs(files, callback);
                     });
                 }
             }

@@ -9,7 +9,9 @@
         document = global.document || {},
         id = "pklib-glass-wrapper",
         settings = {
+            /** @field */
             container: null,
+            /** @namespace */
             style: {
                 position: "absolute",
                 left: 0,
@@ -24,13 +26,13 @@
          * @namespace
          */
         glass = {
-            /**
-             * @type {String}
-             */
+            /** @field */
             objId: id,
             /**
-             * @param config {Object}
-             * @param callback {Function}
+             * @memberOf glass
+             * @function
+             * @param {Object} config
+             * @param {Function} callback
              */
             show: function (config, callback) {
                 var that = this,
@@ -63,7 +65,9 @@
                 return glass;
             },
             /**
-             * @param callback {Function}
+             * @memberOf glass
+             * @function
+             * @param {Function} callback
              * @returns {Boolean}
              */
             close: function (callback) {

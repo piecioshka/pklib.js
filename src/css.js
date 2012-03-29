@@ -31,7 +31,9 @@
          */
         css = {
             /**
-             * Add CSS class to element define in second parameter.
+             * Add CSS class to element define in second parameter
+             * @memberOf css
+             * @function
              * @param {String} cssClass
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node
@@ -49,7 +51,9 @@
                 element.className = classElement;
             },
             /**
-             * Remove CSS class from element define in second parameter.
+             * Remove CSS class from element define in second parameter
+             * @memberOf css
+             * @function
              * @param {String} cssClass
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node
@@ -61,6 +65,8 @@
             },
             /**
              * Check if element has CSS class
+             * @memberOf css
+             * @function
              * @param {String} cssClass
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node

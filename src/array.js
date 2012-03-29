@@ -12,7 +12,9 @@
          */
         array =  {
             /**
-             * Check if param is array,
+             * Check if param is array
+             * @memberOf array
+             * @function
              * @param {Object} array
              * @returns {Boolean}
              */
@@ -23,8 +25,10 @@
                     typeof array.slice !== "undefined", true);
             },
             /**
-             * Check if element is in array by loop.
-             * @param param
+             * Check if element is in array by loop
+             * @memberOf array
+             * @function
+             * @param {Object} param
              * @param {Array} array
              * @returns {Boolean}
              */
@@ -39,7 +43,9 @@
             },
             /**
              * Get index of element
-             * @param item
+             * @memberOf array
+             * @function
+             * @param {Object} item
              * @param {Array} array
              * @throws {ReferenceError} If cannot find index of element
              * @returns {Boolean}
@@ -54,7 +60,9 @@
                 throw new ReferenceError("pklib.array.index: @item not exists");
             },
             /**
-             * Unique array. Delete element what was duplicated.
+             * Unique array. Delete element what was duplicated
+             * @memberOf array
+             * @function
              * @param {Array} array
              * @returns {Array}
              */
@@ -70,7 +78,9 @@
             },
             /**
              * Remove element declarated in infinity params without first.
-             * First parameter is array object.
+             * First parameter is array object
+             * @memberOf array
+             * @function
              * @param {Array} array
              * @returns {Array}
              */

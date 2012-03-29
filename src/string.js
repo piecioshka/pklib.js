@@ -11,28 +11,36 @@
          */
         string = {
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {Boolean}
              */
             isString: function (source) {
                 return typeof source === "string";
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {Boolean}
              */
             isLetter: function (source) {
                 return pklib.string.isString(source) && /^[a-zA-Z]$/.test(source);
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             trim: function (source) {
                 return source.replace(/^\s+|\s+$/g, "");
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             slug: function (source) {
@@ -64,14 +72,18 @@
                 return result;
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             capitalize: function (source) {
                 return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             delimiterSeparatedWords: function (source) {
@@ -80,7 +92,9 @@
                 });
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             stripTags: function (source) {
@@ -90,7 +104,9 @@
                 return source;
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             camelCase: function (source) {
@@ -104,8 +120,10 @@
                 return source;
             },
             /**
-             * @param source {String}
-             * @param length {Number}
+             * @memberOf string
+             * @function
+             * @param {String} source
+             * @param {Number} length
              * @returns {String}
              */
             slice: function (source, length) {

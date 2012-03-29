@@ -9,7 +9,7 @@
         document = global.document || {},
         /**
          * Walking on every element in node
-         * @param {Node} node
+         * @param {HTMLElement} node
          * @param {Function} func Run on every node
          */
         walkTheDom = function (node, func) {
@@ -45,20 +45,26 @@
                 "NOTATION_NODE": 12
             },
             /**
-             * @param {Node} node
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement} node
              * @returns {String}
              */
             isNode: function (node) {
                 return pklib.common.assert(Boolean(node && node.nodeType && node.nodeName), true);
             },
             /**
-             * @param {Node} node
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement} node
              * @returns {String}
              */
             isElement: function (node) {
                 return (node && node.nodeType === pklib.dom.nodeTypes.ELEMENT_NODE) || false;
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {String} id
              * @returns {HTMLElement|Null}
              */
@@ -66,6 +72,8 @@
                 return document.getElementById(id);
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {String} tag
              * @param {Element} element
              * @returns {NodeList}
@@ -75,6 +83,8 @@
                 return element.getElementsByTagName(tag);
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {String} cssClass
              * @param {HTMLElement} wrapper
              * @returns {NodeList|Array}
@@ -96,6 +106,8 @@
             },
             /**
              * Get element from selector
+             * @memberOf dom
+             * @function
              * @param {String} selector
              * @returns {NodeList|Array}
              */
@@ -106,7 +118,9 @@
                 return [];
             },
             /**
-             * @param {Node} node
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement} node
              * @returns {Number|Null}
              */
             index: function (node) {
@@ -123,7 +137,9 @@
                 return null;
             },
             /**
-             * @param {Node} node
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement} node
              * @returns {Array}
              */
             children: function (node) {
@@ -140,8 +156,10 @@
                 return array;
             },
             /**
-             * @param {HTMLElement} element
-             * @param {Node} node
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement|String} element
+             * @param {HTMLElement} node
              * @returns {HTMLElement}
              */
             insert: function (element, node) {
@@ -153,7 +171,9 @@
                 return element;
             },
             /**
-             * @param {Node}
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement}
              */
             remove: function () {
                 var i, node = null, parent = null,
@@ -169,6 +189,8 @@
                 }
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {HTMLElement} node
              * @returns {HTMLElement|Null}
              */
@@ -185,6 +207,8 @@
                 return pNode;
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {HTMLElement} node
              * @returns {HTMLElement|Null}
              */
@@ -201,6 +225,8 @@
                 return nNode;
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {HTMLElement} node
              * @returns {HTMLElement|Null}
              */

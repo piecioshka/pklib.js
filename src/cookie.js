@@ -12,10 +12,12 @@
          */
         cookie = {
             /**
-             * Create cookie file with name, value and day expired.
-             * @param name {String}
-             * @param value {String}
-             * @param days {Number}
+             * Create cookie file with name, value and day expired
+             * @memberOf cookie
+             * @function
+             * @param {String} name
+             * @param {String} value
+             * @param {Number} days
              * @returns {String}
              */
             create: function (name, value, days) {
@@ -33,8 +35,10 @@
                 return pklib.cookie.get(name);
             },
             /**
-             * Read cookie by it name.
-             * @param name {String}
+             * Read cookie by it name
+             * @memberOf cookie
+             * @function
+             * @param {String} name
              * @returns {String|Null}
              */
             get: function (name) {
@@ -58,8 +62,10 @@
                 return null;
             },
             /**
-             * Delete cookie by it name.
-             * @param name {String}
+             * Delete cookie by it name
+             * @memberOf cookie
+             * @function
+             * @param {String} name
              * @returns {String}
              */
             remove: function (name) {

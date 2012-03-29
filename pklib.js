@@ -24,11 +24,10 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Wed Mar  7 01:00:03 GMT 2012
+ * Date: Thu Mar 29 10:52:46 GMT 2012
  */
 (function (global) {
     "use strict";
-
     /**
      * Global object, contain modules
      */
@@ -59,27 +58,12 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
-    /**
-     * @constructor
-     * @param {String} [message=""]
-     */
-    function XHRError(message) {
-        this.name = "XHRError";
-        this.message = message || "";
-    }
-
-    XHRError.prototype = new Error();
-    XHRError.prototype.constructor = XHRError;
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Array containt key as url, value as ajax response
          */
         cache = [],
-
         /**
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
@@ -103,23 +87,21 @@ if (typeof Function.prototype.bind !== "function") {
                 xhr = null;
             }
         },
-
         /**
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
-         * @throws {XHRError} If exists timeout on request
+         * @throws {Error} If exists timeout on request
          */
         timeoutHandler = function (settings, xhr) {
             // clear memory
             xhr = null;
             // throw exception
-            throw new XHRError("pklib.ajax: XHRError: Timeout on: " + settings.url);
+            throw new Error("pklib.ajax: Error: Timeout on: " + settings.url);
         },
-
         /**
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
-         * @throws {XHRError} If exists timeout on request
+         * @throws {Error} If exists timeout on request
          */
         requestTimeout = function (settings, xhr) {
             if (xhr.readyState !== 4) {
@@ -127,9 +109,8 @@ if (typeof Function.prototype.bind !== "function") {
                 timeoutHandler.call(null, settings, xhr);
             }
         },
-
         /**
-         * @throws {XHRError} If cannot create XMLHttpRequest object
+         * @throws {Error} If cannot create XMLHttpRequest object
          * @returns {Object|Undefined} ActiveXObject object
          */
         get_microsoft_xhr = function () {
@@ -140,14 +121,13 @@ if (typeof Function.prototype.bind !== "function") {
                 try {
                     xhr = new ActiveXObject("Microsoft.XMLHTTP");
                 } catch (ignored) {
-                    throw new XHRError("pklib.ajax: XHRError: Cannot create XHR object");
+                    throw new Error("pklib.ajax: Error: Cannot create XHR object");
                 }
             }
             return xhr;
         },
-
         /**
-         * @throws {XHRError} If cannot create XMLHttpRequest object
+         * @throws {Error} If cannot create XMLHttpRequest object
          * @returns {Object|Undefined} XMLHttpRequest object
          */
         get_xhr = function () {
@@ -159,14 +139,15 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return xhr;
         },
-
         /**
          * Module to service asynchronous request
          * @namespace
          */
         ajax = {
             /**
-             * Lazy load file.
+             * Lazy load file
+             * @memberOf ajax
+             * @function
              * @param config {Object}
              * <pre>
              * {
@@ -241,7 +222,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
 
@@ -251,7 +231,9 @@ if (typeof Function.prototype.bind !== "function") {
          */
         array =  {
             /**
-             * Check if param is array,
+             * Check if param is array
+             * @memberOf array
+             * @function
              * @param {Object} array
              * @returns {Boolean}
              */
@@ -262,8 +244,10 @@ if (typeof Function.prototype.bind !== "function") {
                     typeof array.slice !== "undefined", true);
             },
             /**
-             * Check if element is in array by loop.
-             * @param param
+             * Check if element is in array by loop
+             * @memberOf array
+             * @function
+             * @param {Object} param
              * @param {Array} array
              * @returns {Boolean}
              */
@@ -278,7 +262,9 @@ if (typeof Function.prototype.bind !== "function") {
             },
             /**
              * Get index of element
-             * @param item
+             * @memberOf array
+             * @function
+             * @param {Object} item
              * @param {Array} array
              * @throws {ReferenceError} If cannot find index of element
              * @returns {Boolean}
@@ -293,7 +279,9 @@ if (typeof Function.prototype.bind !== "function") {
                 throw new ReferenceError("pklib.array.index: @item not exists");
             },
             /**
-             * Unique array. Delete element what was duplicated.
+             * Unique array. Delete element what was duplicated
+             * @memberOf array
+             * @function
              * @param {Array} array
              * @returns {Array}
              */
@@ -309,7 +297,9 @@ if (typeof Function.prototype.bind !== "function") {
             },
             /**
              * Remove element declarated in infinity params without first.
-             * First parameter is array object.
+             * First parameter is array object
+             * @memberOf array
+             * @function
              * @param {Array} array
              * @returns {Array}
              */
@@ -336,14 +326,13 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
-         * Bind function to aspect
+         * Bind function to aspect.
          * Create method with merge first and second.
-         * Second method is run after first.
+         * Second method is run after first
+         * @function
          * @param {Function} fun The function to bind aspect function
          * @param {Function} asp The aspect function
          * @namespace
@@ -372,22 +361,20 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Array with browsers name
          */
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"],
-
         /**
          * Get best information about browser
          * @namespace
          */
         browser = {
             /**
-             * Get browser name by checking userAgent in global object navigator.
+             * Get browser name by checking userAgent in global object navigator
+             * @memberOf browser
              * @returns {String}
              */
             getName: function () {
@@ -405,7 +392,9 @@ if (typeof Function.prototype.bind !== "function") {
             },
             /**
              * Get browser version by checking userAgent.
-             * Parse userAgent to find next 3 characters.
+             * Parse userAgent to find next 3 characters
+             * @memberOf browser
+             * @function
              * @returns {String}
              */
             getVersion: function () {
@@ -431,18 +420,27 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Common stuff
          * @namespace
          */
         common = {
+            /**
+             * @memberOf common
+             * @function
+             * @param {Object} v
+             * @param {Object} r
+             */
             assert: function (v, r) {
                 return v === r;
             },
+            /**
+             * @memberOf common
+             * @function
+             * @param {Function} func
+             */
             defer: function (func) {
                 setTimeout(func, 0);
             }
@@ -455,25 +453,21 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
-        /**
-         * Document of window
-         */
         document = global.document || {},
-
         /**
          * Cookie service manager
          * @namespace
          */
         cookie = {
             /**
-             * Create cookie file with name, value and day expired.
-             * @param name {String}
-             * @param value {String}
-             * @param days {Number}
+             * Create cookie file with name, value and day expired
+             * @memberOf cookie
+             * @function
+             * @param {String} name
+             * @param {String} value
+             * @param {Number} days
              * @returns {String}
              */
             create: function (name, value, days) {
@@ -491,8 +485,10 @@ if (typeof Function.prototype.bind !== "function") {
                 return pklib.cookie.get(name);
             },
             /**
-             * Read cookie by it name.
-             * @param name {String}
+             * Read cookie by it name
+             * @memberOf cookie
+             * @function
+             * @param {String} name
              * @returns {String|Null}
              */
             get: function (name) {
@@ -516,8 +512,10 @@ if (typeof Function.prototype.bind !== "function") {
                 return null;
             },
             /**
-             * Delete cookie by it name.
-             * @param name {String}
+             * Delete cookie by it name
+             * @memberOf cookie
+             * @function
+             * @param {String} name
              * @returns {String}
              */
             remove: function (name) {
@@ -534,15 +532,12 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * RegExp use to delete white chars
          */
         rclass = /[\n\t\r]/g,
-
         /**
          * Check typeof params
          * @param {String} cssClass
@@ -558,14 +553,15 @@ if (typeof Function.prototype.bind !== "function") {
                 throw new TypeError(prefix + ": @element: not HTMLElement");
             }
         },
-
         /**
          * Utils method related css on tags in DOM tree
          * @namespace
          */
         css = {
             /**
-             * Add CSS class to element define in second parameter.
+             * Add CSS class to element define in second parameter
+             * @memberOf css
+             * @function
              * @param {String} cssClass
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node
@@ -583,7 +579,9 @@ if (typeof Function.prototype.bind !== "function") {
                 element.className = classElement;
             },
             /**
-             * Remove CSS class from element define in second parameter.
+             * Remove CSS class from element define in second parameter
+             * @memberOf css
+             * @function
              * @param {String} cssClass
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node
@@ -595,6 +593,8 @@ if (typeof Function.prototype.bind !== "function") {
             },
             /**
              * Check if element has CSS class
+             * @memberOf css
+             * @function
              * @param {String} cssClass
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node
@@ -615,16 +615,16 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Utils stack to Date object
          * @namespace
          */
         date = {
             /**
+             * @memberOf date
+             * @function
              * @returns {String}
              */
             getFullMonth: function () {
@@ -642,14 +642,12 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
-
         /**
          * Walking on every element in node
-         * @param {Node} node
+         * @param {HTMLElement} node
          * @param {Function} func Run on every node
          */
         walkTheDom = function (node, func) {
@@ -662,7 +660,6 @@ if (typeof Function.prototype.bind !== "function") {
                 }
             }
         },
-
         /**
          * Helper related with DOM service
          * @namespace
@@ -686,20 +683,26 @@ if (typeof Function.prototype.bind !== "function") {
                 "NOTATION_NODE": 12
             },
             /**
-             * @param {Node} node
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement} node
              * @returns {String}
              */
             isNode: function (node) {
                 return pklib.common.assert(Boolean(node && node.nodeType && node.nodeName), true);
             },
             /**
-             * @param {Node} node
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement} node
              * @returns {String}
              */
             isElement: function (node) {
                 return (node && node.nodeType === pklib.dom.nodeTypes.ELEMENT_NODE) || false;
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {String} id
              * @returns {HTMLElement|Null}
              */
@@ -707,6 +710,8 @@ if (typeof Function.prototype.bind !== "function") {
                 return document.getElementById(id);
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {String} tag
              * @param {Element} element
              * @returns {NodeList}
@@ -716,6 +721,8 @@ if (typeof Function.prototype.bind !== "function") {
                 return element.getElementsByTagName(tag);
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {String} cssClass
              * @param {HTMLElement} wrapper
              * @returns {NodeList|Array}
@@ -737,6 +744,8 @@ if (typeof Function.prototype.bind !== "function") {
             },
             /**
              * Get element from selector
+             * @memberOf dom
+             * @function
              * @param {String} selector
              * @returns {NodeList|Array}
              */
@@ -747,7 +756,9 @@ if (typeof Function.prototype.bind !== "function") {
                 return [];
             },
             /**
-             * @param {Node} node
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement} node
              * @returns {Number|Null}
              */
             index: function (node) {
@@ -764,7 +775,9 @@ if (typeof Function.prototype.bind !== "function") {
                 return null;
             },
             /**
-             * @param {Node} node
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement} node
              * @returns {Array}
              */
             children: function (node) {
@@ -781,8 +794,10 @@ if (typeof Function.prototype.bind !== "function") {
                 return array;
             },
             /**
-             * @param {HTMLElement} element
-             * @param {Node} node
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement|String} element
+             * @param {HTMLElement} node
              * @returns {HTMLElement}
              */
             insert: function (element, node) {
@@ -794,7 +809,9 @@ if (typeof Function.prototype.bind !== "function") {
                 return element;
             },
             /**
-             * @param {Node}
+             * @memberOf dom
+             * @function
+             * @param {HTMLElement}
              */
             remove: function () {
                 var i, node = null, parent = null,
@@ -810,6 +827,8 @@ if (typeof Function.prototype.bind !== "function") {
                 }
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {HTMLElement} node
              * @returns {HTMLElement|Null}
              */
@@ -826,6 +845,8 @@ if (typeof Function.prototype.bind !== "function") {
                 return pNode;
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {HTMLElement} node
              * @returns {HTMLElement|Null}
              */
@@ -842,6 +863,8 @@ if (typeof Function.prototype.bind !== "function") {
                 return nNode;
             },
             /**
+             * @memberOf dom
+             * @function
              * @param {HTMLElement} node
              * @returns {HTMLElement|Null}
              */
@@ -867,16 +890,16 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Helper about manage event on HTMLElement
          * @namespace
          */
         event = {
             /**
+             * @memberOf event
+             * @function
              * @param {HTMLElement} target
              * @param {String} eventName
              * @param {Function} handler
@@ -900,6 +923,8 @@ if (typeof Function.prototype.bind !== "function") {
                 }
             },
             /**
+             * @memberOf event
+             * @function
              * @param {HTMLElement} target
              * @param {String} eventName
              */
@@ -927,6 +952,8 @@ if (typeof Function.prototype.bind !== "function") {
                 }
             },
             /**
+             * @memberOf event
+             * @function
              * @param {HTMLElement} target
              * @param {String} eventName
              * @returns {Array|Undefined}
@@ -938,6 +965,8 @@ if (typeof Function.prototype.bind !== "function") {
                 return target.events[eventName];
             },
             /**
+             * @memberOf event
+             * @function
              * @param {HTMLElement} target
              * @param {String} eventName
              * @throws {ReferenceError} If HTMLElement haven't got any events
@@ -968,12 +997,12 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
-
         /**
+         * @private
+         * @function
          * @param {String} url
          * @param {Function} callback
          */
@@ -988,7 +1017,8 @@ if (typeof Function.prototype.bind !== "function") {
             if (typeof script.readyState !== "undefined") {
                 /**
                  * Method run when request has change state
-                 * @static
+                 * @memberOf script
+                 * @function
                  */
                 script.onreadystatechange = function () {
                     if (script.readyState === "loaded" || script.readyState === "complete") {
@@ -998,10 +1028,11 @@ if (typeof Function.prototype.bind !== "function") {
                         }
                     }
                 };
-            } else if (typeof script.onload !== "undefined") {
+            } else {
                 /**
                  * Method run when request has ended
-                 * @static
+                 * @memberOf script
+                 * @function
                  */
                 script.onload = function () {
                     if (typeof callback === "function") {
@@ -1014,7 +1045,6 @@ if (typeof Function.prototype.bind !== "function") {
             }
             document.head.appendChild(script);
         },
-
         /**
          * JS file laoder
          * @namespace
@@ -1022,19 +1052,24 @@ if (typeof Function.prototype.bind !== "function") {
         file = {
             /**
              * Lazy load JS files
+             * @memberOf file
+             * @function
              * @param {String|Array} files
              * @param {Function} callback
              */
             loadjs: function (files, callback) {
+                var file,
+                    self = this;
+
                 if (typeof files === "string") {
-                    simpleLoadJS(files, function (script) {
+                    file = files;
+                    simpleLoadJS(file, function (script) {
                         if (typeof callback === "function") {
                             callback(script);
                         }
                     });
                 } else {
-                    var that = this,
-                        file = files.shift();
+                    file = files.shift();
 
                     if (typeof file === "undefined") {
                         if (typeof callback === "function") {
@@ -1042,7 +1077,7 @@ if (typeof Function.prototype.bind !== "function") {
                         }
                     }
                     simpleLoadJS(file, function () {
-                        that.loadjs(files, callback);
+                        self.loadjs(files, callback);
                     });
                 }
             }
@@ -1056,15 +1091,22 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
+        /**
+         * @private
+         * @function
+         * @param {Function} fun
+         */
         getFunctionName = function (fun) {
             var text = fun.toString().split("\n")[0].replace("function ", "");
             return text.substr(0, text.indexOf("(")) + "()";
         },
-
+        /**
+         * @private
+         * @function
+         * @param {Object} object
+         */
         getLastElement = function (object) {
             var i,
                 len = 0;
@@ -1075,7 +1117,11 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return len;
         },
-
+        /**
+         * @private
+         * @function
+         * @param {Number} len
+         */
         getIndent = function (len) {
             var i,
                 fix = "\t",
@@ -1085,13 +1131,14 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return source;
         },
-
         /**
          * JSON manager
          * @namespace
          */
         json = {
             /**
+             * @memberOf json
+             * @function
              * @param {Array} object
              * @returns {String}
              */
@@ -1103,59 +1150,72 @@ if (typeof Function.prototype.bind !== "function") {
                     item,
                     len = 0;
 
-                // Undefined
-                if (typeof object === "undefined") {
-                    source = undefined;
-                } else if (object === null) {
-                    // Null
-                    source = null;
-                } else if (typeof object === "boolean") {
-                    // Boolean
-                    source = object;
-                } else if (typeof object === "number") {
-                    // Number
-                    source = object;
-                } else if (pklib.string.isString(object)) {
-                    // String
-                    source = '"' + object + '"';
-                } else if (typeof object === "function") {
-                    // Function
-                    source = getFunctionName(object);
-                } else if (typeof object === "object" && typeof object.slice === "function") {
-                    // Array
-                    if (object.length === 0) {
-                        return "[]";
-                    }
-                    source = "[\n" + getIndent(index);
-                    index += 1;
-                    len = object.length;
-                    for (i = 0; i < len; ++i) {
-                        source += getIndent(index) + pklib.json.stringify(object[i], index);
-                        if (i !== len - 1) {
-                            source += ",\n";
+                switch (true) {
+                    case typeof object === "undefined":
+                        // Undefined
+                        source = undefined;
+                        break;
+                    case object === null:
+                        // Null
+                        source = null;
+                        break;
+                    case typeof object === "boolean":
+                        // Boolean
+                        source = object;
+                        break;
+                    case typeof object === "number":
+                        // Number
+                        source = object;
+                        break;
+                    case pklib.string.isString(object):
+                        // String
+                        source = '"' + object + '"';
+                        break;
+                    case typeof object === "function":
+                        // Function
+                        source = getFunctionName(object);
+                        break;
+                    case pklib.array.isArray(object):
+                        // Array
+                        if (object.length === 0) {
+                            return "[]";
                         }
-                    }
-                    index -= 1;
-                    source += "\n" + getIndent(index) + "]";
-                } else if (typeof object === "object") {
-                    // Object
-                    source = "{\n";
-                    index += 1;
-                    for (item in object) {
-                        if (object.hasOwnProperty(item)) {
-                            source += getIndent(index) + '"' + item + '": ' + pklib.json.stringify(object[item], index);
-                            if (item !== getLastElement(object)) {
+                        source = "[\n" + getIndent(index);
+                        index += 1;
+                        len = object.length;
+                        for (i = 0; i < len; ++i) {
+                            source += getIndent(index) + pklib.json.stringify(object[i], index);
+                            if (i !== len - 1) {
                                 source += ",\n";
                             }
                         }
+                        index -= 1;
+                        source += "\n" + getIndent(index) + "]";
+                        break;
+                    case pklib.object.isObject(object):
+                        // Object
+                        source = "{\n";
+                        index += 1;
+                        for (item in object) {
+                            if (object.hasOwnProperty(item)) {
+                                source += getIndent(index) + '"' + item + '": ' + pklib.json.stringify(object[item], index);
+                                if (item !== getLastElement(object)) {
+                                    source += ",\n";
+                                }
+                            }
+                        }
+                        index -= 1;
+                        source += "\n" + getIndent(index) + "}";
+                        break;
+                    default:
+                        source = "---";
                     }
-                    index -= 1;
-                    source += "\n" + getIndent(index) + "}";
-                }
 
                 return source;
             },
             /**
+             * @memberOf json
+             * @function
              * @param {Object} source
              * @param {Boolean} toJson
              * @throws {TypeError} If first param is not object, second is null
@@ -1215,10 +1275,8 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Module to service object
          * @namespace
@@ -1226,6 +1284,8 @@ if (typeof Function.prototype.bind !== "function") {
         object =  {
             /**
              * Check if is object
+             * @memberOf object
+             * @function
              * @param {Object} o
              * @returns {Boolean}
              */
@@ -1236,6 +1296,8 @@ if (typeof Function.prototype.bind !== "function") {
                     typeof o.length === "undefined";
             },
             /**
+             * @memberOf object
+             * @function
              * @param {Array|Object} target
              * @param {Array|Object} source
              * @returns {Array}
@@ -1274,18 +1336,18 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         data = {},
-
         /**
          * Time analyzer
          * @namespace
          */
         profiler = {
             /**
-             * @param name {String}
+             * @memberOf profiler
+             * @function
+             * @param {String} name
              * @returns {Number}
              */
             start: function (name) {
@@ -1293,7 +1355,9 @@ if (typeof Function.prototype.bind !== "function") {
                 return data[name];
             },
             /**
-             * @param name {String}
+             * @memberOf profiler
+             * @function
+             * @param {String} name
              * @returns {Number}
              */
             stop: function (name) {
@@ -1301,7 +1365,9 @@ if (typeof Function.prototype.bind !== "function") {
                 return new Date((new Date()).getTime() + data[name]);
             },
             /**
-             * @param name {String}
+             * @memberOf profiler
+             * @function
+             * @param {String} name
              * @returns {Number}
              */
             getTime: function (name) {
@@ -1317,36 +1383,44 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
+    /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * String service manager
          * @namespace
          */
         string = {
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {Boolean}
              */
             isString: function (source) {
                 return typeof source === "string";
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {Boolean}
              */
             isLetter: function (source) {
                 return pklib.string.isString(source) && /^[a-zA-Z]$/.test(source);
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             trim: function (source) {
                 return source.replace(/^\s+|\s+$/g, "");
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             slug: function (source) {
@@ -1378,14 +1452,18 @@ if (typeof Function.prototype.bind !== "function") {
                 return result;
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             capitalize: function (source) {
                 return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             delimiterSeparatedWords: function (source) {
@@ -1394,7 +1472,9 @@ if (typeof Function.prototype.bind !== "function") {
                 });
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             stripTags: function (source) {
@@ -1404,7 +1484,9 @@ if (typeof Function.prototype.bind !== "function") {
                 return source;
             },
             /**
-             * @param source {String}
+             * @memberOf string
+             * @function
+             * @param {String} source
              * @returns {String}
              */
             camelCase: function (source) {
@@ -1418,8 +1500,10 @@ if (typeof Function.prototype.bind !== "function") {
                 return source;
             },
             /**
-             * @param source {String}
-             * @param length {Number}
+             * @memberOf string
+             * @function
+             * @param {String} source
+             * @param {Number} length
              * @returns {String}
              */
             slice: function (source, length) {
@@ -1449,17 +1533,17 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document,
-
         /**
          * User Interface
          * @namespace
          */
         ui = {
             /**
+             * @memberOf ui
+             * @function
              * @param {HTMLElement} element
              * @param {HTMLElement} wrapper
              * @throws {TypeError} If first param is not HTMLElement
@@ -1488,6 +1572,8 @@ if (typeof Function.prototype.bind !== "function") {
                 return [left, top];
             },
             /**
+             * @memberOf ui
+             * @function
              * @param {HTMLElement} element
              * @param {HTMLElement} wrapper
              * @returns {Array}
@@ -1512,6 +1598,8 @@ if (typeof Function.prototype.bind !== "function") {
                 return [width, height];
             },
             /**
+             * @memberOf ui
+             * @function
              * @param {Number} param
              * @param {Boolean} animate
              */
@@ -1538,14 +1626,14 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         document = global.document || {},
         id = "pklib-glass-wrapper",
         settings = {
+            /** @field */
             container: null,
+            /** @namespace */
             style: {
                 position: "absolute",
                 left: 0,
@@ -1555,19 +1643,18 @@ if (typeof Function.prototype.bind !== "function") {
                 zIndex: 1000
             }
         },
-
         /**
          * Show glass on dimensions on browser
          * @namespace
          */
         glass = {
-            /**
-             * @type {String}
-             */
+            /** @field */
             objId: id,
             /**
-             * @param config {Object}
-             * @param callback {Function}
+             * @memberOf glass
+             * @function
+             * @param {Object} config
+             * @param {Function} callback
              */
             show: function (config, callback) {
                 var that = this,
@@ -1600,7 +1687,9 @@ if (typeof Function.prototype.bind !== "function") {
                 return glass;
             },
             /**
-             * @param callback {Function}
+             * @memberOf glass
+             * @function
+             * @param {Function} callback
              * @returns {Boolean}
              */
             close: function (callback) {
@@ -1628,7 +1717,7 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
+    /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-loader-wrapper",
@@ -1642,18 +1731,17 @@ if (typeof Function.prototype.bind !== "function") {
             },
             center: true
         },
-
         /**
          * Loader adapter.
          * Show animate image (GIF) on special place.
          * @namespace
          */
         loader = {
-            /**
-             * @type string
-             */
+            /** @field */
             objId: id,
             /**
+             * @memberOf loader
+             * @function
              * @param {object} config
              * @param {function} callback
              */
@@ -1687,7 +1775,9 @@ if (typeof Function.prototype.bind !== "function") {
                 loader = null;
             },
             /**
-             * @param callback {Function}
+             * @memberOf loader
+             * @function
+             * @param {Function} callback
              */
             close: function (callback) {
                 var loader = pklib.dom.byId(this.objId),
@@ -1714,7 +1804,6 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
@@ -1727,23 +1816,20 @@ if (typeof Function.prototype.bind !== "function") {
                 zIndex: 1010
             }
         },
-
         /**
          * Show layer on special place.
          * @namespace
          */
         message = {
-            /**
-             * @type string
-             */
+            /** @field */
             objId: id,
-            /**
-             * @type Null
-             */
+            /** @field */
             content: null,
             /**
-             * @param config {Object}
-             * @param callback {Function}
+             * @memberOf message
+             * @function
+             * @param {Object} config
+             * @param {Function} callback
              */
             show: function (config, callback) {
                 settings.container = document.body;
@@ -1760,11 +1846,7 @@ if (typeof Function.prototype.bind !== "function") {
                     }
                 }
 
-                if (pklib.string.isString(this.content)) {
-                    message.innerHTML = this.content;
-                } else if (pklib.dom.isNode(this.content)) {
-                    message.appendChild(this.content);
-                }
+                pklib.dom.insert(this.content, message);
 
                 settings.container.appendChild(message);
                 pklib.ui.center(message, settings.container);
@@ -1778,7 +1860,9 @@ if (typeof Function.prototype.bind !== "function") {
                 return message;
             },
             /**
-             * @param callback {Function}
+             * @memberOf message
+             * @function
+             * @param {Function} callback
              */
             close: function (callback) {
                 var message = pklib.dom.byId(this.objId),
@@ -1805,18 +1889,18 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document,
-
         /**
          * Check ui dimensions
          * @namespace
          */
         size = {
             /**
-             * @param name {String}
+             * @memberOf size
+             * @function
+             * @param {String} name
              * @throws {TypeError}
              * @returns {Number}
              */
@@ -1832,7 +1916,9 @@ if (typeof Function.prototype.bind !== "function") {
                     clientName;
             },
             /**
-             * @param name {String}
+             * @memberOf size
+             * @function
+             * @param {String} name
              * @returns {Number}
              */
             document: function (name) {
@@ -1853,9 +1939,11 @@ if (typeof Function.prototype.bind !== "function") {
                 return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
             },
             /**
-             * @param obj {HTMLElement}
-             * @param name {String}
-             * @returns {number}
+             * @memberOf size
+             * @function
+             * @param {HTMLElement} obj
+             * @param {String} name
+             * @returns {Number}
              */
             object: function (obj, name) {
                 if (typeof name === "undefined" || typeof obj === "undefined") {
@@ -1876,45 +1964,52 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Document.location object
          */
         loc = global.location,
-
         /**
          * Url helper manager
          * @namespace
          */
         url = {
             /**
+             * @memberOf url
+             * @function
              * @returns {String}
              */
             getProtocol: function () {
                 return loc.protocol;
             },
             /**
+             * @memberOf url
+             * @function
              * @returns {String}
              */
             getHost: function () {
                 return loc.host;
             },
             /**
+             * @memberOf url
+             * @function
              * @returns {String}
              */
             getPort: function () {
                 return loc.port || 80;
             },
             /**
+             * @memberOf url
+             * @function
              * @returns {String}
              */
             getUri: function () {
                 return loc.pathname;
             },
             /**
+             * @memberOf url
+             * @function
              * @returns {Array}
              */
             getParams: function () {
@@ -1935,6 +2030,8 @@ if (typeof Function.prototype.bind !== "function") {
                 return paramsList;
             },
             /**
+             * @memberOf url
+             * @function
              * @param {String} key
              * @returns {String}
              */
@@ -1956,6 +2053,8 @@ if (typeof Function.prototype.bind !== "function") {
                 return null;
             },
             /**
+             * @memberOf url
+             * @function
              * @returns {String}
              */
             getHash: function () {
@@ -1972,28 +2071,66 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
+        /**
+         * @private
+         * @function
+         * @param {Event} evt
+         */
+        opentrigger = function (evt) {
+            var url = "";
 
+            if (evt.originalTarget &&
+                typeof evt.originalTarget === "object" &&
+                typeof evt.originalTarget.href !== "undefined") {
+                url = evt.originalTarget.href;
+            } else if (evt.toElement &&
+                typeof evt.toElement === "object" &&
+                typeof evt.toElement.href !== "undefined") {
+                url = evt.toElement.href;
+            } else if (evt.srcElement &&
+                typeof evt.srcElement === "object" &&
+                typeof typeof evt.srcElement !== "undefined") {
+                url = evt.srcElement.href;
+            }
+
+            open(url);
+            try {
+                evt.preventDefault();
+            } catch (ignore) {
+                return false;
+            }
+        },
         /**
          * Utils tools
          * @namespace
          */
         utils = {
-            /** @namespace */
+            /**
+             * Numbers of chars in ASCII system
+             * @memberOf utils
+             * @namespace
+             */
             ascii: {
-                /** @namespace */
+                /**
+                 * @memberOf utils.ascii
+                 * @namespace
+                 */
                 letters: {
                     lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
                     upper: [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
                 }
             },
-
-            /** @namespace */
+            /**
+             * @namespace
+             * @memberOf utils
+             */
             action: {
                 /**
+                 * @memberOf utils.action
+                 * @function
                  * @param {HTMLElement} obj
                  */
                 clearfocus: function (obj) {
@@ -2011,6 +2148,8 @@ if (typeof Function.prototype.bind !== "function") {
                     }
                 },
                 /**
+                 * @memberOf utils.action
+                 * @function
                  * @param {HTMLElement} area
                  */
                 outerlink: function (area) {
@@ -2020,31 +2159,6 @@ if (typeof Function.prototype.bind !== "function") {
                         links = pklib.dom.byTag("a", area),
                         len = links.length;
 
-                    function opentrigger(evt) {
-                        var url = "";
-
-                        if (evt.originalTarget &&
-                                typeof evt.originalTarget === "object" &&
-                                typeof evt.originalTarget.href !== "undefined") {
-                            url = evt.originalTarget.href;
-                        } else if (evt.toElement &&
-                                typeof evt.toElement === "object" &&
-                                typeof evt.toElement.href !== "undefined") {
-                            url = evt.toElement.href;
-                        } else if (evt.srcElement &&
-                                typeof evt.srcElement === "object" &&
-                                typeof typeof evt.srcElement !== "undefined") {
-                            url = evt.srcElement.href;
-                        }
-
-                        open(url);
-                        try {
-                            evt.preventDefault();
-                        } catch (ignore) {
-                            return false;
-                        }
-                    }
-
                     for (i = 0; i < len; ++i) {
                         link = links[i];
                         if (link.rel === "outerlink") {
@@ -2053,6 +2167,8 @@ if (typeof Function.prototype.bind !== "function") {
                     }
                 },
                 /**
+                 * @memberOf utils.action
+                 * @function
                  * @param {HTMLElement} element
                  * @param {String} [text="Sure?"]
                  */

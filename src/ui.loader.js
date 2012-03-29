@@ -24,11 +24,11 @@
          * @namespace
          */
         loader = {
-            /**
-             * @type string
-             */
+            /** @field */
             objId: id,
             /**
+             * @memberOf loader
+             * @function
              * @param {object} config
              * @param {function} callback
              */
@@ -62,7 +62,9 @@
                 loader = null;
             },
             /**
-             * @param callback {Function}
+             * @memberOf loader
+             * @function
+             * @param {Function} callback
              */
             close: function (callback) {
                 var loader = pklib.dom.byId(this.objId),

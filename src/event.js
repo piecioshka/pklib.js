@@ -11,6 +11,8 @@
          */
         event = {
             /**
+             * @memberOf event
+             * @function
              * @param {HTMLElement} target
              * @param {String} eventName
              * @param {Function} handler
@@ -34,6 +36,8 @@
                 }
             },
             /**
+             * @memberOf event
+             * @function
              * @param {HTMLElement} target
              * @param {String} eventName
              */
@@ -61,6 +65,8 @@
                 }
             },
             /**
+             * @memberOf event
+             * @function
              * @param {HTMLElement} target
              * @param {String} eventName
              * @returns {Array|Undefined}
@@ -72,6 +78,8 @@
                 return target.events[eventName];
             },
             /**
+             * @memberOf event
+             * @function
              * @param {HTMLElement} target
              * @param {String} eventName
              * @throws {ReferenceError} If HTMLElement haven't got any events

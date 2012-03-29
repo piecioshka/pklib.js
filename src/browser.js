@@ -15,7 +15,8 @@
          */
         browser = {
             /**
-             * Get browser name by checking userAgent in global object navigator.
+             * Get browser name by checking userAgent in global object navigator
+             * @memberOf browser
              * @returns {String}
              */
             getName: function () {
@@ -33,7 +34,9 @@
             },
             /**
              * Get browser version by checking userAgent.
-             * Parse userAgent to find next 3 characters.
+             * Parse userAgent to find next 3 characters
+             * @memberOf browser
+             * @function
              * @returns {String}
              */
             getVersion: function () {

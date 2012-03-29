@@ -15,30 +15,40 @@
          */
         url = {
             /**
+             * @memberOf url
+             * @function
              * @returns {String}
              */
             getProtocol: function () {
                 return loc.protocol;
             },
             /**
+             * @memberOf url
+             * @function
              * @returns {String}
              */
             getHost: function () {
                 return loc.host;
             },
             /**
+             * @memberOf url
+             * @function
              * @returns {String}
              */
             getPort: function () {
                 return loc.port || 80;
             },
             /**
+             * @memberOf url
+             * @function
              * @returns {String}
              */
             getUri: function () {
                 return loc.pathname;
             },
             /**
+             * @memberOf url
+             * @function
              * @returns {Array}
              */
             getParams: function () {
@@ -59,6 +69,8 @@
                 return paramsList;
             },
             /**
+             * @memberOf url
+             * @function
              * @param {String} key
              * @returns {String}
              */
@@ -80,6 +92,8 @@
                 return null;
             },
             /**
+             * @memberOf url
+             * @function
              * @returns {String}
              */
             getHash: function () {

@@ -6,9 +6,10 @@
     /** @namespace */
     var pklib = global.pklib || {},
         /**
-         * Bind function to aspect
+         * Bind function to aspect.
          * Create method with merge first and second.
-         * Second method is run after first.
+         * Second method is run after first
+         * @function
          * @param {Function} fun The function to bind aspect function
          * @param {Function} asp The aspect function
          * @namespace

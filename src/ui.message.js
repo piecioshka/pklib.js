@@ -21,17 +21,15 @@
          * @namespace
          */
         message = {
-            /**
-             * @type string
-             */
+            /** @field */
             objId: id,
-            /**
-             * @type Null
-             */
+            /** @field */
             content: null,
             /**
-             * @param config {Object}
-             * @param callback {Function}
+             * @memberOf message
+             * @function
+             * @param {Object} config
+             * @param {Function} callback
              */
             show: function (config, callback) {
                 settings.container = document.body;
@@ -48,11 +46,7 @@
                     }
                 }
 
-                if (pklib.string.isString(this.content)) {
-                    message.innerHTML = this.content;
-                } else if (pklib.dom.isNode(this.content)) {
-                    message.appendChild(this.content);
-                }
+                pklib.dom.insert(this.content, message);
 
                 settings.container.appendChild(message);
                 pklib.ui.center(message, settings.container);
@@ -66,7 +60,9 @@
                 return message;
             },
             /**
-             * @param callback {Function}
+             * @memberOf message
+             * @function
+             * @param {Function} callback
              */
             close: function (callback) {
                 var message = pklib.dom.byId(this.objId),

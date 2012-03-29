@@ -13,7 +13,9 @@
          */
         size = {
             /**
-             * @param name {String}
+             * @memberOf size
+             * @function
+             * @param {String} name
              * @throws {TypeError}
              * @returns {Number}
              */
@@ -29,7 +31,9 @@
                     clientName;
             },
             /**
-             * @param name {String}
+             * @memberOf size
+             * @function
+             * @param {String} name
              * @returns {Number}
              */
             document: function (name) {
@@ -50,9 +54,11 @@
                 return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
             },
             /**
-             * @param obj {HTMLElement}
-             * @param name {String}
-             * @returns {number}
+             * @memberOf size
+             * @function
+             * @param {HTMLElement} obj
+             * @param {String} name
+             * @returns {Number}
              */
             object: function (obj, name) {
                 if (typeof name === "undefined" || typeof obj === "undefined") {
