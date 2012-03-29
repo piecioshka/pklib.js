@@ -61,11 +61,16 @@
              * @returns {Number}
              */
             object: function (obj, name) {
-                if (typeof name === "undefined" || typeof obj === "undefined") {
+                if (typeof name === "undefined") {
                     throw new TypeError("pklib.ui.size.object: @name: undefined");
                 }
+                if (!pklib.dom.isNode(obj)) {
+                    throw new TypeError("pklib.ui.size.object: @obj: is not node");
+                }
                 name = pklib.string.capitalize(name);
-                var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];
+                var client = obj["client" + name],
+                    scroll = obj["scroll" + name],
+                    offset = obj["offset" + name];
                 return Math.max(client, scroll, offset);
             }
         };

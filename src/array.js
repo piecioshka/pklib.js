@@ -47,7 +47,7 @@
              * @function
              * @param {Object} item
              * @param {Array} array
-             * @throws {ReferenceError} If cannot find index of element
+             * @throws {ReferenceError} If can not find index of element
              * @returns {Boolean}
              */
             index: function (item, array) {

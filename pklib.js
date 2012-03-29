@@ -110,7 +110,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
         },
         /**
-         * @throws {Error} If cannot create XMLHttpRequest object
+         * @throws {Error} If can not create XMLHttpRequest object
          * @returns {Object|Undefined} ActiveXObject object
          */
         get_microsoft_xhr = function () {
@@ -127,7 +127,7 @@ if (typeof Function.prototype.bind !== "function") {
             return xhr;
         },
         /**
-         * @throws {Error} If cannot create XMLHttpRequest object
+         * @throws {Error} If can not create XMLHttpRequest object
          * @returns {Object|Undefined} XMLHttpRequest object
          */
         get_xhr = function () {
@@ -266,7 +266,7 @@ if (typeof Function.prototype.bind !== "function") {
              * @function
              * @param {Object} item
              * @param {Array} array
-             * @throws {ReferenceError} If cannot find index of element
+             * @throws {ReferenceError} If can not find index of element
              * @returns {Boolean}
              */
             index: function (item, array) {
@@ -1000,6 +1000,7 @@ if (typeof Function.prototype.bind !== "function") {
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
+        copy_files = [],
         /**
          * @private
          * @function
@@ -1068,17 +1069,29 @@ if (typeof Function.prototype.bind !== "function") {
                             callback(script);
                         }
                     });
-                } else {
+                } else if (pklib.array.isArray(files)) {
+
+                    if (!copy_files.length) {
+                        copy_files = pklib.object.mixin(copy_files, files);
+                    }
+
                     file = files.shift();
 
                     if (typeof file === "undefined") {
                         if (typeof callback === "function") {
-                            callback();
+                            callback({
+                                src: copy_files[copy_files.length - 1]
+                            });
+
+                            copy_files = [];
                         }
+                    } else {
+                        simpleLoadJS(file, function () {
+                            self.loadjs(files, callback);
+                        });
                     }
-                    simpleLoadJS(file, function () {
-                        self.loadjs(files, callback);
-                    });
+                } else {
+                    // can not be identified
                 }
             }
         };
@@ -1946,11 +1959,16 @@ if (typeof Function.prototype.bind !== "function") {
              * @returns {Number}
              */
             object: function (obj, name) {
-                if (typeof name === "undefined" || typeof obj === "undefined") {
+                if (typeof name === "undefined") {
                     throw new TypeError("pklib.ui.size.object: @name: undefined");
                 }
+                if (!pklib.dom.isNode(obj)) {
+                    throw new TypeError("pklib.ui.size.object: @obj: is not node");
+                }
                 name = pklib.string.capitalize(name);
-                var client = obj["client" + name], scroll = obj["scroll" + name], offset = obj["offset" + name];
+                var client = obj["client" + name],
+                    scroll = obj["scroll" + name],
+                    offset = obj["offset" + name];
                 return Math.max(client, scroll, offset);
             }
         };

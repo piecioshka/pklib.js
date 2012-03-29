@@ -6,6 +6,7 @@
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
+        copy_files = [],
         /**
          * @private
          * @function
@@ -74,17 +75,29 @@
                             callback(script);
                         }
                     });
-                } else {
+                } else if (pklib.array.isArray(files)) {
+
+                    if (!copy_files.length) {
+                        copy_files = pklib.object.mixin(copy_files, files);
+                    }
+
                     file = files.shift();
 
                     if (typeof file === "undefined") {
                         if (typeof callback === "function") {
-                            callback();
+                            callback({
+                                src: copy_files[copy_files.length - 1]
+                            });
+
+                            copy_files = [];
                         }
+                    } else {
+                        simpleLoadJS(file, function () {
+                            self.loadjs(files, callback);
+                        });
                     }
-                    simpleLoadJS(file, function () {
-                        self.loadjs(files, callback);
-                    });
+                } else {
+                    // can not be identified
                 }
             }
         };

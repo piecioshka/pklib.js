@@ -56,7 +56,7 @@
             }
         },
         /**
-         * @throws {Error} If cannot create XMLHttpRequest object
+         * @throws {Error} If can not create XMLHttpRequest object
          * @returns {Object|Undefined} ActiveXObject object
          */
         get_microsoft_xhr = function () {
@@ -73,7 +73,7 @@
             return xhr;
         },
         /**
-         * @throws {Error} If cannot create XMLHttpRequest object
+         * @throws {Error} If can not create XMLHttpRequest object
          * @returns {Object|Undefined} XMLHttpRequest object
          */
         get_xhr = function () {
