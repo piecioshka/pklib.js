@@ -33,6 +33,7 @@
              * @function
              * @param {Object} config
              * @param {Function} callback
+             * @returns {HTMLElement}
              */
             show: function (config, callback) {
                 var that = this,

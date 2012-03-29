@@ -11,6 +11,8 @@
          */
         cache = [],
         /**
+         * @private
+         * @function
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
          */
@@ -34,6 +36,8 @@
             }
         },
         /**
+         * @private
+         * @function
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
          * @throws {Error} If exists timeout on request
@@ -45,6 +49,8 @@
             throw new Error("pklib.ajax: Error: Timeout on: " + settings.url);
         },
         /**
+         * @private
+         * @function
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
          * @throws {Error} If exists timeout on request
@@ -56,6 +62,8 @@
             }
         },
         /**
+         * @private
+         * @function
          * @throws {Error} If can not create XMLHttpRequest object
          * @returns {Object|Undefined} ActiveXObject object
          */
@@ -73,6 +81,8 @@
             return xhr;
         },
         /**
+         * @private
+         * @function
          * @throws {Error} If can not create XMLHttpRequest object
          * @returns {Object|Undefined} XMLHttpRequest object
          */
@@ -94,7 +104,7 @@
              * Lazy load file
              * @memberOf ajax
              * @function
-             * @param config {Object}
+             * @param {Object} config
              * <pre>
              * {
              *      type {String|default: "get"}

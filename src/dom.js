@@ -9,6 +9,8 @@
         document = global.document || {},
         /**
          * Walking on every element in node
+         * @private
+         * @function
          * @param {HTMLElement} node
          * @param {Function} func Run on every node
          */
@@ -29,6 +31,7 @@
         dom = {
             /**
              * Types of all available node
+             * @namespace
              */
             nodeTypes: {
                 "ELEMENT_NODE": 1,

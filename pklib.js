@@ -65,6 +65,8 @@ if (typeof Function.prototype.bind !== "function") {
          */
         cache = [],
         /**
+         * @private
+         * @function
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
          */
@@ -88,6 +90,8 @@ if (typeof Function.prototype.bind !== "function") {
             }
         },
         /**
+         * @private
+         * @function
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
          * @throws {Error} If exists timeout on request
@@ -99,6 +103,8 @@ if (typeof Function.prototype.bind !== "function") {
             throw new Error("pklib.ajax: Error: Timeout on: " + settings.url);
         },
         /**
+         * @private
+         * @function
          * @param {Object} settings
          * @param {XMLHttpRequest} xhr
          * @throws {Error} If exists timeout on request
@@ -110,6 +116,8 @@ if (typeof Function.prototype.bind !== "function") {
             }
         },
         /**
+         * @private
+         * @function
          * @throws {Error} If can not create XMLHttpRequest object
          * @returns {Object|Undefined} ActiveXObject object
          */
@@ -127,6 +135,8 @@ if (typeof Function.prototype.bind !== "function") {
             return xhr;
         },
         /**
+         * @private
+         * @function
          * @throws {Error} If can not create XMLHttpRequest object
          * @returns {Object|Undefined} XMLHttpRequest object
          */
@@ -148,7 +158,7 @@ if (typeof Function.prototype.bind !== "function") {
              * Lazy load file
              * @memberOf ajax
              * @function
-             * @param config {Object}
+             * @param {Object} config
              * <pre>
              * {
              *      type {String|default: "get"}
@@ -224,7 +234,6 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Module to service array object
          * @namespace
@@ -267,7 +276,7 @@ if (typeof Function.prototype.bind !== "function") {
              * @param {Object} item
              * @param {Array} array
              * @throws {ReferenceError} If can not find index of element
-             * @returns {Boolean}
+             * @returns {Number}
              */
             index: function (item, array) {
                 var i, len = array.length;
@@ -375,6 +384,7 @@ if (typeof Function.prototype.bind !== "function") {
             /**
              * Get browser name by checking userAgent in global object navigator
              * @memberOf browser
+             * @function
              * @returns {String}
              */
             getName: function () {
@@ -430,8 +440,8 @@ if (typeof Function.prototype.bind !== "function") {
             /**
              * @memberOf common
              * @function
-             * @param {Object} v
-             * @param {Object} r
+             * @param {Object} v First object to compare
+             * @param {Object} r Second object to compare
              */
             assert: function (v, r) {
                 return v === r;
@@ -439,7 +449,7 @@ if (typeof Function.prototype.bind !== "function") {
             /**
              * @memberOf common
              * @function
-             * @param {Function} func
+             * @param {Function} func Function what would be defered
              */
             defer: function (func) {
                 setTimeout(func, 0);
@@ -448,6 +458,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.common = common;
 }(this));
+
 /**
  * @package pklib.cookie
  */
@@ -540,6 +551,8 @@ if (typeof Function.prototype.bind !== "function") {
         rclass = /[\n\t\r]/g,
         /**
          * Check typeof params
+         * @private
+         * @function
          * @param {String} cssClass
          * @param {HTMLElement} element
          * @throws {TypeError} If first param is not string, or second param is not Node
@@ -647,6 +660,8 @@ if (typeof Function.prototype.bind !== "function") {
         document = global.document || {},
         /**
          * Walking on every element in node
+         * @private
+         * @function
          * @param {HTMLElement} node
          * @param {Function} func Run on every node
          */
@@ -667,6 +682,7 @@ if (typeof Function.prototype.bind !== "function") {
         dom = {
             /**
              * Types of all available node
+             * @namespace
              */
             nodeTypes: {
                 "ELEMENT_NODE": 1,
@@ -1110,6 +1126,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @private
          * @function
          * @param {Function} fun
+         * @returns {String}
          */
         getFunctionName = function (fun) {
             var text = fun.toString().split("\n")[0].replace("function ", "");
@@ -1119,6 +1136,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @private
          * @function
          * @param {Object} object
+         * @returns {Number}
          */
         getLastElement = function (object) {
             var i,
@@ -1134,6 +1152,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @private
          * @function
          * @param {Number} len
+         * @returns {String}
          */
         getIndent = function (len) {
             var i,
@@ -1344,6 +1363,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.object = object;
 }(this));
+
 /**
  * @package pklib.profiler
  */
@@ -1633,6 +1653,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.ui = ui;
 }(this));
+
 /**
  * @package pklib.glass
  * @dependence pklib.browser, pklib.dom, pklib.event, pklib.utils
@@ -1668,6 +1689,7 @@ if (typeof Function.prototype.bind !== "function") {
              * @function
              * @param {Object} config
              * @param {Function} callback
+             * @returns {HTMLElement}
              */
             show: function (config, callback) {
                 var that = this,
@@ -1791,6 +1813,7 @@ if (typeof Function.prototype.bind !== "function") {
              * @memberOf loader
              * @function
              * @param {Function} callback
+             * @returns {Boolean}
              */
             close: function (callback) {
                 var loader = pklib.dom.byId(this.objId),
@@ -1843,6 +1866,7 @@ if (typeof Function.prototype.bind !== "function") {
              * @function
              * @param {Object} config
              * @param {Function} callback
+             * @returns {HTMLElement}
              */
             show: function (config, callback) {
                 settings.container = document.body;
@@ -1876,6 +1900,7 @@ if (typeof Function.prototype.bind !== "function") {
              * @memberOf message
              * @function
              * @param {Function} callback
+             * @returns {Boolean}
              */
             close: function (callback) {
                 var message = pklib.dom.byId(this.objId),

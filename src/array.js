@@ -5,7 +5,6 @@
     "use strict";
     /** @namespace */
     var pklib = global.pklib || {},
-
         /**
          * Module to service array object
          * @namespace
@@ -48,7 +47,7 @@
              * @param {Object} item
              * @param {Array} array
              * @throws {ReferenceError} If can not find index of element
-             * @returns {Boolean}
+             * @returns {Number}
              */
             index: function (item, array) {
                 var i, len = array.length;

@@ -12,6 +12,8 @@
         rclass = /[\n\t\r]/g,
         /**
          * Check typeof params
+         * @private
+         * @function
          * @param {String} cssClass
          * @param {HTMLElement} element
          * @throws {TypeError} If first param is not string, or second param is not Node

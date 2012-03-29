@@ -65,6 +65,7 @@
              * @memberOf loader
              * @function
              * @param {Function} callback
+             * @returns {Boolean}
              */
             close: function (callback) {
                 var loader = pklib.dom.byId(this.objId),

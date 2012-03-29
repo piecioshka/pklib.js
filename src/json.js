@@ -9,6 +9,7 @@
          * @private
          * @function
          * @param {Function} fun
+         * @returns {String}
          */
         getFunctionName = function (fun) {
             var text = fun.toString().split("\n")[0].replace("function ", "");
@@ -18,6 +19,7 @@
          * @private
          * @function
          * @param {Object} object
+         * @returns {Number}
          */
         getLastElement = function (object) {
             var i,
@@ -33,6 +35,7 @@
          * @private
          * @function
          * @param {Number} len
+         * @returns {String}
          */
         getIndent = function (len) {
             var i,

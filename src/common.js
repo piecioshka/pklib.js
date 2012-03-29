@@ -13,8 +13,8 @@
             /**
              * @memberOf common
              * @function
-             * @param {Object} v
-             * @param {Object} r
+             * @param {Object} v First object to compare
+             * @param {Object} r Second object to compare
              */
             assert: function (v, r) {
                 return v === r;
@@ -22,7 +22,7 @@
             /**
              * @memberOf common
              * @function
-             * @param {Function} func
+             * @param {Function} func Function what would be defered
              */
             defer: function (func) {
                 setTimeout(func, 0);

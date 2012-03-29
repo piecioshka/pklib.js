@@ -30,6 +30,7 @@
              * @function
              * @param {Object} config
              * @param {Function} callback
+             * @returns {HTMLElement}
              */
             show: function (config, callback) {
                 settings.container = document.body;
@@ -63,6 +64,7 @@
              * @memberOf message
              * @function
              * @param {Function} callback
+             * @returns {Boolean}
              */
             close: function (callback) {
                 var message = pklib.dom.byId(this.objId),

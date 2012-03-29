@@ -17,6 +17,7 @@
             /**
              * Get browser name by checking userAgent in global object navigator
              * @memberOf browser
+             * @function
              * @returns {String}
              */
             getName: function () {
