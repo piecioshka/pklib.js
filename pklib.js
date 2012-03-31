@@ -1568,7 +1568,7 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
     /** @namespace */
     var pklib = global.pklib || {},
-        document = global.document,
+        document = global.document || {},
         /**
          * User Interface
          * @namespace
@@ -1929,7 +1929,7 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
     /** @namespace */
     var pklib = global.pklib || {},
-        document = global.document,
+        document = global.document || {},
         /**
          * Check ui dimensions
          * @namespace
@@ -2012,7 +2012,7 @@ if (typeof Function.prototype.bind !== "function") {
         /**
          * Document.location object
          */
-        loc = global.location,
+        loc = global.location || {},
         /**
          * Url helper manager
          * @namespace
@@ -2053,7 +2053,7 @@ if (typeof Function.prototype.bind !== "function") {
             /**
              * @memberOf url
              * @function
-             * @returns {Array}
+             * @returns {Object}
              */
             getParams: function () {
                 var i,

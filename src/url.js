@@ -8,7 +8,7 @@
         /**
          * Document.location object
          */
-        loc = global.location,
+        loc = global.location || {},
         /**
          * Url helper manager
          * @namespace
@@ -49,7 +49,7 @@
             /**
              * @memberOf url
              * @function
-             * @returns {Array}
+             * @returns {Object}
              */
             getParams: function () {
                 var i,

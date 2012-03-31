@@ -6,7 +6,7 @@
     "use strict";
     /** @namespace */
     var pklib = global.pklib || {},
-        document = global.document,
+        document = global.document || {},
         /**
          * User Interface
          * @namespace
