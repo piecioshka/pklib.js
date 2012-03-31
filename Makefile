@@ -16,6 +16,11 @@ if [ -f $library_min ]
 then
     rm $library_min
 fi
+if [ -f $dir_doc ]
+then
+    find ${dir_doc} | xargs rm -rf
+    mkdir ${dir_doc}
+fi
 
 # start building library
 
@@ -51,12 +56,6 @@ java -jar ${dir_yuicompressor}/build/yuicompressor-2.4.7.jar\
 echo -n "Done."; echo
 
 echo -en "\033[1m[+] Generate documentation: \033[0m"
-
-if [ -f $dir_doc ]
-then
-    find ${dir_doc} | xargs rm -rf
-    mkdir ${dir_doc}
-fi
 
 java -jar ${dir_jsdoc}jsrun.jar ${dir_jsdoc}app/run.js -d=${dir_doc}\
     -a -t=${dir_jsdoc}templates/jsdoc -p ${dir_src} -q
