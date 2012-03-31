@@ -1,6 +1,6 @@
 # pklib - darmowa biblioteka JavaScript
 
-**pklib** jest wynikiem ciągłego używania z tych samych wzorców w sieci web,<br />
+`pklib` jest wynikiem ciągłego używania z tych samych wzorców w sieci web,<br />
 z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach.<br /> 
 Źródła biblioteki znajdują się na [Github.com](http://www.github.com/).<br /><br />
 
@@ -8,17 +8,9 @@ Biblioteka jest rozwijana z podziałem na moduły.
 
 Przykład:
     moduł `pklib.profiler`<br />
-    kod: `src/profiler.js`
+    plik: `src/profiler.js`
 
-Biblioteki posiada unit testy w napisane zgodnie ze specyfikację [QUnit](http://docs.jquery.com/Qunit)
-
-## wersjonowanie
-
-Wersję bibilioteki są iterowane w następujący sposób:
-
-* Pierwsza cyfra jest zmieniana gdy cała architektura biblioteki nabiera innego kształtu,
-* Druga cyfra jest aktualizowane gdy następuje ogromna porcja nowych obiektów bądź metod w dowolnym namespace'sie
-* Trzecia cyferka jest bardzo często inkrementowana, z uwagi na proces dewelopmentu całej biblioteki
+Biblioteka posiada testy jednostkowe napisane zgodnie ze specyfikację [QUnit](http://docs.jquery.com/Qunit)
 
 ## budowa biblioteki
 
@@ -28,23 +20,28 @@ Każdy tag ma w swoich żródłach juz wygenerowany plik z kodem źródłowym bi
 wygenerowanie biblioteki z aktualnych źródeł dostępnych w branch'ach plik **Makefile**, bo o nim mowa,
 znajduje swoje praktyczne zastosowanie.
 
-`piecioshka:~/lib/pklib$ ./Makefile`
+`username:~/workspace/pklib$ ./Makefile`
 
 ## dokumentacja
 
-[http://docs.pklib.com](http://docs.pklib.com)
+Dokumentacja została wygenerowana za pomoca narzędzia [http://code.google.com/p/jsdoc-toolkit/](http://code.google.com/p/jsdoc-toolkit/).
+Adres do dokumentacji online: [http://docs.pklib.com](http://docs.pklib.com)
 
 ## przykład użycia
 
 ```
 pklib.common.defer(function () {
-    pklib.file.loadjs("test.js", function () {
-        console.log("pklik załadowany");
+    var filenames = ["test.js", "example.js"];
+    pklib.file.loadjs(filenames, function (file) {
+        console.log("file: " + file.src + " loaded");
     });
 });
 ```
 
-## szczegóły
+## licencja
 
-autor: **Piotr Kowalski** ( [http://piecioshka.pl/](http://piecioshka.pl/) ) <br />
-licencja: **MIT License** ( [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php) ) 
+GPL 3.0 License ( [http://www.gnu.org/licenses/gpl-3.0.txt](http://www.gnu.org/licenses/gpl-3.0.txt "GNU 3.0 License") )
+
+## autorzy
+
+* Piotr Kowalski ( [http://blog.piecioshka.pl/](http://blog.piecioshka.pl/ "Blog") )
