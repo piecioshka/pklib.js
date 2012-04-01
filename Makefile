@@ -2,6 +2,7 @@
 
 library_name=pklib
 library=pklib.js
+library_temp=temp_${library}
 library_min=pklib.min.js
 dir_src=src/
 dir_doc=docs/
@@ -52,6 +53,11 @@ echo -en "\033[1m[+] Minifing: \033[0m"
 
 java -jar ${dir_yuicompressor}/build/yuicompressor-2.4.7.jar\
     ${library} -o ${library_min}
+
+echo "/** pklib JavaScript library | http://pklib.com/licencja.html **/" > ${library_temp} 
+cat ${library_min} >> ${library_temp}
+cat ${library_temp} > ${library_min}
+rm -rf ${library_temp}
     
 echo -n "Done."; echo
 

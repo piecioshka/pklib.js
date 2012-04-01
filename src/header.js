@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Thu Mar 29 10:52:46 GMT 2012
+ * Date: Sun, 01 Apr 2012 02:16:10 +0200
  */
 (function (global) {
     "use strict";
