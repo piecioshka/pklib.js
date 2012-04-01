@@ -1,14 +1,20 @@
-pklib.event.add(window, "load", function () {
+(function (global) {
+    "use strict";
 
-    module("pklib.date");
+    var pklib = global.pklib;
 
-    test("getFullMonth", function() {
-        var month = pklib.date.getFullMonth();
-        var dateMonth = new Date().getMonth();
-        if (dateMonth <= 9) {
-            dateMonth = parseInt(dateMonth, 10) + 1;
-            dateMonth = "0" + dateMonth;
-        }
-        strictEqual(month, dateMonth, "Month is " + month);
+    pklib.event.add(window, "load", function () {
+
+        module("pklib.date");
+
+        test("getFullMonth", function() {
+            var month = pklib.date.getFullMonth();
+            var dateMonth = new Date().getMonth();
+            if (dateMonth <= 9) {
+                dateMonth = parseInt(dateMonth, 10) + 1;
+                dateMonth = "0" + dateMonth;
+            }
+            strictEqual(month, dateMonth, "Month is " + month);
+        });
     });
-});
+}(this));

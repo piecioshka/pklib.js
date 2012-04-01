@@ -91,7 +91,7 @@
 
                 var events = target.events[eventName], len, i;
                 if (typeof events === "undefined") {
-                    throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": undefined");
+                    throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": not {Array}");
                 } else {
                     len = events.length;
 

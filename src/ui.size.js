@@ -21,8 +21,8 @@
              */
             window: function (name) {
                 var clientName;
-                if (typeof name === "undefined") {
-                    throw new TypeError("pklib.ui.size.window: @name: undefined");
+                if (typeof name !== "string") {
+                    throw new TypeError("pklib.ui.size.window: @name: not {String}");
                 }
                 name = pklib.string.capitalize(name);
                 clientName = document.documentElement["client" + name];
@@ -42,8 +42,8 @@
                     scrollName,
                     offsetBodyName,
                     offsetName;
-                if (typeof name === "undefined") {
-                    throw new TypeError("pklib.ui.size.document: @name: undefined");
+                if (typeof name !== "string") {
+                    throw new TypeError("pklib.ui.size.document: @name: not {String}");
                 }
                 name = pklib.string.capitalize(name);
                 clientName = document.documentElement["client" + name];
@@ -61,11 +61,11 @@
              * @returns {Number}
              */
             object: function (obj, name) {
-                if (typeof name === "undefined") {
-                    throw new TypeError("pklib.ui.size.object: @name: undefined");
+                if (typeof name !== "string") {
+                    throw new TypeError("pklib.ui.size.object: @name: not {String}");
                 }
                 if (!pklib.dom.isNode(obj)) {
-                    throw new TypeError("pklib.ui.size.object: @obj: is not node");
+                    throw new TypeError("pklib.ui.size.object: @obj: not {HTMLElement}");
                 }
                 name = pklib.string.capitalize(name);
                 var client = obj["client" + name],

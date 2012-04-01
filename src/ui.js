@@ -26,7 +26,7 @@
                     pus = this.size;
 
                 if (!pklib.dom.isElement(element)) {
-                    throw new TypeError("pklib.ui.center: @element: not Element");
+                    throw new TypeError("pklib.ui.center: @element: not {HTMLElement}");
                 }
 
                 if (wrapper === document.body) {

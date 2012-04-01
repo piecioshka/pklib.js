@@ -6,11 +6,23 @@
     "use strict";
     /** @namespace */
     var pklib = global.pklib || {},
+        /** @constant */
+            REQUEST_STATE_UNSENT = 0,
+        /** @constant */
+            REQUEST_STATE_OPENED = 1,
+        /** @constant */
+        REQUEST_STATE_HEADERS_RECEIVED = 2,
+        /** @constant */
+            REQUEST_STATE_LOADING = 3,
+        /** @constant */
+            REQUEST_STATE_DONE = 4,
         /**
          * Array containt key as url, value as ajax response
+         * @type Array
          */
         cache = [],
         /**
+         * Use when state in request is changed or if used cache is handler to request.
          * @private
          * @function
          * @param {Object} settings
@@ -21,8 +33,10 @@
                 xmlContentType = ["application/xml", "text/xml"],
                 property = "responseText";
 
-            if (xhr.readyState === 4) {
-                cache[settings.url] = xhr;
+            if (xhr.readyState === REQUEST_STATE_DONE && xhr.status !== REQUEST_STATE_UNSENT) {
+                if (settings.cache) {
+                    cache[settings.url] = xhr;
+                }
 
                 contentType = xhr.getResponseHeader("Content-Type");
 
@@ -32,10 +46,12 @@
 
                 settings.done.call(null, xhr[property]);
 
+                // clear memory
                 xhr = null;
             }
         },
         /**
+         * Handler to unsually situation - timeout.
          * @private
          * @function
          * @param {Object} settings
@@ -46,9 +62,10 @@
             // clear memory
             xhr = null;
             // throw exception
-            throw new Error("pklib.ajax: Error: Timeout on: " + settings.url);
+            throw new Error("pklib.ajax.load: timeout on url: " + settings.url);
         },
         /**
+         * Method use when request has timeout
          * @private
          * @function
          * @param {Object} settings
@@ -56,12 +73,16 @@
          * @throws {Error} If exists timeout on request
          */
         requestTimeout = function (settings, xhr) {
-            if (xhr.readyState !== 4) {
+            if (typeof xhr.aborted === "undefined" &&
+                    typeof xhr.error === "undefined" &&
+                    xhr.readyState === REQUEST_STATE_DONE &&
+                    xhr.status === REQUEST_STATE_UNSENT) {
                 xhr.abort();
                 timeoutHandler.call(null, settings, xhr);
             }
         },
         /**
+         * Try to create Internet Explorer XMLHTTPRequest
          * @private
          * @function
          * @throws {Error} If can not create XMLHttpRequest object
@@ -75,12 +96,13 @@
                 try {
                     xhr = new ActiveXObject("Microsoft.XMLHTTP");
                 } catch (ignored) {
-                    throw new Error("pklib.ajax: Error: Cannot create XHR object");
+                    throw new Error("pklib.ajax.load: cannot create XMLHTTPRequest object");
                 }
             }
             return xhr;
         },
         /**
+         * Try to create XMLHTTPRequest
          * @private
          * @function
          * @throws {Error} If can not create XMLHttpRequest object
@@ -96,34 +118,63 @@
             return xhr;
         },
         /**
-         * Module to service asynchronous request
+         * Service to send request to server.
+         * With first param, which is hashmap, define params, ex. request url
          * @namespace
          */
         ajax = {
             /**
-             * Lazy load file
+             * Send request to server on url defined in config.url.
+             * Method throw exception when request have timeout on server or if url is not set.
+             * Also, every response (if config.cache is true) saved to hashmap by key config.url.
+             * Method on first try to can create XmlHttpRequest if browser doesn't support, check
+             * if browser support object ActiveXObject which is implemented in Internet Explorer.
              * @memberOf ajax
              * @function
              * @param {Object} config
              * <pre>
              * {
-             *      type {String|default: "get"}
-             *      async {Boolean|default: true}
-             *      cache {Boolean|default: false}
-             *      url {String}
-             *      params {Object}
-             *      headers {Object}
-             *      done {Function}
+             *      {String} [type="get"]
+             *      {Boolean} [async=true]
+             *      {Boolean} [cache=false]
+             *      {String} url
+             *      {Object} [params]
+             *      {Object} [headers]
+             *      {Function} [done]
+             *      {Function} [error]
              * }
              * </pre>
+             * @example
+             * <pre>
+             * pklib.ajax.load({
+             *      type: "post",
+             *      async: false,
+             *      cache:  true,
+             *      url: "http://example.org/check-item.php",
+             *      params: {
+             *          id: 33
+             *      },
+             *      headers: {
+             *          "User-Agent": "tv"
+             *      },
+             *      done: function (res) {
+             *          console.log(res);
+             *      }
+             * });
+             * </pre>
+             * @throws {Error} If unset request url
              * @returns {XMLHttpRequest|Null}
              */
             load: function (config) {
                 var header,
                     xhr = null,
                     /**
-                     * Request settings, contain header,
-                     * function run after request ended
+                     * Request settings, contain ex. headers, callback when run after request finish.
+                     * Default timeout on request is 30 seconds. This is default timeout from popular web servers
+                     * ex. Apache, ngninx.
+                     * Default reqest hasn't any headers.
+                     * Default cache is disabled.
+                     * Default asynchronoumus is enable.
                      */
                     settings = {
                         type: "get",
@@ -136,13 +187,20 @@
                         /**
                          * Function run after request ended
                          */
-                        done: function () {
-                            // pass
+                        done: function (response) {
+                            // do something with response
+                        },
+                        error: function () {
+                            // do something when appear error in request
                         }
                     };
 
                 settings = pklib.object.mixin(settings, config);
                 settings.type = settings.type.toUpperCase();
+
+                if (settings.url === null) {
+                    throw new Error("pklib.ajax.load: undefined request url");
+                }
 
                 if (settings.cache && cache[settings.url]) {
                     handler.call(null, settings, cache[settings.url]);
@@ -165,8 +223,25 @@
                     } else {
                         setTimeout(requestTimeout.bind(null, settings, xhr), settings.timeout);
                     }
+
+                    xhr.onerror = function () {
+                        xhr.error = true;
+                        settings.error.bind(null, settings, xhr);
+                    };
                 }
                 return xhr;
+            },
+            /**
+             * Stop request setting in param
+             * @memberOf ajax
+             * @function
+             * @param {XMLHttpRequest} xhr XMLHttpRequest object, or ActiveXObject object if Internet Explorer
+             */
+            stop: function (xhr) {
+                xhr.abort();
+                xhr.aborted = true;
+                // clear memory
+                xhr = null;
             }
         };
 

@@ -41,13 +41,13 @@
                 return false;
             },
             /**
-             * Get index of element
+             * Get index of element.
+             * If couldn't find serching element, return null value
              * @memberOf array
              * @function
              * @param {Object} item
              * @param {Array} array
-             * @throws {ReferenceError} If can not find index of element
-             * @returns {Number}
+             * @returns {Number|Null}
              */
             index: function (item, array) {
                 var i, len = array.length;
@@ -56,7 +56,7 @@
                         return i;
                     }
                 }
-                throw new ReferenceError("pklib.array.index: @item not exists");
+                return null;
             },
             /**
              * Unique array. Delete element what was duplicated

@@ -21,10 +21,10 @@
         checkParams = function (cssClass, element, callFuncName) {
             var prefix = "pklib.css." + callFuncName;
             if (typeof cssClass !== "string") {
-                throw new TypeError(prefix + ": @cssClass: not String");
+                throw new TypeError(prefix + ": @cssClass: not {String}");
             }
             if (!pklib.dom.isNode(element)) {
-                throw new TypeError(prefix + ": @element: not HTMLElement");
+                throw new TypeError(prefix + ": @element: not {HTMLElement}");
             }
         },
         /**

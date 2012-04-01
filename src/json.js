@@ -138,7 +138,7 @@
              */
             serialize: function (source, toJson) {
                 if (typeof source !== "object" || pklib.common.assert(source, null)) {
-                    throw new TypeError("pklib.json.serialize: @source: not object");
+                    throw new TypeError("pklib.json.serialize: @source: not {Object}");
                 }
 
                 var amp = false,

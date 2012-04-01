@@ -19,10 +19,10 @@
         aspect = function (fun, asp) {
             var that = this;
             if (typeof fun !== "function") {
-                throw new TypeError("pklib.aspect: @func: not function");
+                throw new TypeError("pklib.aspect: @func: not {Function}");
             }
             if (typeof asp !== "function") {
-                throw new TypeError("pklib.aspect: @asp: not function");
+                throw new TypeError("pklib.aspect: @asp: not {Function}");
             }
             return function () {
                 asp.call(that);

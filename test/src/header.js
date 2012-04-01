@@ -1,10 +1,11 @@
 (function (global) {
-    
+    "use strict";
+
     if (typeof global.console === "undefined") {
-        console = {
+        global.console = {
             log: function () { },
             info: function () { },
             warn: function () { }
-        }
+        };
     }
 }(this));
