@@ -11,6 +11,7 @@
          */
         date = {
             /**
+             * Simple return month in string and file 0 at first place if month smaller than 10
              * @memberOf date
              * @function
              * @returns {String}

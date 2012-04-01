@@ -173,7 +173,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
         /**
          * Service to send request to server.
-         * With first param, which is hashmap, define params, ex. server url
+         * With first param, which is hashmap, define params, ex. request url
          * @namespace
          */
         ajax = {
@@ -449,6 +449,7 @@ if (typeof Function.prototype.bind !== "function") {
     var pklib = global.pklib || {},
         /**
          * Array with browsers name
+         * @type Array
          */
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"],
         /**
@@ -480,7 +481,7 @@ if (typeof Function.prototype.bind !== "function") {
              * Parse userAgent to find next 3 characters
              * @memberOf browser
              * @function
-             * @returns {String}
+             * @returns {String|Null}
              */
             getVersion: function () {
                 var i, len = browsers.length, browser, cur,
@@ -493,7 +494,7 @@ if (typeof Function.prototype.bind !== "function") {
                         return userAgent.substr(cur + len + 1, 3);
                     }
                 }
-                return "-1";
+                return null;
             }
         };
 
@@ -513,21 +514,24 @@ if (typeof Function.prototype.bind !== "function") {
          */
         common = {
             /**
+             * Basic test function. Simple assertion 2 variables
              * @memberOf common
              * @function
-             * @param {Object} v First object to compare
-             * @param {Object} r Second object to compare
+             * @param {Object} left First object to compare
+             * @param {Object} right Second object to compare
              */
-            assert: function (v, r) {
-                return v === r;
+            assert: function (left, right) {
+                return left === right;
             },
             /**
+             * Defered function about 0 miliseconds.
+             * It's hack for some platforms to use function in "next" thread
              * @memberOf common
              * @function
-             * @param {Function} func Function what would be defered
+             * @param {Function} defer_function Function what would be defered
              */
-            defer: function (func) {
-                setTimeout(func, 0);
+            defer: function (defer_function) {
+                setTimeout(defer_function, 0);
             }
         };
 
@@ -622,6 +626,7 @@ if (typeof Function.prototype.bind !== "function") {
     var pklib = global.pklib || {},
         /**
          * RegExp use to delete white chars
+         * @type RegExp
          */
         rclass = /[\n\t\r]/g,
         /**
@@ -711,6 +716,7 @@ if (typeof Function.prototype.bind !== "function") {
          */
         date = {
             /**
+             * Simple return month in string and file 0 at first place if month smaller than 10
              * @memberOf date
              * @function
              * @returns {String}
@@ -1091,6 +1097,9 @@ if (typeof Function.prototype.bind !== "function") {
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
+        /**
+         * @type Array
+         */
         copy_files = [],
         /**
          * @private
@@ -1143,7 +1152,8 @@ if (typeof Function.prototype.bind !== "function") {
          */
         file = {
             /**
-             * Lazy load JS files
+             * Lazy load JS files. Url to files could be with path absolutu or not.
+             * If you must load more than 1 file use array, to set url to files
              * @memberOf file
              * @function
              * @param {String|Array} files
@@ -1198,6 +1208,7 @@ if (typeof Function.prototype.bind !== "function") {
     /** @namespace */
     var pklib = global.pklib || {},
         /**
+         * Return function name, use toString() on Function object
          * @private
          * @function
          * @param {Function} fun
@@ -1208,22 +1219,24 @@ if (typeof Function.prototype.bind !== "function") {
             return text.substr(0, text.indexOf("(")) + "()";
         },
         /**
+         * Get number of properties
          * @private
          * @function
          * @param {Object} object
          * @returns {Number}
          */
-        getLastElement = function (object) {
+        getLengthProperties = function (object) {
             var i,
                 len = 0;
             for (i in object) {
                 if (object.hasOwnProperty(i)) {
-                    len += 1;
+                    ++len;
                 }
             }
             return len;
         },
         /**
+         * Build indent by spaces, or tabs
          * @private
          * @function
          * @param {Number} len
@@ -1306,7 +1319,7 @@ if (typeof Function.prototype.bind !== "function") {
                         for (item in object) {
                             if (object.hasOwnProperty(item)) {
                                 source += getIndent(index) + '"' + item + '": ' + pklib.json.stringify(object[item], index);
-                                if (item !== getLastElement(object)) {
+                                if (item !== getLengthProperties(object)) {
                                     source += ",\n";
                                 }
                             }

@@ -7,6 +7,7 @@
     var pklib = global.pklib || {},
         /**
          * Array with browsers name
+         * @type Array
          */
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"],
         /**
@@ -38,7 +39,7 @@
              * Parse userAgent to find next 3 characters
              * @memberOf browser
              * @function
-             * @returns {String}
+             * @returns {String|Null}
              */
             getVersion: function () {
                 var i, len = browsers.length, browser, cur,
@@ -51,7 +52,7 @@
                         return userAgent.substr(cur + len + 1, 3);
                     }
                 }
-                return "-1";
+                return null;
             }
         };
 

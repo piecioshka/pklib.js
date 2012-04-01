@@ -8,6 +8,7 @@
     var pklib = global.pklib || {},
         /**
          * RegExp use to delete white chars
+         * @type RegExp
          */
         rclass = /[\n\t\r]/g,
         /**

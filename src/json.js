@@ -6,6 +6,7 @@
     /** @namespace */
     var pklib = global.pklib || {},
         /**
+         * Return function name, use toString() on Function object
          * @private
          * @function
          * @param {Function} fun
@@ -16,22 +17,24 @@
             return text.substr(0, text.indexOf("(")) + "()";
         },
         /**
+         * Get number of properties
          * @private
          * @function
          * @param {Object} object
          * @returns {Number}
          */
-        getLastElement = function (object) {
+        getLengthProperties = function (object) {
             var i,
                 len = 0;
             for (i in object) {
                 if (object.hasOwnProperty(i)) {
-                    len += 1;
+                    ++len;
                 }
             }
             return len;
         },
         /**
+         * Build indent by spaces, or tabs
          * @private
          * @function
          * @param {Number} len
@@ -114,7 +117,7 @@
                         for (item in object) {
                             if (object.hasOwnProperty(item)) {
                                 source += getIndent(index) + '"' + item + '": ' + pklib.json.stringify(object[item], index);
-                                if (item !== getLastElement(object)) {
+                                if (item !== getLengthProperties(object)) {
                                     source += ",\n";
                                 }
                             }

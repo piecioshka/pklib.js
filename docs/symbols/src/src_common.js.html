@@ -18,24 +18,27 @@
 <span class='line'> 11</span>          */</span><span class="WHIT">
 <span class='line'> 12</span> </span><span class="WHIT">        </span><span class="NAME">common</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 13</span> </span><span class="WHIT">            </span><span class="COMM">/**
-<span class='line'> 14</span>              * @memberOf common
-<span class='line'> 15</span>              * @function
-<span class='line'> 16</span>              * @param {Object} v First object to compare
-<span class='line'> 17</span>              * @param {Object} r Second object to compare
-<span class='line'> 18</span>              */</span><span class="WHIT">
-<span class='line'> 19</span> </span><span class="WHIT">            </span><span class="NAME">assert</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">v</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">r</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 20</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">v</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">r</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 21</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 22</span> </span><span class="WHIT">            </span><span class="COMM">/**
-<span class='line'> 23</span>              * @memberOf common
-<span class='line'> 24</span>              * @function
-<span class='line'> 25</span>              * @param {Function} func Function what would be defered
-<span class='line'> 26</span>              */</span><span class="WHIT">
-<span class='line'> 27</span> </span><span class="WHIT">            </span><span class="NAME">defer</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">func</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 28</span> </span><span class="WHIT">                </span><span class="NAME">setTimeout</span><span class="PUNC">(</span><span class="NAME">func</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 29</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 30</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 31</span> 
-<span class='line'> 32</span> </span><span class="WHIT">    </span><span class="NAME">pklib.common</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">common</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="PUNC">}</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 34</span> </span></pre></body></html>
+<span class='line'> 14</span>              * Basic test function. Simple assertion 2 variables
+<span class='line'> 15</span>              * @memberOf common
+<span class='line'> 16</span>              * @function
+<span class='line'> 17</span>              * @param {Object} left First object to compare
+<span class='line'> 18</span>              * @param {Object} right Second object to compare
+<span class='line'> 19</span>              */</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">            </span><span class="NAME">assert</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">left</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">right</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">left</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">right</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'> 24</span>              * Defered function about 0 miliseconds.
+<span class='line'> 25</span>              * It's hack for some platforms to use function in "next" thread
+<span class='line'> 26</span>              * @memberOf common
+<span class='line'> 27</span>              * @function
+<span class='line'> 28</span>              * @param {Function} defer_function Function what would be defered
+<span class='line'> 29</span>              */</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">            </span><span class="NAME">defer</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">defer_function</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">                </span><span class="NAME">setTimeout</span><span class="PUNC">(</span><span class="NAME">defer_function</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> 
+<span class='line'> 35</span> </span><span class="WHIT">    </span><span class="NAME">pklib.common</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">common</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="PUNC">}</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> </span></pre></body></html>

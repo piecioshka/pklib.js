@@ -6,6 +6,9 @@
     /** @namespace */
     var pklib = global.pklib || {},
         document = global.document || {},
+        /**
+         * @type Array
+         */
         copy_files = [],
         /**
          * @private
@@ -58,7 +61,8 @@
          */
         file = {
             /**
-             * Lazy load JS files
+             * Lazy load JS files. Url to files could be with path absolutu or not.
+             * If you must load more than 1 file use array, to set url to files
              * @memberOf file
              * @function
              * @param {String|Array} files
