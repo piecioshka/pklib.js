@@ -2,11 +2,11 @@
 
 `pklib` jest wynikiem ciągłego używania z tych samych wzorców w sieci web,<br />
 z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach.<br /> 
-Źródła biblioteki znajdują się na [Github.com](http://www.github.com/).<br /><br />
+Źródła biblioteki znajdują się na [Github.com](http://www.github.com/).<br />
 
 Biblioteka jest rozwijana z podziałem na moduły.
 
-Przykład:
+Przykład:<br />
     moduł `pklib.profiler`<br />
     plik: `src/profiler.js`
 
@@ -24,7 +24,7 @@ znajduje swoje praktyczne zastosowanie.
 
 ## dokumentacja
 
-Dokumentacja została wygenerowana za pomoca narzędzia [http://code.google.com/p/jsdoc-toolkit/](http://code.google.com/p/jsdoc-toolkit/).
+Dokumentacja została wygenerowana za pomoca narzędzia [http://code.google.com/p/jsdoc-toolkit/](http://code.google.com/p/jsdoc-toolkit/).<br />
 Adres do dokumentacji online: [http://docs.pklib.com](http://docs.pklib.com)
 
 ## przykład użycia
