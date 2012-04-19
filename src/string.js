@@ -64,7 +64,6 @@
                         return String.fromCharCode(99);
                     case 324:
                         return String.fromCharCode(110);
-
                     default:
                         return "";
                     }

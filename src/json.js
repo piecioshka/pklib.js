@@ -69,65 +69,65 @@
                     len = 0;
 
                 switch (true) {
-                    case typeof object === "undefined":
-                        // Undefined
-                        source = undefined;
-                        break;
-                    case object === null:
-                        // Null
-                        source = null;
-                        break;
-                    case typeof object === "boolean":
-                        // Boolean
-                        source = object;
-                        break;
-                    case typeof object === "number":
-                        // Number
-                        source = object;
-                        break;
-                    case pklib.string.isString(object):
-                        // String
-                        source = '"' + object + '"';
-                        break;
-                    case typeof object === "function":
-                        // Function
-                        source = getFunctionName(object);
-                        break;
-                    case pklib.array.isArray(object):
-                        // Array
-                        if (object.length === 0) {
-                            return "[]";
+                case typeof object === "undefined":
+                    // Undefined
+                    source = undefined;
+                    break;
+                case object === null:
+                    // Null
+                    source = null;
+                    break;
+                case typeof object === "boolean":
+                    // Boolean
+                    source = object;
+                    break;
+                case typeof object === "number":
+                    // Number
+                    source = object;
+                    break;
+                case pklib.string.isString(object):
+                    // String
+                    source = '"' + object + '"';
+                    break;
+                case typeof object === "function":
+                    // Function
+                    source = getFunctionName(object);
+                    break;
+                case pklib.array.isArray(object):
+                    // Array
+                    if (object.length === 0) {
+                        return "[]";
+                    }
+                    source = "[\n" + getIndent(index);
+                    index += 1;
+                    len = object.length;
+                    for (i = 0; i < len; ++i) {
+                        source += getIndent(index) + pklib.json.stringify(object[i], index);
+                        if (i !== len - 1) {
+                            source += ",\n";
                         }
-                        source = "[\n" + getIndent(index);
-                        index += 1;
-                        len = object.length;
-                        for (i = 0; i < len; ++i) {
-                            source += getIndent(index) + pklib.json.stringify(object[i], index);
-                            if (i !== len - 1) {
+                    }
+                    index -= 1;
+                    source += "\n" + getIndent(index) + "]";
+                    break;
+                case pklib.object.isObject(object):
+                    // Object
+                    source = "{\n";
+                    index += 1;
+                    for (item in object) {
+                        if (object.hasOwnProperty(item)) {
+                            source += getIndent(index) + '"' + item + '": ' + pklib.json.stringify(object[item], index);
+                            if (item !== getLengthProperties(object)) {
                                 source += ",\n";
                             }
                         }
-                        index -= 1;
-                        source += "\n" + getIndent(index) + "]";
-                        break;
-                    case pklib.object.isObject(object):
-                        // Object
-                        source = "{\n";
-                        index += 1;
-                        for (item in object) {
-                            if (object.hasOwnProperty(item)) {
-                                source += getIndent(index) + '"' + item + '": ' + pklib.json.stringify(object[item], index);
-                                if (item !== getLengthProperties(object)) {
-                                    source += ",\n";
-                                }
-                            }
-                        }
-                        index -= 1;
-                        source += "\n" + getIndent(index) + "}";
-                        break;
-                    default:
-                        source = "---";
                     }
+                    index -= 1;
+                    source += "\n" + getIndent(index) + "}";
+                    break;
+                default:
+                    source = "---";
+                }
 
                 return source;
             },

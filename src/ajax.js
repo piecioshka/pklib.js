@@ -7,15 +7,15 @@
     /** @namespace */
     var pklib = global.pklib || {},
         /** @constant */
-            REQUEST_STATE_UNSENT = 0,
+        REQUEST_STATE_UNSENT = 0,
         /** @constant */
-            REQUEST_STATE_OPENED = 1,
+        REQUEST_STATE_OPENED = 1,
         /** @constant */
         REQUEST_STATE_HEADERS_RECEIVED = 2,
         /** @constant */
-            REQUEST_STATE_LOADING = 3,
+        REQUEST_STATE_LOADING = 3,
         /** @constant */
-            REQUEST_STATE_DONE = 4,
+        REQUEST_STATE_DONE = 4,
         /**
          * Array containt key as url, value as ajax response
          * @type Array

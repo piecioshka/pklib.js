@@ -61,15 +61,15 @@ if (typeof Function.prototype.bind !== "function") {
     /** @namespace */
     var pklib = global.pklib || {},
         /** @constant */
-            REQUEST_STATE_UNSENT = 0,
+        REQUEST_STATE_UNSENT = 0,
         /** @constant */
-            REQUEST_STATE_OPENED = 1,
+        REQUEST_STATE_OPENED = 1,
         /** @constant */
         REQUEST_STATE_HEADERS_RECEIVED = 2,
         /** @constant */
-            REQUEST_STATE_LOADING = 3,
+        REQUEST_STATE_LOADING = 3,
         /** @constant */
-            REQUEST_STATE_DONE = 4,
+        REQUEST_STATE_DONE = 4,
         /**
          * Array containt key as url, value as ajax response
          * @type Array
@@ -1192,7 +1192,7 @@ if (typeof Function.prototype.bind !== "function") {
                         });
                     }
                 } else {
-                    // can not be identified
+                    throw new TypeError("pklib.file.loadjs: @files not {String} or {Array}");
                 }
             }
         };
@@ -1271,65 +1271,65 @@ if (typeof Function.prototype.bind !== "function") {
                     len = 0;
 
                 switch (true) {
-                    case typeof object === "undefined":
-                        // Undefined
-                        source = undefined;
-                        break;
-                    case object === null:
-                        // Null
-                        source = null;
-                        break;
-                    case typeof object === "boolean":
-                        // Boolean
-                        source = object;
-                        break;
-                    case typeof object === "number":
-                        // Number
-                        source = object;
-                        break;
-                    case pklib.string.isString(object):
-                        // String
-                        source = '"' + object + '"';
-                        break;
-                    case typeof object === "function":
-                        // Function
-                        source = getFunctionName(object);
-                        break;
-                    case pklib.array.isArray(object):
-                        // Array
-                        if (object.length === 0) {
-                            return "[]";
+                case typeof object === "undefined":
+                    // Undefined
+                    source = undefined;
+                    break;
+                case object === null:
+                    // Null
+                    source = null;
+                    break;
+                case typeof object === "boolean":
+                    // Boolean
+                    source = object;
+                    break;
+                case typeof object === "number":
+                    // Number
+                    source = object;
+                    break;
+                case pklib.string.isString(object):
+                    // String
+                    source = '"' + object + '"';
+                    break;
+                case typeof object === "function":
+                    // Function
+                    source = getFunctionName(object);
+                    break;
+                case pklib.array.isArray(object):
+                    // Array
+                    if (object.length === 0) {
+                        return "[]";
+                    }
+                    source = "[\n" + getIndent(index);
+                    index += 1;
+                    len = object.length;
+                    for (i = 0; i < len; ++i) {
+                        source += getIndent(index) + pklib.json.stringify(object[i], index);
+                        if (i !== len - 1) {
+                            source += ",\n";
                         }
-                        source = "[\n" + getIndent(index);
-                        index += 1;
-                        len = object.length;
-                        for (i = 0; i < len; ++i) {
-                            source += getIndent(index) + pklib.json.stringify(object[i], index);
-                            if (i !== len - 1) {
+                    }
+                    index -= 1;
+                    source += "\n" + getIndent(index) + "]";
+                    break;
+                case pklib.object.isObject(object):
+                    // Object
+                    source = "{\n";
+                    index += 1;
+                    for (item in object) {
+                        if (object.hasOwnProperty(item)) {
+                            source += getIndent(index) + '"' + item + '": ' + pklib.json.stringify(object[item], index);
+                            if (item !== getLengthProperties(object)) {
                                 source += ",\n";
                             }
                         }
-                        index -= 1;
-                        source += "\n" + getIndent(index) + "]";
-                        break;
-                    case pklib.object.isObject(object):
-                        // Object
-                        source = "{\n";
-                        index += 1;
-                        for (item in object) {
-                            if (object.hasOwnProperty(item)) {
-                                source += getIndent(index) + '"' + item + '": ' + pklib.json.stringify(object[item], index);
-                                if (item !== getLengthProperties(object)) {
-                                    source += ",\n";
-                                }
-                            }
-                        }
-                        index -= 1;
-                        source += "\n" + getIndent(index) + "}";
-                        break;
-                    default:
-                        source = "---";
                     }
+                    index -= 1;
+                    source += "\n" + getIndent(index) + "}";
+                    break;
+                default:
+                    source = "---";
+                }
 
                 return source;
             },
@@ -1565,7 +1565,6 @@ if (typeof Function.prototype.bind !== "function") {
                         return String.fromCharCode(99);
                     case 324:
                         return String.fromCharCode(110);
-
                     default:
                         return "";
                     }
@@ -2139,6 +2138,7 @@ if (typeof Function.prototype.bind !== "function") {
                 return loc.pathname;
             },
             /**
+             * Get all params, and return in JSON object
              * @memberOf url
              * @function
              * @returns {Object}
@@ -2149,11 +2149,14 @@ if (typeof Function.prototype.bind !== "function") {
                     len,
                     params = loc.search,
                     paramsList = {};
+
                 if (params.substr(0, 1) === "?") {
                     params = params.substr(1);
                 }
+
                 params = params.split("&");
                 len = params.length;
+
                 for (i = 0; i < len; ++i) {
                     item = params[i].split("=");
                     paramsList[item[0]] = item[1];
@@ -2161,6 +2164,8 @@ if (typeof Function.prototype.bind !== "function") {
                 return paramsList;
             },
             /**
+             * Get conrete param from URL.
+             * If param if not defined return null
              * @memberOf url
              * @function
              * @param {String} key
@@ -2170,11 +2175,15 @@ if (typeof Function.prototype.bind !== "function") {
                 var params = loc.search,
                     i,
                     item,
-                    len = params.length;
+                    len = 0;
+
                 if (params.substr(0, 1) === "?") {
                     params = params.substr(1);
                 }
+
                 params = params.split("&");
+                len = params.length;
+
                 for (i = 0; i < len; ++i) {
                     item = params[i].split("=");
                     if (item[0] === key) {
@@ -2214,16 +2223,16 @@ if (typeof Function.prototype.bind !== "function") {
             var url = "";
 
             if (evt.originalTarget &&
-                typeof evt.originalTarget === "object" &&
-                typeof evt.originalTarget.href !== "undefined") {
+                    typeof evt.originalTarget === "object" &&
+                    typeof evt.originalTarget.href !== "undefined") {
                 url = evt.originalTarget.href;
             } else if (evt.toElement &&
-                typeof evt.toElement === "object" &&
-                typeof evt.toElement.href !== "undefined") {
+                    typeof evt.toElement === "object" &&
+                    typeof evt.toElement.href !== "undefined") {
                 url = evt.toElement.href;
             } else if (evt.srcElement &&
-                typeof evt.srcElement === "object" &&
-                typeof typeof evt.srcElement !== "undefined") {
+                    typeof evt.srcElement === "object" &&
+                    typeof typeof evt.srcElement !== "undefined") {
                 url = evt.srcElement.href;
             }
 

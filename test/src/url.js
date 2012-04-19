@@ -27,10 +27,12 @@
             strictEqual(pU, dU, "No diferrence");
         });
         test("getParams", function() {
-            var p = pklib.url.getParams();
+            var params = pklib.url.getParams();
+            strictEqual(typeof params, "object", "Params always object");
         });
         test("getParam", function() {
-
+            var undefined_param = pklib.url.getParam("undefined");
+            strictEqual(undefined_param, null, "Undefined param");
         });
         test("getHash", function() {
             var pH = pklib.url.getHash();

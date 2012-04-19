@@ -101,7 +101,7 @@
                         });
                     }
                 } else {
-                    // can not be identified
+                    throw new TypeError("pklib.file.loadjs: @files not {String} or {Array}");
                 }
             }
         };
