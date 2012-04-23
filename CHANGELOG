@@ -1,3 +1,7 @@
+1.0.6
+* usunięcie modulu pklib.json na rzecz nowego projektu text-static-logger
+* poprawką błędu w pklib.glass
+
 1.0.5
 * nowy pakiet pklib.common - do wspólnego użytku
 * zmiana nazw funkcji w pklib.cookie

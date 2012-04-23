@@ -1,9 +1,8 @@
 (function (global) {
     "use strict";
-
     var pklib = global.pklib;
 
-    pklib.event.add(window, "load", function () {
+    pklib.event.add(global, "load", function () {
         var uriArray = pklib.url.getUri().split("/");
         var PREFIX = "/" + uriArray[1] + "/" + uriArray[2] + "/";
         var DIR = PREFIX + "data/";

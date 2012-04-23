@@ -74,11 +74,15 @@
             close: function (callback) {
                 var glass = pklib.dom.byId(this.objId),
                     result = false;
+
+                pklib.event.remove(global, "resize");
+
                 if (glass !== null) {
                     glass.parentNode.removeChild(glass);
                     this.close(callback);
                     result = true;
                 }
+
                 if (typeof callback === "function") {
                     callback();
                 }

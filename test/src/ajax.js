@@ -1,8 +1,6 @@
 (function (global) {
     "use strict";
-
     var pklib = global.pklib,
-
         uriArray = pklib.url.getUri().split("/"),
         PREFIX = "/" + uriArray[1] + "/" + uriArray[2] + "/",
         DIR = PREFIX + "data/",
@@ -10,7 +8,7 @@
             return "File: " + file + ", contain good value";
         };
 
-    pklib.event.add(window, "load", function () {
+    pklib.event.add(global, "load", function () {
         /**
          * @type test of library
          */

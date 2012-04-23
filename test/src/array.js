@@ -1,10 +1,8 @@
 (function (global) {
     "use strict";
-
     var pklib = global.pklib;
     
-    pklib.event.add(window, "load", function () {
-
+    pklib.event.add(global, "load", function () {
         module("pklib.array");
 
         test("isArray", function() {
@@ -43,5 +41,4 @@
             deepEqual(array, temp, "Elements in array removed");
         });
     });
-
 }(this));

@@ -35,7 +35,7 @@ echo -en "\033[1m[+] Generate library: \033[0m"
 #echo -e "\tFile:\t\t\tSize:"
 
 for file in header.js ajax.js array.js aspect.js browser.js common.js cookie.js\
- css.js date.js dom.js event.js file.js json.js object.js profiler.js string.js\
+ css.js date.js dom.js event.js file.js object.js profiler.js string.js\
  ui.js ui.glass.js ui.loader.js ui.message.js ui.size.js url.js utils.js
 do
     #size=$(du -bh $dir_src$file | tr "\t" " " | cut -d " " -f 1)
