@@ -73,7 +73,7 @@
                 return paramsList;
             },
             /**
-             * Get conrete param from URL.
+             * Get concrete param from URL.
              * If param if not defined return null
              * @memberOf url
              * @function
@@ -84,7 +84,7 @@
                 var params = loc.search,
                     i,
                     item,
-                    len = 0;
+                    len;
 
                 if (params.substr(0, 1) === "?") {
                     params = params.substr(1);

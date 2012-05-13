@@ -7,7 +7,7 @@
 * zmiana nazw funkcji w pklib.cookie
 * utworzenie nowego namespace pklib.ui
 * przeniesienie loader, glass, message, utils.size do namespace'a ui
-* wprowadzenie poprawek zgłoszonych przez IDE Intellij
+* wprowadzenie poprawek zgłoszonych przez Inspection-JS
 * poprawienie JSDoc'a
 
 1.0.4

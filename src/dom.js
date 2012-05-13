@@ -14,12 +14,12 @@
          * @param {HTMLElement} node
          * @param {Function} func Run on every node
          */
-        walkTheDom = function (node, func) {
+        walk_the_dom = function (node, func) {
             if (!!node) {
                 func(node);
                 node = node.firstChild;
                 while (node) {
-                    walkTheDom(node, func);
+                    walk_the_dom(node, func);
                     node = node.nextSibling;
                 }
             }
@@ -99,26 +99,13 @@
                     results = wrapper.getElementsByClassName(cssClass);
                 } else {
                     results = [];
-                    walkTheDom(wrapper, function (node) {
+                    walk_the_dom(wrapper, function (node) {
                         if (pklib.css.hasClass(cssClass, node)) {
                             results.push(node);
                         }
                     });
                 }
                 return results;
-            },
-            /**
-             * Get element from selector
-             * @memberOf dom
-             * @function
-             * @param {String} selector
-             * @returns {NodeList|Array}
-             */
-            get: function (selector) {
-                if (document.querySelectorAll) {
-                    return document.querySelectorAll(selector);
-                }
-                return [];
             },
             /**
              * @memberOf dom

@@ -18,7 +18,12 @@
              */
             getFullMonth: function () {
                 var month = (parseInt(new Date().getMonth(), 10) + 1);
-                return (month < 10) ? "0" + month : month;
+
+                if (month < 10) {
+                    month = "0" + month;
+                }
+
+                return String(month);
             }
         };
 

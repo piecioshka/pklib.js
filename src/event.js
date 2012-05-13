@@ -27,12 +27,18 @@
                 if (typeof event === "undefined") {
                     target.events[eventName] = [];
                 }
+
                 target.events[eventName].push(handler);
 
                 if (target.attachEvent) {
+                    // IE browser
                     target.attachEvent("on" + eventName, handler);
                 } else if (target.addEventListener) {
+                    // other browser
                     target.addEventListener(eventName, handler, false);
+                } else {
+                    // for very old browser
+                    target["on" + eventName] = handler;
                 }
             },
             /**
@@ -42,25 +48,34 @@
              * @param {String} eventName
              */
             remove: function (target, eventName) {
+                var removeEvent, events, len, i, handler;
+
                 if (typeof target.events === "undefined") {
                     target.events = {};
                 }
 
-                var removeEvent, events, len = 0, i, handler;
                 if (target.detachEvent) {
+                    // IE browser
                     removeEvent = "detachEvent";
                 } else if (target.removeEventListener) {
+                    // other browser
                     removeEvent = "removeEventListener";
                 }
 
-                events = target.events[eventName];
-                if (typeof events !== "undefined") {
-                    len = events.length;
+                if (typeof removeEvent === "undefined") {
+                    // for old browser
+                    delete target["on" + eventName];
+                } else {
+                    events = target.events[eventName];
 
-                    for (i = 0; i < len; ++i) {
-                        handler = events[i];
-                        target[removeEvent](eventName, handler);
-                        delete target.events[eventName];
+                    if (typeof events !== "undefined") {
+                        len = events.length;
+
+                        for (i = 0; i < len; ++i) {
+                            handler = events[i];
+                            target[removeEvent](eventName, handler);
+                            delete target.events[eventName];
+                        }
                     }
                 }
             },
@@ -85,11 +100,14 @@
              * @throws {ReferenceError} If HTMLElement haven't got any events
              */
             trigger: function (target, eventName) {
+                var events, len, i;
+
                 if (typeof target.events === "undefined") {
                     target.events = {};
                 }
 
-                var events = target.events[eventName], len, i;
+                events = target.events[eventName];
+
                 if (typeof events === "undefined") {
                     throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": not {Array}");
                 } else {

@@ -33,7 +33,7 @@
             pklib.dom.insert("click", button);
             pklib.dom.insert(button, document.body);
             pklib.event.add(button, "click", function clickHandler() {
-                console.log(new Date);
+                console.log(new Date());
             });
             var events = pklib.event.get(button, "click");
             strictEqual(Object(events).constructor, Array, "Events are Array");

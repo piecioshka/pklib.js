@@ -28,17 +28,19 @@
 <span class='line'> 21</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">left</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">right</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 22</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 23</span> </span><span class="WHIT">            </span><span class="COMM">/**
-<span class='line'> 24</span>              * Defered function about 0 miliseconds.
-<span class='line'> 25</span>              * It's hack for some platforms to use function in "next" thread
+<span class='line'> 24</span>              * Deferred function about some milliseconds.
+<span class='line'> 25</span>              * If milliseconds is 0 that it's hack for some platforms to use function in "next" thread
 <span class='line'> 26</span>              * @memberOf common
 <span class='line'> 27</span>              * @function
-<span class='line'> 28</span>              * @param {Function} defer_function Function what would be defered
-<span class='line'> 29</span>              */</span><span class="WHIT">
-<span class='line'> 30</span> </span><span class="WHIT">            </span><span class="NAME">defer</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">defer_function</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 31</span> </span><span class="WHIT">                </span><span class="NAME">setTimeout</span><span class="PUNC">(</span><span class="NAME">defer_function</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 32</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 34</span> 
-<span class='line'> 35</span> </span><span class="WHIT">    </span><span class="NAME">pklib.common</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">common</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 36</span> </span><span class="PUNC">}</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 37</span> </span></pre></body></html>
+<span class='line'> 28</span>              * @param {Function} defer_function Function what would be deferred
+<span class='line'> 29</span>              * @param {Number} milliseconds Time to deferred function
+<span class='line'> 30</span>              */</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">            </span><span class="NAME">defer</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">defer_function</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">milliseconds</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">                </span><span class="NAME">milliseconds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">milliseconds</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">                </span><span class="NAME">setTimeout</span><span class="PUNC">(</span><span class="NAME">defer_function</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">milliseconds</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 36</span> 
+<span class='line'> 37</span> </span><span class="WHIT">    </span><span class="NAME">pklib.common</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">common</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="PUNC">}</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 39</span> </span></pre></body></html>

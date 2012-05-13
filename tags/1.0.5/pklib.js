@@ -1063,7 +1063,7 @@ if (typeof Function.prototype.bind !== "function") {
             document.head.appendChild(script);
         },
         /**
-         * JS file laoder
+         * JS file loader
          * @namespace
          */
         file = {

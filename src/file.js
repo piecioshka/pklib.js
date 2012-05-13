@@ -7,6 +7,7 @@
     var pklib = global.pklib || {},
         document = global.document || {},
         /**
+         * @private
          * @type Array
          */
         copy_files = [],
@@ -24,7 +25,18 @@
             script.type = "text/javascript";
             script.src = url;
 
-            if (typeof script.readyState !== "undefined") {
+            if (typeof script.readyState === "undefined") {
+                /**
+                 * Method run when request has ended
+                 * @memberOf script
+                 * @function
+                 */
+                script.onload = function () {
+                    if (typeof callback === "function") {
+                        callback(script);
+                    }
+                };
+            } else {
                 /**
                  * Method run when request has change state
                  * @memberOf script
@@ -38,30 +50,21 @@
                         }
                     }
                 };
-            } else {
-                /**
-                 * Method run when request has ended
-                 * @memberOf script
-                 * @function
-                 */
-                script.onload = function () {
-                    if (typeof callback === "function") {
-                        callback(script);
-                    }
-                };
             }
+
             if (typeof document.head === "undefined") {
                 document.head = document.getElementsByTagName("head")[0];
             }
+
             document.head.appendChild(script);
         },
         /**
-         * JS file laoder
+         * JS file loader
          * @namespace
          */
         file = {
             /**
-             * Lazy load JS files. Url to files could be with path absolutu or not.
+             * Lazy load JS files. Url to files could be with path absolute or not.
              * If you must load more than 1 file use array, to set url to files
              * @memberOf file
              * @function

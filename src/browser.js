@@ -24,7 +24,7 @@
             getName: function () {
                 var i, browser,
                     len = browsers.length,
-                    userAgent = navigator.userAgent.toLowerCase();
+                    userAgent = global.navigator.userAgent.toLowerCase();
 
                 for (i = 0; i < len; ++i) {
                     browser = browsers[i];
@@ -43,7 +43,7 @@
              */
             getVersion: function () {
                 var i, len = browsers.length, browser, cur,
-                    userAgent = navigator.userAgent.toLowerCase();
+                    userAgent = global.navigator.userAgent.toLowerCase();
 
                 for (i = 0; i < len; ++i) {
                     browser = browsers[i];

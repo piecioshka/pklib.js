@@ -872,7 +872,7 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * JS file laoder
+ * JS file loader
  * @package pklib.file, pklib.string
  */
 (function (global) {

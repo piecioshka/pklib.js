@@ -42,9 +42,6 @@
             strictEqual(pklib.dom.byClass(cssClass)[0], element, "Element with class: " + cssClass + " was found");
             pklib.dom.remove(element);
         });
-        test("get", function() {
-            console.warn("[-] pklib.dom.get");
-        });
         test("index", function() {
             var area = document.createElement("div");
             var element = document.createElement("span");

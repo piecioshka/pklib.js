@@ -1,11 +1,17 @@
 /**
  * @package pklib.ajax
- * @dependence pklib.array
+ * @dependence pklib.array, pklib.common
  */
 (function (global) {
     "use strict";
     /** @namespace */
     var pklib = global.pklib || {},
+        /**
+         * Default time what is timeout to use function pklib.ajax
+         * @constant
+         * @type Number
+         */
+        DEFAULT_TIMEOUT_TIME = 30000,
         /** @constant */
         REQUEST_STATE_UNSENT = 0,
         /** @constant */
@@ -17,7 +23,7 @@
         /** @constant */
         REQUEST_STATE_DONE = 4,
         /**
-         * Array containt key as url, value as ajax response
+         * Array contain key as url, value as ajax response
          * @type Array
          */
         cache = [],
@@ -51,7 +57,7 @@
             }
         },
         /**
-         * Handler to unsually situation - timeout.
+         * Handler to unusually situation - timeout.
          * @private
          * @function
          * @param {Object} settings
@@ -91,10 +97,10 @@
         get_microsoft_xhr = function () {
             var xhr;
             try {
-                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                xhr = new global.ActiveXObject("Msxml2.XMLHTTP");
             } catch (ignore) {
                 try {
-                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                    xhr = new global.ActiveXObject("Microsoft.XMLHTTP");
                 } catch (ignored) {
                     throw new Error("pklib.ajax.load: cannot create XMLHTTPRequest object");
                 }
@@ -111,7 +117,7 @@
         get_xhr = function () {
             var xhr;
             try {
-                xhr = new XMLHttpRequest();
+                xhr = new global.XMLHttpRequest();
             } catch (ignore) {
                 xhr = get_microsoft_xhr();
             }
@@ -162,7 +168,7 @@
              *      }
              * });
              * </pre>
-             * @throws {Error} If unset request url
+             * @throws {ReferenceError} If unset request url
              * @returns {XMLHttpRequest|Null}
              */
             load: function (config) {
@@ -172,9 +178,9 @@
                      * Request settings, contain ex. headers, callback when run after request finish.
                      * Default timeout on request is 30 seconds. This is default timeout from popular web servers
                      * ex. Apache, ngninx.
-                     * Default reqest hasn't any headers.
+                     * Default request hasn't any headers.
                      * Default cache is disabled.
-                     * Default asynchronoumus is enable.
+                     * Default asynchronous is enable.
                      */
                     settings = {
                         type: "get",
@@ -182,12 +188,12 @@
                         cache: false,
                         url: null,
                         params: null,
-                        timeout: 30000,
+                        timeout: DEFAULT_TIMEOUT_TIME,
                         headers: {},
                         /**
                          * Function run after request ended
                          */
-                        done: function (response) {
+                        done: function (/* response */) {
                             // do something with response
                         },
                         error: function () {
@@ -199,7 +205,7 @@
                 settings.type = settings.type.toUpperCase();
 
                 if (settings.url === null) {
-                    throw new Error("pklib.ajax.load: undefined request url");
+                    throw new ReferenceError("pklib.ajax.load: undefined request url");
                 }
 
                 if (settings.cache && cache[settings.url]) {
@@ -221,7 +227,7 @@
                     if (typeof xhr.ontimeout === "function") {
                         xhr.ontimeout = timeoutHandler.bind(null, settings, xhr);
                     } else {
-                        setTimeout(requestTimeout.bind(null, settings, xhr), settings.timeout);
+                        pklib.common.defer(requestTimeout.bind(null, settings, xhr), settings.timeout);
                     }
 
                     xhr.onerror = function () {

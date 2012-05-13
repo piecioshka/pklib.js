@@ -151,7 +151,7 @@
                     var xhr = pklib.ajax.load();
                 } catch (e) {
                     ok(typeof xhr === "undefined", "Doesn't create XMLHTTPRequest");
-                    strictEqual(e.toString(), "Error: pklib.ajax.load: undefined request url", "Error request");
+                    strictEqual(e.toString(), "ReferenceError: pklib.ajax.load: undefined request url", "Error request");
                 }
             });
         };

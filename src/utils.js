@@ -29,12 +29,15 @@
                 url = evt.srcElement.href;
             }
 
-            open(url);
+            global.open(url);
+
             try {
                 evt.preventDefault();
             } catch (ignore) {
-                return false;
+                global.event.returnValue = false;
             }
+
+            return false;
         },
         /**
          * Utils tools
@@ -113,7 +116,13 @@
                         pklib.event.add(element, "click", function (evt) {
                             response = global.confirm(text);
                             if (!pklib.common.assert(response, true)) {
-                                evt.preventDefault();
+
+                                try {
+                                    evt.preventDefault();
+                                } catch (ignore) {
+                                    global.event.returnValue = false;
+                                }
+
                                 return false;
                             }
                             return true;

@@ -54,12 +54,18 @@ if (typeof Function.prototype.bind !== "function") {
 
 /**
  * @package pklib.ajax
- * @dependence pklib.array
+ * @dependence pklib.array, pklib.common
  */
 (function (global) {
     "use strict";
     /** @namespace */
     var pklib = global.pklib || {},
+        /**
+         * Default time what is timeout to use function pklib.ajax
+         * @constant
+         * @type Number
+         */
+        DEFAULT_TIMEOUT_TIME = 30000,
         /** @constant */
         REQUEST_STATE_UNSENT = 0,
         /** @constant */
@@ -71,7 +77,7 @@ if (typeof Function.prototype.bind !== "function") {
         /** @constant */
         REQUEST_STATE_DONE = 4,
         /**
-         * Array containt key as url, value as ajax response
+         * Array contain key as url, value as ajax response
          * @type Array
          */
         cache = [],
@@ -105,7 +111,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
         },
         /**
-         * Handler to unsually situation - timeout.
+         * Handler to unusually situation - timeout.
          * @private
          * @function
          * @param {Object} settings
@@ -145,10 +151,10 @@ if (typeof Function.prototype.bind !== "function") {
         get_microsoft_xhr = function () {
             var xhr;
             try {
-                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                xhr = new global.ActiveXObject("Msxml2.XMLHTTP");
             } catch (ignore) {
                 try {
-                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                    xhr = new global.ActiveXObject("Microsoft.XMLHTTP");
                 } catch (ignored) {
                     throw new Error("pklib.ajax.load: cannot create XMLHTTPRequest object");
                 }
@@ -165,7 +171,7 @@ if (typeof Function.prototype.bind !== "function") {
         get_xhr = function () {
             var xhr;
             try {
-                xhr = new XMLHttpRequest();
+                xhr = new global.XMLHttpRequest();
             } catch (ignore) {
                 xhr = get_microsoft_xhr();
             }
@@ -216,7 +222,7 @@ if (typeof Function.prototype.bind !== "function") {
              *      }
              * });
              * </pre>
-             * @throws {Error} If unset request url
+             * @throws {ReferenceError} If unset request url
              * @returns {XMLHttpRequest|Null}
              */
             load: function (config) {
@@ -226,9 +232,9 @@ if (typeof Function.prototype.bind !== "function") {
                      * Request settings, contain ex. headers, callback when run after request finish.
                      * Default timeout on request is 30 seconds. This is default timeout from popular web servers
                      * ex. Apache, ngninx.
-                     * Default reqest hasn't any headers.
+                     * Default request hasn't any headers.
                      * Default cache is disabled.
-                     * Default asynchronoumus is enable.
+                     * Default asynchronous is enable.
                      */
                     settings = {
                         type: "get",
@@ -236,12 +242,12 @@ if (typeof Function.prototype.bind !== "function") {
                         cache: false,
                         url: null,
                         params: null,
-                        timeout: 30000,
+                        timeout: DEFAULT_TIMEOUT_TIME,
                         headers: {},
                         /**
                          * Function run after request ended
                          */
-                        done: function (response) {
+                        done: function (/* response */) {
                             // do something with response
                         },
                         error: function () {
@@ -253,7 +259,7 @@ if (typeof Function.prototype.bind !== "function") {
                 settings.type = settings.type.toUpperCase();
 
                 if (settings.url === null) {
-                    throw new Error("pklib.ajax.load: undefined request url");
+                    throw new ReferenceError("pklib.ajax.load: undefined request url");
                 }
 
                 if (settings.cache && cache[settings.url]) {
@@ -275,7 +281,7 @@ if (typeof Function.prototype.bind !== "function") {
                     if (typeof xhr.ontimeout === "function") {
                         xhr.ontimeout = timeoutHandler.bind(null, settings, xhr);
                     } else {
-                        setTimeout(requestTimeout.bind(null, settings, xhr), settings.timeout);
+                        pklib.common.defer(requestTimeout.bind(null, settings, xhr), settings.timeout);
                     }
 
                     xhr.onerror = function () {
@@ -346,7 +352,7 @@ if (typeof Function.prototype.bind !== "function") {
             },
             /**
              * Get index of element.
-             * If couldn't find serching element, return null value
+             * If couldn't find searching element, return null value
              * @memberOf array
              * @function
              * @param {Object} item
@@ -380,7 +386,7 @@ if (typeof Function.prototype.bind !== "function") {
                 return temp;
             },
             /**
-             * Remove element declarated in infinity params without first.
+             * Remove element declared in infinity params without first.
              * First parameter is array object
              * @memberOf array
              * @function
@@ -466,7 +472,7 @@ if (typeof Function.prototype.bind !== "function") {
             getName: function () {
                 var i, browser,
                     len = browsers.length,
-                    userAgent = navigator.userAgent.toLowerCase();
+                    userAgent = global.navigator.userAgent.toLowerCase();
 
                 for (i = 0; i < len; ++i) {
                     browser = browsers[i];
@@ -485,7 +491,7 @@ if (typeof Function.prototype.bind !== "function") {
              */
             getVersion: function () {
                 var i, len = browsers.length, browser, cur,
-                    userAgent = navigator.userAgent.toLowerCase();
+                    userAgent = global.navigator.userAgent.toLowerCase();
 
                 for (i = 0; i < len; ++i) {
                     browser = browsers[i];
@@ -524,14 +530,16 @@ if (typeof Function.prototype.bind !== "function") {
                 return left === right;
             },
             /**
-             * Defered function about 0 miliseconds.
-             * It's hack for some platforms to use function in "next" thread
+             * Deferred function about some milliseconds.
+             * If milliseconds is 0 that it's hack for some platforms to use function in "next" thread
              * @memberOf common
              * @function
-             * @param {Function} defer_function Function what would be defered
+             * @param {Function} defer_function Function what would be deferred
+             * @param {Number} milliseconds Time to deferred function
              */
-            defer: function (defer_function) {
-                setTimeout(defer_function, 0);
+            defer: function (defer_function, milliseconds) {
+                milliseconds = milliseconds || 0;
+                setTimeout(defer_function, milliseconds);
             }
         };
 
@@ -723,7 +731,12 @@ if (typeof Function.prototype.bind !== "function") {
              */
             getFullMonth: function () {
                 var month = (parseInt(new Date().getMonth(), 10) + 1);
-                return (month < 10) ? "0" + month : month;
+
+                if (month < 10) {
+                    month = "0" + month;
+                }
+
+                return String(month);
             }
         };
 
@@ -746,12 +759,12 @@ if (typeof Function.prototype.bind !== "function") {
          * @param {HTMLElement} node
          * @param {Function} func Run on every node
          */
-        walkTheDom = function (node, func) {
+        walk_the_dom = function (node, func) {
             if (!!node) {
                 func(node);
                 node = node.firstChild;
                 while (node) {
-                    walkTheDom(node, func);
+                    walk_the_dom(node, func);
                     node = node.nextSibling;
                 }
             }
@@ -831,26 +844,13 @@ if (typeof Function.prototype.bind !== "function") {
                     results = wrapper.getElementsByClassName(cssClass);
                 } else {
                     results = [];
-                    walkTheDom(wrapper, function (node) {
+                    walk_the_dom(wrapper, function (node) {
                         if (pklib.css.hasClass(cssClass, node)) {
                             results.push(node);
                         }
                     });
                 }
                 return results;
-            },
-            /**
-             * Get element from selector
-             * @memberOf dom
-             * @function
-             * @param {String} selector
-             * @returns {NodeList|Array}
-             */
-            get: function (selector) {
-                if (document.querySelectorAll) {
-                    return document.querySelectorAll(selector);
-                }
-                return [];
             },
             /**
              * @memberOf dom
@@ -1011,12 +1011,18 @@ if (typeof Function.prototype.bind !== "function") {
                 if (typeof event === "undefined") {
                     target.events[eventName] = [];
                 }
+
                 target.events[eventName].push(handler);
 
                 if (target.attachEvent) {
+                    // IE browser
                     target.attachEvent("on" + eventName, handler);
                 } else if (target.addEventListener) {
+                    // other browser
                     target.addEventListener(eventName, handler, false);
+                } else {
+                    // for very old browser
+                    target["on" + eventName] = handler;
                 }
             },
             /**
@@ -1026,25 +1032,34 @@ if (typeof Function.prototype.bind !== "function") {
              * @param {String} eventName
              */
             remove: function (target, eventName) {
+                var removeEvent, events, len, i, handler;
+
                 if (typeof target.events === "undefined") {
                     target.events = {};
                 }
 
-                var removeEvent, events, len = 0, i, handler;
                 if (target.detachEvent) {
+                    // IE browser
                     removeEvent = "detachEvent";
                 } else if (target.removeEventListener) {
+                    // other browser
                     removeEvent = "removeEventListener";
                 }
 
-                events = target.events[eventName];
-                if (typeof events !== "undefined") {
-                    len = events.length;
+                if (typeof removeEvent === "undefined") {
+                    // for old browser
+                    delete target["on" + eventName];
+                } else {
+                    events = target.events[eventName];
 
-                    for (i = 0; i < len; ++i) {
-                        handler = events[i];
-                        target[removeEvent](eventName, handler);
-                        delete target.events[eventName];
+                    if (typeof events !== "undefined") {
+                        len = events.length;
+
+                        for (i = 0; i < len; ++i) {
+                            handler = events[i];
+                            target[removeEvent](eventName, handler);
+                            delete target.events[eventName];
+                        }
                     }
                 }
             },
@@ -1069,11 +1084,14 @@ if (typeof Function.prototype.bind !== "function") {
              * @throws {ReferenceError} If HTMLElement haven't got any events
              */
             trigger: function (target, eventName) {
+                var events, len, i;
+
                 if (typeof target.events === "undefined") {
                     target.events = {};
                 }
 
-                var events = target.events[eventName], len, i;
+                events = target.events[eventName];
+
                 if (typeof events === "undefined") {
                     throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": not {Array}");
                 } else {
@@ -1098,6 +1116,7 @@ if (typeof Function.prototype.bind !== "function") {
     var pklib = global.pklib || {},
         document = global.document || {},
         /**
+         * @private
          * @type Array
          */
         copy_files = [],
@@ -1115,7 +1134,18 @@ if (typeof Function.prototype.bind !== "function") {
             script.type = "text/javascript";
             script.src = url;
 
-            if (typeof script.readyState !== "undefined") {
+            if (typeof script.readyState === "undefined") {
+                /**
+                 * Method run when request has ended
+                 * @memberOf script
+                 * @function
+                 */
+                script.onload = function () {
+                    if (typeof callback === "function") {
+                        callback(script);
+                    }
+                };
+            } else {
                 /**
                  * Method run when request has change state
                  * @memberOf script
@@ -1129,30 +1159,21 @@ if (typeof Function.prototype.bind !== "function") {
                         }
                     }
                 };
-            } else {
-                /**
-                 * Method run when request has ended
-                 * @memberOf script
-                 * @function
-                 */
-                script.onload = function () {
-                    if (typeof callback === "function") {
-                        callback(script);
-                    }
-                };
             }
+
             if (typeof document.head === "undefined") {
                 document.head = document.getElementsByTagName("head")[0];
             }
+
             document.head.appendChild(script);
         },
         /**
-         * JS file laoder
+         * JS file loader
          * @namespace
          */
         file = {
             /**
-             * Lazy load JS files. Url to files could be with path absolutu or not.
+             * Lazy load JS files. Url to files could be with path absolute or not.
              * If you must load more than 1 file use array, to set url to files
              * @memberOf file
              * @function
@@ -1978,7 +1999,7 @@ if (typeof Function.prototype.bind !== "function") {
                 return paramsList;
             },
             /**
-             * Get conrete param from URL.
+             * Get concrete param from URL.
              * If param if not defined return null
              * @memberOf url
              * @function
@@ -1989,7 +2010,7 @@ if (typeof Function.prototype.bind !== "function") {
                 var params = loc.search,
                     i,
                     item,
-                    len = 0;
+                    len;
 
                 if (params.substr(0, 1) === "?") {
                     params = params.substr(1);
@@ -2050,12 +2071,15 @@ if (typeof Function.prototype.bind !== "function") {
                 url = evt.srcElement.href;
             }
 
-            open(url);
+            global.open(url);
+
             try {
                 evt.preventDefault();
             } catch (ignore) {
-                return false;
+                global.event.returnValue = false;
             }
+
+            return false;
         },
         /**
          * Utils tools
@@ -2134,7 +2158,13 @@ if (typeof Function.prototype.bind !== "function") {
                         pklib.event.add(element, "click", function (evt) {
                             response = global.confirm(text);
                             if (!pklib.common.assert(response, true)) {
-                                evt.preventDefault();
+
+                                try {
+                                    evt.preventDefault();
+                                } catch (ignore) {
+                                    global.event.returnValue = false;
+                                }
+
                                 return false;
                             }
                             return true;

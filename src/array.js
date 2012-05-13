@@ -42,7 +42,7 @@
             },
             /**
              * Get index of element.
-             * If couldn't find serching element, return null value
+             * If couldn't find searching element, return null value
              * @memberOf array
              * @function
              * @param {Object} item
@@ -76,7 +76,7 @@
                 return temp;
             },
             /**
-             * Remove element declarated in infinity params without first.
+             * Remove element declared in infinity params without first.
              * First parameter is array object
              * @memberOf array
              * @function

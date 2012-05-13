@@ -21,14 +21,16 @@
                 return left === right;
             },
             /**
-             * Defered function about 0 miliseconds.
-             * It's hack for some platforms to use function in "next" thread
+             * Deferred function about some milliseconds.
+             * If milliseconds is 0 that it's hack for some platforms to use function in "next" thread
              * @memberOf common
              * @function
-             * @param {Function} defer_function Function what would be defered
+             * @param {Function} defer_function Function what would be deferred
+             * @param {Number} milliseconds Time to deferred function
              */
-            defer: function (defer_function) {
-                setTimeout(defer_function, 0);
+            defer: function (defer_function, milliseconds) {
+                milliseconds = milliseconds || 0;
+                setTimeout(defer_function, milliseconds);
             }
         };
 
