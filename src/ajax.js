@@ -8,6 +8,7 @@
     var pklib = global.pklib || {},
         /**
          * Default time what is timeout to use function pklib.ajax
+         * @private
          * @constant
          * @type Number
          */
@@ -24,6 +25,7 @@
         REQUEST_STATE_DONE = 4,
         /**
          * Array contain key as url, value as ajax response
+         * @private
          * @type Array
          */
         cache = [],
