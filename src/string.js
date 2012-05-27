@@ -5,6 +5,7 @@
     "use strict";
     /** @namespace */
     var pklib = global.pklib || {},
+        document = global.document || {},
         /**
          * String service manager
          * @namespace
@@ -16,7 +17,7 @@
              * @param {String} source
              * @returns {Boolean}
              */
-            isString: function (source) {
+            is_string: function (source) {
                 return typeof source === "string";
             },
             /**
@@ -25,8 +26,8 @@
              * @param {String} source
              * @returns {Boolean}
              */
-            isLetter: function (source) {
-                return pklib.string.isString(source) && /^[a-zA-Z]$/.test(source);
+            is_letter: function (source) {
+                return pklib.string.is_string(source) && /^[a-zA-Z]$/.test(source);
             },
             /**
              * @memberOf string
@@ -85,7 +86,7 @@
              * @param {String} source
              * @returns {String}
              */
-            delimiterSeparatedWords: function (source) {
+            delimiter_separated_words: function (source) {
                 return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function (match) {
                     return "-" + match.toLowerCase();
                 });
@@ -96,9 +97,12 @@
              * @param {String} source
              * @returns {String}
              */
-            stripTags: function (source) {
+            strip_tags: function (source) {
+                pklib.common.assert(typeof source === "string", "pklib.string.strip_tags: param @source is not a string");
                 if (source && source.length !== 0) {
-                    return source.replace(/\\<\\S\\>/g, "");
+                    var dummy = document.createElement("div");
+                    dummy.innerHTML = source;
+                    return dummy.textContent || dummy.innerText;
                 }
                 return source;
             },
@@ -108,7 +112,7 @@
              * @param {String} source
              * @returns {String}
              */
-            camelCase: function (source) {
+            camel_case: function (source) {
                 while (source.indexOf("-") !== -1) {
                     var pos = source.indexOf("-"),
                         pre = source.substr(0, pos),

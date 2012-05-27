@@ -1,7 +1,7 @@
 (function (global) {
     "use strict";
     var pklib = global.pklib,
-        uriArray = pklib.url.getUri().split("/"),
+        uriArray = pklib.url.get_uri().split("/"),
         PREFIX = "/" + uriArray[1] + "/" + uriArray[2] + "/",
         DIR = PREFIX + "data/",
         msg = function (file) {
@@ -104,7 +104,7 @@
             module("pklib.ajax");
 
             test("test_stopping_request", function () {
-                ok(pklib.object.isObject(xhr), "Create XMLHTTPRequest");
+                ok(pklib.object.is_object(xhr), "Create XMLHTTPRequest");
                 strictEqual(started, 0, "Request is aborting!");
             });
         },
@@ -119,7 +119,7 @@
             module("pklib.ajax");
 
             test("test_timeout_request", function () {
-                ok(pklib.object.isObject(xhr), "Create XMLHTTPRequest");
+                ok(pklib.object.is_object(xhr), "Create XMLHTTPRequest");
             });
         },
         /**
@@ -136,7 +136,7 @@
             module("pklib.ajax");
 
             test("test_error_request", function () {
-                ok(pklib.object.isObject(xhr), "Create XMLHTTPRequest");
+                ok(pklib.object.is_object(xhr), "Create XMLHTTPRequest");
                 strictEqual(error, 1, "Error request");
             });
         },
@@ -151,7 +151,7 @@
                     var xhr = pklib.ajax.load();
                 } catch (e) {
                     ok(typeof xhr === "undefined", "Doesn't create XMLHTTPRequest");
-                    strictEqual(e.toString(), "ReferenceError: pklib.ajax.load: undefined request url", "Error request");
+                    strictEqual(e.toString(), "Error: pklib.ajax.load: undefined request url", "Error request");
                 }
             });
         };

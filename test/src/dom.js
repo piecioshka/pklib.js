@@ -5,41 +5,41 @@
     pklib.event.add(global, "load", function () {
         module("pklib.dom");
 
-        test("isNode", function() {
+        test("is_node", function() {
             var element = document.createElement("span");
-            ok(pklib.dom.isNode(element), "Element is node");
-            strictEqual(pklib.dom.isNode({}), false, "Element is undefined");
-            strictEqual(pklib.dom.isNode(undefined), false, "Element is null");
-            strictEqual(pklib.dom.isNode(), false, "Element is null");
+            ok(pklib.dom.is_node(element), "Element is node");
+            strictEqual(pklib.dom.is_node({}), false, "Element is undefined");
+            strictEqual(pklib.dom.is_node(undefined), false, "Element is null");
+            strictEqual(pklib.dom.is_node(), false, "Element is null");
         });
-        test("isElement", function() {
+        test("is_element", function() {
             var element = document.createElement("span");
-            ok(pklib.dom.isElement(element), "Element is node");
-            strictEqual(pklib.dom.isElement({}), false, "Element is undefined");
-            strictEqual(pklib.dom.isElement(undefined), false, "Element is null");
-            strictEqual(pklib.dom.isElement(), false, "Element is null");
+            ok(pklib.dom.is_element(element), "Element is node");
+            strictEqual(pklib.dom.is_element({}), false, "Element is undefined");
+            strictEqual(pklib.dom.is_element(undefined), false, "Element is null");
+            strictEqual(pklib.dom.is_element(), false, "Element is null");
         });
-        test("byId", function() {
+        test("by_id", function() {
             var element = document.createElement("span");
-            var id = "pklib-utils-dom-byId";
+            var id = "pklib-utils-dom-by_id";
             element.id = id;
             pklib.dom.insert(element, document.body);
-            strictEqual(pklib.dom.byId(id), element, "Element about id: " + id + " was found");
+            strictEqual(pklib.dom.by_id(id), element, "Element about id: " + id + " was found");
             pklib.dom.remove(element);
         });
-        test("byTag", function() {
+        test("by_tag", function() {
             var tag = "special-tag";
             var element = document.createElement(tag);
             pklib.dom.insert(element, document.body);
-            strictEqual(pklib.dom.byTag(tag)[0], element, "Element in tag: " + tag + " was found");
+            strictEqual(pklib.dom.by_tag(tag)[0], element, "Element in tag: " + tag + " was found");
             pklib.dom.remove(element);
         });
-        test("byClass", function() {
+        test("by_class", function() {
             var cssClass = "uniq-selective-class";
             var element = document.createElement("div");
-            pklib.css.addClass(cssClass, element);
+            pklib.css.add_class(cssClass, element);
             pklib.dom.insert(element, document.body);
-            strictEqual(pklib.dom.byClass(cssClass)[0], element, "Element with class: " + cssClass + " was found");
+            strictEqual(pklib.dom.by_class(cssClass)[0], element, "Element with class: " + cssClass + " was found");
             pklib.dom.remove(element);
         });
         test("index", function() {
@@ -60,7 +60,7 @@
             pklib.dom.insert(element, area);
             pklib.dom.insert(element2, area);
             pklib.dom.insert(area, document.body);
-            deepEqual(pklib.dom.children(pklib.dom.byId(area.id)), [ element, element2 ], "Element " + area.nodeType + " have 2 childs");
+            deepEqual(pklib.dom.children(pklib.dom.by_id(area.id)), [ element, element2 ], "Element " + area.nodeType + " have 2 childs");
             pklib.dom.remove(area);
         });
         test("insert", function () {
@@ -79,9 +79,9 @@
             var element = document.createElement("div");
             element.id = "zaq12wsx";
             pklib.dom.insert(element, document.body);
-            strictEqual(pklib.dom.byId("zaq12wsx"), element, "Object create!");
+            strictEqual(pklib.dom.by_id("zaq12wsx"), element, "Object create!");
             pklib.dom.remove(element);
-            strictEqual(pklib.dom.byId("zaq12wsx"), null, "Object not exists!");
+            strictEqual(pklib.dom.by_id("zaq12wsx"), null, "Object not exists!");
         });
         test("prev", function () {
             var a = document.createElement("div");

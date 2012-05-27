@@ -5,6 +5,11 @@
     pklib.event.add(global, "load", function () {
         module("pklib.object");
 
+        test("is_object", function () {
+            strictEqual(pklib.object.is_object({}), true, "{} is a object");
+            strictEqual(!pklib.object.is_object(null), true, "null is not a object");
+        });
+
         test("mixin", function() {
             var a1 = [ 1, 2, 3 ],
                 a2 = [ 4, "a", 0 ],

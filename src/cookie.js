@@ -21,9 +21,10 @@
              * @returns {String}
              */
             create: function (name, value, days) {
-                value = value || null;
                 var expires = "",
                     date = new Date();
+
+                value = value || null;
 
                 if (typeof days !== "undefined") {
                     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));

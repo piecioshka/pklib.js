@@ -45,9 +45,9 @@
              * @memberOf event
              * @function
              * @param {HTMLElement} target
-             * @param {String} eventName
+             * @param {String} event_name
              */
-            remove: function (target, eventName) {
+            remove: function (target, event_name) {
                 var removeEvent, events, len, i, handler;
 
                 if (typeof target.events === "undefined") {
@@ -64,17 +64,17 @@
 
                 if (typeof removeEvent === "undefined") {
                     // for old browser
-                    delete target["on" + eventName];
+                    delete target["on" + event_name];
                 } else {
-                    events = target.events[eventName];
+                    events = target.events[event_name];
 
                     if (typeof events !== "undefined") {
                         len = events.length;
 
                         for (i = 0; i < len; ++i) {
                             handler = events[i];
-                            target[removeEvent](eventName, handler);
-                            delete target.events[eventName];
+                            target[removeEvent](event_name, handler);
+                            delete target.events[event_name];
                         }
                     }
                 }
@@ -83,39 +83,37 @@
              * @memberOf event
              * @function
              * @param {HTMLElement} target
-             * @param {String} eventName
+             * @param {String} event_name
              * @returns {Array|Undefined}
              */
-            get: function (target, eventName) {
+            get: function (target, event_name) {
                 if (typeof target.events === "undefined") {
                     target.events = {};
                 }
-                return target.events[eventName];
+                return target.events[event_name];
             },
             /**
              * @memberOf event
              * @function
              * @param {HTMLElement} target
-             * @param {String} eventName
+             * @param {String} event_name
              * @throws {ReferenceError} If HTMLElement haven't got any events
              */
-            trigger: function (target, eventName) {
+            trigger: function (target, event_name) {
                 var events, len, i;
 
                 if (typeof target.events === "undefined") {
                     target.events = {};
                 }
 
-                events = target.events[eventName];
+                events = target.events[event_name];
 
-                if (typeof events === "undefined") {
-                    throw new ReferenceError("pklib.event.trigger: @event " + eventName + ": not {Array}");
-                } else {
-                    len = events.length;
+                pklib.common.assert(typeof events !== "undefined", "pklib.event.trigger: @event " + event_name + ": not {Array}");
 
-                    for (i = 0; i < len; ++i) {
-                        events[i].call(target, events[i]);
-                    }
+                len = events.length;
+
+                for (i = 0; i < len; ++i) {
+                    events[i].call(target, events[i]);
                 }
             }
         };

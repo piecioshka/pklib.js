@@ -25,9 +25,7 @@
                     top = null,
                     pus = this.size;
 
-                if (!pklib.dom.isElement(element)) {
-                    throw new TypeError("pklib.ui.center: @element: not {HTMLElement}");
-                }
+                pklib.common.assert(pklib.dom.is_element(element), "pklib.ui.center: @element: not {HTMLElement}");
 
                 if (wrapper === document.body) {
                     left = (Math.max(pus.window("width"), pus.document("width")) - pus.object(element, "width")) / 2;
@@ -57,7 +55,7 @@
                 if (wrapper === document.body) {
                     width = Math.max(pus.window("width"), pus.document("width"));
                     height = Math.max(pus.window("height"), pus.document("height"));
-                    if (pklib.browser.getName() === "msie") {
+                    if (pklib.browser.get_name() === "msie") {
                         width -= 20;
                     }
                 } else {
@@ -74,17 +72,17 @@
              * @param {Number} param
              * @param {Boolean} animate
              */
-            scrollTo: function (param, animate) {
+            scroll_to: function (param, animate) {
                 var interval = null;
-                if (pklib.common.assert(animate, true)) {
-                    interval = setInterval(function () {
-                        document.body.scrollTop -= 5;
-                        if (document.body.scrollTop <= 0) {
-                            clearInterval(interval);
+                if (animate) {
+                    interval = global.setInterval(function () {
+                        document.body.scroll_top -= 5;
+                        if (document.body.scroll_top <= 0) {
+                            global.clearInterval(interval);
                         }
                     }, 1);
                 } else {
-                    document.body.scrollTop = param + "px";
+                    document.body.scroll_top = param + "px";
                 }
             }
         };

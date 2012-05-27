@@ -26,7 +26,7 @@
 <span class='line'> 19</span>              * @function
 <span class='line'> 20</span>              * @returns {String}
 <span class='line'> 21</span>              */</span><span class="WHIT">
-<span class='line'> 22</span> </span><span class="WHIT">            </span><span class="NAME">getProtocol</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">            </span><span class="NAME">get_protocol</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 23</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">loc.protocol</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 24</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 25</span> </span><span class="WHIT">            </span><span class="COMM">/**
@@ -34,7 +34,7 @@
 <span class='line'> 27</span>              * @function
 <span class='line'> 28</span>              * @returns {String}
 <span class='line'> 29</span>              */</span><span class="WHIT">
-<span class='line'> 30</span> </span><span class="WHIT">            </span><span class="NAME">getHost</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">            </span><span class="NAME">get_host</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 31</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">loc.host</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 32</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 33</span> </span><span class="WHIT">            </span><span class="COMM">/**
@@ -42,7 +42,7 @@
 <span class='line'> 35</span>              * @function
 <span class='line'> 36</span>              * @returns {String}
 <span class='line'> 37</span>              */</span><span class="WHIT">
-<span class='line'> 38</span> </span><span class="WHIT">            </span><span class="NAME">getPort</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">            </span><span class="NAME">get_port</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 39</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">loc.port</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">80</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 40</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 41</span> </span><span class="WHIT">            </span><span class="COMM">/**
@@ -50,7 +50,7 @@
 <span class='line'> 43</span>              * @function
 <span class='line'> 44</span>              * @returns {String}
 <span class='line'> 45</span>              */</span><span class="WHIT">
-<span class='line'> 46</span> </span><span class="WHIT">            </span><span class="NAME">getUri</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">            </span><span class="NAME">get_uri</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 47</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">loc.pathname</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 48</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 49</span> </span><span class="WHIT">            </span><span class="COMM">/**
@@ -59,7 +59,7 @@
 <span class='line'> 52</span>              * @function
 <span class='line'> 53</span>              * @returns {Object}
 <span class='line'> 54</span>              */</span><span class="WHIT">
-<span class='line'> 55</span> </span><span class="WHIT">            </span><span class="NAME">getParams</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">            </span><span class="NAME">get_params</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 56</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 57</span> </span><span class="WHIT">                    </span><span class="NAME">item</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 58</span> </span><span class="WHIT">                    </span><span class="NAME">len</span><span class="PUNC">,</span><span class="WHIT">
@@ -87,7 +87,7 @@
 <span class='line'> 80</span>              * @param {String} key
 <span class='line'> 81</span>              * @returns {String}
 <span class='line'> 82</span>              */</span><span class="WHIT">
-<span class='line'> 83</span> </span><span class="WHIT">            </span><span class="NAME">getParam</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">key</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">            </span><span class="NAME">get_param</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">key</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 84</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">params</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">loc.search</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 85</span> </span><span class="WHIT">                    </span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 86</span> </span><span class="WHIT">                    </span><span class="NAME">item</span><span class="PUNC">,</span><span class="WHIT">
@@ -113,7 +113,7 @@
 <span class='line'>106</span>              * @function
 <span class='line'>107</span>              * @returns {String}
 <span class='line'>108</span>              */</span><span class="WHIT">
-<span class='line'>109</span> </span><span class="WHIT">            </span><span class="NAME">getHash</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">            </span><span class="NAME">get_hash</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>110</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">loc.hash</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>111</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'>112</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">

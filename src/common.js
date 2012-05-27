@@ -14,11 +14,14 @@
              * Basic test function. Simple assertion 2 variables
              * @memberOf common
              * @function
-             * @param {Object} left First object to compare
-             * @param {Object} right Second object to compare
+             * @param {Object} expression Object what is true
+             * @param {String} comment Message to throw in error
+             * @throws {Error} If
              */
-            assert: function (left, right) {
-                return left === right;
+            assert: function (expression, comment) {
+                if (expression !== true) {
+                    throw new Error(comment);
+                }
             },
             /**
              * Deferred function about some milliseconds.
@@ -30,7 +33,7 @@
              */
             defer: function (defer_function, milliseconds) {
                 milliseconds = milliseconds || 0;
-                setTimeout(defer_function, milliseconds);
+                global.setTimeout(defer_function, milliseconds);
             }
         };
 

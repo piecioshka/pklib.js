@@ -5,20 +5,20 @@
     pklib.event.add(global, "load", function () {
         module("pklib.array");
 
-        test("isArray", function() {
+        test("is_array", function() {
             var element = document.createElement("div");
-            element.id = "_test_pklib_array_isArray";
+            element.id = "_test_pklib_array_is_array";
             pklib.dom.insert(element, document.body);
-            var center = pklib.ui.center(pklib.dom.byId(element.id));
-            ok(pklib.array.isArray(center), "Params are in array");
+            var center = pklib.ui.center(pklib.dom.by_id(element.id));
+            ok(pklib.array.is_array(center), "Params are in array");
             strictEqual(center.length, 2, "Two params");
             pklib.dom.remove(element);
         });
-        test("inArray", function() {
+        test("in_array", function() {
             var array = [];
             var element = 3;
             array.push(element);
-            ok(pklib.array.inArray(element, array), "Element is in array");
+            ok(pklib.array.in_array(element, array), "Element is in array");
         });
         test("index", function () {
             var array = [1,2,3,4,5];

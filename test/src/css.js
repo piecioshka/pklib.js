@@ -5,55 +5,55 @@
     pklib.event.add(global, "load", function () {
         module("pklib.css");
 
-        test("addClass", function() {
+        test("add_class", function() {
             var c = pklib.css;
             var element = document.createElement("span");
             var klass = "active";
-            c.addClass(klass, element);
-            strictEqual(c.hasClass(klass, element), true, "Element has class: " + klass);
+            c.add_class(klass, element);
+            strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
             element.className = "active-fix dumny-active";
-            c.addClass(klass, element);
-            strictEqual(c.hasClass(klass, element), true, "Element has class: " + klass);
+            c.add_class(klass, element);
+            strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
         });
-        test("removeClass", function() {
+        test("remove_class", function() {
             var c = pklib.css;
             var element = document.createElement("span");
             var klass = "active";
             element.className = klass + " active-fix dumny-active";
-            c.removeClass(klass, element);
-            strictEqual(c.hasClass(klass, element), false, "Class: " + element.className);
+            c.remove_class(klass, element);
+            strictEqual(c.has_class(klass, element), false, "Class: " + element.className);
             element.className = klass + "-active-fix dumny-active";
-            c.removeClass(klass, element);
-            strictEqual(c.hasClass(klass, element), false, "Class: " + element.className);
+            c.remove_class(klass, element);
+            strictEqual(c.has_class(klass, element), false, "Class: " + element.className);
             element.className = "foob" + klass + " active-fix dumny-active";
-            c.removeClass(klass, element);
-            strictEqual(c.hasClass(klass, element), false, "Class: " + element.className);
+            c.remove_class(klass, element);
+            strictEqual(c.has_class(klass, element), false, "Class: " + element.className);
             element.className = "foo " + klass + " active-fix dumny-active";
-            c.removeClass(klass, element);
-            strictEqual(c.hasClass(klass, element), false, "Class: " + element.className);
+            c.remove_class(klass, element);
+            strictEqual(c.has_class(klass, element), false, "Class: " + element.className);
         });
-        test("hasClass", function() {
+        test("has_class", function() {
             var c = pklib.css;
             var element = document.createElement("span");
             var klass = "active";
             element.className = klass;
-            strictEqual(c.hasClass(klass, element), true, "Element has class: " + klass);
+            strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
             element.className = klass + " active-foo";
-            strictEqual(c.hasClass(klass, element), true, "Element has class: " + klass);
+            strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
             element.className = klass + " active-foo active-bar bar-active foo-active";
-            strictEqual(c.hasClass(klass, element), true, "Element has class: " + klass);
+            strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
             element.className = " active-foo active-bar bar-active foo-active";
-            strictEqual(c.hasClass(klass, element), false, "Element has class: " + klass);
+            strictEqual(c.has_class(klass, element), false, "Element has class: " + klass);
             element.className = klass + "active-foo";
-            strictEqual(c.hasClass(klass, element), false, "Element has class: " + klass);
+            strictEqual(c.has_class(klass, element), false, "Element has class: " + klass);
             element.className = klass + " foo active-bar";
-            strictEqual(c.hasClass(klass, element), true, "Element has class: " + klass);
+            strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
             element.className = "foo " + klass + " foo-active-bar";
-            strictEqual(c.hasClass(klass, element), true, "Element has class: " + klass);
+            strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
             element.className = "foo-active " + klass + " foo-active-bar";
-            strictEqual(c.hasClass(klass, element), true, "Element has class: " + klass);
+            strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
             element.className = "foo-" + klass + " foo-active-bar";
-            strictEqual(c.hasClass(klass, element), false, "Element has class: " + klass);
+            strictEqual(c.has_class(klass, element), false, "Element has class: " + klass);
         });
     });
 }(this));

@@ -5,35 +5,35 @@
     pklib.event.add(global, "load", function () {
         module("pklib.url");
 
-        test("getProtocol", function() {
-            var pP = pklib.url.getProtocol();
+        test("get_protocol", function() {
+            var pP = pklib.url.get_protocol();
             var dP = document.location.protocol;
             strictEqual(pP, dP, "No diferrence");
         });
-        test("getHost", function() {
-            var pH = pklib.url.getHost();
+        test("get_host", function() {
+            var pH = pklib.url.get_host();
             var dH = document.location.host;
             strictEqual(pH, dH, "No diferrence");
         });
-        test("getPort", function() {
-            var pP = pklib.url.getPort();
+        test("get_port", function() {
+            var pP = pklib.url.get_port();
             strictEqual(pP, 80, "Port is the same");
         });
-        test("getUri", function() {
-            var pU = pklib.url.getUri();
+        test("get_uri", function() {
+            var pU = pklib.url.get_uri();
             var dU = document.location.pathname;
             strictEqual(pU, dU, "No diferrence");
         });
-        test("getParams", function() {
-            var params = pklib.url.getParams();
+        test("get_params", function() {
+            var params = pklib.url.get_params();
             strictEqual(typeof params, "object", "Params always object");
         });
-        test("getParam", function() {
-            var undefined_param = pklib.url.getParam("undefined");
+        test("get_param", function() {
+            var undefined_param = pklib.url.get_param("undefined");
             strictEqual(undefined_param, null, "Undefined param");
         });
-        test("getHash", function() {
-            var pH = pklib.url.getHash();
+        test("get_hash", function() {
+            var pH = pklib.url.get_hash();
             var dH = document.location.hash;
             strictEqual(pH, dH, "No diferrence");
         });

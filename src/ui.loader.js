@@ -68,7 +68,7 @@
              * @returns {Boolean}
              */
             close: function (callback) {
-                var loader = pklib.dom.byId(this.objId),
+                var loader = pklib.dom.by_id(this.objId),
                     result = false;
                 if (loader !== null) {
                     loader.parentNode.removeChild(loader);

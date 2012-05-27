@@ -16,7 +16,7 @@
              * @function
              * @returns {String}
              */
-            getFullMonth: function () {
+            get_full_month: function () {
                 var month = (parseInt(new Date().getMonth(), 10) + 1);
 
                 if (month < 10) {

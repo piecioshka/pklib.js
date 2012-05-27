@@ -3,7 +3,7 @@
     var pklib = global.pklib;
 
     pklib.event.add(global, "load", function () {
-        var uriArray = pklib.url.getUri().split("/");
+        var uriArray = pklib.url.get_uri().split("/");
         var PREFIX = "/" + uriArray[1] + "/" + uriArray[2] + "/";
         var DIR = PREFIX + "data/";
 

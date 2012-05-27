@@ -17,11 +17,16 @@
              * @param {Object} array
              * @returns {Boolean}
              */
-            isArray: function (array) {
-                return pklib.common.assert(typeof array === "object" &&
-                    array !== null &&
-                    typeof array.length !== "undefined" &&
-                    typeof array.slice !== "undefined", true);
+            is_array: function (array) {
+                try {
+                    pklib.common.assert(typeof array === "object" &&
+                        array !== null &&
+                        typeof array.length !== "undefined" &&
+                        typeof array.slice !== "undefined");
+                    return true;
+                } catch (e) {
+                    return false;
+                }
             },
             /**
              * Check if element is in array by loop
@@ -31,7 +36,7 @@
              * @param {Array} array
              * @returns {Boolean}
              */
-            inArray: function (param, array) {
+            in_array: function (param, array) {
                 var i, len = array.length;
                 for (i = 0; i < len; ++i) {
                     if (array[i] === param) {
@@ -66,10 +71,12 @@
              * @returns {Array}
              */
             unique: function (array) {
-                var i, item, temp = [], len = array.length;
+                var i, item, temp = [],
+                    len = array.length;
+
                 for (i = 0; i < len; ++i) {
                     item = array[i];
-                    if (!pklib.array.inArray.call(null, item, temp)) {
+                    if (!pklib.array.in_array.call(null, item, temp)) {
                         temp.push(item);
                     }
                 }
@@ -90,7 +97,7 @@
 
                 for (i = 0; i < len; ++i) {
                     param = params[i];
-                    if (pklib.array.inArray(param, array)) {
+                    if (pklib.array.in_array(param, array)) {
                         array.splice(pklib.array.index(param, array), 1);
                     }
                 }

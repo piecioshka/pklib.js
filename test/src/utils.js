@@ -6,7 +6,7 @@
         module("pklib.utils.action");
 
         test("clearfocus", function() {
-            var input = pklib.dom.byId("input-example-text");
+            var input = pklib.dom.by_id("input-example-text");
             if (input) {
                 pklib.utils.action.clearfocus(input);
             }
@@ -15,7 +15,7 @@
             pklib.utils.action.outerlink();
         });
         test("confirm", function() {
-            var link = pklib.dom.byId("confirm-link-example-org");
+            var link = pklib.dom.by_id("confirm-link-example-org");
             if (link) {
                 pklib.utils.action.confirm(link);
             }

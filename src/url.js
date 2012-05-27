@@ -19,7 +19,7 @@
              * @function
              * @returns {String}
              */
-            getProtocol: function () {
+            get_protocol: function () {
                 return loc.protocol;
             },
             /**
@@ -27,7 +27,7 @@
              * @function
              * @returns {String}
              */
-            getHost: function () {
+            get_host: function () {
                 return loc.host;
             },
             /**
@@ -35,7 +35,7 @@
              * @function
              * @returns {String}
              */
-            getPort: function () {
+            get_port: function () {
                 return loc.port || 80;
             },
             /**
@@ -43,7 +43,7 @@
              * @function
              * @returns {String}
              */
-            getUri: function () {
+            get_uri: function () {
                 return loc.pathname;
             },
             /**
@@ -52,7 +52,7 @@
              * @function
              * @returns {Object}
              */
-            getParams: function () {
+            get_params: function () {
                 var i,
                     item,
                     len,
@@ -80,7 +80,7 @@
              * @param {String} key
              * @returns {String}
              */
-            getParam: function (key) {
+            get_param: function (key) {
                 var params = loc.search,
                     i,
                     item,
@@ -106,7 +106,7 @@
              * @function
              * @returns {String}
              */
-            getHash: function () {
+            get_hash: function () {
                 return loc.hash;
             }
         };

@@ -5,15 +5,15 @@
     pklib.event.add(global, "load", function () {
         module("pklib.browser");
 
-        test("getName", function() {
-            var name = pklib.browser.getName();
+        test("get_name", function() {
+            var name = pklib.browser.get_name();
             ok(name, "Browser name: " + name);
-            ok(pklib.string.isString(name), "Browser name is string");
+            ok(pklib.string.is_string(name), "Browser name is string");
         });
-        test("getVersion", function() {
-            var version = pklib.browser.getVersion();
+        test("get_version", function() {
+            var version = pklib.browser.get_version();
             ok(version, "Browser version: " + version);
-            ok(pklib.string.isString(version), "Browser version is string");
+            ok(pklib.string.is_string(version), "Browser version is string");
         });
     });
 }(this));

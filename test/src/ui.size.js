@@ -13,7 +13,7 @@
             try {
                 pklib.ui.size.window();
             } catch (e) {
-                strictEqual(e.constructor, TypeError, "No size defined");
+                strictEqual(e.constructor, Error, "No size defined");
             }
         });
         test("document", function() {
@@ -24,7 +24,7 @@
             try {
                 pklib.ui.size.document();
             } catch (e) {
-                strictEqual(e.constructor, TypeError, "No size defined");
+                strictEqual(e.constructor, Error, "No size defined");
             }
         });
         test("object", function() {
@@ -45,12 +45,12 @@
             try {
                 pklib.ui.size.object();
             } catch (e) {
-                strictEqual(e.constructor, TypeError, "No size defined");
+                strictEqual(e.constructor, Error, "No size defined");
             }
             try {
                 pklib.ui.size.object(element);
             } catch (e) {
-                strictEqual(e.constructor, TypeError, "No size defined");
+                strictEqual(e.constructor, Error, "No size defined");
             }
             pklib.dom.remove(element);
         });

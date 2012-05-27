@@ -17,7 +17,7 @@
              * @param {Object} o
              * @returns {Boolean}
              */
-            isObject: function (o) {
+            is_object: function (o) {
                 return o && typeof o === "object" &&
                     typeof o.hasOwnProperty === "function" &&
                     typeof o.isPrototypeOf === "function" &&
@@ -31,13 +31,13 @@
              * @returns {Array}
              */
             mixin: function (target, source) {
-                var i, len = 0, element, item;
+                var i, len, element, item;
 
-                if (pklib.array.isArray(target) && pklib.array.isArray(source)) {
+                if (pklib.array.is_array(target) && pklib.array.is_array(source)) {
                     len = source.length;
                     for (i = 0; i < len; ++i) {
                         element = source[i];
-                        if (!pklib.array.inArray(element, target)) {
+                        if (!pklib.array.in_array(element, target)) {
                             target.push(element);
                         }
                     }
@@ -45,7 +45,7 @@
                 } else {
                     for (item in source) {
                         if (source.hasOwnProperty(item)) {
-                            if (pklib.object.isObject(target[item])) {
+                            if (pklib.object.is_object(target[item])) {
                                 target[item] = pklib.object.mixin(target[item], source[item]);
                             } else {
                                 target[item] = source[item];

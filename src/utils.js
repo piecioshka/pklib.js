@@ -70,7 +70,7 @@
                  * @param {HTMLElement} obj
                  */
                 clearfocus: function (obj) {
-                    if (pklib.dom.isElement(obj)) {
+                    if (pklib.dom.is_element(obj)) {
                         pklib.event.add(obj, "focus", function () {
                             if (obj.value === obj.defaultValue) {
                                 obj.value = "";
@@ -89,11 +89,13 @@
                  * @param {HTMLElement} area
                  */
                 outerlink: function (area) {
+                    var i, len,
+                        link, links;
+
                     area = area || document;
-                    var i,
-                        link,
-                        links = pklib.dom.byTag("a", area),
-                        len = links.length;
+
+                    links = pklib.dom.by_tag("a", area);
+                    len = links.length;
 
                     for (i = 0; i < len; ++i) {
                         link = links[i];
@@ -115,8 +117,7 @@
 
                         pklib.event.add(element, "click", function (evt) {
                             response = global.confirm(text);
-                            if (!pklib.common.assert(response, true)) {
-
+                            if (!response) {
                                 try {
                                     evt.preventDefault();
                                 } catch (ignore) {

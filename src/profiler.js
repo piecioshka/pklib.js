@@ -37,7 +37,7 @@
              * @param {String} name
              * @returns {Number}
              */
-            getTime: function (name) {
+            get_time: function (name) {
                 return data[name];
             }
         };

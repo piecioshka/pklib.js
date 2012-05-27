@@ -5,47 +5,47 @@
     pklib.event.add(global, "load", function () {
         module("pklib.string");
 
-        test("isString", function() {
+        test("is_string", function() {
             var source = 45345;
-            notEqual(pklib.string.isString(source), true, "Is not string");
+            notEqual(pklib.string.is_string(source), true, "Is not string");
             source = "asdasd";
-            ok(pklib.string.isString(source), "Is string");
+            ok(pklib.string.is_string(source), "Is string");
             source = "as345345345dasd";
-            ok(pklib.string.isString(source), "Is string");
+            ok(pklib.string.is_string(source), "Is string");
             source = [];
-            notEqual(pklib.string.isString(source), true, "Is not string");
+            notEqual(pklib.string.is_string(source), true, "Is not string");
             source = {
                 3 : 4
             };
-            notEqual(pklib.string.isString(source), true, "Is not string");
+            notEqual(pklib.string.is_string(source), true, "Is not string");
             source = [ "a" ];
-            notEqual(pklib.string.isString(source), true, "Is not string");
+            notEqual(pklib.string.is_string(source), true, "Is not string");
             source = function() {
                 return this;
             };
-            notEqual(pklib.string.isString(source), true, "Is not string");
+            notEqual(pklib.string.is_string(source), true, "Is not string");
         });
-        test("isLetter", function() {
+        test("is_letter", function() {
             var source = 45345;
-            notEqual(pklib.string.isLetter(source), true, "Is not letter");
+            notEqual(pklib.string.is_letter(source), true, "Is not letter");
             source = "2";
-            notEqual(pklib.string.isLetter(source), true, "Is not letter");
+            notEqual(pklib.string.is_letter(source), true, "Is not letter");
             source = "G";
-            strictEqual(pklib.string.isLetter(source), true, "Is letter");
+            strictEqual(pklib.string.is_letter(source), true, "Is letter");
             source = 5;
-            notEqual(pklib.string.isLetter(source), true, "Is not letter");
+            notEqual(pklib.string.is_letter(source), true, "Is not letter");
             source = [];
-            notEqual(pklib.string.isLetter(source), true, "Is not letter");
+            notEqual(pklib.string.is_letter(source), true, "Is not letter");
             source = {
                 3 : 4
             };
-            notEqual(pklib.string.isLetter(source), true, "Is not letter");
+            notEqual(pklib.string.is_letter(source), true, "Is not letter");
             source = [ "a" ];
-            notEqual(pklib.string.isLetter(source), true, "Is not letter");
+            notEqual(pklib.string.is_letter(source), true, "Is not letter");
             source = function() {
                 return this;
             };
-            notEqual(pklib.string.isLetter(source), true, "Is not letter");
+            notEqual(pklib.string.is_letter(source), true, "Is not letter");
         });
         test("trim", function() {
             var result = "dog";
@@ -79,21 +79,26 @@
             result = "Test-test";
             strictEqual(pklib.string.capitalize(text), result, "Capitalize is good for: " + text);
         });
-        test("delimiterSeparatedWords", function() {
+        test("delimiter_separated_words", function() {
             var text = "dziewczYnkazzapaŁeczkamiWdoMkusFobieMiaszkała ;)";
             var result = "dziewcz-ynkazzapa-łeczkami-wdo-mkus-fobie-miaszkała ;)";
-            strictEqual(pklib.string.delimiterSeparatedWords(text), result, "delimiterSeparatedWords is good for: " + text);
+            strictEqual(pklib.string.delimiter_separated_words(text), result, "delimiter_separated_words is good for: " + text);
             var text = "testTest";
             var result = "test-test";
-            strictEqual(pklib.string.delimiterSeparatedWords(text), result, "delimiterSeparatedWords is good for: " + text);
+            strictEqual(pklib.string.delimiter_separated_words(text), result, "delimiter_separated_words is good for: " + text);
         });
-        test("camelCase", function() {
+        test("strip_tags", function () {
+            var text = "<a>testTest</a>";
+            var result = "testTest";
+            strictEqual(pklib.string.strip_tags(text), result, "strip_tags is good for: " + text);
+        });
+        test("camel_case", function() {
             var text = "Dziewczynka-z-zapa-łe-czkami-";
             var result = "DziewczynkaZZapaŁeCzkami";
-            strictEqual(pklib.string.camelCase(text), result, "Camel case is good for: " + text);
+            strictEqual(pklib.string.camel_case(text), result, "Camel case is good for: " + text);
             text = "test-test";
             result = "testTest";
-            strictEqual(pklib.string.camelCase(text), result, "Camel case is good for: " + text);
+            strictEqual(pklib.string.camel_case(text), result, "Camel case is good for: " + text);
         });
         test("slice", function() {
             var text = "Ciechocinek";

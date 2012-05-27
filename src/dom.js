@@ -33,7 +33,7 @@
              * Types of all available node
              * @namespace
              */
-            nodeTypes: {
+            node_types: {
                 "ELEMENT_NODE": 1,
                 "ATTRIBUTE_NODE": 2,
                 "TEXT_NODE": 3,
@@ -53,8 +53,13 @@
              * @param {HTMLElement} node
              * @returns {String}
              */
-            isNode: function (node) {
-                return pklib.common.assert(Boolean(node && node.nodeType && node.nodeName), true);
+            is_node: function (node) {
+                try {
+                    pklib.common.assert(Boolean(node && node.nodeType && node.nodeName));
+                    return true;
+                } catch (e) {
+                    return false;
+                }
             },
             /**
              * @memberOf dom
@@ -62,8 +67,8 @@
              * @param {HTMLElement} node
              * @returns {String}
              */
-            isElement: function (node) {
-                return (node && node.nodeType === pklib.dom.nodeTypes.ELEMENT_NODE) || false;
+            is_element: function (node) {
+                return (node && node.nodeType === pklib.dom.node_types.ELEMENT_NODE) || false;
             },
             /**
              * @memberOf dom
@@ -71,7 +76,7 @@
              * @param {String} id
              * @returns {HTMLElement|Null}
              */
-            byId: function (id) {
+            by_id: function (id) {
                 return document.getElementById(id);
             },
             /**
@@ -81,7 +86,7 @@
              * @param {Element} element
              * @returns {NodeList}
              */
-            byTag: function (tag, element) {
+            by_tag: function (tag, element) {
                 element = element || document;
                 return element.getElementsByTagName(tag);
             },
@@ -92,15 +97,17 @@
              * @param {HTMLElement} wrapper
              * @returns {NodeList|Array}
              */
-            byClass: function (cssClass, wrapper) {
-                wrapper = wrapper || document;
+            by_class: function (cssClass, wrapper) {
                 var results;
+
+                wrapper = wrapper || document;
+
                 if (wrapper.getElementsByClassName) {
                     results = wrapper.getElementsByClassName(cssClass);
                 } else {
                     results = [];
                     walk_the_dom(wrapper, function (node) {
-                        if (pklib.css.hasClass(cssClass, node)) {
+                        if (pklib.css.has_class(cssClass, node)) {
                             results.push(node);
                         }
                     });
@@ -139,7 +146,7 @@
                     len = childs.length;
 
                 for (i = 0; i < len; ++i) {
-                    if (pklib.dom.isElement(childs[i])) {
+                    if (pklib.dom.is_element(childs[i])) {
                         array.push(childs[i]);
                     }
                 }
@@ -153,9 +160,9 @@
              * @returns {HTMLElement}
              */
             insert: function (element, node) {
-                if (pklib.dom.isNode(element)) {
+                if (pklib.dom.is_node(element)) {
                     node.appendChild(element);
-                } else if (pklib.string.isString(element)) {
+                } else if (pklib.string.is_string(element)) {
                     node.innerHTML += element;
                 }
                 return element;
@@ -172,7 +179,7 @@
 
                 for (i = 0; i < len; ++i) {
                     node = args[i];
-                    if (pklib.dom.isNode(node)) {
+                    if (pklib.dom.is_node(node)) {
                         parent = node.parentNode;
                         parent.removeChild(node);
                     }
@@ -188,7 +195,7 @@
                 var pNode;
                 while (true) {
                     pNode = node.previousSibling;
-                    if (typeof pNode !== "undefined" && pNode !== null && pNode.nodeType !== pklib.dom.nodeTypes.ELEMENT_NODE) {
+                    if (typeof pNode !== "undefined" && pNode !== null && pNode.nodeType !== pklib.dom.node_types.ELEMENT_NODE) {
                         node = pNode;
                     } else {
                         break;
@@ -206,7 +213,7 @@
                 var nNode;
                 while (true) {
                     nNode = node.nextSibling;
-                    if (typeof nNode !== "undefined" && nNode !== null && nNode.nodeType !== pklib.dom.nodeTypes.ELEMENT_NODE) {
+                    if (typeof nNode !== "undefined" && nNode !== null && nNode.nodeType !== pklib.dom.node_types.ELEMENT_NODE) {
                         node = nNode;
                     } else {
                         break;
@@ -224,7 +231,7 @@
                 var prNode;
                 while (true) {
                     prNode = node.parentNode;
-                    if (typeof prNode !== "undefined" && prNode !== null && prNode.nodeType !== pklib.dom.nodeTypes.ELEMENT_NODE) {
+                    if (typeof prNode !== "undefined" && prNode !== null && prNode.nodeType !== pklib.dom.node_types.ELEMENT_NODE) {
                         node = prNode;
                     } else {
                         break;

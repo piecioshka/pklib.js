@@ -15,20 +15,21 @@
             strictEqual(typeof stopProfiler, "object", "Profiler stop time type is number");
             strictEqual(stopProfiler.toString(), (new Date()).toString(), "Profiler stop about: " + stopProfiler);
         });
-        test("getTime", function() {
+        test("get_time", function() {
             var startProfiler = pklib.profiler.start("test");
-            var time = 13;
             var stopProfiler = pklib.profiler.stop("test");
-            var timeProfiler = pklib.profiler.getTime("test");
+            var timeProfiler = pklib.profiler.get_time("test");
             strictEqual(typeof timeProfiler, "number", "Profiler time type is number");
             strictEqual(parseInt(timeProfiler, 10), parseInt(((stopProfiler - startProfiler) / 2), 10), "Profiler time " + timeProfiler);
         });
-        asyncTest("getTime(async)", function() {
-            var startProfiler = pklib.profiler.start("test");
-            var time = 13;
+        asyncTest("get_time(async)", function() {
+            var startProfiler = pklib.profiler.start("test"),
+                stopProfiler,
+                timeProfiler,
+                time = 13;
             setTimeout(function() {
-                var stopProfiler = pklib.profiler.stop("test");
-                var timeProfiler = pklib.profiler.getTime("test");
+                stopProfiler = pklib.profiler.stop("test");
+                timeProfiler = pklib.profiler.get_time("test");
                 strictEqual(typeof timeProfiler, "number", "Profiler time type is number");
                 strictEqual(parseInt(timeProfiler, 10), parseInt(((stopProfiler - startProfiler) / 2), 10), "Profiler time " + timeProfiler);
                 start();

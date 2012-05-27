@@ -6,7 +6,14 @@
         module("pklib.common");
 
         test("assert", function() {
-            strictEqual(pklib.common.assert(true, true), true, "Check every true value");
+            try {
+                pklib.common.assert(true);
+                pklib.common.assert(1 == '1');
+                pklib.common.assert(1 === 1);
+                ok("Check every true value");
+            } catch (e) {
+
+            }
         });
         test("defer", function() {
             var a = 1;

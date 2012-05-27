@@ -82,8 +82,7 @@
                             callback(script);
                         }
                     });
-                } else if (pklib.array.isArray(files)) {
-
+                } else if (pklib.array.is_array(files)) {
                     if (!copy_files.length) {
                         copy_files = pklib.object.mixin(copy_files, files);
                     }

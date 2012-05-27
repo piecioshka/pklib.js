@@ -19,14 +19,10 @@
          * @param {HTMLElement} element
          * @throws {TypeError} If first param is not string, or second param is not Node
          */
-        checkParams = function (cssClass, element, callFuncName) {
+        check_params = function (cssClass, element, callFuncName) {
             var prefix = "pklib.css." + callFuncName;
-            if (typeof cssClass !== "string") {
-                throw new TypeError(prefix + ": @cssClass: not {String}");
-            }
-            if (!pklib.dom.isNode(element)) {
-                throw new TypeError(prefix + ": @element: not {HTMLElement}");
-            }
+            pklib.common.assert(typeof cssClass === "string", prefix + ": @cssClass: not {String}");
+            pklib.common.assert(pklib.dom.is_node(element), prefix + ": @element: not {HTMLElement}");
         },
         /**
          * Utils method related css on tags in DOM tree
@@ -41,10 +37,10 @@
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node
              */
-            addClass: function (cssClass, element) {
-                checkParams(cssClass, element, "addClass");
+            add_class: function (cssClass, element) {
+                check_params(cssClass, element, "add_class");
                 var classElement = element.className;
-                if (!pklib.css.hasClass(cssClass, element)) {
+                if (!pklib.css.has_class(cssClass, element)) {
                     if (classElement.length) {
                         classElement += " " + cssClass;
                     } else {
@@ -61,8 +57,8 @@
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node
              */
-            removeClass: function (cssClass, element) {
-                checkParams(cssClass, element, "removeClass");
+            remove_class: function (cssClass, element) {
+                check_params(cssClass, element, "remove_class");
                 var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
                 element.className = pklib.string.trim(element.className.replace(regexp, ""));
             },
@@ -75,8 +71,8 @@
              * @throws {TypeError} If first param is not string, or second param is not Node
              * @returns {Boolean}
              */
-            hasClass: function (cssClass, element) {
-                checkParams(cssClass, element, "hasClass");
+            has_class: function (cssClass, element) {
+                check_params(cssClass, element, "has_class");
                 var className = " " + cssClass + " ";
                 return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
             }

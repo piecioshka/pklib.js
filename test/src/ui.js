@@ -13,9 +13,9 @@
             // TODO: write this
             console.warn("[-] pklib.ui.maximize");
         });
-        test("scrollTo", function() {
+        test("scroll_to", function() {
             // TODO: write this
-            console.warn("[-] pklib.ui.scrollTo");
+            console.warn("[-] pklib.ui.scroll_to");
         });
     });
 }(this));

@@ -209,7 +209,7 @@ ul.inheritsList
 	
 	<li><a href="../symbols/dom.html">dom</a></li>
 	
-	<li><a href="../symbols/dom.nodeTypes.html">dom.nodeTypes</a></li>
+	<li><a href="../symbols/dom.node_types.html">dom.node_types</a></li>
 	
 	<li><a href="../symbols/event.html">event</a></li>
 	
@@ -358,49 +358,9 @@ ul.inheritsList
 							<td class="attributes">&lt;constant&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#REQUEST_STATE_HEADERS_RECEIVED">REQUEST_STATE_HEADERS_RECEIVED</a></b>
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;constant&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#REQUEST_STATE_LOADING">REQUEST_STATE_LOADING</a></b>
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;constant&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#REQUEST_STATE_OPENED">REQUEST_STATE_OPENED</a></b>
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;constant&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
 								<b><a href="../symbols/_global_.html#REQUEST_STATE_UNSENT">REQUEST_STATE_UNSENT</a></b>
 								</div>
 								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#settings">settings</a></b>
-								</div>
-								<div class="description">Request settings, contain ex.</div>
 							</td>
 						</tr>
 					
@@ -428,7 +388,43 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;private&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/_global_.html#checkParams">checkParams</a></b>(cssClass, element, callFuncName)
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#add_error_service_to_xhr">add_error_service_to_xhr</a></b>(settings, xhr)
+								</div>
+								<div class="description">Add error service to xhr object</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#add_headers_to_xhr">add_headers_to_xhr</a></b>(settings, xhr)
+								</div>
+								<div class="description">Add headers to xhr object</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#add_timeout_service_to_xhr">add_timeout_service_to_xhr</a></b>(settings, xhr)
+								</div>
+								<div class="description">Add timeout service to xhr object</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#check_if_url_is_defined">check_if_url_is_defined</a></b>(settings)
+								</div>
+								<div class="description">Check url in request is defined.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#check_params">check_params</a></b>(cssClass, element, callFuncName)
 								</div>
 								<div class="description">Check typeof params</div>
 							</td>
@@ -437,18 +433,18 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;private&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/_global_.html#get_microsoft_xhr">get_microsoft_xhr</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#create_microsoft_xhr">create_microsoft_xhr</a></b>()
 								</div>
-								<div class="description">Try to create Internet Explorer XMLHTTPRequest</div>
+								<div class="description">Try to create Internet Explorer XMLHttpRequest</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&lt;private&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/_global_.html#get_xhr">get_xhr</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#create_xhr">create_xhr</a></b>()
 								</div>
-								<div class="description">Try to create XMLHTTPRequest</div>
+								<div class="description">Try to create XMLHttpRequest</div>
 							</td>
 						</tr>
 					
@@ -458,6 +454,15 @@ ul.inheritsList
 								<div class="fixedFont"><b><a href="../symbols/_global_.html#handler">handler</a></b>(settings, xhr)
 								</div>
 								<div class="description">Use when state in request is changed or if used cache is handler to request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#is_response_in_cache">is_response_in_cache</a></b>(settings)
+								</div>
+								<div class="description">Check is response on this request is in cache</div>
 							</td>
 						</tr>
 					
@@ -476,6 +481,15 @@ ul.inheritsList
 								<div class="fixedFont"><b><a href="../symbols/_global_.html#requestTimeout">requestTimeout</a></b>(settings, xhr)
 								</div>
 								<div class="description">Method use when request has timeout</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#set_default_settings">set_default_settings</a></b>()
+								</div>
+								<div class="description">Return object what is default configuration of request</div>
 							</td>
 						</tr>
 					
@@ -699,81 +713,6 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="REQUEST_STATE_HEADERS_RECEIVED"> </a>
-					<div class="fixedFont">&lt;constant&gt; 
-					
-					
-					<b>REQUEST_STATE_HEADERS_RECEIVED</b>
-					
-					</div>
-					<div class="description">
-						
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="REQUEST_STATE_LOADING"> </a>
-					<div class="fixedFont">&lt;constant&gt; 
-					
-					
-					<b>REQUEST_STATE_LOADING</b>
-					
-					</div>
-					<div class="description">
-						
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="REQUEST_STATE_OPENED"> </a>
-					<div class="fixedFont">&lt;constant&gt; 
-					
-					
-					<b>REQUEST_STATE_OPENED</b>
-					
-					</div>
-					<div class="description">
-						
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
 					<a name="REQUEST_STATE_UNSENT"> </a>
 					<div class="fixedFont">&lt;constant&gt; 
 					
@@ -783,31 +722,6 @@ ul.inheritsList
 					</div>
 					<div class="description">
 						
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="settings"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>settings</b>
-					
-					</div>
-					<div class="description">
-						Request settings, contain ex. headers, callback when run after request finish.Default timeout on request is 30 seconds. This is default timeout from popular web serversex. Apache, ngninx.Default request hasn't any headers.Default cache is disabled.Default asynchronous is enable.
 						
 							<br />
 							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
@@ -832,11 +746,195 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="checkParams"> </a>
+					<a name="add_error_service_to_xhr"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
 					
-					<b>checkParams</b>(cssClass, element, callFuncName)
+					<b>add_error_service_to_xhr</b>(settings, xhr)
+					
+					</div>
+					<div class="description">
+						Add error service to xhr object
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>settings</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{XMLHttpRequest}</span> <b>xhr</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="add_headers_to_xhr"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>add_headers_to_xhr</b>(settings, xhr)
+					
+					</div>
+					<div class="description">
+						Add headers to xhr object
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>settings</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{XMLHttpRequest}</span> <b>xhr</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="add_timeout_service_to_xhr"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>add_timeout_service_to_xhr</b>(settings, xhr)
+					
+					</div>
+					<div class="description">
+						Add timeout service to xhr object
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>settings</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{XMLHttpRequest}</span> <b>xhr</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="check_if_url_is_defined"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>check_if_url_is_defined</b>(settings)
+					
+					</div>
+					<div class="description">
+						Check url in request is defined.Throw error if is undefined
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>settings</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Throws:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Error}</span>  <b></b>
+								</dt>
+								<dd>If unset request url</dd>
+							
+							</dl>
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="check_params"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>check_params</b>(cssClass, element, callFuncName)
 					
 					</div>
 					<div class="description">
@@ -893,15 +991,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="get_microsoft_xhr"> </a>
+					<a name="create_microsoft_xhr"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
 					<span class="light">{Object|Undefined}</span>
-					<b>get_microsoft_xhr</b>()
+					<b>create_microsoft_xhr</b>()
 					
 					</div>
 					<div class="description">
-						Try to create Internet Explorer XMLHTTPRequest
+						Try to create Internet Explorer XMLHttpRequest
 						
 							<br />
 							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
@@ -938,15 +1036,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="get_xhr"> </a>
+					<a name="create_xhr"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
 					<span class="light">{Object|Undefined}</span>
-					<b>get_xhr</b>()
+					<b>create_xhr</b>()
 					
 					</div>
 					<div class="description">
-						Try to create XMLHTTPRequest
+						Try to create XMLHttpRequest
 						
 							<br />
 							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
@@ -1022,6 +1120,52 @@ ul.inheritsList
 						
 						
 						
+						
+						
+						
+
+					<hr />
+				
+					<a name="is_response_in_cache"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					<span class="light">{Boolean}</span>
+					<b>is_response_in_cache</b>(settings)
+					
+					</div>
+					<div class="description">
+						Check is response on this request is in cache
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>settings</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
 						
 						
 						
@@ -1116,6 +1260,41 @@ ul.inheritsList
 							
 							</dl>
 						
+						
+						
+						
+
+					<hr />
+				
+					<a name="set_default_settings"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					<span class="light">{Object}</span>
+					<b>set_default_settings</b>()
+					
+					</div>
+					<div class="description">
+						Return object what is default configuration of request
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_ajax.js.html">ajax.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> Default configuration</dd>
+							
+							</dl>
 						
 						
 						
@@ -1279,7 +1458,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun May 13 2012 17:38:20 GMT+0200 (CEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun May 27 2012 23:11:07 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

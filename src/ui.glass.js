@@ -72,7 +72,7 @@
              * @returns {Boolean}
              */
             close: function (callback) {
-                var glass = pklib.dom.byId(this.objId),
+                var glass = pklib.dom.by_id(this.objId),
                     result = false;
 
                 pklib.event.remove(global, "resize");

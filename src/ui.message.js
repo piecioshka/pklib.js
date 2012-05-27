@@ -67,7 +67,7 @@
              * @returns {Boolean}
              */
             close: function (callback) {
-                var message = pklib.dom.byId(this.objId),
+                var message = pklib.dom.by_id(this.objId),
                     result = false;
                 if (message !== null) {
                     message.parentNode.removeChild(message);

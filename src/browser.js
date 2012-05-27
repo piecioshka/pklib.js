@@ -21,7 +21,7 @@
              * @function
              * @returns {String}
              */
-            getName: function () {
+            get_name: function () {
                 var i, browser,
                     len = browsers.length,
                     userAgent = global.navigator.userAgent.toLowerCase();
@@ -41,7 +41,7 @@
              * @function
              * @returns {String|Null}
              */
-            getVersion: function () {
+            get_version: function () {
                 var i, len = browsers.length, browser, cur,
                     userAgent = global.navigator.userAgent.toLowerCase();
 

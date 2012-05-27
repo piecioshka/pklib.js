@@ -16,11 +16,11 @@
         /** @constant */
         REQUEST_STATE_UNSENT = 0,
         /** @constant */
-        REQUEST_STATE_OPENED = 1,
+        // REQUEST_STATE_OPENED = 1,
         /** @constant */
-        REQUEST_STATE_HEADERS_RECEIVED = 2,
+        // REQUEST_STATE_HEADERS_RECEIVED = 2,
         /** @constant */
-        REQUEST_STATE_LOADING = 3,
+        // REQUEST_STATE_LOADING = 3,
         /** @constant */
         REQUEST_STATE_DONE = 4,
         /**
@@ -48,7 +48,7 @@
 
                 contentType = xhr.getResponseHeader("Content-Type");
 
-                if (pklib.array.inArray(contentType, xmlContentType)) {
+                if (pklib.array.in_array(contentType, xmlContentType)) {
                     property = "responseXML";
                 }
 
@@ -90,13 +90,13 @@
             }
         },
         /**
-         * Try to create Internet Explorer XMLHTTPRequest
+         * Try to create Internet Explorer XMLHttpRequest
          * @private
          * @function
          * @throws {Error} If can not create XMLHttpRequest object
          * @returns {Object|Undefined} ActiveXObject object
          */
-        get_microsoft_xhr = function () {
+        create_microsoft_xhr = function () {
             var xhr;
             try {
                 xhr = new global.ActiveXObject("Msxml2.XMLHTTP");
@@ -104,26 +104,126 @@
                 try {
                     xhr = new global.ActiveXObject("Microsoft.XMLHTTP");
                 } catch (ignored) {
-                    throw new Error("pklib.ajax.load: cannot create XMLHTTPRequest object");
+                    throw new Error("pklib.ajax.load: cannot create XMLHttpRequest object");
                 }
             }
             return xhr;
         },
         /**
-         * Try to create XMLHTTPRequest
+         * Try to create XMLHttpRequest
          * @private
          * @function
          * @throws {Error} If can not create XMLHttpRequest object
          * @returns {Object|Undefined} XMLHttpRequest object
          */
-        get_xhr = function () {
+        create_xhr = function () {
             var xhr;
             try {
                 xhr = new global.XMLHttpRequest();
             } catch (ignore) {
-                xhr = get_microsoft_xhr();
+                xhr = create_microsoft_xhr();
             }
             return xhr;
+        },
+        /**
+         * Add headers to xhr object
+         * @private
+         * @function
+         * @param {Object} settings
+         * @param {XMLHttpRequest} xhr
+         */
+        add_headers_to_xhr = function (settings, xhr) {
+            var header,
+                headers = settings.headers;
+
+            if (headers !== null) {
+                for (header in headers) {
+                    if (headers.hasOwnProperty(header)) {
+                        xhr.setRequestHeader(header, headers[header]);
+                    }
+                }
+            }
+        },
+        /**
+         * Add timeout service to xhr object
+         * @private
+         * @function
+         * @param {Object} settings
+         * @param {XMLHttpRequest} xhr
+         */
+        add_timeout_service_to_xhr = function (settings, xhr) {
+            if (typeof xhr.ontimeout === "function") {
+                xhr.ontimeout = timeoutHandler.bind(null, settings, xhr);
+            } else {
+                pklib.common.defer(requestTimeout.bind(null, settings, xhr), settings.timeout);
+            }
+        },
+        /**
+         * Add error service to xhr object
+         * @private
+         * @function
+         * @param {Object} settings
+         * @param {XMLHttpRequest} xhr
+         */
+        add_error_service_to_xhr = function (settings, xhr) {
+            xhr.onerror = function () {
+                xhr.error = true;
+                settings.error.bind(null, settings, xhr);
+            };
+        },
+        /**
+         * Check is response on this request is in cache
+         * @private
+         * @function
+         * @param {Object} settings
+         * @returns {Boolean}
+         */
+        is_response_in_cache = function (settings) {
+            return settings.cache && cache[settings.url];
+        },
+        /**
+         * Return object what is default configuration of request
+         * @private
+         * @function
+         * @returns {Object} Default configuration
+         */
+        set_default_settings = function () {
+            /**
+             * Request settings, contain ex. headers, callback when run after request finish.
+             * Default timeout on request is 30 seconds. This is default timeout from popular web servers
+             * ex. Apache, ngninx.
+             * Default request hasn't any headers.
+             * Default cache is disabled.
+             * Default asynchronous is enable.
+             */
+            return {
+                type: "get",
+                async: true,
+                cache: false,
+                url: null,
+                params: null,
+                timeout: DEFAULT_TIMEOUT_TIME,
+                headers: {},
+                /**
+                 * Function run after request ended
+                 * In params exists only: response
+                 */
+                done: function () {
+                    // do something with response
+                },
+                error: function () {
+                    // do something when appear error in request
+                }
+            };
+        },
+        /**
+         * Check url in request is defined.
+         * Throw error if is undefined
+         * @param {Object} settings
+         * @throws {Error} If unset request url
+         */
+        check_if_url_is_defined = function (settings) {
+            pklib.common.assert(settings.url !== null, "pklib.ajax.load: undefined request url");
         },
         /**
          * Service to send request to server.
@@ -135,7 +235,7 @@
              * Send request to server on url defined in config.url.
              * Method throw exception when request have timeout on server or if url is not set.
              * Also, every response (if config.cache is true) saved to hashmap by key config.url.
-             * Method on first try to can create XmlHttpRequest if browser doesn't support, check
+             * Method on first try to can create XMLHttpRequest if browser doesn't support, check
              * if browser support object ActiveXObject which is implemented in Internet Explorer.
              * @memberOf ajax
              * @function
@@ -170,72 +270,29 @@
              *      }
              * });
              * </pre>
-             * @throws {ReferenceError} If unset request url
+             * @throws {Error} If unset request url
              * @returns {XMLHttpRequest|Null}
              */
             load: function (config) {
-                var header,
-                    xhr = null,
-                    /**
-                     * Request settings, contain ex. headers, callback when run after request finish.
-                     * Default timeout on request is 30 seconds. This is default timeout from popular web servers
-                     * ex. Apache, ngninx.
-                     * Default request hasn't any headers.
-                     * Default cache is disabled.
-                     * Default asynchronous is enable.
-                     */
-                    settings = {
-                        type: "get",
-                        async: true,
-                        cache: false,
-                        url: null,
-                        params: null,
-                        timeout: DEFAULT_TIMEOUT_TIME,
-                        headers: {},
-                        /**
-                         * Function run after request ended
-                         */
-                        done: function (/* response */) {
-                            // do something with response
-                        },
-                        error: function () {
-                            // do something when appear error in request
-                        }
-                    };
+                var xhr = null,
+                    settings = set_default_settings();
 
                 settings = pklib.object.mixin(settings, config);
                 settings.type = settings.type.toUpperCase();
 
-                if (settings.url === null) {
-                    throw new ReferenceError("pklib.ajax.load: undefined request url");
-                }
+                check_if_url_is_defined(settings);
 
-                if (settings.cache && cache[settings.url]) {
+                if (is_response_in_cache(settings)) {
                     handler.call(null, settings, cache[settings.url]);
                 } else {
-                    xhr = get_xhr();
+                    xhr = create_xhr();
                     xhr.onreadystatechange = handler.bind(null, settings, xhr);
                     xhr.open(settings.type, settings.url, settings.async);
 
-                    if (settings.headers !== null) {
-                        for (header in settings.headers) {
-                            if (settings.headers.hasOwnProperty(header)) {
-                                xhr.setRequestHeader(header, settings.headers[header]);
-                            }
-                        }
-                    }
+                    add_headers_to_xhr(settings, xhr);
+                    add_timeout_service_to_xhr(settings, xhr);
+                    add_error_service_to_xhr(settings, xhr);
                     xhr.send(settings.params);
-
-                    if (typeof xhr.ontimeout === "function") {
-                        xhr.ontimeout = timeoutHandler.bind(null, settings, xhr);
-                    } else {
-                        pklib.common.defer(requestTimeout.bind(null, settings, xhr), settings.timeout);
-                    }
-
-                    xhr.onerror = function () {
-                        xhr.error = true;
-                        settings.error.bind(null, settings, xhr);
-                    };
                 }
                 return xhr;
             },
