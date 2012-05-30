@@ -29,6 +29,8 @@ if File.directory?(dir_doc)
 end
 Dir.mkdir(dir_doc)
 
+task : default
+
 puts "------------- pklib JavaScript library -------------"
 
 print "[+] Generate library:"
