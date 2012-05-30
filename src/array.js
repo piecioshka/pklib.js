@@ -24,7 +24,7 @@
                         typeof array.length !== "undefined" &&
                         typeof array.slice !== "undefined");
                     return true;
-                } catch (e) {
+                } catch (ignore) {
                     return false;
                 }
             },

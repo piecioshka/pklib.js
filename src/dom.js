@@ -57,7 +57,7 @@
                 try {
                     pklib.common.assert(Boolean(node && node.nodeType && node.nodeName));
                     return true;
-                } catch (e) {
+                } catch (ignore) {
                     return false;
                 }
             },

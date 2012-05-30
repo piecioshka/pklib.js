@@ -1,10 +1,8 @@
-# pklib - darmowa biblioteka JavaScript
+# pklib [![Build Status](https://secure.travis-ci.org/piecioshka/pklib.png?branch=master)](http://travis-ci.org/piecioshka/pklib)
 
 `pklib` jest wynikiem ciągłego używania z tych samych wzorców w sieci web,<br />
 z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach.<br /> 
 Źródła biblioteki znajdują się na [Github.com](http://www.github.com/).<br />
-
-Biblioteka jest rozwijana z podziałem na moduły.
 
 Przykład:<br />
     moduł `pklib.profiler`<br />

@@ -42,11 +42,13 @@
 
                 loader.setAttribute("id", this.objId);
                 loader.setAttribute("src", settings.src);
+
                 for (style in settings.style) {
                     if (settings.style.hasOwnProperty(style)) {
                         loaderStyle[style] = settings.style[style];
                     }
                 }
+
                 if (settings.center) {
                     pklib.ui.center(loader, settings.container);
 
@@ -54,7 +56,9 @@
                         pklib.ui.center(loader, settings.container);
                     });
                 }
+
                 settings.container.appendChild(loader);
+
                 if (typeof callback === "function") {
                     callback();
                 }

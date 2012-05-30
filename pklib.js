@@ -394,7 +394,7 @@ if (typeof Function.prototype.bind !== "function") {
                         typeof array.length !== "undefined" &&
                         typeof array.slice !== "undefined");
                     return true;
-                } catch (e) {
+                } catch (ignore) {
                     return false;
                 }
             },
@@ -879,7 +879,7 @@ if (typeof Function.prototype.bind !== "function") {
                 try {
                     pklib.common.assert(Boolean(node && node.nodeType && node.nodeName));
                     return true;
-                } catch (e) {
+                } catch (ignore) {
                     return false;
                 }
             },
@@ -1795,11 +1795,13 @@ if (typeof Function.prototype.bind !== "function") {
 
                 loader.setAttribute("id", this.objId);
                 loader.setAttribute("src", settings.src);
+
                 for (style in settings.style) {
                     if (settings.style.hasOwnProperty(style)) {
                         loaderStyle[style] = settings.style[style];
                     }
                 }
+
                 if (settings.center) {
                     pklib.ui.center(loader, settings.container);
 
@@ -1807,7 +1809,9 @@ if (typeof Function.prototype.bind !== "function") {
                         pklib.ui.center(loader, settings.container);
                     });
                 }
+
                 settings.container.appendChild(loader);
+
                 if (typeof callback === "function") {
                     callback();
                 }
@@ -2171,10 +2175,6 @@ if (typeof Function.prototype.bind !== "function") {
              * @namespace
              */
             ascii: {
-                /**
-                 * @memberOf utils.ascii
-                 * @namespace
-                 */
                 letters: {
                     lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
                     upper: [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
@@ -2186,7 +2186,6 @@ if (typeof Function.prototype.bind !== "function") {
              */
             action: {
                 /**
-                 * @memberOf utils.action
                  * @function
                  * @param {HTMLElement} obj
                  */
@@ -2205,7 +2204,6 @@ if (typeof Function.prototype.bind !== "function") {
                     }
                 },
                 /**
-                 * @memberOf utils.action
                  * @function
                  * @param {HTMLElement} area
                  */
@@ -2226,7 +2224,6 @@ if (typeof Function.prototype.bind !== "function") {
                     }
                 },
                 /**
-                 * @memberOf utils.action
                  * @function
                  * @param {HTMLElement} element
                  * @param {String} [text="Sure?"]
