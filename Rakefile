@@ -1,3 +1,4 @@
+#!/usr/bin/env rake
 library_name      = "pklib"
 library           = "pklib.js"
 library_min       = "pklib.min.js"
