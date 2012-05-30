@@ -24,7 +24,7 @@ if File.exists?(library_min)
 end
 File.new(library_min, File::CREAT|File::TRUNC|File::RDWR, 0777)
 
-if Dir.exists?(dir_doc)
+if File.directory?(dir_doc)
   FileUtils.rm_r dir_doc, :force => true
 end
 Dir.mkdir(dir_doc)
