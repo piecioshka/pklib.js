@@ -29,7 +29,7 @@ if File.directory?(dir_doc)
 end
 Dir.mkdir(dir_doc)
 
-task : default
+task :default
 
 puts "------------- pklib JavaScript library -------------"
 
