@@ -1,78 +1,66 @@
-#!/bin/bash
+library_name      = "pklib"
+library           = "pklib.js"
+library_min       = "pklib.min.js"
+dir_src           = "src/"
+dir_doc           = "docs/"
+dir_jsdoc         = "tools/jsdoc-toolkit/"
+dir_yuicompressor = "tools/yuicompressor/"
 
-library_name=pklib
-library=pklib.js
-library_temp=temp_${library}
-library_min=pklib.min.js
-dir_src=src/
-dir_doc=docs/
-dir_jsdoc=tools/jsdoc-toolkit/
-dir_yuicompressor=tools/yuicompressor/
+yuicompressor = "java -jar #{dir_yuicompressor}/build/yuicompressor-2.4.7.jar #{library} -o #{library_min}"
+jsdoc = "java -jar #{dir_jsdoc}jsrun.jar #{dir_jsdoc}app/run.js -d=#{dir_doc} -a -t=#{dir_jsdoc}templates/jsdoc -p #{dir_src} -q"
 
-if [ -f $library ] 
-then
-    rm $library
-fi
-if [ -f $library_min ] 
-then
-    rm $library_min
-fi
-if [ -f $dir_doc ]
-then
-    find ${dir_doc} | xargs rm -rf
-    mkdir ${dir_doc}
-fi
+# ukrywamy wszelkie logi
+verbose(false)
 
-# start building library
+# glowny plik biblioteki
+if File.exist?(library)
+  File.delete(library)
+end
+File.new(library, File::CREAT|File::TRUNC|File::RDWR, 0777)
 
-clear 
+# plik zminifajowany biblioteki
+if File.exist?(library_min)
+  File.delete(library_min)
+end
+File.new(library_min, File::CREAT|File::TRUNC|File::RDWR, 0777)
 
-echo -n "     "
-echo -e '\E[27;44m'"\033[1mpklib JavaScript library\033[0m"
-echo
-echo -en "\033[1m[+] Generate library: \033[0m"
+if Dir.exist?(dir_doc)
+  FileUtils.rm_r dir_doc, :force => true
+end
+Dir.mkdir(dir_doc)
 
-#echo -e "\tFile:\t\t\tSize:"
+puts "------------- pklib JavaScript library -------------"
 
-for file in header.js ajax.js array.js aspect.js browser.js common.js cookie.js\
- css.js date.js dom.js event.js file.js object.js profiler.js string.js\
- ui.js ui.glass.js ui.loader.js ui.message.js ui.size.js url.js utils.js
-do
-    #size=$(du -bh $dir_src$file | tr "\t" " " | cut -d " " -f 1)
-    #echo -en "Add:\t"
-    #echo -en '\E[32m'"\033[1m${file} \t\t\033[0m"   # Green
-    #echo -e '\E[31m'"\033[1m${size}\033[0m"   # Red
+print "[+] Generate library:"
 
-    cat $dir_src$file >> $library
-    echo -e >> $library
-done
+files = ["header.js", "ajax.js", "array.js", "aspect.js", "browser.js", "common.js", "cookie.js", \
+ "css.js", "date.js", "dom.js", "event.js", "file.js", "object.js", "profiler.js", "string.js", \
+ "ui.js", "ui.glass.js", "ui.loader.js", "ui.message.js", "ui.size.js", "url.js", "utils.js"]
 
-echo -n "Done."; echo
+lib_data = File.read(library)
 
-echo -en "\033[1m[+] Minifing: \033[0m"
+File.open(library, 'w') do |f|
+  for file in files
+    f.write File.read("#{dir_src}#{file}")
+    f.write lib_data
+  end
+end
 
-java -jar ${dir_yuicompressor}/build/yuicompressor-2.4.7.jar\
-    ${library} -o ${library_min}
+puts "\t\t\t\tDone."
 
-echo "/** pklib JavaScript library | http://pklib.com/licencja.html **/" > ${library_temp} 
-cat ${library_min} >> ${library_temp}
-cat ${library_temp} > ${library_min}
-rm -rf ${library_temp}
-    
-echo -n "Done."; echo
+print "[+] Minifing:"
 
-echo -en "\033[1m[+] Generate documentation: \033[0m"
+sh yuicompressor
 
-java -jar ${dir_jsdoc}jsrun.jar ${dir_jsdoc}app/run.js -d=${dir_doc}\
-    -a -t=${dir_jsdoc}templates/jsdoc -p ${dir_src} -q
+lib_data = File.read(library_min)
 
-echo -e "Done."; echo
+File.open(library_min, 'w') do |f|
+  f.write "/** pklib JavaScript library | http://pklib.com/licencja.html **/\n"
+  f.write lib_data
+end
 
-# summary
+puts "\t\t\t\t\tDone."
 
-chmod 664 ${library}
-chmod 664 ${library_min}
-
-ls -lhF ${library_name}*
-
-echo
+print "[+] Generate documentation:"
+sh jsdoc
+puts "\t\t\tDone."

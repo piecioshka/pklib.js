@@ -52,7 +52,6 @@ if (typeof Function.prototype.bind !== "function") {
         };
     };
 }
-
 /**
  * @package pklib.ajax
  * @dependence pklib.array, pklib.common
@@ -367,7 +366,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.ajax = ajax;
 }(this));
-
 /**
  * @package pklib.array
  */
@@ -477,7 +475,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.array = array;
 }(this));
-
 /**
  * @package pklib.aspect
  */
@@ -522,7 +519,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.aspect = aspect;
 }(this));
-
 /**
  * @package pklib.browser
  */
@@ -583,7 +579,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.browser = browser;
 }(this));
-
 /**
  * @package pklib.common
  */
@@ -625,7 +620,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.common = common;
 }(this));
-
 /**
  * @package pklib.cookie
  */
@@ -704,7 +698,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.cookie = cookie;
 }(this));
-
 /**
  * @package pklib.css
  * @dependence pklib.string. pklib.dom
@@ -787,7 +780,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.css = css;
 }(this));
-
 /**
  * @package pklib.date
  */
@@ -819,7 +811,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.date = date;
 }(this));
-
 /**
  * @package pklib.dom
  * @dependence pklib.browser, pklib.css, pklib.string, pklib.utils
@@ -1065,7 +1056,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.dom = dom;
 }(this));
-
 /**
  * @package pklib.event
  */
@@ -1188,7 +1178,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.event = event;
 }(this));
-
 /**
  * @package pklib.file, pklib.string
  */
@@ -1301,7 +1290,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.file = file;
 }(this));
-
 /**
  * @package pklib.object
  */
@@ -1363,7 +1351,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.object = object;
 }(this));
-
 /**
  * @package pklib.profiler
  */
@@ -1410,7 +1397,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.profiler = profiler;
 }(this));
-
 /**
  * @package pklib.string
  */
@@ -1562,7 +1548,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.string = string;
 }(this));
-
 /**
  * @package pklib.ui
  * @dependence pklib.string. pklib.dom
@@ -1654,7 +1639,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.ui = ui;
 }(this));
-
 /**
  * @package pklib.glass
  * @dependence pklib.browser, pklib.dom, pklib.event, pklib.utils
@@ -1750,7 +1734,6 @@ if (typeof Function.prototype.bind !== "function") {
     pklib.ui = global.pklib.ui || {};
     pklib.ui.glass = glass;
 }(this));
-
 /**
  * @package pklib.loader
  * @dependence pklib.dom, pklib.event, pklib.utils
@@ -1842,7 +1825,6 @@ if (typeof Function.prototype.bind !== "function") {
     pklib.ui = global.pklib.ui || {};
     pklib.ui.loader = loader;
 }(this));
-
 /**
  * @package pklib.message
  * @dependence pklib.dom, pklib.event, pklib.string, pklib.utils
@@ -1929,7 +1911,6 @@ if (typeof Function.prototype.bind !== "function") {
     pklib.ui = global.pklib.ui || {};
     pklib.ui.message = message;
 }(this));
-
 /**
  * @package pklib.ui.size
  * @dependence pklib.string
@@ -2006,7 +1987,6 @@ if (typeof Function.prototype.bind !== "function") {
     pklib.ui = global.pklib.ui || {};
     pklib.ui.size = size;
 }(this));
-
 /**
  * @package pklib.url
  */
@@ -2122,7 +2102,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.url = url;
 }(this));
-
 /**
  * @package pklib.utils
  * @dependence pklib.common, pklib.dom, pklib.event
@@ -2253,4 +2232,3 @@ if (typeof Function.prototype.bind !== "function") {
 
     pklib.utils = utils;
 }(this));
-
