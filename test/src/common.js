@@ -22,5 +22,21 @@
             });
             strictEqual(a, 1, "Defer run in separate thread function");
         });
+        test("checking", function() {
+            var a = 0;
+            pklib.common.checking(function () {
+                return true;
+            }, function () {
+                a = 1;
+            });
+            strictEqual(a, 1, "Checking with static return 'true'");
+
+            pklib.common.checking(function () {
+                return false;
+            }, function () {
+                a = 2;
+            });
+            strictEqual(a, 1, "Checking with static return 'false'");
+        });
     });
 }(this));

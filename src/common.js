@@ -16,7 +16,7 @@
              * @function
              * @param {Object} expression Object what is true
              * @param {String} comment Message to throw in error
-             * @throws {Error} If
+             * @throws {Error}
              */
             assert: function (expression, comment) {
                 if (expression !== true) {
@@ -34,6 +34,30 @@
             defer: function (defer_function, milliseconds) {
                 milliseconds = milliseconds || 0;
                 global.setTimeout(defer_function, milliseconds);
+            },
+            /**
+             * Interval checking first function until returns true,
+             * run after this second function callback
+             * @param {Function} condition Function returns {Boolean} status
+             * @param {Function} callback
+             */
+            checking: function (condition, callback) {
+                var interval,
+                    interval_time = 100;
+
+                pklib.common.assert(typeof condition === "function", "pklib.common.checking: @condition: not {Function}");
+                pklib.common.assert(typeof callback === "function", "pklib.common.checking: @callback: not {Function}");
+
+                if (condition()) {
+                    callback();
+                } else {
+                    interval = setInterval(function () {
+                        if (condition()) {
+                            clearInterval(interval);
+                            callback();
+                        }
+                    }, interval_time);
+                }
             }
         };
 
