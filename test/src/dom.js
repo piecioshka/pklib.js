@@ -19,6 +19,26 @@
             strictEqual(pklib.dom.is_element(undefined), false, "Element is null");
             strictEqual(pklib.dom.is_element(), false, "Element is null");
         });
+        test("is_visible", function () {
+            var element = document.createElement("span"),
+                child = document.createElement("span");
+
+            child.innerHTML = "0";
+            pklib.dom.insert(child, element);
+            pklib.dom.insert(element, document.body);
+
+            strictEqual(pklib.dom.is_visible(element), true, "Element <span\/> is visible");
+            element.style.display = "none";
+            strictEqual(pklib.dom.is_visible(element), false, "Element <span\/> is not visible");
+            element.style.display = "inline-block";
+            strictEqual(pklib.dom.is_visible(element), true, "Element <span\/> is visible");
+            element.style.visibility = "hidden";
+            strictEqual(pklib.dom.is_visible(element), false, "Element <span\/> is not visible");
+            element.style.visibility = "visible";
+            strictEqual(pklib.dom.is_visible(element), true, "Element <span\/> is visible");
+
+            pklib.dom.remove(element);
+        });
         test("by_id", function() {
             var element = document.createElement("span");
             var id = "pklib-utils-dom-by_id";

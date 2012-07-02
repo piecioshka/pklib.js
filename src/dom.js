@@ -73,6 +73,20 @@
             /**
              * @memberOf dom
              * @function
+             * @param {HTMLElement} node
+             * @return {Boolean}
+             */
+            is_visible: function (node) {
+                pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.is_visible: @node is not HTMLElement");
+
+                return node.style.display !== "none" &&
+                    node.style.visibility !== "hidden" &&
+                    node.offsetWidth !== 0 &&
+                    node.offsetHeight !== 0;
+            },
+            /**
+             * @memberOf dom
+             * @function
              * @param {String} id
              * @returns {HTMLElement|Null}
              */
