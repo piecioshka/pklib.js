@@ -7,54 +7,54 @@
     var pklib = global.pklib || {},
         /**
          * Array with browsers name
+         * @private
          * @type Array
          */
-        browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"],
+        browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
+
+    /**
+     * Get best information about browser
+     * @namespace
+     */
+    pklib.browser = {
         /**
-         * Get best information about browser
-         * @namespace
+         * Get browser name by checking userAgent in global object navigator
+         * @memberOf pklib.browser
+         * @function
+         * @returns {String}
          */
-        browser = {
-            /**
-             * Get browser name by checking userAgent in global object navigator
-             * @memberOf browser
-             * @function
-             * @returns {String}
-             */
-            get_name: function () {
-                var i, browser,
-                    len = browsers.length,
-                    userAgent = global.navigator.userAgent.toLowerCase();
+        get_name: function () {
+            var i, browser,
+                len = browsers.length,
+                userAgent = global.navigator.userAgent.toLowerCase();
 
-                for (i = 0; i < len; ++i) {
-                    browser = browsers[i];
-                    if (new RegExp(browser).test(userAgent)) {
-                        return browser;
-                    }
+            for (i = 0; i < len; ++i) {
+                browser = browsers[i];
+                if (new RegExp(browser).test(userAgent)) {
+                    return browser;
                 }
-                return "undefined";
-            },
-            /**
-             * Get browser version by checking userAgent.
-             * Parse userAgent to find next 3 characters
-             * @memberOf browser
-             * @function
-             * @returns {String|Null}
-             */
-            get_version: function () {
-                var i, len = browsers.length, browser, cur,
-                    user_agent = global.navigator.userAgent.toLowerCase();
-
-                for (i = 0; i < len; ++i) {
-                    browser = browsers[i];
-                    cur = user_agent.indexOf(browser);
-                    if (cur !== -1) {
-                        return user_agent.substr(cur + len + 1, 3);
-                    }
-                }
-                return null;
             }
-        };
+            return "undefined";
+        },
+        /**
+         * Get browser version by checking userAgent.
+         * Parse userAgent to find next 3 characters
+         * @memberOf pklib.browser
+         * @function
+         * @returns {String|Null}
+         */
+        get_version: function () {
+            var i, len = browsers.length, browser, cur,
+                user_agent = global.navigator.userAgent.toLowerCase();
 
-    pklib.browser = browser;
+            for (i = 0; i < len; ++i) {
+                browser = browsers[i];
+                cur = user_agent.indexOf(browser);
+                if (cur !== -1) {
+                    return user_agent.substr(cur + len + 1, 3);
+                }
+            }
+            return null;
+        }
+    };
 }(this));

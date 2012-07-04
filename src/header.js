@@ -26,7 +26,10 @@
  * 
  * Date: Sun, 27 May 2012 23:00:10 +0200
  */
+
 /*jslint plusplus: true, regexp: true */
+/*global setInterval, clearInterval, setTimeout */
+
 (function (global) {
     "use strict";
     /**
@@ -47,6 +50,7 @@ if (typeof Function.prototype.bind !== "function") {
         var method = this,
             slice = Array.prototype.slice,
             args = slice.apply(arguments, [1]);
+
         return function () {
             return method.apply(that, args.concat(slice.apply(arguments, [0])));
         };

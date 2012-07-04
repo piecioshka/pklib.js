@@ -13,15 +13,20 @@
          * @type Number
          */
         DEFAULT_TIMEOUT_TIME = 30000,
-        /** @constant */
+        /**
+         * @private
+         * @constant
+         * @type Number
+         */
         REQUEST_STATE_UNSENT = 0,
-        /** @constant */
         // REQUEST_STATE_OPENED = 1,
-        /** @constant */
         // REQUEST_STATE_HEADERS_RECEIVED = 2,
-        /** @constant */
         // REQUEST_STATE_LOADING = 3,
-        /** @constant */
+        /**
+         * @private
+         * @constant
+         * @type Number
+         */
         REQUEST_STATE_DONE = 4,
         /**
          * Array contain key as url, value as ajax response
@@ -94,7 +99,7 @@
          * @private
          * @function
          * @throws {Error} If can not create XMLHttpRequest object
-         * @returns {Object|Undefined} ActiveXObject object
+         * @returns {ActiveXObject|Undefined}
          */
         create_microsoft_xhr = function () {
             var xhr;
@@ -114,7 +119,7 @@
          * @private
          * @function
          * @throws {Error} If can not create XMLHttpRequest object
-         * @returns {Object|Undefined} XMLHttpRequest object
+         * @returns {XMLHttpRequest|Undefined}
          */
         create_xhr = function () {
             var xhr;
@@ -219,96 +224,97 @@
         /**
          * Check url in request is defined.
          * Throw error if is undefined
+         * @private
+         * @function
          * @param {Object} settings
          * @throws {Error} If unset request url
          */
         check_if_url_is_defined = function (settings) {
             pklib.common.assert(settings.url !== null, "pklib.ajax.load: undefined request url");
-        },
-        /**
-         * Service to send request to server.
-         * With first param, which is hashmap, define params, ex. request url
-         * @namespace
-         */
-        ajax = {
-            /**
-             * Send request to server on url defined in config.url.
-             * Method throw exception when request have timeout on server or if url is not set.
-             * Also, every response (if config.cache is true) saved to hashmap by key config.url.
-             * Method on first try to can create XMLHttpRequest if browser doesn't support, check
-             * if browser support object ActiveXObject which is implemented in Internet Explorer.
-             * @memberOf ajax
-             * @function
-             * @param {Object} config
-             * <pre>
-             * {
-             *      {String} [type="get"]
-             *      {Boolean} [async=true]
-             *      {Boolean} [cache=false]
-             *      {String} url
-             *      {Object} [params]
-             *      {Object} [headers]
-             *      {Function} [done]
-             *      {Function} [error]
-             * }
-             * </pre>
-             * @example
-             * <pre>
-             * pklib.ajax.load({
-             *      type: "post",
-             *      async: false,
-             *      cache:  true,
-             *      url: "http://example.org/check-item.php",
-             *      params: {
-             *          id: 33
-             *      },
-             *      headers: {
-             *          "User-Agent": "tv"
-             *      },
-             *      done: function (res) {
-             *          console.log(res);
-             *      }
-             * });
-             * </pre>
-             * @throws {Error} If unset request url
-             * @returns {XMLHttpRequest|Null}
-             */
-            load: function (config) {
-                var xhr = null,
-                    settings = set_default_settings();
-
-                settings = pklib.object.mixin(settings, config);
-                settings.type = settings.type.toUpperCase();
-
-                check_if_url_is_defined(settings);
-
-                if (is_response_in_cache(settings)) {
-                    handler.call(null, settings, cache[settings.url]);
-                } else {
-                    xhr = create_xhr();
-                    xhr.onreadystatechange = handler.bind(null, settings, xhr);
-                    xhr.open(settings.type, settings.url, settings.async);
-
-                    add_headers_to_xhr(settings, xhr);
-                    add_timeout_service_to_xhr(settings, xhr);
-                    add_error_service_to_xhr(settings, xhr);
-                    xhr.send(settings.params);
-                }
-                return xhr;
-            },
-            /**
-             * Stop request setting in param
-             * @memberOf ajax
-             * @function
-             * @param {XMLHttpRequest} xhr XMLHttpRequest object, or ActiveXObject object if Internet Explorer
-             */
-            stop: function (xhr) {
-                xhr.abort();
-                xhr.aborted = true;
-                // clear memory
-                xhr = null;
-            }
         };
 
-    pklib.ajax = ajax;
+    /**
+     * Service to send request to server.
+     * With first param, which is hashmap, define params, ex. request url
+     * @namespace
+     */
+    pklib.ajax = {
+        /**
+         * Send request to server on url defined in config.url.
+         * Method throw exception when request have timeout on server or if url is not set.
+         * Also, every response (if config.cache is true) saved to hashmap by key config.url.
+         * Method on first try to can create XMLHttpRequest if browser doesn't support, check
+         * if browser support object ActiveXObject which is implemented in Internet Explorer.
+         * @memberOf pklib.ajax
+         * @function
+         * @param {Object} config
+         * <pre>
+         * {
+         *      {String} [type="get"]
+         *      {Boolean} [async=true]
+         *      {Boolean} [cache=false]
+         *      {String} url
+         *      {Object} [params]
+         *      {Object} [headers]
+         *      {Function} [done]
+         *      {Function} [error]
+         * }
+         * </pre>
+         * @example
+         * <pre>
+         * pklib.ajax.load({
+         *      type: "post",
+         *      async: false,
+         *      cache:  true,
+         *      url: "http://example.org/check-item.php",
+         *      params: {
+         *          id: 33
+         *      },
+         *      headers: {
+         *          "User-Agent": "tv"
+         *      },
+         *      done: function (res) {
+         *          console.log(res);
+         *      }
+         * });
+         * </pre>
+         * @throws {Error} If unset request url
+         * @returns {XMLHttpRequest|Null}
+         */
+        load: function (config) {
+            var xhr = null,
+                settings = set_default_settings();
+
+            settings = pklib.object.mixin(settings, config);
+            settings.type = settings.type.toUpperCase();
+
+            check_if_url_is_defined(settings);
+
+            if (is_response_in_cache(settings)) {
+                handler.call(null, settings, cache[settings.url]);
+            } else {
+                xhr = create_xhr();
+                xhr.onreadystatechange = handler.bind(null, settings, xhr);
+                xhr.open(settings.type, settings.url, settings.async);
+
+                add_headers_to_xhr(settings, xhr);
+                add_timeout_service_to_xhr(settings, xhr);
+                add_error_service_to_xhr(settings, xhr);
+                xhr.send(settings.params);
+            }
+            return xhr;
+        },
+        /**
+         * Stop request setting in param
+         * @memberOf pklib.ajax
+         * @function
+         * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object, or ActiveXObject object if Internet Explorer
+         */
+        stop: function (xhr) {
+            xhr.abort();
+            xhr.aborted = true;
+            // clear memory
+            xhr = null;
+        }
+    };
 }(this));

@@ -4,41 +4,39 @@
 (function (global) {
     "use strict";
     /** @namespace */
-    var pklib = global.pklib || {},
-        /**
-         * Bind function to aspect.
-         * Create method with merge first and second.
-         * Second method is run after first
-         * @function
-         * @param {Function} fun The function to bind aspect function
-         * @param {Function} asp The aspect function
-         * @param {String} [when="before"] Place to aspect function
-         * @namespace
-         * @throws {TypeError} If any param is not function
-         * @returns {Function}
-         */
-        aspect = function (fun, asp, when) {
-            var that = this,
-                result;
+    var pklib = global.pklib || {};
 
-            pklib.common.assert(typeof fun === "function", "pklib.aspect: @func: not {Function}");
-            pklib.common.assert(typeof asp === "function", "pklib.aspect: @asp: not {Function}");
+    /**
+     * Bind function to aspect.
+     * Create method with merge first and second.
+     * Second method is run after first
+     * @function
+     * @param {Function} fun The function to bind aspect function
+     * @param {Function} asp The aspect function
+     * @param {String} [when="before"] Place to aspect function
+     * @throws {TypeError} If any param is not function
+     * @returns {Function}
+     */
+    pklib.aspect = function (fun, asp, when) {
+        var that = this,
+            result;
 
-            when = when || "before";
+        pklib.common.assert(typeof fun === "function", "pklib.aspect: @func: not {Function}");
+        pklib.common.assert(typeof asp === "function", "pklib.aspect: @asp: not {Function}");
 
-            return function () {
-                if (when === "before") {
-                    asp.call(that);
-                }
+        when = when || "before";
 
-                result = fun.apply(that, arguments);
+        return function () {
+            if (when === "before") {
+                asp.call(that);
+            }
 
-                if (when === "after") {
-                    result = asp.call(that);
-                }
-                return result;
-            };
+            result = fun.apply(that, arguments);
+
+            if (when === "after") {
+                result = asp.call(that);
+            }
+            return result;
         };
-
-    pklib.aspect = aspect;
+    };
 }(this));

@@ -17,7 +17,7 @@
          * @param {String} url
          * @param {Function} callback
          */
-        simpleLoadJS = function (url, callback) {
+        simple_load_js = function (url, callback) {
             /**
              * Create HTMLElement <script>
              */
@@ -57,56 +57,55 @@
             }
 
             document.head.appendChild(script);
-        },
-        /**
-         * JS file loader
-         * @namespace
-         */
-        file = {
-            /**
-             * Lazy load JS files. Url to files could be with path absolute or not.
-             * If you must load more than 1 file use array, to set url to files
-             * @memberOf file
-             * @function
-             * @param {String|Array} files
-             * @param {Function} callback
-             */
-            loadjs: function (files, callback) {
-                var file,
-                    self = this;
-
-                if (typeof files === "string") {
-                    file = files;
-                    simpleLoadJS(file, function (script) {
-                        if (typeof callback === "function") {
-                            callback(script);
-                        }
-                    });
-                } else if (pklib.array.is_array(files)) {
-                    if (!copy_files.length) {
-                        copy_files = pklib.object.mixin(copy_files, files);
-                    }
-
-                    file = files.shift();
-
-                    if (typeof file === "undefined") {
-                        if (typeof callback === "function") {
-                            callback({
-                                src: copy_files[copy_files.length - 1]
-                            });
-
-                            copy_files = [];
-                        }
-                    } else {
-                        simpleLoadJS(file, function () {
-                            self.loadjs(files, callback);
-                        });
-                    }
-                } else {
-                    throw new TypeError("pklib.file.loadjs: @files not {String} or {Array}");
-                }
-            }
         };
 
-    pklib.file = file;
+    /**
+     * JS file loader
+     * @namespace
+     */
+    pklib.file = {
+        /**
+         * Lazy load JS files. Url to files could be with path absolute or not.
+         * If you must load more than 1 file use array, to set url to files
+         * @memberOf pklib.file
+         * @function
+         * @param {String|Array} files
+         * @param {Function} callback
+         */
+        loadjs: function (files, callback) {
+            var file,
+                self = this;
+
+            if (typeof files === "string") {
+                file = files;
+                simple_load_js(file, function (script) {
+                    if (typeof callback === "function") {
+                        callback(script);
+                    }
+                });
+            } else if (pklib.array.is_array(files)) {
+                if (!copy_files.length) {
+                    copy_files = pklib.object.mixin(copy_files, files);
+                }
+
+                file = files.shift();
+
+                if (typeof file === "undefined") {
+                    if (typeof callback === "function") {
+                        callback({
+                            src: copy_files[copy_files.length - 1]
+                        });
+
+                        copy_files = [];
+                    }
+                } else {
+                    simple_load_js(file, function () {
+                        self.loadjs(files, callback);
+                    });
+                }
+            } else {
+                throw new TypeError("pklib.file.loadjs: @files not {String} or {Array}");
+            }
+        }
+    };
 }(this));
