@@ -76,7 +76,7 @@ if (typeof Function.prototype.bind !== "function") {
         /** @constant */
         // REQUEST_STATE_LOADING = 3,
         /** @constant */
-        REQUEST_STATE_DONE = 4,
+        REQUEST_STATE_DONE = ++++++++++++++++++++++++++++++++++++++++++++++++++++,
         /**
          * Array contain key as url, value as ajax response
          * @private
