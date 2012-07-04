@@ -66,7 +66,7 @@
          * @param {XMLHttpRequest} xhr
          * @throws {Error} If exists timeout on request
          */
-        timeoutHandler = function (settings, xhr) {
+        timeout_handler = function (settings, xhr) {
             // clear memory
             xhr = null;
             // throw exception
@@ -80,13 +80,13 @@
          * @param {XMLHttpRequest} xhr
          * @throws {Error} If exists timeout on request
          */
-        requestTimeout = function (settings, xhr) {
+        request_timeout = function (settings, xhr) {
             if (typeof xhr.aborted === "undefined" &&
                     typeof xhr.error === "undefined" &&
                     xhr.readyState === REQUEST_STATE_DONE &&
                     xhr.status === REQUEST_STATE_UNSENT) {
                 xhr.abort();
-                timeoutHandler.call(null, settings, xhr);
+                timeout_handler.call(null, settings, xhr);
             }
         },
         /**
@@ -153,9 +153,9 @@
          */
         add_timeout_service_to_xhr = function (settings, xhr) {
             if (typeof xhr.ontimeout === "function") {
-                xhr.ontimeout = timeoutHandler.bind(null, settings, xhr);
+                xhr.ontimeout = timeout_handler.bind(null, settings, xhr);
             } else {
-                pklib.common.defer(requestTimeout.bind(null, settings, xhr), settings.timeout);
+                pklib.common.defer(request_timeout.bind(null, settings, xhr), settings.timeout);
             }
         },
         /**

@@ -27,7 +27,7 @@
          */
         glass = {
             /** @field */
-            objId: id,
+            obj_id: id,
             /**
              * @memberOf glass
              * @function
@@ -44,7 +44,7 @@
                 settings = pklib.object.mixin(settings, config);
                 settings.style.filter = "alpha(opacity=" + parseFloat(settings.style.opacity) * 100 + ")";
 
-                glass.setAttribute("id", this.objId);
+                glass.setAttribute("id", this.obj_id);
                 for (style in settings.style) {
                     if (settings.style.hasOwnProperty(style)) {
                         glassStyle[style] = settings.style[style];
@@ -72,7 +72,7 @@
              * @returns {Boolean}
              */
             close: function (callback) {
-                var glass = pklib.dom.by_id(this.objId),
+                var glass = pklib.dom.by_id(this.obj_id),
                     result = false;
 
                 pklib.event.remove(global, "resize");

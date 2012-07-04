@@ -43,13 +43,13 @@
              */
             get_version: function () {
                 var i, len = browsers.length, browser, cur,
-                    userAgent = global.navigator.userAgent.toLowerCase();
+                    user_agent = global.navigator.userAgent.toLowerCase();
 
                 for (i = 0; i < len; ++i) {
                     browser = browsers[i];
-                    cur = userAgent.indexOf(browser);
+                    cur = user_agent.indexOf(browser);
                     if (cur !== -1) {
-                        return userAgent.substr(cur + len + 1, 3);
+                        return user_agent.substr(cur + len + 1, 3);
                     }
                 }
                 return null;

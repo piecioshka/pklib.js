@@ -17,15 +17,18 @@
 
             if (evt.originalTarget &&
                     typeof evt.originalTarget === "object" &&
-                    typeof evt.originalTarget.href !== "undefined") {
+                    typeof evt.originalTarget.href !== "undefined"
+            ) {
                 url = evt.originalTarget.href;
             } else if (evt.toElement &&
                     typeof evt.toElement === "object" &&
-                    typeof evt.toElement.href !== "undefined") {
+                    typeof evt.toElement.href !== "undefined"
+            ) {
                 url = evt.toElement.href;
             } else if (evt.srcElement &&
                     typeof evt.srcElement === "object" &&
-                    typeof typeof evt.srcElement !== "undefined") {
+                    typeof typeof evt.srcElement !== "undefined"
+            ) {
                 url = evt.srcElement.href;
             }
 

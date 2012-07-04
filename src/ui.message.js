@@ -22,7 +22,7 @@
          */
         message = {
             /** @field */
-            objId: id,
+            obj_id: id,
             /** @field */
             content: null,
             /**
@@ -40,7 +40,7 @@
                     messageStyle = message.style,
                     style;
 
-                message.setAttribute("id", this.objId);
+                message.setAttribute("id", this.obj_id);
                 for (style in settings.style) {
                     if (settings.style.hasOwnProperty(style)) {
                         messageStyle[style] = settings.style[style];
@@ -67,7 +67,7 @@
              * @returns {Boolean}
              */
             close: function (callback) {
-                var message = pklib.dom.by_id(this.objId),
+                var message = pklib.dom.by_id(this.obj_id),
                     result = false;
                 if (message !== null) {
                     message.parentNode.removeChild(message);

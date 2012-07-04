@@ -14,31 +14,31 @@
              * @memberOf event
              * @function
              * @param {HTMLElement} target
-             * @param {String} eventName
+             * @param {String} event_name
              * @param {Function} handler
              */
-            add: function (target, eventName, handler) {
+            add: function (target, event_name, handler) {
                 if (typeof target.events === "undefined") {
                     target.events = {};
                 }
 
-                var event = target.events[eventName];
+                var event = target.events[event_name];
 
                 if (typeof event === "undefined") {
-                    target.events[eventName] = [];
+                    target.events[event_name] = [];
                 }
 
-                target.events[eventName].push(handler);
+                target.events[event_name].push(handler);
 
                 if (target.attachEvent) {
                     // IE browser
-                    target.attachEvent("on" + eventName, handler);
+                    target.attachEvent("on" + event_name, handler);
                 } else if (target.addEventListener) {
                     // other browser
-                    target.addEventListener(eventName, handler, false);
+                    target.addEventListener(event_name, handler, false);
                 } else {
                     // for very old browser
-                    target["on" + eventName] = handler;
+                    target["on" + event_name] = handler;
                 }
             },
             /**

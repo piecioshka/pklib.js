@@ -25,7 +25,7 @@
          */
         loader = {
             /** @field */
-            objId: id,
+            obj_id: id,
             /**
              * @memberOf loader
              * @function
@@ -40,7 +40,7 @@
                     loaderStyle = loader.style,
                     style;
 
-                loader.setAttribute("id", this.objId);
+                loader.setAttribute("id", this.obj_id);
                 loader.setAttribute("src", settings.src);
 
                 for (style in settings.style) {
@@ -72,7 +72,7 @@
              * @returns {Boolean}
              */
             close: function (callback) {
-                var loader = pklib.dom.by_id(this.objId),
+                var loader = pklib.dom.by_id(this.obj_id),
                     result = false;
                 if (loader !== null) {
                     loader.parentNode.removeChild(loader);

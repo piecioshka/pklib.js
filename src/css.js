@@ -15,13 +15,13 @@
          * Check typeof params
          * @private
          * @function
-         * @param {String} cssClass
+         * @param {String} css_class
          * @param {HTMLElement} element
          * @throws {TypeError} If first param is not string, or second param is not Node
          */
-        check_params = function (cssClass, element, callFuncName) {
+        check_params = function (css_class, element, callFuncName) {
             var prefix = "pklib.css." + callFuncName;
-            pklib.common.assert(typeof cssClass === "string", prefix + ": @cssClass: not {String}");
+            pklib.common.assert(typeof css_class === "string", prefix + ": @css_class: not {String}");
             pklib.common.assert(pklib.dom.is_node(element), prefix + ": @element: not {HTMLElement}");
         },
         /**
@@ -33,47 +33,47 @@
              * Add CSS class to element define in second parameter
              * @memberOf css
              * @function
-             * @param {String} cssClass
+             * @param {String} css_class
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node
              */
-            add_class: function (cssClass, element) {
-                check_params(cssClass, element, "add_class");
-                var classElement = element.className;
-                if (!pklib.css.has_class(cssClass, element)) {
-                    if (classElement.length) {
-                        classElement += " " + cssClass;
+            add_class: function (css_class, element) {
+                check_params(css_class, element, "add_class");
+                var class_element = element.className;
+                if (!pklib.css.has_class(css_class, element)) {
+                    if (class_element.length) {
+                        class_element += " " + css_class;
                     } else {
-                        classElement = cssClass;
+                        class_element = css_class;
                     }
                 }
-                element.className = classElement;
+                element.className = class_element;
             },
             /**
              * Remove CSS class from element define in second parameter
              * @memberOf css
              * @function
-             * @param {String} cssClass
+             * @param {String} css_class
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node
              */
-            remove_class: function (cssClass, element) {
-                check_params(cssClass, element, "remove_class");
-                var regexp = new RegExp("(\\s" + cssClass + ")|(" + cssClass + "\\s)|" + cssClass, "i");
+            remove_class: function (css_class, element) {
+                check_params(css_class, element, "remove_class");
+                var regexp = new RegExp("(\\s" + css_class + ")|(" + css_class + "\\s)|" + css_class, "i");
                 element.className = pklib.string.trim(element.className.replace(regexp, ""));
             },
             /**
              * Check if element has CSS class
              * @memberOf css
              * @function
-             * @param {String} cssClass
+             * @param {String} css_class
              * @param {HTMLElement} element
              * @throws {TypeError} If first param is not string, or second param is not Node
              * @returns {Boolean}
              */
-            has_class: function (cssClass, element) {
-                check_params(cssClass, element, "has_class");
-                var className = " " + cssClass + " ";
+            has_class: function (css_class, element) {
+                check_params(css_class, element, "has_class");
+                var className = " " + css_class + " ";
                 return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
             }
         };

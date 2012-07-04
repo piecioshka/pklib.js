@@ -57,7 +57,7 @@
                     item,
                     len,
                     params = loc.search,
-                    paramsList = {};
+                    params_list = {};
 
                 if (params.substr(0, 1) === "?") {
                     params = params.substr(1);
@@ -68,9 +68,9 @@
 
                 for (i = 0; i < len; ++i) {
                     item = params[i].split("=");
-                    paramsList[item[0]] = item[1];
+                    params_list[item[0]] = item[1];
                 }
-                return paramsList;
+                return params_list;
             },
             /**
              * Get concrete param from URL.

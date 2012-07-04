@@ -107,21 +107,21 @@
             /**
              * @memberOf dom
              * @function
-             * @param {String} cssClass
+             * @param {String} css_class
              * @param {HTMLElement} wrapper
              * @returns {NodeList|Array}
              */
-            by_class: function (cssClass, wrapper) {
+            by_class: function (css_class, wrapper) {
                 var results;
 
                 wrapper = wrapper || document;
 
                 if (wrapper.getElementsByClassName) {
-                    results = wrapper.getElementsByClassName(cssClass);
+                    results = wrapper.getElementsByClassName(css_class);
                 } else {
                     results = [];
                     walk_the_dom(wrapper, function (node) {
-                        if (pklib.css.has_class(cssClass, node)) {
+                        if (pklib.css.has_class(css_class, node)) {
                             results.push(node);
                         }
                     });
@@ -209,7 +209,10 @@
                 var pNode;
                 while (true) {
                     pNode = node.previousSibling;
-                    if (typeof pNode !== "undefined" && pNode !== null && pNode.nodeType !== pklib.dom.node_types.ELEMENT_NODE) {
+                    if (typeof pNode !== "undefined" &&
+                            pNode !== null &&
+                            pNode.nodeType !== pklib.dom.node_types.ELEMENT_NODE
+                    ) {
                         node = pNode;
                     } else {
                         break;
@@ -227,7 +230,10 @@
                 var nNode;
                 while (true) {
                     nNode = node.nextSibling;
-                    if (typeof nNode !== "undefined" && nNode !== null && nNode.nodeType !== pklib.dom.node_types.ELEMENT_NODE) {
+                    if (typeof nNode !== "undefined" &&
+                            nNode !== null &&
+                            nNode.nodeType !== pklib.dom.node_types.ELEMENT_NODE
+                    ) {
                         node = nNode;
                     } else {
                         break;
@@ -245,7 +251,10 @@
                 var prNode;
                 while (true) {
                     prNode = node.parentNode;
-                    if (typeof prNode !== "undefined" && prNode !== null && prNode.nodeType !== pklib.dom.node_types.ELEMENT_NODE) {
+                    if (typeof prNode !== "undefined" &&
+                            prNode !== null &&
+                            prNode.nodeType !== pklib.dom.node_types.ELEMENT_NODE
+                    ) {
                         node = prNode;
                     } else {
                         break;
