@@ -2,6 +2,7 @@
 * usunięcie modulu pklib.json na rzecz nowego projektu https://github.com/piecioshka/text-plain-logger
 * poprawką błędu w pklib.glass
 * zmiana nazw funkcji których nazwy były w zapisie camelCase na underscore
+* poprawienie JSDoc'a
 
 1.0.5
 * nowy pakiet pklib.common - do wspólnego użytku
