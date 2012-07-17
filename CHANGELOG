@@ -1,6 +1,6 @@
 1.1.1 / xx.xx.xxxx
 ==================
-* dodanie do QUnit pluginu Composite aby testowanie stało się przyjemniejsze
+* dodanie do QUnit pluginu Composite, aby testowanie stało się przyjemniejsze
 * upgrade biblioteki do testów QUnit
 * usunięcie rzucania wyjątku w przypadku wywołania zdarzenia z elementu bez takiego zdarzenia pklib.event.trigger
 
@@ -8,7 +8,7 @@
 ==================
 * usunięcie modulu pklib.json na rzecz nowego projektu https://github.com/piecioshka/text-plain-logger
 * poprawką błędu w pklib.glass
-* zmiana nazw funkcji których nazwy były w zapisie camelCase na underscore
+* zmiana nazw funkcji których nazwy były w zapisie camelCase ( aB )na underscore ( a_b )
 * poprawienie JSDoc'a
 
 1.0.5 / 01.04.2012
@@ -19,6 +19,7 @@
 * przeniesienie loader, glass, message, utils.size do namespace'a ui
 * wprowadzenie poprawek zgłoszonych przez Inspection-JS
 * poprawienie JSDoc'a
+* usunięcie uniwersalnej metody do znajdywania elementów pklib.dom.get
 
 1.0.4 / 29.01.2012
 ==================
@@ -58,8 +59,8 @@
 1.0.1 / 01.11.2011
 ==================
 * dodanie licencji do źródeł
-* rodzielenie najwiekszego modułu na mniejsze
-* dodanie kilku modołów
+* rodzielenie najwiekszego modułu UI, na mniejsze
+* dodanie kilku modułów
 
 1.0.0 / 23.08.2011
 ==================
@@ -106,4 +107,4 @@
 
 0.4.3 / 09.04.2010
 ==================
-* pierwsza wersja biblioteiki
+* pierwsza wersja biblioteki
