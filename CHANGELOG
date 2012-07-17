@@ -1,10 +1,18 @@
-1.1.0
+1.1.1 / xx.xx.xxxx
+==================
+* dodanie do QUnit pluginu Composite aby testowanie stało się przyjemniejsze
+* upgrade biblioteki do testów QUnit
+* usunięcie rzucania wyjątku w przypadku wywołania zdarzenia z elementu bez takiego zdarzenia pklib.event.trigger
+
+1.1.0 / 27.05.2012
+==================
 * usunięcie modulu pklib.json na rzecz nowego projektu https://github.com/piecioshka/text-plain-logger
 * poprawką błędu w pklib.glass
 * zmiana nazw funkcji których nazwy były w zapisie camelCase na underscore
 * poprawienie JSDoc'a
 
-1.0.5
+1.0.5 / 01.04.2012
+==================
 * nowy pakiet pklib.common - do wspólnego użytku
 * zmiana nazw funkcji w pklib.cookie
 * utworzenie nowego namespace pklib.ui
@@ -12,7 +20,8 @@
 * wprowadzenie poprawek zgłoszonych przez Inspection-JS
 * poprawienie JSDoc'a
 
-1.0.4
+1.0.4 / 29.01.2012
+==================
 * poprawienie nazw parametrów
 * poprawienie JSDoc'a
 * dodanie usługi pojedynczych testów
@@ -30,12 +39,14 @@
 * poprawienie metody pklib.string.slice
 * usuniecie obiektu pklib.validate
 
-1.0.3
+1.0.3 / 25.01.2012
+==================
 * poprawienie licencji
 * dodanie walidacji przez JSLint'a ( http://www.jslint.com/ )
 * poprawienie komentarzy JSDoc ( http://en.wikipedia.org/wiki/JSDoc )
 
-1.0.2
+1.0.2 / 22.11.2011
+==================
 * dodanie uniwersalnej metody do znajdywania elementów
 * dodanie ładownia kilku plików, jeden po drugim wraz z zależnościami
 * poprawienie błędów w modułach prezentacyjnych
@@ -44,43 +55,55 @@
 * dodanie funkcji strip_tags
 * dodanie modułu URL
 
-1.0.1
+1.0.1 / 01.11.2011
+==================
 * dodanie licencji do źródeł
 * rodzielenie najwiekszego modułu na mniejsze
 * dodanie kilku modołów
 
-1.0.0
+1.0.0 / 23.08.2011
+==================
 * wysztkie nazwy po angielsku i małymi literami
 
 ========================
 
-0.6.1
+0.6.1 / 16.03.2011
+==================
 * przerobienie komentarzy na zgodne z JSDoc
 
 0.6.0
+==================
 * zmiana skróconej wersji na pełną jQuery
 
 0.5.9
+==================
 * wielki refaktoring
 
 0.5.8
+==================
 * dodanie rozszerzeń do jQuery
 
 0.5.7
+==================
 * dodanie komentarzy do modułów i metod
 
 0.5.6
-* dodanie modułów prezentacyjnych
+==================
+* dodanie modułów prezentacyjnych (glass, loader, message)
 
 0.5.5
+==================
 * dodanie wersji spakowanej
 * usunięcie sprawdzania argumentów
 
 0.5.1
+==================
 * dodanie sprawdzania argumentów
 
-0.5.0
+0.5.0 / 19.04.2010
+==================
 * usunięcie polskich znaków
 
-0.4.3
+0.4.3 / 09.04.2010
+==================
 * pierwsza wersja biblioteiki

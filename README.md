@@ -2,13 +2,13 @@
 
 `pklib` jest wynikiem ciągłego używania z tych samych wzorców w sieci web,<br />
 z dodatkiem ogromu przydatnych metod używanych na co dzień w naszych projektach.<br /> 
-Źródła biblioteki znajdują się na [Github.com](http://www.github.com/).<br />
 
 Przykład:<br />
     moduł `pklib.profiler`<br />
     plik: `src/profiler.js`
 
-Biblioteka posiada testy jednostkowe napisane zgodnie ze specyfikację [QUnit](http://docs.jquery.com/Qunit)
+Biblioteka posiada testy jednostkowe napisane zgodnie ze specyfikacją [QUnit](http://docs.jquery.com/Qunit) + Composite
+
 
 ## budowa biblioteki
 
@@ -39,7 +39,3 @@ pklib.common.defer(function () {
 ## licencja
 
 GPL 3.0 License ( [http://www.gnu.org/licenses/gpl-3.0.txt](http://www.gnu.org/licenses/gpl-3.0.txt "GNU 3.0 License") )
-
-## autorzy
-
-* Piotr Kowalski ( [http://blog.piecioshka.pl/](http://blog.piecioshka.pl/ "Blog") )
