@@ -1,6 +1,5 @@
 (function (global) {
     "use strict";
-    var pklib = global.pklib;
 
     pklib.event.add(global, "load", function () {
         module("pklib.object");
@@ -10,7 +9,7 @@
             strictEqual(!pklib.object.is_object(null), true, "null is not a object");
         });
 
-        test("mixin", function() {
+        test("mixin", function () {
             var a1 = [ 1, 2, 3 ],
                 a2 = [ 4, "a", 0 ],
                 a3 = [ 0, 1, 2, 3, 4, "a" ];
@@ -46,4 +45,5 @@
             deepEqual(pklib.object.mixin(o4, o5), o6, "Merge object are OK");
         });
     });
+
 }(this));

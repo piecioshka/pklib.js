@@ -4,7 +4,11 @@
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-glass-wrapper",
@@ -86,4 +90,5 @@
             return result;
         }
     };
+
 }(this));

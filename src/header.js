@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Sun, 27 May 2012 23:00:10 +0200
+ * Date: Wed Jul 18 00:41:11 CEDT 2012
  */
 
 /*jslint plusplus: true, regexp: true */
@@ -32,16 +32,18 @@
 
 (function (global) {
     "use strict";
+
     /**
      * Global object, contain modules
+     * @namespace
+     * @type {Object}
      */
-    var pklib = {
+    global.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
         version: "1.1.0"
     };
 
-    global.pklib = pklib;
 }(this));
 
 if (typeof Function.prototype.bind !== "function") {

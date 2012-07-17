@@ -3,7 +3,11 @@
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {};
 
     /**
@@ -98,7 +102,6 @@
          * @function
          * @param {HTMLElement} target
          * @param {String} event_name
-         * @throws {ReferenceError} If HTMLElement haven't got any events
          */
         trigger: function (target, event_name) {
             var events, len, i;
@@ -109,13 +112,14 @@
 
             events = target.events[event_name];
 
-            pklib.common.assert(typeof events !== "undefined", "pklib.event.trigger: @event " + event_name + ": not {Array}");
+            if (typeof events !== "undefined") {
+                len = events.length;
 
-            len = events.length;
-
-            for (i = 0; i < len; ++i) {
-                events[i].call(target, events[i]);
+                for (i = 0; i < len; ++i) {
+                    events[i].call(target, events[i]);
+                }
             }
         }
     };
+
 }(this));

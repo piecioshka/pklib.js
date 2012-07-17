@@ -1,10 +1,17 @@
 (function (global) {
     "use strict";
-    var pklib = global.pklib;
 
-    pklib.event.add(global, "load", function () {
-        module("pklib.ui.glass");
+    module("pklib.ui.glass");
 
-        console.warn("[-] pklib.ui.glass");
+    test("show", function () {
+        // TODO: Add code what is testing this method!
+        expect(0);
+
     });
+    test("close", function () {
+        // TODO: Add code what is testing this method!
+        expect(0);
+
+    });
+
 }(this));

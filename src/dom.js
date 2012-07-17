@@ -4,7 +4,11 @@
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {*}
+     */
     var pklib = global.pklib || {},
         document = global.document || {},
         /**
@@ -260,4 +264,5 @@
             return prNode;
         }
     };
+
 }(this));

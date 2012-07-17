@@ -3,7 +3,11 @@
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         /**
          * Document.location object
@@ -113,4 +117,5 @@
             return loc.hash;
         }
     };
+
 }(this));

@@ -1,7 +1,7 @@
 (function (global) {
     "use strict";
-    var pklib = global.pklib,
-        uriArray = pklib.url.get_uri().split("/"),
+
+    var uriArray = pklib.url.get_uri().split("/"),
         PREFIX = "/" + uriArray[1] + "/" + uriArray[2] + "/",
         DIR = PREFIX + "data/",
         msg = function (file) {
@@ -149,6 +149,7 @@
             test("test_undefined_url", function () {
                 try {
                     var xhr = pklib.ajax.load();
+                    ok(typeof xhr !== "undefined", "Create XMLHTTPRequest");
                 } catch (e) {
                     ok(typeof xhr === "undefined", "Doesn't create XMLHTTPRequest");
                     strictEqual(e.toString(), "Error: pklib.ajax.load: undefined request url", "Error request");
@@ -165,4 +166,5 @@
         test_error_request();
         test_undefined_url();
     });
+
 }(this));

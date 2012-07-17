@@ -1,64 +1,43 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8" />
     <title>pklib :: test suite</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    
-    <link rel="stylesheet" type="text/css" href="qunit/qunit.css" />
-    <script type="text/javascript" src="qunit/qunit.js"></script>
-    
-    <script type="text/javascript" src="../src/header.js"></script>
-    <script type="text/javascript" src="../src/ajax.js"></script>
-    <script type="text/javascript" src="../src/array.js"></script>
-    <script type="text/javascript" src="../src/aspect.js"></script>
-    <script type="text/javascript" src="../src/browser.js"></script>
-    <script type="text/javascript" src="../src/common.js"></script>
-    <script type="text/javascript" src="../src/cookie.js"></script>
-    <script type="text/javascript" src="../src/css.js"></script>
-    <script type="text/javascript" src="../src/date.js"></script>
-    <script type="text/javascript" src="../src/dom.js"></script>
-    <script type="text/javascript" src="../src/event.js"></script>
-    <script type="text/javascript" src="../src/file.js"></script>
-    <script type="text/javascript" src="../src/object.js"></script>
-    <script type="text/javascript" src="../src/profiler.js"></script>
-    <script type="text/javascript" src="../src/string.js"></script>
-    <script type="text/javascript" src="../src/url.js"></script>
-    <script type="text/javascript" src="../src/utils.js"></script>
-    <script type="text/javascript" src="../src/ui.js"></script>
-    <script type="text/javascript" src="../src/ui.glass.js"></script>
-    <script type="text/javascript" src="../src/ui.loader.js"></script>
-    <script type="text/javascript" src="../src/ui.message.js"></script>
-    <script type="text/javascript" src="../src/ui.size.js"></script>
-    
-    <script type="text/javascript" src="src/ajax.js"></script>
-    <script type="text/javascript" src="src/array.js"></script>
-    <script type="text/javascript" src="src/aspect.js"></script>
-    <script type="text/javascript" src="src/browser.js"></script>
-    <script type="text/javascript" src="src/common.js"></script>
-    <script type="text/javascript" src="src/cookie.js"></script>
-    <script type="text/javascript" src="src/css.js"></script>
-    <script type="text/javascript" src="src/date.js"></script>
-    <script type="text/javascript" src="src/dom.js"></script>
-    <script type="text/javascript" src="src/event.js"></script>
-    <script type="text/javascript" src="src/file.js"></script>
-    <script type="text/javascript" src="src/header.js"></script>
-    <script type="text/javascript" src="src/object.js"></script>
-    <script type="text/javascript" src="src/profiler.js"></script>
-    <script type="text/javascript" src="src/string.js"></script>
-    <script type="text/javascript" src="src/url.js"></script>
-    <script type="text/javascript" src="src/utils.js"></script>
-    <script type="text/javascript" src="src/ui.js"></script>
-    <script type="text/javascript" src="src/ui.size.js"></script>
-    <script type="text/javascript" src="src/ui.glass.js"></script>
-    <script type="text/javascript" src="src/ui.loader.js"></script>
-    <script type="text/javascript" src="src/ui.message.js"></script>
+
+    <link rel="stylesheet" href="qunit/qunit.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="composite/qunit-composite.css">
+    <script src="qunit/qunit.js"></script>
+    <script src="composite/qunit-composite.js"></script>
+
+    <script>
+        QUnit.testSuites([
+            "single/ajax.html",
+            "single/array.html",
+            "single/aspect.html",
+            "single/browser.html",
+            "single/common.html",
+            "single/cookie.html",
+            "single/css.html",
+            "single/date.html",
+            "single/dom.html",
+            "single/event.html",
+            "single/file.html",
+            "single/object.html",
+            "single/profiler.html",
+            "single/string.html",
+            "single/ui.glass.html",
+            "single/ui.loader.html",
+            "single/ui.message.html",
+            "single/ui.size.html",
+            "single/url.html",
+            "single/utils.html"
+        ]);
+    </script>
 </head>
 <body>
-    
-    <h1 id="qunit-header"><a href="#">pklib :: test suite</a></h1>
-    <h2 id="qunit-banner"></h2>
-    <div id="qunit-testrunner-toolbar"></div>
-    <h2 id="qunit-userAgent"></h2>
-    <ol id="qunit-tests"></ol>
-    
+
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
 </body>
 </html>

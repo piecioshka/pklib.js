@@ -1,25 +1,24 @@
 (function (global) {
     "use strict";
-    var pklib = global.pklib;
 
     pklib.event.add(global, "load", function () {
         module("pklib.cookie");
 
-        test("create", function() {
+        test("create", function () {
             var cookie_name = "pklib-test";
             var cookie_data = "pklib";
             var cookie = pklib.cookie.create(cookie_name, cookie_data, 2);
             strictEqual(cookie, cookie_data, "Data in cookie: " + cookie_name + " is OK");
             strictEqual(pklib.cookie.get(cookie_name), cookie_data, "Data in cookie: " + cookie_name + " is OK");
         });
-        test("get", function() {
+        test("get", function () {
             var cookie_name = "pklib-test";
             var cookie_data = "pklib";
             pklib.cookie.create(cookie_name, cookie_data, 2);
             strictEqual(pklib.cookie.get(cookie_name), cookie_data, "Data in cookie: " + cookie_name + " is OK");
             strictEqual(pklib.cookie.get(), null, "Data undefined don't exists");
         });
-        test("remove", function() {
+        test("remove", function () {
             var cookie_name = "pklib-test";
             var cookie_data = "pklib";
             pklib.cookie.create(cookie_name, cookie_data, 2);
@@ -29,4 +28,5 @@
             strictEqual(pklib.cookie.get(cookie_name), null, "Cookie: " + cookie_name + " is erase");
         });
     });
+
 }(this));

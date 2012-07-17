@@ -3,7 +3,11 @@
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {};
 
     /**
@@ -27,4 +31,5 @@
             return String(month);
         }
     };
+
 }(this));

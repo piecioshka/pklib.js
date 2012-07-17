@@ -4,7 +4,11 @@
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         /**
          * RegExp use to delete white chars
@@ -79,4 +83,5 @@
             return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
         }
     };
+
 }(this));

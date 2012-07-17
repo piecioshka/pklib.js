@@ -3,7 +3,11 @@
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {};
 
@@ -147,4 +151,5 @@
             return text;
         }
     };
+
 }(this));

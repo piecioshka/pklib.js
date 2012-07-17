@@ -1,11 +1,17 @@
 (function (global) {
     "use strict";
-    var pklib = global.pklib;
 
-    pklib.event.add(global, "load", function () {
-        module("pklib.ui.loader");
+    module("pklib.ui.loader");
 
-        console.warn("[-] pklib.ui.loader");
+    test("show", function () {
+        // TODO: Add code what is testing this method!
+        expect(0);
 
     });
+    test("close", function () {
+        // TODO: Add code what is testing this method!
+        expect(0);
+
+    });
+
 }(this));

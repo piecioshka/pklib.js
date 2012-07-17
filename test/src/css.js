@@ -1,24 +1,23 @@
 (function (global) {
     "use strict";
-    var pklib = global.pklib;
 
     pklib.event.add(global, "load", function () {
         module("pklib.css");
 
-        test("add_class", function() {
-            var c = pklib.css;
-            var element = document.createElement("span");
-            var klass = "active";
+        test("add_class", function () {
+            var c = pklib.css,
+                element = document.createElement("span"),
+                klass = "active";
             c.add_class(klass, element);
             strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
             element.className = "active-fix dumny-active";
             c.add_class(klass, element);
             strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
         });
-        test("remove_class", function() {
-            var c = pklib.css;
-            var element = document.createElement("span");
-            var klass = "active";
+        test("remove_class", function () {
+            var c = pklib.css,
+                element = document.createElement("span"),
+                klass = "active";
             element.className = klass + " active-fix dumny-active";
             c.remove_class(klass, element);
             strictEqual(c.has_class(klass, element), false, "Class: " + element.className);
@@ -32,10 +31,10 @@
             c.remove_class(klass, element);
             strictEqual(c.has_class(klass, element), false, "Class: " + element.className);
         });
-        test("has_class", function() {
-            var c = pklib.css;
-            var element = document.createElement("span");
-            var klass = "active";
+        test("has_class", function () {
+            var c = pklib.css,
+                element = document.createElement("span"),
+                klass = "active";
             element.className = klass;
             strictEqual(c.has_class(klass, element), true, "Element has class: " + klass);
             element.className = klass + " active-foo";
@@ -56,4 +55,5 @@
             strictEqual(c.has_class(klass, element), false, "Element has class: " + klass);
         });
     });
+
 }(this));

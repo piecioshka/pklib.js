@@ -24,7 +24,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Sun, 27 May 2012 23:00:10 +0200
+ * Date: Wed Jul 18 00:41:11 CEDT 2012
  */
 
 /*jslint plusplus: true, regexp: true */
@@ -32,16 +32,18 @@
 
 (function (global) {
     "use strict";
+
     /**
      * Global object, contain modules
+     * @namespace
+     * @type {Object}
      */
-    var pklib = {
+    global.pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
         version: "1.1.0"
     };
 
-    global.pklib = pklib;
 }(this));
 
 if (typeof Function.prototype.bind !== "function") {
@@ -62,7 +64,11 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         /**
          * Default time what is timeout to use function pklib.ajax
@@ -375,13 +381,18 @@ if (typeof Function.prototype.bind !== "function") {
             xhr = null;
         }
     };
+
 }(this));
 /**
  * @package pklib.array
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {};
 
     /**
@@ -483,13 +494,18 @@ if (typeof Function.prototype.bind !== "function") {
             return array;
         }
     };
+
 }(this));
 /**
  * @package pklib.aspect
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {};
 
     /**
@@ -525,13 +541,18 @@ if (typeof Function.prototype.bind !== "function") {
             return result;
         };
     };
+
 }(this));
 /**
  * @package pklib.browser
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         /**
          * Array with browsers name
@@ -585,13 +606,18 @@ if (typeof Function.prototype.bind !== "function") {
             return null;
         }
     };
+
 }(this));
 /**
  * @package pklib.common
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {};
 
     /**
@@ -650,13 +676,18 @@ if (typeof Function.prototype.bind !== "function") {
             }
         }
     };
+
 }(this));
 /**
  * @package pklib.cookie
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {};
 
@@ -727,6 +758,7 @@ if (typeof Function.prototype.bind !== "function") {
             return pklib.cookie.create(name, undefined, -1);
         }
     };
+
 }(this));
 /**
  * @package pklib.css
@@ -734,7 +766,11 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         /**
          * RegExp use to delete white chars
@@ -809,13 +845,18 @@ if (typeof Function.prototype.bind !== "function") {
             return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
         }
     };
+
 }(this));
 /**
  * @package pklib.date
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {};
 
     /**
@@ -839,6 +880,7 @@ if (typeof Function.prototype.bind !== "function") {
             return String(month);
         }
     };
+
 }(this));
 /**
  * @package pklib.dom
@@ -846,7 +888,11 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {*}
+     */
     var pklib = global.pklib || {},
         document = global.document || {},
         /**
@@ -1102,13 +1148,18 @@ if (typeof Function.prototype.bind !== "function") {
             return prNode;
         }
     };
+
 }(this));
 /**
  * @package pklib.event
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {};
 
     /**
@@ -1203,7 +1254,6 @@ if (typeof Function.prototype.bind !== "function") {
          * @function
          * @param {HTMLElement} target
          * @param {String} event_name
-         * @throws {ReferenceError} If HTMLElement haven't got any events
          */
         trigger: function (target, event_name) {
             var events, len, i;
@@ -1214,22 +1264,27 @@ if (typeof Function.prototype.bind !== "function") {
 
             events = target.events[event_name];
 
-            pklib.common.assert(typeof events !== "undefined", "pklib.event.trigger: @event " + event_name + ": not {Array}");
+            if (typeof events !== "undefined") {
+                len = events.length;
 
-            len = events.length;
-
-            for (i = 0; i < len; ++i) {
-                events[i].call(target, events[i]);
+                for (i = 0; i < len; ++i) {
+                    events[i].call(target, events[i]);
+                }
             }
         }
     };
+
 }(this));
 /**
  * @package pklib.file, pklib.string
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {},
         /**
@@ -1334,13 +1389,18 @@ if (typeof Function.prototype.bind !== "function") {
             }
         }
     };
+
 }(this));
 /**
  * @package pklib.object
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {};
 
     /**
@@ -1394,13 +1454,18 @@ if (typeof Function.prototype.bind !== "function") {
             return target;
         }
     };
+
 }(this));
 /**
  * @package pklib.profiler
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         data = {};
 
@@ -1439,13 +1504,18 @@ if (typeof Function.prototype.bind !== "function") {
             return data[name];
         }
     };
+
 }(this));
 /**
  * @package pklib.string
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {};
 
@@ -1589,6 +1659,7 @@ if (typeof Function.prototype.bind !== "function") {
             return text;
         }
     };
+
 }(this));
 /**
  * @package pklib.ui
@@ -1596,7 +1667,11 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {};
 
@@ -1679,6 +1754,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
         }
     };
+
 }(this));
 /**
  * @package pklib.glass
@@ -1686,7 +1762,11 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-glass-wrapper",
@@ -1768,6 +1848,7 @@ if (typeof Function.prototype.bind !== "function") {
             return result;
         }
     };
+
 }(this));
 /**
  * @package pklib.ui.loader
@@ -1775,7 +1856,11 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-loader-wrapper",
@@ -1856,6 +1941,7 @@ if (typeof Function.prototype.bind !== "function") {
             return result;
         }
     };
+
 }(this));
 /**
  * @package pklib.ui.message
@@ -1863,7 +1949,11 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {},
         id = "pklib-message-wrapper",
@@ -1938,6 +2028,7 @@ if (typeof Function.prototype.bind !== "function") {
             return result;
         }
     };
+
 }(this));
 /**
  * @package pklib.ui.size
@@ -1945,7 +2036,11 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {};
 
@@ -2012,13 +2107,18 @@ if (typeof Function.prototype.bind !== "function") {
             return Math.max(client, scroll, offset);
         }
     };
+
 }(this));
 /**
  * @package pklib.url
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         /**
          * Document.location object
@@ -2128,6 +2228,7 @@ if (typeof Function.prototype.bind !== "function") {
             return loc.hash;
         }
     };
+
 }(this));
 /**
  * @package pklib.utils
@@ -2135,7 +2236,11 @@ if (typeof Function.prototype.bind !== "function") {
  */
 (function (global) {
     "use strict";
-    /** @namespace */
+
+    /**
+     * @namespace
+     * @type {Object}
+     */
     var pklib = global.pklib || {},
         document = global.document || {},
         /**
@@ -2276,4 +2381,5 @@ if (typeof Function.prototype.bind !== "function") {
             }
         }
     };
+
 }(this));
