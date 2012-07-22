@@ -12,7 +12,7 @@
         document = global.document || {},
         /**
          * @private
-         * @type Array
+         * @type {Array}
          */
         copy_files = [],
         /**

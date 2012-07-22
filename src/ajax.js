@@ -14,14 +14,14 @@
          * Default time what is timeout to use function pklib.ajax
          * @private
          * @constant
-         * @type Number
+         * @type {Number}
          */
         DEFAULT_TIMEOUT_TIME = 30000,
 
         /**
          * @private
          * @constant
-         * @type Number
+         * @type {Number}
          */
         REQUEST_STATE_UNSENT = 0,
 
@@ -31,14 +31,14 @@
         /**
          * @private
          * @constant
-         * @type Number
+         * @type {Number}
          */
         REQUEST_STATE_DONE = 4,
 
         /**
          * Array contain key as url, value as ajax response
          * @private
-         * @type Array
+         * @type {Array}
          */
         cache = [],
 

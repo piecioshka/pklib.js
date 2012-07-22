@@ -12,7 +12,7 @@
         /**
          * Array with browsers name
          * @private
-         * @type Array
+         * @type {Array}
          */
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 

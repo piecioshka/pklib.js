@@ -13,7 +13,7 @@
         /**
          * RegExp use to delete white chars
          * @private
-         * @type RegExp
+         * @type {RegExp}
          */
         rclass = /[\n\t\r]/g,
         /**

@@ -12,7 +12,7 @@
         /**
          * Document.location object
          * @private
-         * @type Object
+         * @type {Object}
          */
         loc = global.location || {};
 

@@ -7,7 +7,7 @@
 
     /**
      * @namespace
-     * @type {*}
+     * @type {Object}
      */
     var pklib = global.pklib || {},
         document = global.document || {},
