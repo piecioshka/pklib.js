@@ -17,12 +17,14 @@
          * @type Number
          */
         DEFAULT_TIMEOUT_TIME = 30000,
+
         /**
          * @private
          * @constant
          * @type Number
          */
         REQUEST_STATE_UNSENT = 0,
+
         // REQUEST_STATE_OPENED = 1,
         // REQUEST_STATE_HEADERS_RECEIVED = 2,
         // REQUEST_STATE_LOADING = 3,
@@ -32,12 +34,18 @@
          * @type Number
          */
         REQUEST_STATE_DONE = 4,
+
         /**
          * Array contain key as url, value as ajax response
          * @private
          * @type Array
          */
         cache = [],
+
+        /********************************************************************************/
+        // private handlers & util functions
+        /********************************************************************************/
+
         /**
          * Use when state in request is changed or if used cache is handler to request.
          * @private
@@ -46,27 +54,63 @@
          * @param {XMLHttpRequest} xhr
          */
         handler = function (settings, xhr) {
+            var status = 0;
+
+            if (xhr.readyState === REQUEST_STATE_DONE) {
+                if (typeof xhr.status !== "undefined") {
+                    status = xhr.status;
+                }
+
+                if (status >= 200 && status < 300 || status === 304) {
+                    // success
+                    success_handler(settings, xhr);
+                } else {
+                    // error
+                    error_handler(settings, xhr);
+                }
+            }
+        },
+
+        /**
+         * When success request
+         * @private
+         * @function
+         * @param {Object} settings
+         * @param {XMLHttpRequest} xhr
+         */
+        success_handler = function (settings, xhr) {
             var contentType,
                 xmlContentType = ["application/xml", "text/xml"],
                 property = "responseText";
 
-            if (xhr.readyState === REQUEST_STATE_DONE && xhr.status !== REQUEST_STATE_UNSENT) {
-                if (settings.cache) {
-                    cache[settings.url] = xhr;
-                }
-
-                contentType = xhr.getResponseHeader("Content-Type");
-
-                if (pklib.array.in_array(contentType, xmlContentType)) {
-                    property = "responseXML";
-                }
-
-                settings.done.call(null, xhr[property]);
-
-                // clear memory
-                xhr = null;
+            if (settings.cache) {
+                cache[settings.url] = xhr;
             }
+
+            contentType = xhr.getResponseHeader("Content-Type");
+
+            if (pklib.array.in_array(contentType, xmlContentType)) {
+                property = "responseXML";
+            }
+
+            settings.done.call(null, xhr[property]);
+
+            // clear memory
+            xhr = null;
         },
+
+        /**
+         * When error request
+         * @private
+         * @function
+         * @param {Object} settings
+         * @param {XMLHttpRequest} xhr
+         */
+        error_handler = function (settings, xhr) {
+            xhr.error = true;
+            settings.error.call(null, settings, xhr);
+        },
+
         /**
          * Handler to unusually situation - timeout.
          * @private
@@ -81,6 +125,7 @@
             // throw exception
             throw new Error("pklib.ajax.load: timeout on url: " + settings.url);
         },
+
         /**
          * Method use when request has timeout
          * @private
@@ -98,6 +143,7 @@
                 timeout_handler.call(null, settings, xhr);
             }
         },
+
         /**
          * Try to create Internet Explorer XMLHttpRequest
          * @private
@@ -113,11 +159,12 @@
                 try {
                     xhr = new global.ActiveXObject("Microsoft.XMLHTTP");
                 } catch (ignored) {
-                    throw new Error("pklib.ajax.load: cannot create XMLHttpRequest object");
+                    throw new Error("pklib.ajax.load: can't create XMLHttpRequest object");
                 }
             }
             return xhr;
         },
+
         /**
          * Try to create XMLHttpRequest
          * @private
@@ -134,6 +181,7 @@
             }
             return xhr;
         },
+
         /**
          * Add headers to xhr object
          * @private
@@ -153,6 +201,7 @@
                 }
             }
         },
+
         /**
          * Add timeout service to xhr object
          * @private
@@ -167,6 +216,7 @@
                 pklib.common.defer(request_timeout.bind(null, settings, xhr), settings.timeout);
             }
         },
+
         /**
          * Add error service to xhr object
          * @private
@@ -176,10 +226,10 @@
          */
         add_error_service_to_xhr = function (settings, xhr) {
             xhr.onerror = function () {
-                xhr.error = true;
-                settings.error.bind(null, settings, xhr);
+                error_handler(settings, xhr);
             };
         },
+
         /**
          * Check is response on this request is in cache
          * @private
@@ -190,6 +240,7 @@
         is_response_in_cache = function (settings) {
             return settings.cache && cache[settings.url];
         },
+
         /**
          * Return object what is default configuration of request
          * @private
@@ -218,13 +269,14 @@
                  * In params exists only: response
                  */
                 done: function () {
-                    // do something with response
+                    // do something when success request
                 },
                 error: function () {
                     // do something when appear error in request
                 }
             };
         },
+
         /**
          * Check url in request is defined.
          * Throw error if is undefined
@@ -278,7 +330,7 @@
          *          "User-Agent": "tv"
          *      },
          *      done: function (res) {
-         *          console.log(res);
+         *          // pass
          *      }
          * });
          * </pre>
@@ -302,12 +354,14 @@
                 xhr.open(settings.type, settings.url, settings.async);
 
                 add_headers_to_xhr(settings, xhr);
+
                 add_timeout_service_to_xhr(settings, xhr);
                 add_error_service_to_xhr(settings, xhr);
                 xhr.send(settings.params);
             }
             return xhr;
         },
+
         /**
          * Stop request setting in param
          * @memberOf pklib.ajax

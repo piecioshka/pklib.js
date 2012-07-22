@@ -3,6 +3,7 @@
 * dodanie do QUnit pluginu Composite, aby testowanie stało się przyjemniejsze
 * upgrade biblioteki do testów QUnit
 * usunięcie rzucania wyjątku w przypadku wywołania zdarzenia z elementu bez takiego zdarzenia pklib.event.trigger
+* poprawna obsługa błędów w odpowiedziach z pklib.ajax
 
 1.1.0 / 27.05.2012
 ==================
