@@ -1104,7 +1104,7 @@ if (typeof Function.prototype.bind !== "function") {
             } else {
                 results = [];
                 walk_the_dom(wrapper, function (node) {
-                    if (pklib.css.has_class(css_class, node)) {
+                    if (pklib.dom.is_element(node) && pklib.css.has_class(css_class, node)) {
                         results.push(node);
                     }
                 });
