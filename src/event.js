@@ -46,6 +46,7 @@
                 target["on" + event_name] = handler;
             }
         },
+
         /**
          * @memberOf pklib.event
          * @function
@@ -84,6 +85,7 @@
                 }
             }
         },
+
         /**
          * @memberOf pklib.event
          * @function
@@ -97,6 +99,7 @@
             }
             return target.events[event_name];
         },
+
         /**
          * @memberOf pklib.event
          * @function

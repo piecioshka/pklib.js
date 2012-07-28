@@ -26,6 +26,7 @@
             data[name] = new Date();
             return data[name];
         },
+
         /**
          * @memberOf pklib.profiler
          * @function
@@ -36,6 +37,7 @@
             data[name] = new Date() - data[name];
             return new Date((new Date()).getTime() + data[name]);
         },
+
         /**
          * @memberOf pklib.profiler
          * @function

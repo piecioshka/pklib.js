@@ -16,6 +16,7 @@
          * @type {RegExp}
          */
         rclass = /[\n\t\r]/g,
+
         /**
          * Check typeof params
          * @private
@@ -27,7 +28,7 @@
         check_params = function (css_class, element, call_func_name) {
             var prefix = "pklib.css." + call_func_name;
             pklib.common.assert(typeof css_class === "string", prefix + ": @css_class: not {String}");
-            pklib.common.assert(pklib.dom.is_node(element), prefix + ": @element: not {HTMLElement}");
+            pklib.common.assert(pklib.dom.is_element(element), prefix + ": @element: not {HTMLElement}");
         };
 
     /**
@@ -55,6 +56,7 @@
             }
             element.className = class_element;
         },
+
         /**
          * Remove CSS class from element define in second parameter
          * @memberOf pklib.css
@@ -68,6 +70,7 @@
             var regexp = new RegExp("(\\s" + css_class + ")|(" + css_class + "\\s)|" + css_class, "i");
             element.className = pklib.string.trim(element.className.replace(regexp, ""));
         },
+
         /**
          * Check if element has CSS class
          * @memberOf pklib.css

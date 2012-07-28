@@ -29,7 +29,12 @@
      * @namespace
      */
     pklib.ui.loader = {
+        /**
+         * @memberOf pklib.ui.glass
+         * @type {String}
+         */
         obj_id: id,
+
         /**
          * @memberOf pklib.ui.loader
          * @function
@@ -69,6 +74,7 @@
             // clear memory
             loader = null;
         },
+
         /**
          * @memberOf pklib.ui.loader
          * @function

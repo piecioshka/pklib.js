@@ -33,6 +33,7 @@
                 return false;
             }
         },
+
         /**
          * Check if element is in array by loop
          * @memberOf pklib.array
@@ -50,6 +51,7 @@
             }
             return false;
         },
+
         /**
          * Get index of element.
          * If couldn't find searching element, return null value
@@ -68,6 +70,7 @@
             }
             return null;
         },
+
         /**
          * Unique array. Delete element what was duplicated
          * @memberOf pklib.array
@@ -87,6 +90,7 @@
             }
             return temp;
         },
+
         /**
          * Remove element declared in infinity params without first.
          * First parameter is array object

@@ -40,6 +40,7 @@
             }
             return "undefined";
         },
+
         /**
          * Get browser version by checking userAgent.
          * Parse userAgent to find next 3 characters

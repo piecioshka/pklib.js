@@ -3,15 +3,16 @@
 
     module("pklib.ui.message");
 
+    test("exists", function () {
+        ok(pklib.ui.message, "Exists");
+    });
     test("show", function () {
-        // TODO: Add code what is testing this method!
         expect(0);
-
+        // TODO: write this!
     });
     test("close", function () {
-        // TODO: Add code what is testing this method!
         expect(0);
-
+        // TODO: write this!
     });
 
 }(this));

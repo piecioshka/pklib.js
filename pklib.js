@@ -33,16 +33,22 @@
 (function (global) {
     "use strict";
 
+    /********************************************************************************/
+    /* THIS CONTRUCTION IS FOR BETTER VIEW IN DOCUMENTATION*/
+    /********************************************************************************/
+
     /**
      * Global object, contain modules
      * @namespace
      * @type {Object}
      */
-    global.pklib = {
+    var pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
         version: "1.1.0"
     };
+
+    global.pklib = pklib;
 
 }(this));
 
@@ -74,30 +80,78 @@ if (typeof Function.prototype.bind !== "function") {
          * Default time what is timeout to use function pklib.ajax
          * @private
          * @constant
-         * @type Number
+         * @type {Number}
          */
         DEFAULT_TIMEOUT_TIME = 30000,
+
         /**
          * @private
          * @constant
-         * @type Number
+         * @type {Number}
          */
         REQUEST_STATE_UNSENT = 0,
+
         // REQUEST_STATE_OPENED = 1,
         // REQUEST_STATE_HEADERS_RECEIVED = 2,
         // REQUEST_STATE_LOADING = 3,
         /**
          * @private
          * @constant
-         * @type Number
+         * @type {Number}
          */
         REQUEST_STATE_DONE = 4,
+
         /**
          * Array contain key as url, value as ajax response
          * @private
-         * @type Array
+         * @type {Array}
          */
         cache = [],
+
+        /********************************************************************************/
+        // private handlers & util functions
+        /********************************************************************************/
+
+        /**
+         * When success request
+         * @private
+         * @function
+         * @param {Object} settings
+         * @param {XMLHttpRequest} xhr
+         */
+        success_handler = function (settings, xhr) {
+            var contentType,
+                xmlContentType = ["application/xml", "text/xml"],
+                property = "responseText";
+
+            if (settings.cache) {
+                cache[settings.url] = xhr;
+            }
+
+            contentType = xhr.getResponseHeader("Content-Type");
+
+            if (pklib.array.in_array(contentType, xmlContentType)) {
+                property = "responseXML";
+            }
+
+            settings.done.call(null, xhr[property]);
+
+            // clear memory
+            xhr = null;
+        },
+
+        /**
+         * When error request
+         * @private
+         * @function
+         * @param {Object} settings
+         * @param {XMLHttpRequest} xhr
+         */
+        error_handler = function (settings, xhr) {
+            xhr.error = true;
+            settings.error.call(null, settings, xhr);
+        },
+
         /**
          * Use when state in request is changed or if used cache is handler to request.
          * @private
@@ -106,27 +160,23 @@ if (typeof Function.prototype.bind !== "function") {
          * @param {XMLHttpRequest} xhr
          */
         handler = function (settings, xhr) {
-            var contentType,
-                xmlContentType = ["application/xml", "text/xml"],
-                property = "responseText";
+            var status = 0;
 
-            if (xhr.readyState === REQUEST_STATE_DONE && xhr.status !== REQUEST_STATE_UNSENT) {
-                if (settings.cache) {
-                    cache[settings.url] = xhr;
+            if (xhr.readyState === REQUEST_STATE_DONE) {
+                if (typeof xhr.status !== "undefined") {
+                    status = xhr.status;
                 }
 
-                contentType = xhr.getResponseHeader("Content-Type");
-
-                if (pklib.array.in_array(contentType, xmlContentType)) {
-                    property = "responseXML";
+                if ((status >= 200 && status < 300) || status === 304) {
+                    // success
+                    success_handler(settings, xhr);
+                } else {
+                    // error
+                    error_handler(settings, xhr);
                 }
-
-                settings.done.call(null, xhr[property]);
-
-                // clear memory
-                xhr = null;
             }
         },
+
         /**
          * Handler to unusually situation - timeout.
          * @private
@@ -141,6 +191,7 @@ if (typeof Function.prototype.bind !== "function") {
             // throw exception
             throw new Error("pklib.ajax.load: timeout on url: " + settings.url);
         },
+
         /**
          * Method use when request has timeout
          * @private
@@ -158,6 +209,7 @@ if (typeof Function.prototype.bind !== "function") {
                 timeout_handler.call(null, settings, xhr);
             }
         },
+
         /**
          * Try to create Internet Explorer XMLHttpRequest
          * @private
@@ -173,11 +225,12 @@ if (typeof Function.prototype.bind !== "function") {
                 try {
                     xhr = new global.ActiveXObject("Microsoft.XMLHTTP");
                 } catch (ignored) {
-                    throw new Error("pklib.ajax.load: cannot create XMLHttpRequest object");
+                    throw new Error("pklib.ajax.load: can't create XMLHttpRequest object");
                 }
             }
             return xhr;
         },
+
         /**
          * Try to create XMLHttpRequest
          * @private
@@ -194,6 +247,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return xhr;
         },
+
         /**
          * Add headers to xhr object
          * @private
@@ -213,6 +267,7 @@ if (typeof Function.prototype.bind !== "function") {
                 }
             }
         },
+
         /**
          * Add timeout service to xhr object
          * @private
@@ -227,6 +282,7 @@ if (typeof Function.prototype.bind !== "function") {
                 pklib.common.defer(request_timeout.bind(null, settings, xhr), settings.timeout);
             }
         },
+
         /**
          * Add error service to xhr object
          * @private
@@ -236,10 +292,10 @@ if (typeof Function.prototype.bind !== "function") {
          */
         add_error_service_to_xhr = function (settings, xhr) {
             xhr.onerror = function () {
-                xhr.error = true;
-                settings.error.bind(null, settings, xhr);
+                error_handler(settings, xhr);
             };
         },
+
         /**
          * Check is response on this request is in cache
          * @private
@@ -250,6 +306,7 @@ if (typeof Function.prototype.bind !== "function") {
         is_response_in_cache = function (settings) {
             return settings.cache && cache[settings.url];
         },
+
         /**
          * Return object what is default configuration of request
          * @private
@@ -278,13 +335,14 @@ if (typeof Function.prototype.bind !== "function") {
                  * In params exists only: response
                  */
                 done: function () {
-                    // do something with response
+                    // do something when success request
                 },
                 error: function () {
                     // do something when appear error in request
                 }
             };
         },
+
         /**
          * Check url in request is defined.
          * Throw error if is undefined
@@ -338,7 +396,7 @@ if (typeof Function.prototype.bind !== "function") {
          *          "User-Agent": "tv"
          *      },
          *      done: function (res) {
-         *          console.log(res);
+         *          // pass
          *      }
          * });
          * </pre>
@@ -362,12 +420,14 @@ if (typeof Function.prototype.bind !== "function") {
                 xhr.open(settings.type, settings.url, settings.async);
 
                 add_headers_to_xhr(settings, xhr);
+
                 add_timeout_service_to_xhr(settings, xhr);
                 add_error_service_to_xhr(settings, xhr);
                 xhr.send(settings.params);
             }
             return xhr;
         },
+
         /**
          * Stop request setting in param
          * @memberOf pklib.ajax
@@ -418,6 +478,7 @@ if (typeof Function.prototype.bind !== "function") {
                 return false;
             }
         },
+
         /**
          * Check if element is in array by loop
          * @memberOf pklib.array
@@ -435,6 +496,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return false;
         },
+
         /**
          * Get index of element.
          * If couldn't find searching element, return null value
@@ -453,6 +515,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return null;
         },
+
         /**
          * Unique array. Delete element what was duplicated
          * @memberOf pklib.array
@@ -472,6 +535,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return temp;
         },
+
         /**
          * Remove element declared in infinity params without first.
          * First parameter is array object
@@ -557,7 +621,7 @@ if (typeof Function.prototype.bind !== "function") {
         /**
          * Array with browsers name
          * @private
-         * @type Array
+         * @type {Array}
          */
         browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 
@@ -585,6 +649,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return "undefined";
         },
+
         /**
          * Get browser version by checking userAgent.
          * Parse userAgent to find next 3 characters
@@ -638,6 +703,7 @@ if (typeof Function.prototype.bind !== "function") {
                 throw new Error(comment);
             }
         },
+
         /**
          * Deferred function about some milliseconds.
          * If milliseconds is 0 that it's hack for some platforms to use function in "next" thread
@@ -650,6 +716,7 @@ if (typeof Function.prototype.bind !== "function") {
             milliseconds = milliseconds || 0;
             setTimeout(defer_function, milliseconds);
         },
+
         /**
          * Interval checking first function until returns true,
          * run after this second function callback
@@ -720,6 +787,7 @@ if (typeof Function.prototype.bind !== "function") {
 
             return pklib.cookie.get(name);
         },
+
         /**
          * Read cookie by it name
          * @memberOf pklib.cookie
@@ -747,6 +815,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return null;
         },
+
         /**
          * Delete cookie by it name
          * @memberOf pklib.cookie
@@ -775,9 +844,10 @@ if (typeof Function.prototype.bind !== "function") {
         /**
          * RegExp use to delete white chars
          * @private
-         * @type RegExp
+         * @type {RegExp}
          */
         rclass = /[\n\t\r]/g,
+
         /**
          * Check typeof params
          * @private
@@ -789,7 +859,7 @@ if (typeof Function.prototype.bind !== "function") {
         check_params = function (css_class, element, call_func_name) {
             var prefix = "pklib.css." + call_func_name;
             pklib.common.assert(typeof css_class === "string", prefix + ": @css_class: not {String}");
-            pklib.common.assert(pklib.dom.is_node(element), prefix + ": @element: not {HTMLElement}");
+            pklib.common.assert(pklib.dom.is_element(element), prefix + ": @element: not {HTMLElement}");
         };
 
     /**
@@ -817,6 +887,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             element.className = class_element;
         },
+
         /**
          * Remove CSS class from element define in second parameter
          * @memberOf pklib.css
@@ -830,6 +901,7 @@ if (typeof Function.prototype.bind !== "function") {
             var regexp = new RegExp("(\\s" + css_class + ")|(" + css_class + "\\s)|" + css_class, "i");
             element.className = pklib.string.trim(element.className.replace(regexp, ""));
         },
+
         /**
          * Check if element has CSS class
          * @memberOf pklib.css
@@ -891,10 +963,11 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * @namespace
-     * @type {*}
+     * @type {Object}
      */
     var pklib = global.pklib || {},
         document = global.document || {},
+
         /**
          * Walking on every element in node
          * @private
@@ -935,20 +1008,38 @@ if (typeof Function.prototype.bind !== "function") {
             "DOCUMENT_FRAGMENT_NODE": 11,
             "NOTATION_NODE": 12
         },
+
         /**
          * @memberOf pklib.dom
          * @function
-         * @param {HTMLElement} node
+         * @param {Node} node
          * @returns {String}
          */
         is_node: function (node) {
             try {
                 pklib.common.assert(Boolean(node && node.nodeType && node.nodeName));
+                pklib.common.assert(Object.prototype.toString.call(node) === "[object Node]");
                 return true;
             } catch (ignore) {
                 return false;
             }
         },
+
+        /**
+         * @memberOf pklib.dom
+         * @function
+         * @param {NodeList} node_list
+         * @returns {String}
+         */
+        is_node_list: function (node_list) {
+            try {
+                pklib.common.assert(Object.prototype.toString.call(node_list) === "[object NodeList]");
+                return true;
+            } catch (ignore) {
+                return false;
+            }
+        },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -958,11 +1049,12 @@ if (typeof Function.prototype.bind !== "function") {
         is_element: function (node) {
             return (node && node.nodeType === pklib.dom.node_types.ELEMENT_NODE) || false;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         is_visible: function (node) {
             pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.is_visible: @node is not HTMLElement");
@@ -972,6 +1064,7 @@ if (typeof Function.prototype.bind !== "function") {
                 node.offsetWidth !== 0 &&
                 node.offsetHeight !== 0;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -981,6 +1074,7 @@ if (typeof Function.prototype.bind !== "function") {
         by_id: function (id) {
             return document.getElementById(id);
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -992,6 +1086,7 @@ if (typeof Function.prototype.bind !== "function") {
             element = element || document;
             return element.getElementsByTagName(tag);
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -1016,6 +1111,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return results;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -1035,6 +1131,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return null;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -1054,6 +1151,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return array;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -1062,13 +1160,14 @@ if (typeof Function.prototype.bind !== "function") {
          * @returns {HTMLElement}
          */
         insert: function (element, node) {
-            if (pklib.dom.is_node(element)) {
+            if (pklib.dom.is_element(element)) {
                 node.appendChild(element);
             } else if (pklib.string.is_string(element)) {
                 node.innerHTML += element;
             }
             return element;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -1081,12 +1180,13 @@ if (typeof Function.prototype.bind !== "function") {
 
             for (i = 0; i < len; ++i) {
                 node = args[i];
-                if (pklib.dom.is_node(node)) {
+                if (pklib.dom.is_element(node)) {
                     parent = node.parentNode;
                     parent.removeChild(node);
                 }
             }
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -1107,6 +1207,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return pNode;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -1127,6 +1228,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return nNode;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -1198,6 +1300,7 @@ if (typeof Function.prototype.bind !== "function") {
                 target["on" + event_name] = handler;
             }
         },
+
         /**
          * @memberOf pklib.event
          * @function
@@ -1236,6 +1339,7 @@ if (typeof Function.prototype.bind !== "function") {
                 }
             }
         },
+
         /**
          * @memberOf pklib.event
          * @function
@@ -1249,6 +1353,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return target.events[event_name];
         },
+
         /**
          * @memberOf pklib.event
          * @function
@@ -1287,11 +1392,13 @@ if (typeof Function.prototype.bind !== "function") {
      */
     var pklib = global.pklib || {},
         document = global.document || {},
+
         /**
          * @private
-         * @type Array
+         * @type {Array}
          */
         copy_files = [],
+
         /**
          * @private
          * @function
@@ -1421,6 +1528,7 @@ if (typeof Function.prototype.bind !== "function") {
                 typeof obj.isPrototypeOf === "function" &&
                 typeof obj.length === "undefined";
         },
+
         /**
          * @memberOf pklib.object
          * @function
@@ -1484,6 +1592,7 @@ if (typeof Function.prototype.bind !== "function") {
             data[name] = new Date();
             return data[name];
         },
+
         /**
          * @memberOf pklib.profiler
          * @function
@@ -1494,6 +1603,7 @@ if (typeof Function.prototype.bind !== "function") {
             data[name] = new Date() - data[name];
             return new Date((new Date()).getTime() + data[name]);
         },
+
         /**
          * @memberOf pklib.profiler
          * @function
@@ -1533,6 +1643,7 @@ if (typeof Function.prototype.bind !== "function") {
         is_string: function (source) {
             return typeof source === "string";
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -1542,6 +1653,7 @@ if (typeof Function.prototype.bind !== "function") {
         is_letter: function (source) {
             return pklib.string.is_string(source) && /^[a-zA-Z]$/.test(source);
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -1551,6 +1663,7 @@ if (typeof Function.prototype.bind !== "function") {
         trim: function (source) {
             return source.replace(/^\s+|\s+$/g, "");
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -1584,6 +1697,7 @@ if (typeof Function.prototype.bind !== "function") {
             });
             return result;
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -1593,6 +1707,7 @@ if (typeof Function.prototype.bind !== "function") {
         capitalize: function (source) {
             return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -1604,6 +1719,7 @@ if (typeof Function.prototype.bind !== "function") {
                 return "-" + match.toLowerCase();
             });
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -1619,6 +1735,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return source;
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -1635,6 +1752,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return source;
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -1708,6 +1826,7 @@ if (typeof Function.prototype.bind !== "function") {
 
             return [left, top];
         },
+
         /**
          * @memberOf pklib.ui
          * @function
@@ -1734,6 +1853,7 @@ if (typeof Function.prototype.bind !== "function") {
             element.style.height = height;
             return [width, height];
         },
+
         /**
          * @memberOf pklib.ui
          * @function
@@ -1787,7 +1907,12 @@ if (typeof Function.prototype.bind !== "function") {
      * @namespace
      */
     pklib.ui.glass = {
+        /**
+         * @memberOf pklib.ui.glass
+         * @type {String}
+         */
         obj_id: id,
+
         /**
          * @memberOf pklib.ui.glass
          * @function
@@ -1825,6 +1950,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return glass;
         },
+
         /**
          * @memberOf pklib.ui.glass
          * @function
@@ -1881,7 +2007,12 @@ if (typeof Function.prototype.bind !== "function") {
      * @namespace
      */
     pklib.ui.loader = {
+        /**
+         * @memberOf pklib.ui.glass
+         * @type {String}
+         */
         obj_id: id,
+
         /**
          * @memberOf pklib.ui.loader
          * @function
@@ -1921,6 +2052,7 @@ if (typeof Function.prototype.bind !== "function") {
             // clear memory
             loader = null;
         },
+
         /**
          * @memberOf pklib.ui.loader
          * @function
@@ -1971,8 +2103,18 @@ if (typeof Function.prototype.bind !== "function") {
      * @namespace
      */
     pklib.ui.message = {
+        /**
+         * @memberOf pklib.ui.glass
+         * @type {String}
+         */
         obj_id: id,
+
+        /**
+         * @memberOf pklib.ui.glass
+         * @type {HTMLElement}
+         */
         content: null,
+
         /**
          * @memberOf pklib.ui.message
          * @function
@@ -2008,6 +2150,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return message;
         },
+
         /**
          * @memberOf pklib.ui.message
          * @function
@@ -2066,6 +2209,7 @@ if (typeof Function.prototype.bind !== "function") {
                 document.body["client" + name] ||
                 clientName;
         },
+
         /**
          * @memberOf pklib.ui.size
          * @function
@@ -2089,6 +2233,7 @@ if (typeof Function.prototype.bind !== "function") {
             offsetName = document.documentElement["offset" + name];
             return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
         },
+
         /**
          * @memberOf pklib.ui.size
          * @function
@@ -2098,7 +2243,7 @@ if (typeof Function.prototype.bind !== "function") {
          */
         object: function (obj, name) {
             pklib.common.assert(typeof name === "string", "pklib.ui.size.object: @name: not {String}");
-            pklib.common.assert(pklib.dom.is_node(obj), "pklib.ui.size.object: @obj: not {HTMLElement}");
+            pklib.common.assert(pklib.dom.is_element(obj), "pklib.ui.size.object: @obj: not {HTMLElement}");
 
             name = pklib.string.capitalize(name);
             var client = obj["client" + name],
@@ -2123,7 +2268,7 @@ if (typeof Function.prototype.bind !== "function") {
         /**
          * Document.location object
          * @private
-         * @type Object
+         * @type {Object}
          */
         loc = global.location || {};
 
@@ -2140,6 +2285,7 @@ if (typeof Function.prototype.bind !== "function") {
         get_protocol: function () {
             return loc.protocol;
         },
+
         /**
          * @memberOf pklib.url
          * @function
@@ -2148,6 +2294,7 @@ if (typeof Function.prototype.bind !== "function") {
         get_host: function () {
             return loc.host;
         },
+
         /**
          * @memberOf pklib.url
          * @function
@@ -2156,6 +2303,7 @@ if (typeof Function.prototype.bind !== "function") {
         get_port: function () {
             return loc.port || 80;
         },
+
         /**
          * @memberOf pklib.url
          * @function
@@ -2164,6 +2312,7 @@ if (typeof Function.prototype.bind !== "function") {
         get_uri: function () {
             return loc.pathname;
         },
+
         /**
          * Get all params, and return in JSON object
          * @memberOf pklib.url
@@ -2190,6 +2339,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return params_list;
         },
+
         /**
          * Get concrete param from URL.
          * If param if not defined return null
@@ -2219,6 +2369,7 @@ if (typeof Function.prototype.bind !== "function") {
             }
             return null;
         },
+
         /**
          * @memberOf pklib.url
          * @function
@@ -2243,6 +2394,7 @@ if (typeof Function.prototype.bind !== "function") {
      */
     var pklib = global.pklib || {},
         document = global.document || {},
+
         /**
          * @private
          * @function
@@ -2297,17 +2449,19 @@ if (typeof Function.prototype.bind !== "function") {
                 /**
                  * @memberOf pklib.utils.ascii.letters
                  * @field
-                 * @type Array
+                 * @type {Array}
                  */
                 lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
+
                 /**
                  * @memberOf pklib.utils.ascii.letters
                  * @field
-                 * @type Array
+                 * @type {Array}
                  */
                 upper: [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
             }
         },
+
         /**
          * @memberOf pklib.utils
          * @namespace
@@ -2332,6 +2486,7 @@ if (typeof Function.prototype.bind !== "function") {
                     });
                 }
             },
+
             /**
              * @memberOf pklib.utils.action
              * @function
@@ -2353,6 +2508,7 @@ if (typeof Function.prototype.bind !== "function") {
                     }
                 }
             },
+
             /**
              * @memberOf pklib.utils.action
              * @function

@@ -33,16 +33,22 @@
 (function (global) {
     "use strict";
 
+    /********************************************************************************/
+    /* THIS CONTRUCTION IS FOR BETTER VIEW IN DOCUMENTATION*/
+    /********************************************************************************/
+
     /**
      * Global object, contain modules
      * @namespace
      * @type {Object}
      */
-    global.pklib = {
+    var pklib = {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
         version: "1.1.0"
     };
+
+    global.pklib = pklib;
 
 }(this));
 

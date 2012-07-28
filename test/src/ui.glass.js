@@ -3,15 +3,16 @@
 
     module("pklib.ui.glass");
 
+    test("exists", function () {
+        ok(pklib.ui.glass, "Exists");
+    });
     test("show", function () {
-        // TODO: Add code what is testing this method!
         expect(0);
-
+        // TODO: write this!
     });
     test("close", function () {
-        // TODO: Add code what is testing this method!
         expect(0);
-
+        // TODO: write this!
     });
 
 }(this));

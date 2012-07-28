@@ -45,6 +45,7 @@
 
             return [left, top];
         },
+
         /**
          * @memberOf pklib.ui
          * @function
@@ -71,6 +72,7 @@
             element.style.height = height;
             return [width, height];
         },
+
         /**
          * @memberOf pklib.ui
          * @function

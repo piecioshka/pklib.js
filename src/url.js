@@ -29,6 +29,7 @@
         get_protocol: function () {
             return loc.protocol;
         },
+
         /**
          * @memberOf pklib.url
          * @function
@@ -37,6 +38,7 @@
         get_host: function () {
             return loc.host;
         },
+
         /**
          * @memberOf pklib.url
          * @function
@@ -45,6 +47,7 @@
         get_port: function () {
             return loc.port || 80;
         },
+
         /**
          * @memberOf pklib.url
          * @function
@@ -53,6 +56,7 @@
         get_uri: function () {
             return loc.pathname;
         },
+
         /**
          * Get all params, and return in JSON object
          * @memberOf pklib.url
@@ -79,6 +83,7 @@
             }
             return params_list;
         },
+
         /**
          * Get concrete param from URL.
          * If param if not defined return null
@@ -108,6 +113,7 @@
             }
             return null;
         },
+
         /**
          * @memberOf pklib.url
          * @function

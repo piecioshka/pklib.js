@@ -28,6 +28,7 @@
                 throw new Error(comment);
             }
         },
+
         /**
          * Deferred function about some milliseconds.
          * If milliseconds is 0 that it's hack for some platforms to use function in "next" thread
@@ -40,6 +41,7 @@
             milliseconds = milliseconds || 0;
             setTimeout(defer_function, milliseconds);
         },
+
         /**
          * Interval checking first function until returns true,
          * run after this second function callback

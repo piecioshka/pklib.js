@@ -34,6 +34,7 @@
                 document.body["client" + name] ||
                 clientName;
         },
+
         /**
          * @memberOf pklib.ui.size
          * @function
@@ -57,6 +58,7 @@
             offsetName = document.documentElement["offset" + name];
             return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
         },
+
         /**
          * @memberOf pklib.ui.size
          * @function
@@ -66,7 +68,7 @@
          */
         object: function (obj, name) {
             pklib.common.assert(typeof name === "string", "pklib.ui.size.object: @name: not {String}");
-            pklib.common.assert(pklib.dom.is_node(obj), "pklib.ui.size.object: @obj: not {HTMLElement}");
+            pklib.common.assert(pklib.dom.is_element(obj), "pklib.ui.size.object: @obj: not {HTMLElement}");
 
             name = pklib.string.capitalize(name);
             var client = obj["client" + name],

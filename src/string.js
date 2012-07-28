@@ -25,6 +25,7 @@
         is_string: function (source) {
             return typeof source === "string";
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -34,6 +35,7 @@
         is_letter: function (source) {
             return pklib.string.is_string(source) && /^[a-zA-Z]$/.test(source);
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -43,6 +45,7 @@
         trim: function (source) {
             return source.replace(/^\s+|\s+$/g, "");
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -76,6 +79,7 @@
             });
             return result;
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -85,6 +89,7 @@
         capitalize: function (source) {
             return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -96,6 +101,7 @@
                 return "-" + match.toLowerCase();
             });
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -111,6 +117,7 @@
             }
             return source;
         },
+
         /**
          * @memberOf pklib.string
          * @function
@@ -127,6 +134,7 @@
             }
             return source;
         },
+
         /**
          * @memberOf pklib.string
          * @function

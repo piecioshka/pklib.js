@@ -47,31 +47,6 @@
         /********************************************************************************/
 
         /**
-         * Use when state in request is changed or if used cache is handler to request.
-         * @private
-         * @function
-         * @param {Object} settings
-         * @param {XMLHttpRequest} xhr
-         */
-        handler = function (settings, xhr) {
-            var status = 0;
-
-            if (xhr.readyState === REQUEST_STATE_DONE) {
-                if (typeof xhr.status !== "undefined") {
-                    status = xhr.status;
-                }
-
-                if (status >= 200 && status < 300 || status === 304) {
-                    // success
-                    success_handler(settings, xhr);
-                } else {
-                    // error
-                    error_handler(settings, xhr);
-                }
-            }
-        },
-
-        /**
          * When success request
          * @private
          * @function
@@ -109,6 +84,31 @@
         error_handler = function (settings, xhr) {
             xhr.error = true;
             settings.error.call(null, settings, xhr);
+        },
+
+        /**
+         * Use when state in request is changed or if used cache is handler to request.
+         * @private
+         * @function
+         * @param {Object} settings
+         * @param {XMLHttpRequest} xhr
+         */
+        handler = function (settings, xhr) {
+            var status = 0;
+
+            if (xhr.readyState === REQUEST_STATE_DONE) {
+                if (typeof xhr.status !== "undefined") {
+                    status = xhr.status;
+                }
+
+                if ((status >= 200 && status < 300) || status === 304) {
+                    // success
+                    success_handler(settings, xhr);
+                } else {
+                    // error
+                    error_handler(settings, xhr);
+                }
+            }
         },
 
         /**

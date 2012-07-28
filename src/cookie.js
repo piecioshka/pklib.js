@@ -40,6 +40,7 @@
 
             return pklib.cookie.get(name);
         },
+
         /**
          * Read cookie by it name
          * @memberOf pklib.cookie
@@ -67,6 +68,7 @@
             }
             return null;
         },
+
         /**
          * Delete cookie by it name
          * @memberOf pklib.cookie

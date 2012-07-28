@@ -10,11 +10,13 @@
      */
     var pklib = global.pklib || {},
         document = global.document || {},
+
         /**
          * @private
          * @type {Array}
          */
         copy_files = [],
+
         /**
          * @private
          * @function

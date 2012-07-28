@@ -26,8 +26,18 @@
      * @namespace
      */
     pklib.ui.message = {
+        /**
+         * @memberOf pklib.ui.glass
+         * @type {String}
+         */
         obj_id: id,
+
+        /**
+         * @memberOf pklib.ui.glass
+         * @type {HTMLElement}
+         */
         content: null,
+
         /**
          * @memberOf pklib.ui.message
          * @function
@@ -63,6 +73,7 @@
             }
             return message;
         },
+
         /**
          * @memberOf pklib.ui.message
          * @function

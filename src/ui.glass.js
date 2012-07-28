@@ -29,7 +29,12 @@
      * @namespace
      */
     pklib.ui.glass = {
+        /**
+         * @memberOf pklib.ui.glass
+         * @type {String}
+         */
         obj_id: id,
+
         /**
          * @memberOf pklib.ui.glass
          * @function
@@ -67,6 +72,7 @@
             }
             return glass;
         },
+
         /**
          * @memberOf pklib.ui.glass
          * @function

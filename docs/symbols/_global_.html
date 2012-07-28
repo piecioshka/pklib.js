@@ -193,8 +193,6 @@ ul.inheritsList
 	
 	<li><a href="../symbols/Function.html">Function</a></li>
 	
-	<li><a href="../symbols/global.pklib.html">global.pklib</a></li>
-	
 	<li><a href="../symbols/pklib.ajax.html">pklib.ajax</a></li>
 	
 	<li><a href="../symbols/pklib.array.html">pklib.array</a></li>
@@ -447,6 +445,15 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;private&gt; &nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#error_handler">error_handler</a></b>(settings, xhr)
+								</div>
+								<div class="description">When error request</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/_global_.html#handler">handler</a></b>(settings, xhr)
 								</div>
 								<div class="description">Use when state in request is changed or if used cache is handler to request.</div>
@@ -501,6 +508,15 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;private&gt; &nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#success_handler">success_handler</a></b>(settings, xhr)
+								</div>
+								<div class="description">When success request</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/_global_.html#timeout_handler">timeout_handler</a></b>(settings, xhr)
 								</div>
 								<div class="description">Handler to unusually situation - timeout.</div>
@@ -537,7 +553,7 @@ ul.inheritsList
 					<a name="browsers"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
-					<span class="light">{Array}</span>
+					
 					<b>browsers</b>
 					
 					</div>
@@ -562,7 +578,7 @@ ul.inheritsList
 					<a name="cache"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
-					<span class="light">{Array}</span>
+					
 					<b>cache</b>
 					
 					</div>
@@ -587,7 +603,7 @@ ul.inheritsList
 					<a name="copy_files"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
-					<span class="light">{Array}</span>
+					
 					<b>copy_files</b>
 					
 					</div>
@@ -612,7 +628,7 @@ ul.inheritsList
 					<a name="DEFAULT_TIMEOUT_TIME"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;constant&gt; 
 					
-					<span class="light">{Number}</span>
+					
 					<b>DEFAULT_TIMEOUT_TIME</b>
 					
 					</div>
@@ -637,7 +653,7 @@ ul.inheritsList
 					<a name="loc"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
-					<span class="light">{Object}</span>
+					
 					<b>loc</b>
 					
 					</div>
@@ -662,7 +678,7 @@ ul.inheritsList
 					<a name="rclass"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
-					<span class="light">{RegExp}</span>
+					
 					<b>rclass</b>
 					
 					</div>
@@ -687,7 +703,7 @@ ul.inheritsList
 					<a name="REQUEST_STATE_DONE"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;constant&gt; 
 					
-					<span class="light">{Number}</span>
+					
 					<b>REQUEST_STATE_DONE</b>
 					
 					</div>
@@ -712,7 +728,7 @@ ul.inheritsList
 					<a name="REQUEST_STATE_UNSENT"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;constant&gt; 
 					
-					<span class="light">{Number}</span>
+					
 					<b>REQUEST_STATE_UNSENT</b>
 					
 					</div>
@@ -1077,6 +1093,51 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name="error_handler"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>error_handler</b>(settings, xhr)
+					
+					</div>
+					<div class="description">
+						When error request
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src__ajax.js.html">ajax.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>settings</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{XMLHttpRequest}</span> <b>xhr</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="handler"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
@@ -1342,6 +1403,51 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name="success_handler"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>success_handler</b>(settings, xhr)
+					
+					</div>
+					<div class="description">
+						When success request
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src__ajax.js.html">ajax.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>settings</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{XMLHttpRequest}</span> <b>xhr</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="timeout_handler"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
@@ -1454,7 +1560,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Jul 18 2012 01:02:39 GMT+0200 (CEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sat Jul 28 2012 20:28:27 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

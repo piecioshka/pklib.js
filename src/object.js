@@ -28,6 +28,7 @@
                 typeof obj.isPrototypeOf === "function" &&
                 typeof obj.length === "undefined";
         },
+
         /**
          * @memberOf pklib.object
          * @function

@@ -11,6 +11,7 @@
      */
     var pklib = global.pklib || {},
         document = global.document || {},
+
         /**
          * Walking on every element in node
          * @private
@@ -51,20 +52,38 @@
             "DOCUMENT_FRAGMENT_NODE": 11,
             "NOTATION_NODE": 12
         },
+
         /**
          * @memberOf pklib.dom
          * @function
-         * @param {HTMLElement} node
+         * @param {Node} node
          * @returns {String}
          */
         is_node: function (node) {
             try {
                 pklib.common.assert(Boolean(node && node.nodeType && node.nodeName));
+                pklib.common.assert(Object.prototype.toString.call(node) === "[object Node]");
                 return true;
             } catch (ignore) {
                 return false;
             }
         },
+
+        /**
+         * @memberOf pklib.dom
+         * @function
+         * @param {NodeList} node_list
+         * @returns {String}
+         */
+        is_node_list: function (node_list) {
+            try {
+                pklib.common.assert(Object.prototype.toString.call(node_list) === "[object NodeList]");
+                return true;
+            } catch (ignore) {
+                return false;
+            }
+        },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -74,11 +93,12 @@
         is_element: function (node) {
             return (node && node.nodeType === pklib.dom.node_types.ELEMENT_NODE) || false;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
-         * @return {Boolean}
+         * @returns {Boolean}
          */
         is_visible: function (node) {
             pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.is_visible: @node is not HTMLElement");
@@ -88,6 +108,7 @@
                 node.offsetWidth !== 0 &&
                 node.offsetHeight !== 0;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -97,6 +118,7 @@
         by_id: function (id) {
             return document.getElementById(id);
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -108,6 +130,7 @@
             element = element || document;
             return element.getElementsByTagName(tag);
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -132,6 +155,7 @@
             }
             return results;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -151,6 +175,7 @@
             }
             return null;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -170,6 +195,7 @@
             }
             return array;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -178,13 +204,14 @@
          * @returns {HTMLElement}
          */
         insert: function (element, node) {
-            if (pklib.dom.is_node(element)) {
+            if (pklib.dom.is_element(element)) {
                 node.appendChild(element);
             } else if (pklib.string.is_string(element)) {
                 node.innerHTML += element;
             }
             return element;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -197,12 +224,13 @@
 
             for (i = 0; i < len; ++i) {
                 node = args[i];
-                if (pklib.dom.is_node(node)) {
+                if (pklib.dom.is_element(node)) {
                     parent = node.parentNode;
                     parent.removeChild(node);
                 }
             }
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -223,6 +251,7 @@
             }
             return pNode;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
@@ -243,6 +272,7 @@
             }
             return nNode;
         },
+
         /**
          * @memberOf pklib.dom
          * @function
