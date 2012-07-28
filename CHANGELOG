@@ -5,6 +5,7 @@
 * usunięcie rzucania wyjątku w przypadku wywołania zdarzenia z elementu bez takiego zdarzenia pklib.event.trigger
 * poprawna obsługa błędów w odpowiedziach z pklib.ajax
 * dodanie nowej metody pklib.dom.is_node_list
+* fix poberania elementów wg nazwy klasy css
 
 1.1.0 / 27.05.2012
 ==================
