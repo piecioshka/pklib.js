@@ -71,7 +71,7 @@
      */
     pklib.file = {
         /**
-         * Lazy load JS files. Url to files could be with path absolute or not.
+         * Load JS files. Url to files could be with path absolute or not.
          * If you must load more than 1 file use array, to set url to files
          * @memberOf pklib.file
          * @function

@@ -16,6 +16,7 @@
      */
     pklib.event = {
         /**
+         * Add event to Element
          * @memberOf pklib.event
          * @function
          * @param {HTMLElement} target
@@ -48,6 +49,7 @@
         },
 
         /**
+         * Remove event from Element
          * @memberOf pklib.event
          * @function
          * @param {HTMLElement} target
@@ -87,6 +89,7 @@
         },
 
         /**
+         * Get array with events with concrete name
          * @memberOf pklib.event
          * @function
          * @param {HTMLElement} target
@@ -101,6 +104,7 @@
         },
 
         /**
+         * Run events on Element
          * @memberOf pklib.event
          * @function
          * @param {HTMLElement} target

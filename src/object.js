@@ -16,7 +16,7 @@
      */
     pklib.object =  {
         /**
-         * Check if is object
+         * Check if param is object
          * @memberOf pklib.object
          * @function
          * @param {Object} obj
@@ -30,6 +30,7 @@
         },
 
         /**
+         * Mix two params, from second to first param. Return first param mixin with second param
          * @memberOf pklib.object
          * @function
          * @param {Array|Object} target

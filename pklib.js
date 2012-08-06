@@ -969,7 +969,7 @@ if (typeof Function.prototype.bind !== "function") {
         document = global.document || {},
 
         /**
-         * Walking on every element in node
+         * Walking on every node in node
          * @private
          * @function
          * @param {HTMLElement} node
@@ -1010,6 +1010,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Check if param is Node, with use assertions
          * @memberOf pklib.dom
          * @function
          * @param {Node} node
@@ -1026,6 +1027,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Check if param is NodeList, with use assertions
          * @memberOf pklib.dom
          * @function
          * @param {NodeList} node_list
@@ -1041,6 +1043,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Check if param is instanceOf Element
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -1051,6 +1054,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Check visibility of Node, with use assertions
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -1066,6 +1070,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Get element by attribute ID
          * @memberOf pklib.dom
          * @function
          * @param {String} id
@@ -1076,6 +1081,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Get elements by tag name
          * @memberOf pklib.dom
          * @function
          * @param {String} tag
@@ -1088,6 +1094,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Get elements by attribute CLASS
          * @memberOf pklib.dom
          * @function
          * @param {String} css_class
@@ -1113,6 +1120,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Get index of node relative siblings
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -1133,6 +1141,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Get children of element filter by Element type
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -1153,6 +1162,8 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Insert data to Node. Maybe param is string so insert will be exec by innerHTML,
+         * but if param is Node inserting will be by appendChild() function
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement|String} element
@@ -1169,6 +1180,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Remove Element specified in params
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement}
@@ -1188,6 +1200,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Get prev Node what will be Element
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -1209,6 +1222,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Get next Node what will be Element
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -1230,6 +1244,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Get parent element what will by Element, but if parent is not exists returns Null
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -1270,6 +1285,7 @@ if (typeof Function.prototype.bind !== "function") {
      */
     pklib.event = {
         /**
+         * Add event to Element
          * @memberOf pklib.event
          * @function
          * @param {HTMLElement} target
@@ -1302,6 +1318,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Remove event from Element
          * @memberOf pklib.event
          * @function
          * @param {HTMLElement} target
@@ -1341,6 +1358,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Get array with events with concrete name
          * @memberOf pklib.event
          * @function
          * @param {HTMLElement} target
@@ -1355,6 +1373,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Run events on Element
          * @memberOf pklib.event
          * @function
          * @param {HTMLElement} target
@@ -1453,7 +1472,7 @@ if (typeof Function.prototype.bind !== "function") {
      */
     pklib.file = {
         /**
-         * Lazy load JS files. Url to files could be with path absolute or not.
+         * Load JS files. Url to files could be with path absolute or not.
          * If you must load more than 1 file use array, to set url to files
          * @memberOf pklib.file
          * @function
@@ -1516,7 +1535,7 @@ if (typeof Function.prototype.bind !== "function") {
      */
     pklib.object =  {
         /**
-         * Check if is object
+         * Check if param is object
          * @memberOf pklib.object
          * @function
          * @param {Object} obj
@@ -1530,6 +1549,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
+         * Mix two params, from second to first param. Return first param mixin with second param
          * @memberOf pklib.object
          * @function
          * @param {Array|Object} target
@@ -2400,7 +2420,7 @@ if (typeof Function.prototype.bind !== "function") {
          * @function
          * @param {Event} evt
          */
-        opentrigger = function (evt) {
+        open_trigger = function (evt) {
             var url = "";
 
             if (evt.originalTarget &&
@@ -2504,7 +2524,7 @@ if (typeof Function.prototype.bind !== "function") {
                 for (i = 0; i < len; ++i) {
                     link = links[i];
                     if (link.rel === "outerlink") {
-                        pklib.event.add(link, "click", opentrigger.bind(link));
+                        pklib.event.add(link, "click", open_trigger.bind(link));
                     }
                 }
             },

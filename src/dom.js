@@ -13,7 +13,7 @@
         document = global.document || {},
 
         /**
-         * Walking on every element in node
+         * Walking on every node in node
          * @private
          * @function
          * @param {HTMLElement} node
@@ -54,6 +54,7 @@
         },
 
         /**
+         * Check if param is Node, with use assertions
          * @memberOf pklib.dom
          * @function
          * @param {Node} node
@@ -70,6 +71,7 @@
         },
 
         /**
+         * Check if param is NodeList, with use assertions
          * @memberOf pklib.dom
          * @function
          * @param {NodeList} node_list
@@ -85,6 +87,7 @@
         },
 
         /**
+         * Check if param is instanceOf Element
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -95,6 +98,7 @@
         },
 
         /**
+         * Check visibility of Node, with use assertions
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -110,6 +114,7 @@
         },
 
         /**
+         * Get element by attribute ID
          * @memberOf pklib.dom
          * @function
          * @param {String} id
@@ -120,6 +125,7 @@
         },
 
         /**
+         * Get elements by tag name
          * @memberOf pklib.dom
          * @function
          * @param {String} tag
@@ -132,6 +138,7 @@
         },
 
         /**
+         * Get elements by attribute CLASS
          * @memberOf pklib.dom
          * @function
          * @param {String} css_class
@@ -157,6 +164,7 @@
         },
 
         /**
+         * Get index of node relative siblings
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -177,6 +185,7 @@
         },
 
         /**
+         * Get children of element filter by Element type
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -197,6 +206,8 @@
         },
 
         /**
+         * Insert data to Node. Maybe param is string so insert will be exec by innerHTML,
+         * but if param is Node inserting will be by appendChild() function
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement|String} element
@@ -213,6 +224,7 @@
         },
 
         /**
+         * Remove Element specified in params
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement}
@@ -232,6 +244,7 @@
         },
 
         /**
+         * Get prev Node what will be Element
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -253,6 +266,7 @@
         },
 
         /**
+         * Get next Node what will be Element
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node
@@ -274,6 +288,7 @@
         },
 
         /**
+         * Get parent element what will by Element, but if parent is not exists returns Null
          * @memberOf pklib.dom
          * @function
          * @param {HTMLElement} node

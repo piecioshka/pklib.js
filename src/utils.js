@@ -17,7 +17,7 @@
          * @function
          * @param {Event} evt
          */
-        opentrigger = function (evt) {
+        open_trigger = function (evt) {
             var url = "";
 
             if (evt.originalTarget &&
@@ -121,7 +121,7 @@
                 for (i = 0; i < len; ++i) {
                     link = links[i];
                     if (link.rel === "outerlink") {
-                        pklib.event.add(link, "click", opentrigger.bind(link));
+                        pklib.event.add(link, "click", open_trigger.bind(link));
                     }
                 }
             },
