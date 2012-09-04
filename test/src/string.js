@@ -100,12 +100,28 @@
             strictEqual(pklib.string.camel_case(text), result, "Camel case is good for: " + text);
         });
         test("slice", function () {
-            var text = "Ciechocinek";
-            var result = "Cie...";
-            strictEqual(pklib.string.slice(text, 3), result, "Slice is good for: " + text);
+            var text = "", result = "";
+
+            text = "morze jest długie";
+            result = "morze...";
+            strictEqual(pklib.string.slice(text, 5), result, "Phrase: " + text);
+            strictEqual(pklib.string.slice(text, 6), result, "Phrase: " + text);
+ 
+            text = "Ciechocinek";
+            result = "Cie...";
+            strictEqual(pklib.string.slice(text, 3), result, "Phrase: " + text);
+
             text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra tincidunt semper.";
             result = "Lorem ipsum dolor si...";
-            strictEqual(pklib.string.slice(text, 20), result, "Slice is good for: " + text);
+            strictEqual(pklib.string.slice(text, 20, true), result, "Phrase: " + text);
+
+            text = "Mistrzostwa Europy EuroBasket Słowienia 2013";
+            result = "Mistrzostwa Europy EuroBasket Słowienia...";
+            strictEqual(pklib.string.slice(text, 41), result, "Phrase: " + text);
+
+            text = "krótki tekst";
+            result = text;
+            strictEqual(pklib.string.slice(text, 100), result, "Phrase: " + text);
         });
     });
 
