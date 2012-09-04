@@ -1776,25 +1776,52 @@ if (typeof Function.prototype.bind !== "function") {
         /**
          * @memberOf pklib.string
          * @function
-         * @param {String} source
-         * @param {Number} length
+         * @param {String} source Text to slice
+         * @param {Number} length Number of chars what string will be slice
+         * @param {Boolean} [is_force] Force mode. If slice will be end in middle of word, use this to save it, or algorytm slice to last space
          * @returns {String}
          */
-        slice: function (source, length) {
-            var item,
-                text = "",
-                num = source.length;
+        slice: function (source, length, is_force) {
+            pklib.common.assert(typeof source === "string", "pklib.string.slice: param @source is not a string");
 
-            for (item = 0; item < num; item += 1) {
-                text += source.substr(item, 1);
-                if (item === length - 1) {
-                    if (num - length >= 1) {
-                        text += "...";
-                    }
-                    break;
+            // jeśli długość przycinania jest wiąksza niż długość całego tekstu
+            // to zwracamy przekazany tekst
+            if (source.length < length) {
+                return source;
+            }
+
+            // ucinamy tyle tekstu ile jest wskazane w parametrze length
+            var text = source.slice(0, length);
+
+            // sprawdzamy czy nie ucieliśmy w połowie wyrazu:
+            // * tj. czy kolejnym znakiem nie jest spacja
+            if (source[length] === " ") {
+                return text + "...";
+            }
+
+            // * ostatnim znakiem w uciętym tekście jest spacja
+            if (text[length - 1] === " ") {
+                return pklib.string.trim(text) + "...";
+            }
+
+            // jesli nie ma wymuszenia przycinania wyrazu w jego części 
+            // to sprawdzamy czy możemy przyciąć do ostatniej spacji w przycietym tekście
+            if (!is_force) {
+                // niestety ucieliśmy tekst w połowie wyrazu
+                // postępujemy zgodnie z intrukcja, że odnajdujemy ostatnią spację
+                // i obcinamy fraze do tej spacji 
+                var last_space = text.lastIndexOf(" ");
+
+                // spacja została znaleziona, więc przycinamy frazę do spacji
+                if (last_space !== -1) {
+                    return text.slice(0, last_space) + "...";
                 }
             }
-            return text;
+
+            // spacja nie została odnaleziona więc aby nie zwracać w pustej wartości,
+            // ucinamy wyraz w tym miejscu w którym jest
+
+            return text + "...";
         }
     };
 
