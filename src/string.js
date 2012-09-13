@@ -180,9 +180,8 @@
                 }
             }
 
-            // spacja nie została odnaleziona więc aby nie zwracać w pustej wartości,
-            // ucinamy wyraz w tym miejscu w którym jest
-
+            // włączony tryb "force" albo spacja nie została odnaleziona więc aby nie zwracać 
+            // w pustej wartości, ucinamy wyraz w tym miejscu w którym jest
             return text + "...";
         }
     };

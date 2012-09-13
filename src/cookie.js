@@ -36,7 +36,7 @@
                 expires = "; expires=" + date.toGMTString();
             }
 
-            document.cookie = name + "=" + value + expires + "; path=/";
+            document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
 
             return pklib.cookie.get(name);
         },
@@ -63,7 +63,7 @@
                     c = c.substring(1, c.length);
                 }
                 if (c.indexOf(name) === 0) {
-                    return c.substring(name.length, c.length);
+                    return decodeURIComponent(c.substring(name.length, c.length));
                 }
             }
             return null;

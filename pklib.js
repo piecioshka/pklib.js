@@ -783,7 +783,7 @@ if (typeof Function.prototype.bind !== "function") {
                 expires = "; expires=" + date.toGMTString();
             }
 
-            document.cookie = name + "=" + value + expires + "; path=/";
+            document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
 
             return pklib.cookie.get(name);
         },
@@ -810,7 +810,7 @@ if (typeof Function.prototype.bind !== "function") {
                     c = c.substring(1, c.length);
                 }
                 if (c.indexOf(name) === 0) {
-                    return c.substring(name.length, c.length);
+                    return decodeURIComponent(c.substring(name.length, c.length));
                 }
             }
             return null;
@@ -1818,9 +1818,8 @@ if (typeof Function.prototype.bind !== "function") {
                 }
             }
 
-            // spacja nie została odnaleziona więc aby nie zwracać w pustej wartości,
-            // ucinamy wyraz w tym miejscu w którym jest
-
+            // włączony tryb "force" albo spacja nie została odnaleziona więc aby nie zwracać 
+            // w pustej wartości, ucinamy wyraz w tym miejscu w którym jest
             return text + "...";
         }
     };
