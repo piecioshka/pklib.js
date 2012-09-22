@@ -1,23 +1,19 @@
 /**
  * @package pklib.date
  */
-(function (global) {
+
+/**
+ * Utils stack to Date object
+ * @namespace
+ */
+pklib.date = (function () {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
-    var pklib = global.pklib || {};
-
-    /**
-     * Utils stack to Date object
-     * @namespace
-     */
-    pklib.date = {
+    return {
         /**
          * Simple return month in string and file 0 at first place if month smaller than 10
-         * @memberOf pklib.date
+         *
+         * @private
          * @function
          * @returns {String}
          */
@@ -31,5 +27,4 @@
             return String(month);
         }
     };
-
-}(this));
+}());

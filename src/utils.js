@@ -2,54 +2,118 @@
  * @package pklib.utils
  * @dependence pklib.common, pklib.dom, pklib.event
  */
-(function (global) {
+
+/**
+ * Utils tools
+ * @namespace
+ */
+pklib.utils = (function () {
     "use strict";
 
     /**
-     * @namespace
-     * @type {Object}
+     * @private
+     * @function
+     * @param {Event} evt
      */
-    var pklib = global.pklib || {},
-        document = global.document || {},
+    function open_trigger(evt) {
+        var url = "";
 
-        /**
-         * @private
-         * @function
-         * @param {Event} evt
-         */
-        open_trigger = function (evt) {
-            var url = "";
+        if (evt.originalTarget &&
+                typeof evt.originalTarget === "object" &&
+                evt.originalTarget.href !== undefined) {
+            url = evt.originalTarget.href;
+        } else if (evt.toElement &&
+                typeof evt.toElement === "object" &&
+                evt.toElement.href !== undefined) {
+            url = evt.toElement.href;
+        } else if (evt.srcElement &&
+                typeof evt.srcElement === "object" &&
+                evt.srcElement !== undefined) {
+            url = evt.srcElement.href;
+        }
 
-            if (evt.originalTarget &&
-                    typeof evt.originalTarget === "object" &&
-                    typeof evt.originalTarget.href !== "undefined") {
-                url = evt.originalTarget.href;
-            } else if (evt.toElement &&
-                    typeof evt.toElement === "object" &&
-                    typeof evt.toElement.href !== "undefined") {
-                url = evt.toElement.href;
-            } else if (evt.srcElement &&
-                    typeof evt.srcElement === "object" &&
-                    typeof typeof evt.srcElement !== "undefined") {
-                url = evt.srcElement.href;
-            }
+        window.open(url);
 
-            global.open(url);
+        try {
+            evt.preventDefault();
+        } catch (ignore) {
+            window.event.returnValue = false;
+        }
 
-            try {
-                evt.preventDefault();
-            } catch (ignore) {
-                global.event.returnValue = false;
-            }
-
-            return false;
-        };
+        return false;
+    }
 
     /**
-     * Utils tools
-     * @namespace
+     * @private
+     * @function
+     * @param {HTMLElement} obj
      */
-    pklib.utils = {
+    function clear_focus(obj) {
+        if (pklib.dom.is_element(obj)) {
+            pklib.event.add(obj, "focus", function () {
+                if (obj.value === obj.defaultValue) {
+                    obj.value = "";
+                }
+            });
+            pklib.event.add(obj, "blur", function () {
+                if (obj.value === "") {
+                    obj.value = obj.defaultValue;
+                }
+            });
+        }
+    }
+
+    /**
+     * @private
+     * @function
+     * @param {HTMLElement} area
+     */
+    function outerlink(area) {
+        var i, len,
+            link, links;
+
+        area = area || document;
+
+        links = pklib.dom.by_tag("a", area);
+        len = links.length;
+
+        for (i = 0; i < len; ++i) {
+            link = links[i];
+            if (link.rel === "outerlink") {
+                pklib.event.add(link, "click", open_trigger.bind(link));
+            }
+        }
+    }
+
+    /**
+     * @private
+     * @function
+     * @param {HTMLElement} element
+     * @param {String} [text="Sure?"]
+     */
+    function confirm(element, text) {
+        var response;
+        if (element !== undefined) {
+            text = text || "Sure?";
+
+            pklib.event.add(element, "click", function (evt) {
+                response = window.confirm(text);
+                if (!response) {
+                    try {
+                        evt.preventDefault();
+                    } catch (ignore) {
+                        window.event.returnValue = false;
+                    }
+
+                    return false;
+                }
+                return true;
+            });
+        }
+    }
+
+    // public API
+    return {
         /**
          * Numbers of chars in ASCII system
          * @memberOf pklib.utils
@@ -84,75 +148,9 @@
          * @namespace
          */
         action: {
-            /**
-             * @memberOf pklib.utils.action
-             * @function
-             * @param {HTMLElement} obj
-             */
-            clearfocus: function (obj) {
-                if (pklib.dom.is_element(obj)) {
-                    pklib.event.add(obj, "focus", function () {
-                        if (obj.value === obj.defaultValue) {
-                            obj.value = "";
-                        }
-                    });
-                    pklib.event.add(obj, "blur", function () {
-                        if (obj.value === "") {
-                            obj.value = obj.defaultValue;
-                        }
-                    });
-                }
-            },
-
-            /**
-             * @memberOf pklib.utils.action
-             * @function
-             * @param {HTMLElement} area
-             */
-            outerlink: function (area) {
-                var i, len,
-                    link, links;
-
-                area = area || document;
-
-                links = pklib.dom.by_tag("a", area);
-                len = links.length;
-
-                for (i = 0; i < len; ++i) {
-                    link = links[i];
-                    if (link.rel === "outerlink") {
-                        pklib.event.add(link, "click", open_trigger.bind(link));
-                    }
-                }
-            },
-
-            /**
-             * @memberOf pklib.utils.action
-             * @function
-             * @param {HTMLElement} element
-             * @param {String} [text="Sure?"]
-             */
-            confirm: function (element, text) {
-                var response;
-                if (typeof element !== "undefined") {
-                    text = text || "Sure?";
-
-                    pklib.event.add(element, "click", function (evt) {
-                        response = global.confirm(text);
-                        if (!response) {
-                            try {
-                                evt.preventDefault();
-                            } catch (ignore) {
-                                global.event.returnValue = false;
-                            }
-
-                            return false;
-                        }
-                        return true;
-                    });
-                }
-            }
+            clearfocus: clear_focus,
+            outerlink: outerlink,
+            confirm: confirm
         }
     };
-
-}(this));
+}());

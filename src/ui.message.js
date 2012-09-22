@@ -2,16 +2,19 @@
  * @package pklib.ui.message
  * @dependence pklib.dom, pklib.event, pklib.string, pklib.utils
  */
-(function (global) {
+
+/**
+ * Show layer on special place.
+ * @namespace
+ */
+pklib.ui.message = (function () {
     "use strict";
 
     /**
      * @namespace
      * @type {Object}
      */
-    var pklib = global.pklib || {},
-        document = global.document || {},
-        id = "pklib-message-wrapper",
+    var id = "pklib-message-wrapper",
         settings = {
             container: null,
             style: {
@@ -22,10 +25,69 @@
         };
 
     /**
-     * Show layer on special place.
-     * @namespace
+     * @private
+     * @function
+     * @param {Object} config
+     * @param {Function} callback
+     * @returns {HTMLElement}
      */
-    pklib.ui.message = {
+    function show_message(config, callback) {
+        var message = document.createElement("div"),
+            messageStyle = message.style,
+            style;
+
+        settings.container = document.body;
+        settings = pklib.object.mixin(settings, config);
+
+        message.setAttribute("id", pklib.ui.message.obj_id);
+
+        for (style in settings.style) {
+            if (settings.style.hasOwnProperty(style)) {
+                messageStyle[style] = settings.style[style];
+            }
+        }
+
+        pklib.dom.insert(pklib.ui.message.content, message);
+
+        settings.container.appendChild(message);
+        pklib.ui.center(message, settings.container);
+
+        pklib.event.add(window, "resize", function () {
+            pklib.ui.center(message, settings.container);
+        });
+
+        if (typeof callback === "function") {
+            callback();
+        }
+
+        return message;
+    }
+
+    /**
+     * @private
+     * @function
+     * @param {Function} callback
+     * @returns {Boolean}
+     */
+    function close_message(callback) {
+        var message = pklib.dom.by_id(pklib.ui.message.obj_id),
+            result = false;
+
+        if (message !== null) {
+            message.parentNode.removeChild(message);
+            close_message(callback);
+            result = true;
+        }
+
+        if (typeof callback === "function") {
+            callback();
+        }
+
+        return result;
+    }
+
+    // public API
+    return {
         /**
          * @memberOf pklib.ui.glass
          * @type {String}
@@ -38,61 +100,8 @@
          */
         content: null,
 
-        /**
-         * @memberOf pklib.ui.message
-         * @function
-         * @param {Object} config
-         * @param {Function} callback
-         * @returns {HTMLElement}
-         */
-        show: function (config, callback) {
-            settings.container = document.body;
-            settings = pklib.object.mixin(settings, config);
-
-            var message = document.createElement("div"),
-                messageStyle = message.style,
-                style;
-
-            message.setAttribute("id", this.obj_id);
-            for (style in settings.style) {
-                if (settings.style.hasOwnProperty(style)) {
-                    messageStyle[style] = settings.style[style];
-                }
-            }
-
-            pklib.dom.insert(this.content, message);
-
-            settings.container.appendChild(message);
-            pklib.ui.center(message, settings.container);
-
-            pklib.event.add(global, "resize", function () {
-                pklib.ui.center(message, settings.container);
-            });
-            if (typeof callback === "function") {
-                callback();
-            }
-            return message;
-        },
-
-        /**
-         * @memberOf pklib.ui.message
-         * @function
-         * @param {Function} callback
-         * @returns {Boolean}
-         */
-        close: function (callback) {
-            var message = pklib.dom.by_id(this.obj_id),
-                result = false;
-            if (message !== null) {
-                message.parentNode.removeChild(message);
-                this.close(callback);
-                result = true;
-            }
-            if (typeof callback === "function") {
-                callback();
-            }
-            return result;
-        }
+        show: show_message,
+        close: close_message
     };
+}());
 
-}(this));

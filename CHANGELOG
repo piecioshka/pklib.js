@@ -6,6 +6,9 @@
 * poprawna obsługa błędów w odpowiedziach z pklib.ajax
 * dodanie nowej metody pklib.dom.is_node_list
 * fix poberania elementów wg nazwy klasy css
+* zastąpienie frmeworka do testów QUnit, lepszym BusterJS
+* zmiana kontrukcji modułów - wykorzystanie domknięć
+* dodanie pklib.string.format
 
 1.1.0 / 27.05.2012
 ==================

@@ -217,15 +217,23 @@ ul.inheritsList
 	
 	<li><a href="../symbols/pklib.profiler.html">pklib.profiler</a></li>
 	
+	<li><a href="../symbols/pklib.profiler-data.html">pklib.profiler-data</a></li>
+	
 	<li><a href="../symbols/pklib.string.html">pklib.string</a></li>
 	
 	<li><a href="../symbols/pklib.ui.html">pklib.ui</a></li>
 	
 	<li><a href="../symbols/pklib.ui.glass.html">pklib.ui.glass</a></li>
 	
+	<li><a href="../symbols/pklib.ui.glass-id.html">pklib.ui.glass-id</a></li>
+	
 	<li><a href="../symbols/pklib.ui.loader.html">pklib.ui.loader</a></li>
 	
+	<li><a href="../symbols/pklib.ui.loader-id.html">pklib.ui.loader-id</a></li>
+	
 	<li><a href="../symbols/pklib.ui.message.html">pklib.ui.message</a></li>
+	
+	<li><a href="../symbols/pklib.ui.message-id.html">pklib.ui.message-id</a></li>
 	
 	<li><a href="../symbols/pklib.ui.size.html">pklib.ui.size</a></li>
 	
@@ -305,36 +313,36 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&lt;private&gt; &lt;inner&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">pklib.event.<b><a href="../symbols/pklib.event.html#.add">add</a></b>(target, event_name, handler)
+								<div class="fixedFont"><b><a href="../symbols/pklib.event.html#-add_event">add_event</a></b>(target, event_name, handler)
 								</div>
 								<div class="description">Add event to Element</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&lt;private&gt; &lt;inner&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">pklib.event.<b><a href="../symbols/pklib.event.html#.get">get</a></b>(target, event_name)
+								<div class="fixedFont"><b><a href="../symbols/pklib.event.html#-get_event">get_event</a></b>(target, event_name)
 								</div>
 								<div class="description">Get array with events with concrete name</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&lt;private&gt; &lt;inner&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">pklib.event.<b><a href="../symbols/pklib.event.html#.remove">remove</a></b>(target, event_name)
+								<div class="fixedFont"><b><a href="../symbols/pklib.event.html#-remove_event">remove_event</a></b>(target, event_name)
 								</div>
 								<div class="description">Remove event from Element</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&lt;private&gt; &lt;inner&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">pklib.event.<b><a href="../symbols/pklib.event.html#.trigger">trigger</a></b>(target, event_name)
+								<div class="fixedFont"><b><a href="../symbols/pklib.event.html#-trigger">trigger</a></b>(target, event_name)
 								</div>
 								<div class="description">Run events on Element</div>
 							</td>
@@ -388,11 +396,11 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name=".add"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="-add_event"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;inner&gt; 
 					
 					
-					<span class="light">pklib.event.</span><b>add</b>(target, event_name, handler)
+					<b>add_event</b>(target, event_name, handler)
 					
 					</div>
 					<div class="description">
@@ -436,11 +444,11 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name=".get"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="-get_event"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;inner&gt; 
 					
 					<span class="light">{Array|Undefined}</span>
-					<span class="light">pklib.event.</span><b>get</b>(target, event_name)
+					<b>get_event</b>(target, event_name)
 					
 					</div>
 					<div class="description">
@@ -485,11 +493,11 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name=".remove"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="-remove_event"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;inner&gt; 
 					
 					
-					<span class="light">pklib.event.</span><b>remove</b>(target, event_name)
+					<b>remove_event</b>(target, event_name)
 					
 					</div>
 					<div class="description">
@@ -527,11 +535,11 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name=".trigger"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="-trigger"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;inner&gt; 
 					
 					
-					<span class="light">pklib.event.</span><b>trigger</b>(target, event_name)
+					<b>trigger</b>(target, event_name)
 					
 					</div>
 					<div class="description">
@@ -581,7 +589,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Thu Sep 13 2012 12:23:30 GMT+0200 (CEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sat Sep 22 2012 16:01:54 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

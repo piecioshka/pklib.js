@@ -1,84 +1,85 @@
 /**
  * @package pklib.cookie
  */
-(function (global) {
+
+/**
+ * Cookie service manager
+ * @namespace
+ */
+pklib.cookie = (function () {
     "use strict";
 
     /**
-     * @namespace
-     * @type {Object}
+     * Read cookie by it name
+     *
+     * @private
+     * @function
+     * @param {String} name
+     * @returns {String|Null}
      */
-    var pklib = global.pklib || {},
-        document = global.document || {};
+    function get_cookie(name) {
+        if (name === undefined) {
+            return null;
+        }
+        name += "=";
+        var i, c,
+            ca = document.cookie.split(";"),
+            len = ca.length;
+
+        for (i = 0; i < len; ++i) {
+            c = ca[i];
+            while (c.charAt(0) === " ") {
+                c = c.substring(1, c.length);
+            }
+            if (c.indexOf(name) === 0) {
+                return decodeURIComponent(c.substring(name.length, c.length));
+            }
+        }
+        return null;
+    }
 
     /**
-     * Cookie service manager
-     * @namespace
+     * Create cookie file with name, value and day expired
+     *
+     * @private
+     * @function
+     * @param {String} name
+     * @param {String} value
+     * @param {Number} days
+     * @returns {String}
      */
-    pklib.cookie = {
-        /**
-         * Create cookie file with name, value and day expired
-         * @memberOf pklib.cookie
-         * @function
-         * @param {String} name
-         * @param {String} value
-         * @param {Number} days
-         * @returns {String}
-         */
-        create: function (name, value, days) {
-            var expires = "",
-                date = new Date();
+    function create_cookie(name, value, days) {
+        var expires = "",
+            date = new Date();
 
-            value = value || null;
+        value = value || null;
 
-            if (typeof days !== "undefined") {
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toGMTString();
-            }
-
-            document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
-
-            return pklib.cookie.get(name);
-        },
-
-        /**
-         * Read cookie by it name
-         * @memberOf pklib.cookie
-         * @function
-         * @param {String} name
-         * @returns {String|Null}
-         */
-        get: function (name) {
-            if (typeof name === "undefined") {
-                return null;
-            }
-            name += "=";
-            var i, c,
-                ca = document.cookie.split(";"),
-                len = ca.length;
-
-            for (i = 0; i < len; ++i) {
-                c = ca[i];
-                while (c.charAt(0) === " ") {
-                    c = c.substring(1, c.length);
-                }
-                if (c.indexOf(name) === 0) {
-                    return decodeURIComponent(c.substring(name.length, c.length));
-                }
-            }
-            return null;
-        },
-
-        /**
-         * Delete cookie by it name
-         * @memberOf pklib.cookie
-         * @function
-         * @param {String} name
-         * @returns {String}
-         */
-        remove: function (name) {
-            return pklib.cookie.create(name, undefined, -1);
+        if (days !== undefined) {
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toGMTString();
         }
-    };
 
-}(this));
+        document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+
+        return get_cookie(name);
+    }
+
+    /**
+     * Delete cookie by it name
+     *
+     * @private
+     * @function
+     * @param {String} name
+     * @returns {String}
+     */
+    function remove_cookie(name) {
+        return create_cookie(name, undefined, -1);
+    }
+
+    // public API
+    return {
+        create: create_cookie,
+        get: get_cookie,
+        remove: remove_cookie
+    };
+}());

@@ -1,67 +1,68 @@
 /**
  * @package pklib.object
  */
-(function (global) {
+
+/**
+ * Module to service object
+ * @namespace
+ */
+pklib.object = (function () {
     "use strict";
 
     /**
-     * @namespace
-     * @type {Object}
+     * Check if param is object
+     *
+     * @private
+     * @function
+     * @param {Object} obj
+     * @returns {Boolean}
      */
-    var pklib = global.pklib || {};
+    function is_object(obj) {
+        return obj && typeof obj === "object" &&
+            typeof obj.hasOwnProperty === "function" &&
+            typeof obj.isPrototypeOf === "function" &&
+            obj.length === undefined;
+    }
 
     /**
-     * Module to service object
-     * @namespace
+     * Mix two params, from second to first param. Return first param mixin with second param
+     *
+     * @private
+     * @function
+     * @param {Array|Object} target
+     * @param {Array|Object} source
+     * @returns {Array}
      */
-    pklib.object =  {
-        /**
-         * Check if param is object
-         * @memberOf pklib.object
-         * @function
-         * @param {Object} obj
-         * @returns {Boolean}
-         */
-        is_object: function (obj) {
-            return obj && typeof obj === "object" &&
-                typeof obj.hasOwnProperty === "function" &&
-                typeof obj.isPrototypeOf === "function" &&
-                typeof obj.length === "undefined";
-        },
+    function mixin(target, source) {
+        var i, len, element, item;
 
-        /**
-         * Mix two params, from second to first param. Return first param mixin with second param
-         * @memberOf pklib.object
-         * @function
-         * @param {Array|Object} target
-         * @param {Array|Object} source
-         * @returns {Array}
-         */
-        mixin: function (target, source) {
-            var i, len, element, item;
-
-            if (pklib.array.is_array(target) && pklib.array.is_array(source)) {
-                len = source.length;
-                for (i = 0; i < len; ++i) {
-                    element = source[i];
-                    if (!pklib.array.in_array(element, target)) {
-                        target.push(element);
-                    }
+        if (pklib.array.is_array(target) && pklib.array.is_array(source)) {
+            len = source.length;
+            for (i = 0; i < len; ++i) {
+                element = source[i];
+                if (!pklib.array.in_array(element, target)) {
+                    target.push(element);
                 }
-                target.sort();
-            } else {
-                for (item in source) {
-                    if (source.hasOwnProperty(item)) {
-                        if (pklib.object.is_object(target[item])) {
-                            target[item] = pklib.object.mixin(target[item], source[item]);
-                        } else {
-                            target[item] = source[item];
-                        }
+            }
+            target.sort();
+        } else {
+            for (item in source) {
+                if (source.hasOwnProperty(item)) {
+                    if (pklib.object.is_object(target[item])) {
+                        target[item] = pklib.object.mixin(target[item], source[item]);
+                    } else {
+                        target[item] = source[item];
                     }
                 }
             }
-            return target;
         }
-    };
+        return target;
+    }
 
-}(this));
+    // public API
+    return {
+        is_object: is_object,
+        mixin: mixin
+    };
+}());
+

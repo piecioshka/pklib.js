@@ -1,127 +1,77 @@
 /**
  * @package pklib.url
  */
-(function (global) {
+
+/**
+ * Url helper manager
+ * @namespace
+ */
+pklib.url = (function () {
     "use strict";
 
     /**
-     * @namespace
-     * @type {Object}
+     * Get all params, and return in JSON object
+     *
+     * @private
+     * @function
+     * @returns {Object}
      */
-    var pklib = global.pklib || {},
-        /**
-         * Document.location object
-         * @private
-         * @type {Object}
-         */
-        loc = global.location || {};
+    function get_params() {
+        var i,
+            item,
+            len,
+            params = window.location.search,
+            params_list = {};
+
+        if (params.substr(0, 1) === "?") {
+            params = params.substr(1);
+        }
+
+        params = params.split("&");
+        len = params.length;
+
+        for (i = 0; i < len; ++i) {
+            item = params[i].split("=");
+            params_list[item[0]] = item[1];
+        }
+        return params_list;
+    }
 
     /**
-     * Url helper manager
-     * @namespace
+     * Get concrete param from URL.
+     * If param if not defined return null
+     *
+     * @private
+     * @function
+     * @param {String} key
+     * @returns {String}
      */
-    pklib.url = {
-        /**
-         * @memberOf pklib.url
-         * @function
-         * @returns {String}
-         */
-        get_protocol: function () {
-            return loc.protocol;
-        },
+    function get_param(key) {
+        var params = window.location.search,
+            i,
+            item,
+            len;
 
-        /**
-         * @memberOf pklib.url
-         * @function
-         * @returns {String}
-         */
-        get_host: function () {
-            return loc.host;
-        },
-
-        /**
-         * @memberOf pklib.url
-         * @function
-         * @returns {String}
-         */
-        get_port: function () {
-            return loc.port || 80;
-        },
-
-        /**
-         * @memberOf pklib.url
-         * @function
-         * @returns {String}
-         */
-        get_uri: function () {
-            return loc.pathname;
-        },
-
-        /**
-         * Get all params, and return in JSON object
-         * @memberOf pklib.url
-         * @function
-         * @returns {Object}
-         */
-        get_params: function () {
-            var i,
-                item,
-                len,
-                params = loc.search,
-                params_list = {};
-
-            if (params.substr(0, 1) === "?") {
-                params = params.substr(1);
-            }
-
-            params = params.split("&");
-            len = params.length;
-
-            for (i = 0; i < len; ++i) {
-                item = params[i].split("=");
-                params_list[item[0]] = item[1];
-            }
-            return params_list;
-        },
-
-        /**
-         * Get concrete param from URL.
-         * If param if not defined return null
-         * @memberOf pklib.url
-         * @function
-         * @param {String} key
-         * @returns {String}
-         */
-        get_param: function (key) {
-            var params = loc.search,
-                i,
-                item,
-                len;
-
-            if (params.substr(0, 1) === "?") {
-                params = params.substr(1);
-            }
-
-            params = params.split("&");
-            len = params.length;
-
-            for (i = 0; i < len; ++i) {
-                item = params[i].split("=");
-                if (item[0] === key) {
-                    return item[1];
-                }
-            }
-            return null;
-        },
-
-        /**
-         * @memberOf pklib.url
-         * @function
-         * @returns {String}
-         */
-        get_hash: function () {
-            return loc.hash;
+        if (params.substr(0, 1) === "?") {
+            params = params.substr(1);
         }
-    };
 
-}(this));
+        params = params.split("&");
+        len = params.length;
+
+        for (i = 0; i < len; ++i) {
+            item = params[i].split("=");
+            if (item[0] === key) {
+                return item[1];
+            }
+        }
+        return null;
+    }
+
+    // public API
+    return {
+        get_params: get_params,
+        get_param: get_param
+    };
+}());
+

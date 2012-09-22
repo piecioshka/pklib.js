@@ -1,7 +1,9 @@
 /**
- * pklib JavaScript library v1.1.0
+ * pklib JavaScript library v1.1.1
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
+ *
+ * MIT License
  * 
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,37 +26,45 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Wed Jul 18 00:41:11 CEDT 2012
+ * Date: Sat Sep 22 16:01:17 CEST 2012
  */
 
 /*jslint plusplus: true, regexp: true */
-/*global setInterval, clearInterval, setTimeout */
+/*global window, document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */
 
-(function (global) {
+var pklib;
+pklib = (function () {
     "use strict";
-
-    /********************************************************************************/
-    /* THIS CONTRUCTION IS FOR BETTER VIEW IN DOCUMENTATION*/
-    /********************************************************************************/
 
     /**
      * Global object, contain modules
      * @namespace
      * @type {Object}
      */
-    var pklib = {
+    return {
         author: "Piotr Kowalski",
         www: "http://pklib.com/",
         version: "1.1.0"
     };
-
-    global.pklib = pklib;
-
-}(this));
+}());
 
 if (typeof Function.prototype.bind !== "function") {
+    /**
+     * Creates a new function that, when called, itself calls this function in the context of the provided this value,
+     * with a given sequence of arguments preceding any provided when the new function was called.
+     *
+     * <pre>
+     * Method of "Function"
+     * Implemented in	JavaScript 1.8.5
+     * ECMAScript Edition	ECMAScript 5th Edition
+     * </pre>
+     *
+     * @param {*} that Context
+     * @returns {Function}
+     */
     Function.prototype.bind = function (that) {
         "use strict";
+
         var method = this,
             slice = Array.prototype.slice,
             args = slice.apply(arguments, [1]);
