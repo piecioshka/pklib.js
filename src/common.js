@@ -31,7 +31,7 @@ pklib.common = (function () {
      * @private
      * @function
      * @param {Function} defer_function Function what would be deferred
-     * @param {Number} milliseconds Time to deferred function
+     * @param {Number} [milliseconds] Time to deferred function
      */
     function defer(defer_function, milliseconds) {
         milliseconds = milliseconds || 0;

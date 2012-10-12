@@ -132,7 +132,7 @@ pklib.dom = (function () {
      * @private
      * @function
      * @param {String} tag
-     * @param {Element} element
+     * @param {Element} [element]
      * @returns {NodeList}
      */
     function by_tag(tag, element) {
@@ -146,24 +146,20 @@ pklib.dom = (function () {
      * @private
      * @function
      * @param {String} css_class
-     * @param {HTMLElement} wrapper
-     * @returns {NodeList|Array}
+     * @param {HTMLElement} [wrapper]
+     * @returns {Array}
      */
     function by_class(css_class, wrapper) {
-        var results;
+        var results = [];
 
         wrapper = wrapper || document;
 
-        if (wrapper.getElementsByClassName) {
-            results = wrapper.getElementsByClassName(css_class);
-        } else {
-            results = [];
-            walk_the_dom(wrapper, function (node) {
-                if (pklib.dom.is_element(node) && pklib.css.has_class(css_class, node)) {
-                    results.push(node);
-                }
-            });
-        }
+        walk_the_dom(wrapper, function (node) {
+            if (pklib.dom.is_element(node) && pklib.css.has_class(css_class, node)) {
+                results.push(node);
+            }
+        });
+
         return results;
     }
 

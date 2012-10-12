@@ -33,13 +33,8 @@ buster.testCase("pklib.array", {
     },
 
     "remove": function () {
-        var array = [ 1 ];
-        var temp = [ 1 ];
-        var element = 3;
-        var element2 = 4;
-        array.push(element);
-        array.push(element2);
-        pklib.array.remove(array, element, element2);
-        assert.equals(array, temp, "Elements in array removed");
+        var array = [1, 2, 3, 4];
+        pklib.array.remove(array, 2, 3);
+        assert.equals(array.length, 2, "Elements in array removed");
     }
 });

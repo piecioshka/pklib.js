@@ -32,21 +32,7 @@
 /*jslint plusplus: true, regexp: true */
 /*global window, document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */
 
-var pklib;
-pklib = (function () {
-    "use strict";
-
-    /**
-     * Global object, contain modules
-     * @namespace
-     * @type {Object}
-     */
-    return {
-        author: "Piotr Kowalski",
-        www: "http://pklib.com/",
-        version: "1.1.0"
-    };
-}());
+var pklib = {};
 
 if (typeof Function.prototype.bind !== "function") {
     /**
@@ -74,6 +60,7 @@ if (typeof Function.prototype.bind !== "function") {
         };
     };
 }
+
 /**
  * @package pklib.ajax
  * @dependence pklib.array, pklib.common
@@ -597,7 +584,7 @@ pklib.array = (function () {
  * @function
  * @param {Function} fun The function to bind aspect function
  * @param {Function} asp The aspect function
- * @param {String} [when="before"] Place to aspect function
+ * @param {String} [when] Place to aspect function
  * @throws {TypeError} If any param is not function
  * @returns {Function}
  */
@@ -726,7 +713,7 @@ pklib.common = (function () {
      * @private
      * @function
      * @param {Function} defer_function Function what would be deferred
-     * @param {Number} milliseconds Time to deferred function
+     * @param {Number} [milliseconds] Time to deferred function
      */
     function defer(defer_function, milliseconds) {
         milliseconds = milliseconds || 0;
@@ -813,8 +800,8 @@ pklib.cookie = (function () {
      * @private
      * @function
      * @param {String} name
-     * @param {String} value
-     * @param {Number} days
+     * @param {String} [value]
+     * @param {Number} [days]
      * @returns {String}
      */
     function create_cookie(name, value, days) {
@@ -1111,7 +1098,7 @@ pklib.dom = (function () {
      * @private
      * @function
      * @param {String} tag
-     * @param {Element} element
+     * @param {Element} [element]
      * @returns {NodeList}
      */
     function by_tag(tag, element) {
@@ -1125,24 +1112,20 @@ pklib.dom = (function () {
      * @private
      * @function
      * @param {String} css_class
-     * @param {HTMLElement} wrapper
-     * @returns {NodeList|Array}
+     * @param {HTMLElement} [wrapper]
+     * @returns {Array}
      */
     function by_class(css_class, wrapper) {
-        var results;
+        var results = [];
 
         wrapper = wrapper || document;
 
-        if (wrapper.getElementsByClassName) {
-            results = wrapper.getElementsByClassName(css_class);
-        } else {
-            results = [];
-            walk_the_dom(wrapper, function (node) {
-                if (pklib.dom.is_element(node) && pklib.css.has_class(css_class, node)) {
-                    results.push(node);
-                }
-            });
-        }
+        walk_the_dom(wrapper, function (node) {
+            if (pklib.dom.is_element(node) && pklib.css.has_class(css_class, node)) {
+                results.push(node);
+            }
+        });
+
         return results;
     }
 
@@ -2561,7 +2544,7 @@ pklib.utils = (function () {
     /**
      * @private
      * @function
-     * @param {HTMLElement} area
+     * @param {HTMLElement} [area]
      */
     function outerlink(area) {
         var i, len,
@@ -2584,7 +2567,7 @@ pklib.utils = (function () {
      * @private
      * @function
      * @param {HTMLElement} element
-     * @param {String} [text="Sure?"]
+     * @param {String} [text]
      */
     function confirm(element, text) {
         var response;

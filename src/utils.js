@@ -66,7 +66,7 @@ pklib.utils = (function () {
     /**
      * @private
      * @function
-     * @param {HTMLElement} area
+     * @param {HTMLElement} [area]
      */
     function outerlink(area) {
         var i, len,
@@ -89,7 +89,7 @@ pklib.utils = (function () {
      * @private
      * @function
      * @param {HTMLElement} element
-     * @param {String} [text="Sure?"]
+     * @param {String} [text]
      */
     function confirm(element, text) {
         var response;

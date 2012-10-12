@@ -10,7 +10,7 @@
  * @function
  * @param {Function} fun The function to bind aspect function
  * @param {Function} asp The aspect function
- * @param {String} [when="before"] Place to aspect function
+ * @param {String} [when] Place to aspect function
  * @throws {TypeError} If any param is not function
  * @returns {Function}
  */

@@ -44,8 +44,8 @@ pklib.cookie = (function () {
      * @private
      * @function
      * @param {String} name
-     * @param {String} value
-     * @param {Number} days
+     * @param {String} [value]
+     * @param {Number} [days]
      * @returns {String}
      */
     function create_cookie(name, value, days) {

@@ -32,21 +32,7 @@
 /*jslint plusplus: true, regexp: true */
 /*global window, document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */
 
-var pklib;
-pklib = (function () {
-    "use strict";
-
-    /**
-     * Global object, contain modules
-     * @namespace
-     * @type {Object}
-     */
-    return {
-        author: "Piotr Kowalski",
-        www: "http://pklib.com/",
-        version: "1.1.0"
-    };
-}());
+var pklib = {};
 
 if (typeof Function.prototype.bind !== "function") {
     /**
@@ -74,3 +60,4 @@ if (typeof Function.prototype.bind !== "function") {
         };
     };
 }
+
