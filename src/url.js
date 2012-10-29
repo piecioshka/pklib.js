@@ -4,7 +4,6 @@
 
 /**
  * Url helper manager
- * @namespace
  */
 pklib.url = (function () {
     "use strict";
@@ -12,8 +11,6 @@ pklib.url = (function () {
     /**
      * Get all params, and return in JSON object
      *
-     * @private
-     * @function
      * @returns {Object}
      */
     function get_params() {
@@ -41,8 +38,6 @@ pklib.url = (function () {
      * Get concrete param from URL.
      * If param if not defined return null
      *
-     * @private
-     * @function
      * @param {String} key
      * @returns {String}
      */

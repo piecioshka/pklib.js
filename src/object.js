@@ -4,7 +4,6 @@
 
 /**
  * Module to service object
- * @namespace
  */
 pklib.object = (function () {
     "use strict";
@@ -12,8 +11,6 @@ pklib.object = (function () {
     /**
      * Check if param is object
      *
-     * @private
-     * @function
      * @param {Object} obj
      * @returns {Boolean}
      */
@@ -27,8 +24,6 @@ pklib.object = (function () {
     /**
      * Mix two params, from second to first param. Return first param mixin with second param
      *
-     * @private
-     * @function
      * @param {Array|Object} target
      * @param {Array|Object} source
      * @returns {Array}

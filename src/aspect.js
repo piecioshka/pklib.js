@@ -7,7 +7,6 @@
  * Create method with merge first and second.
  * Second method is run after first
  *
- * @function
  * @param {Function} fun The function to bind aspect function
  * @param {Function} asp The aspect function
  * @param {String} [when] Place to aspect function

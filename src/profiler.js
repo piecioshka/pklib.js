@@ -4,20 +4,13 @@
 
 /**
  * Time analyzer
- * @namespace
  */
 pklib.profiler = (function () {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
     var data = {};
 
     /**
-     * @private
-     * @function
      * @param {String} name
      * @returns {Number}
      */
@@ -27,8 +20,6 @@ pklib.profiler = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} name
      * @returns {Number}
      */
@@ -38,8 +29,6 @@ pklib.profiler = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} name
      * @returns {Number}
      */

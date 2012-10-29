@@ -4,7 +4,6 @@
 
 /**
  * Module to service array object
- * @namespace
  */
 pklib.array = (function () {
     "use strict";
@@ -12,8 +11,6 @@ pklib.array = (function () {
     /**
      * Check if param is array
      *
-     * @private
-     * @function
      * @param {Object} array
      * @returns {Boolean}
      */
@@ -32,8 +29,6 @@ pklib.array = (function () {
     /**
      * Check if element is in array by loop
      *
-     * @private
-     * @function
      * @param {Object} param
      * @param {Array} array
      * @returns {Boolean}
@@ -52,8 +47,6 @@ pklib.array = (function () {
      * Get index of element.
      * If couldn't find searching element, return null value
      *
-     * @private
-     * @function
      * @param {Object} item
      * @param {Array} array
      * @returns {Number|Null}
@@ -71,8 +64,6 @@ pklib.array = (function () {
     /**
      * Unique array. Delete element what was duplicated
      *
-     * @private
-     * @function
      * @param {Array} array
      * @returns {Array}
      */
@@ -93,8 +84,6 @@ pklib.array = (function () {
      * Remove element declared in infinity params without first.
      * First parameter is array object
      *
-     * @private
-     * @function
      * @param {Array} array
      * @returns {Array}
      */

@@ -5,15 +5,10 @@
 
 /**
  * Show glass on dimensions on browser
- * @namespace
  */
 pklib.ui.glass = (function () {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
     var id = "pklib-glass-wrapper",
         settings = {
             container: null,
@@ -28,8 +23,6 @@ pklib.ui.glass = (function () {
         };
 
     /**
-     * @private
-     * @function
      * @param {Object} config
      * @param {Function} callback
      * @returns {HTMLElement}
@@ -69,8 +62,6 @@ pklib.ui.glass = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {Function} callback
      * @returns {Boolean}
      */
@@ -95,10 +86,6 @@ pklib.ui.glass = (function () {
 
     // public API
     return {
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {String}
-         */
         obj_id: id,
 
         show: show_glass,

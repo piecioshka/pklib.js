@@ -4,7 +4,6 @@
 
 /**
  * Helper about manage event on HTMLElement
- * @namespace
  */
 pklib.event = (function () {
     "use strict";
@@ -12,8 +11,6 @@ pklib.event = (function () {
     /**
      * Add event to Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} target
      * @param {String} event_name
      * @param {Function} handler
@@ -46,8 +43,6 @@ pklib.event = (function () {
     /**
      * Remove event from Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} target
      * @param {String} event_name
      */
@@ -87,8 +82,6 @@ pklib.event = (function () {
     /**
      * Get array with events with concrete name
      *
-     * @private
-     * @function
      * @param {HTMLElement} target
      * @param {String} event_name
      * @returns {Array|Undefined}
@@ -103,8 +96,6 @@ pklib.event = (function () {
     /**
      * Run events on Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} target
      * @param {String} event_name
      */

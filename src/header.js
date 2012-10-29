@@ -32,7 +32,9 @@
 /*jslint plusplus: true, regexp: true */
 /*global window, document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */
 
-var pklib = {};
+var pklib = {
+    version: "1.1.1"
+};
 
 if (typeof Function.prototype.bind !== "function") {
     /**

@@ -5,14 +5,11 @@
 
 /**
  * Check ui dimensions
- * @namespace
  */
 pklib.ui.size = (function () {
     "use strict";
 
     /**
-     * @private
-     * @function
      * @param {String} name
      * @throws {TypeError}
      * @returns {Number}
@@ -29,8 +26,6 @@ pklib.ui.size = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} name
      * @returns {Number}
      */
@@ -53,8 +48,6 @@ pklib.ui.size = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} obj
      * @param {String} name
      * @returns {Number}

@@ -4,24 +4,18 @@
 
 /**
  * Get best information about browser
- * @namespace
  */
 pklib.browser = (function (global) {
     "use strict";
 
     /**
      * Array with browsers name
-     *
-     * @private
-     * @type {Array}
      */
     var browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 
     /**
      * Get browser name by checking userAgent in global object navigator
      *
-     * @private
-     * @function
      * @returns {String}
      */
     function get_name() {
@@ -42,8 +36,6 @@ pklib.browser = (function (global) {
      * Get browser version by checking userAgent.
      * Parse userAgent to find next 3 characters
      *
-     * @private
-     * @function
      * @returns {String|Null}
      */
     function get_version() {

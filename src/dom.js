@@ -5,7 +5,6 @@
 
 /**
  * Helper related with DOM service
- * @namespace
  */
 pklib.dom = (function () {
     "use strict";
@@ -31,8 +30,6 @@ pklib.dom = (function () {
     /**
      * Walking on every node in node
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @param {Function} func Run on every node
      */
@@ -50,8 +47,6 @@ pklib.dom = (function () {
     /**
      * Check if param is Node, with use assertions
      *
-     * @private
-     * @function
      * @param {Node} node
      * @returns {String}
      */
@@ -68,8 +63,6 @@ pklib.dom = (function () {
     /**
      * Check if param is NodeList, with use assertions
      *
-     * @private
-     * @function
      * @param {NodeList} node_list
      * @returns {String}
      */
@@ -88,8 +81,6 @@ pklib.dom = (function () {
     /**
      * Check if param is instanceOf Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {String}
      */
@@ -100,8 +91,6 @@ pklib.dom = (function () {
     /**
      * Check visibility of Node, with use assertions
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {Boolean}
      */
@@ -117,8 +106,6 @@ pklib.dom = (function () {
     /**
      * Get element by attribute ID
      *
-     * @private
-     * @function
      * @param {String} id
      * @returns {HTMLElement|Null}
      */
@@ -129,8 +116,6 @@ pklib.dom = (function () {
     /**
      * Get elements by tag name
      *
-     * @private
-     * @function
      * @param {String} tag
      * @param {Element} [element]
      * @returns {NodeList}
@@ -143,8 +128,6 @@ pklib.dom = (function () {
     /**
      * Get elements by attribute CLASS
      *
-     * @private
-     * @function
      * @param {String} css_class
      * @param {HTMLElement} [wrapper]
      * @returns {Array}
@@ -166,8 +149,6 @@ pklib.dom = (function () {
     /**
      * Get index of node relative siblings
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {Number|Null}
      */
@@ -188,8 +169,6 @@ pklib.dom = (function () {
     /**
      * Get children of element filter by Element type
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {Array}
      */
@@ -211,8 +190,6 @@ pklib.dom = (function () {
      * Insert data to Node. Maybe param is string so insert will be exec by innerHTML,
      * but if param is Node inserting will be by appendChild() function
      *
-     * @private
-     * @function
      * @param {HTMLElement|String} element
      * @param {HTMLElement} node
      * @returns {HTMLElement}
@@ -229,8 +206,6 @@ pklib.dom = (function () {
     /**
      * Remove Element specified in params
      *
-     * @private
-     * @function
      * @param {HTMLElement}
      */
     function remove() {
@@ -250,8 +225,6 @@ pklib.dom = (function () {
     /**
      * Get prev Node what will be Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {HTMLElement|Null}
      */
@@ -273,8 +246,6 @@ pklib.dom = (function () {
     /**
      * Get next Node what will be Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {HTMLElement|Null}
      */
@@ -296,8 +267,6 @@ pklib.dom = (function () {
     /**
      * Get parent element what will by Element, but if parent is not exists returns Null
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {HTMLElement|Null}
      */

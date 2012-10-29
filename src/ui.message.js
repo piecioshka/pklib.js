@@ -5,15 +5,10 @@
 
 /**
  * Show layer on special place.
- * @namespace
  */
 pklib.ui.message = (function () {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
     var id = "pklib-message-wrapper",
         settings = {
             container: null,
@@ -25,8 +20,6 @@ pklib.ui.message = (function () {
         };
 
     /**
-     * @private
-     * @function
      * @param {Object} config
      * @param {Function} callback
      * @returns {HTMLElement}
@@ -64,8 +57,6 @@ pklib.ui.message = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {Function} callback
      * @returns {Boolean}
      */
@@ -88,16 +79,8 @@ pklib.ui.message = (function () {
 
     // public API
     return {
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {String}
-         */
         obj_id: id,
 
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {HTMLElement}
-         */
         content: null,
 
         show: show_message,

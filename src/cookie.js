@@ -4,7 +4,6 @@
 
 /**
  * Cookie service manager
- * @namespace
  */
 pklib.cookie = (function () {
     "use strict";
@@ -12,8 +11,6 @@ pklib.cookie = (function () {
     /**
      * Read cookie by it name
      *
-     * @private
-     * @function
      * @param {String} name
      * @returns {String|Null}
      */
@@ -41,8 +38,6 @@ pklib.cookie = (function () {
     /**
      * Create cookie file with name, value and day expired
      *
-     * @private
-     * @function
      * @param {String} name
      * @param {String} [value]
      * @param {Number} [days]
@@ -67,8 +62,6 @@ pklib.cookie = (function () {
     /**
      * Delete cookie by it name
      *
-     * @private
-     * @function
      * @param {String} name
      * @returns {String}
      */

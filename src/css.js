@@ -5,24 +5,18 @@
 
 /**
  * Utils method related css on tags in DOM tree
- * @namespace
  */
 pklib.css = (function () {
     "use strict";
 
     /**
      * RegExp use to delete white chars
-     *
-     * @private
-     * @type {RegExp}
      */
     var rclass = /[\n\t\r]/g;
 
     /**
      * Check typeof params
      *
-     * @private
-     * @function
      * @param {String} css_class
      * @param {HTMLElement} element
      * @throws {TypeError} If first param is not string, or second param is not Node
@@ -36,8 +30,6 @@ pklib.css = (function () {
     /**
      * Add CSS class to element define in second parameter
      *
-     * @private
-     * @function
      * @param {String} css_class
      * @param {HTMLElement} element
      * @throws {TypeError} If first param is not string, or second param is not Node
@@ -58,8 +50,6 @@ pklib.css = (function () {
     /**
      * Remove CSS class from element define in second parameter
      *
-     * @private
-     * @function
      * @param {String} css_class
      * @param {HTMLElement} element
      * @throws {TypeError} If first param is not string, or second param is not Node
@@ -73,8 +63,6 @@ pklib.css = (function () {
     /**
      * Check if element has CSS class
      *
-     * @private
-     * @function
      * @param {String} css_class
      * @param {HTMLElement} element
      * @throws {TypeError} If first param is not string, or second param is not Node

@@ -4,14 +4,11 @@
 
 /**
  * String service manager
- * @namespace
  */
 pklib.string = (function () {
     "use strict";
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {Boolean}
      */
@@ -20,8 +17,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {Boolean}
      */
@@ -30,8 +25,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -40,8 +33,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -74,8 +65,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -84,8 +73,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -96,8 +83,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -112,8 +97,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -129,8 +112,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source Text to slice
      * @param {Number} length Number of chars what string will be slice
      * @param {Boolean} [is_force] Force mode. If slice will be end in middle of word, use this to save it, or algorytm slice to last space
@@ -183,12 +164,10 @@ pklib.string = (function () {
      * Tags:
      * ${NAME} - replace by value of object["NAME"]
      *
-     * @private
-     * @function
      * @param {String} str Some string to replace by objects
      * @param {Object} obj Object what will serve data to replacer
      *
-     * @example.
+     * @example
      *
      * In: 
      * %{car} is the best!

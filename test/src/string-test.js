@@ -107,7 +107,7 @@ buster.testCase("pklib.string", {
     },
 
     "slice": function () {
-        var text = "", result = "";
+        var text, result;
 
         text = "morze jest długie";
         result = "morze...";

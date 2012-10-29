@@ -4,20 +4,13 @@
 
 /**
  * JS file loader
- * @namespace
  */
 pklib.file = (function () {
     "use strict";
 
-    /**
-     * @private
-     * @type {Array}
-     */
     var copy_files = [];
 
     /**
-     * @private
-     * @function
      * @param {String} url
      * @param {Function} callback
      */
@@ -32,8 +25,6 @@ pklib.file = (function () {
         if (script.readyState === undefined) {
             /**
              * Method run when request has ended
-             * @memberOf script
-             * @function
              */
             script.onload = function () {
                 if (typeof callback === "function") {
@@ -43,8 +34,6 @@ pklib.file = (function () {
         } else {
             /**
              * Method run when request has change state
-             * @memberOf script
-             * @function
              */
             script.onreadystatechange = function () {
                 if (script.readyState === "loaded" || script.readyState === "complete") {
@@ -67,8 +56,6 @@ pklib.file = (function () {
      * Load JS files. Url to files could be with path absolute or not.
      * If you must load more than 1 file use array, to set url to files
      *
-     * @private
-     * @function
      * @param {String|Array} files
      * @param {Function} callback
      */

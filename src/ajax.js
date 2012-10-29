@@ -6,50 +6,30 @@
 /**
  * Service to send request to server.
  * With first param, which is hashmap, define params, ex. request url
- * @namespace
  */
 pklib.ajax = (function () {
     "use strict";
 
     var /**
          * Default time what is timeout to use function pklib.ajax
-         *
-         * @private
-         * @constant
-         * @type {Number}
          */
         DEFAULT_TIMEOUT_TIME = 30000,
 
-        /**
-         * @private
-         * @constant
-         * @type {Number}
-         */
         REQUEST_STATE_UNSENT = 0,
 
         // REQUEST_STATE_OPENED = 1,
         // REQUEST_STATE_HEADERS_RECEIVED = 2,
         // REQUEST_STATE_LOADING = 3,
-        /**
-         * @private
-         * @constant
-         * @type {Number}
-         */
         REQUEST_STATE_DONE = 4,
 
         /**
          * Array contain key as url, value as ajax response
-         *
-         * @private
-         * @type {Array}
          */
         cache = [];
 
     /**
      * When success request
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -77,8 +57,6 @@ pklib.ajax = (function () {
     /**
      * When error request
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -90,8 +68,6 @@ pklib.ajax = (function () {
     /**
      * Use when state in request is changed or if used cache is handler to request.
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -116,8 +92,6 @@ pklib.ajax = (function () {
     /**
      * Handler to unusually situation - timeout.
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      * @throws {Error} If exists timeout on request
@@ -132,8 +106,6 @@ pklib.ajax = (function () {
     /**
      * Method use when request has timeout
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      * @throws {Error} If exists timeout on request
@@ -151,8 +123,6 @@ pklib.ajax = (function () {
     /**
      * Try to create Internet Explorer XMLHttpRequest
      *
-     * @private
-     * @function
      * @throws {Error} If can not create XMLHttpRequest object
      * @returns {ActiveXObject|Undefined}
      */
@@ -173,8 +143,6 @@ pklib.ajax = (function () {
     /**
      * Try to create XMLHttpRequest
      *
-     * @private
-     * @function
      * @throws {Error} If can not create XMLHttpRequest object
      * @returns {XMLHttpRequest|Undefined}
      */
@@ -191,8 +159,6 @@ pklib.ajax = (function () {
     /**
      * Add headers to xhr object
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -212,8 +178,6 @@ pklib.ajax = (function () {
     /**
      * Add timeout service to xhr object
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -228,8 +192,6 @@ pklib.ajax = (function () {
     /**
      * Add error service to xhr object
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -242,8 +204,6 @@ pklib.ajax = (function () {
     /**
      * Check is response on this request is in cache
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @returns {Boolean}
      */
@@ -254,8 +214,6 @@ pklib.ajax = (function () {
     /**
      * Return object what is default configuration of request
      *
-     * @private
-     * @function
      * @returns {Object} Default configuration
      */
     function get_default_settings() {
@@ -292,8 +250,6 @@ pklib.ajax = (function () {
      * Check url in request is defined.
      * Throw error if is undefined
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @throws {Error} If unset request url
      */
@@ -310,8 +266,6 @@ pklib.ajax = (function () {
          * Method on first try to can create XMLHttpRequest if browser doesn't support, check
          * if browser support object ActiveXObject which is implemented in Internet Explorer.
          *
-         * @memberOf pklib.ajax
-         * @function
          * @param {Object} config
          * <pre>
          * {
@@ -374,8 +328,6 @@ pklib.ajax = (function () {
         /**
          * Stop request setting in param
          *
-         * @memberOf pklib.ajax
-         * @function
          * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object, or ActiveXObject object if Internet Explorer
          */
         stop: function (xhr) {

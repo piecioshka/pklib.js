@@ -6,15 +6,10 @@
 /**
  * Loader adapter.
  * Show animate image (GIF) on special place.
- * @namespace
  */
 pklib.ui.loader = (function () {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
     var id = "pklib-loader-wrapper",
         settings = {
             src: "",
@@ -28,8 +23,6 @@ pklib.ui.loader = (function () {
         };
 
     /**
-     * @private
-     * @function
      * @param {object} config
      * @param {function} callback
      */
@@ -68,8 +61,6 @@ pklib.ui.loader = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {Function} callback
      * @returns {Boolean}
      */
@@ -92,10 +83,6 @@ pklib.ui.loader = (function () {
 
     // public API
     return {
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {String}
-         */
         obj_id: id,
 
         show: show_loader,

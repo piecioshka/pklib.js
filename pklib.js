@@ -32,7 +32,9 @@
 /*jslint plusplus: true, regexp: true */
 /*global window, document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */
 
-var pklib = {};
+var pklib = {
+    version: "1.1.1"
+};
 
 if (typeof Function.prototype.bind !== "function") {
     /**
@@ -69,50 +71,30 @@ if (typeof Function.prototype.bind !== "function") {
 /**
  * Service to send request to server.
  * With first param, which is hashmap, define params, ex. request url
- * @namespace
  */
 pklib.ajax = (function () {
     "use strict";
 
     var /**
          * Default time what is timeout to use function pklib.ajax
-         *
-         * @private
-         * @constant
-         * @type {Number}
          */
         DEFAULT_TIMEOUT_TIME = 30000,
 
-        /**
-         * @private
-         * @constant
-         * @type {Number}
-         */
         REQUEST_STATE_UNSENT = 0,
 
         // REQUEST_STATE_OPENED = 1,
         // REQUEST_STATE_HEADERS_RECEIVED = 2,
         // REQUEST_STATE_LOADING = 3,
-        /**
-         * @private
-         * @constant
-         * @type {Number}
-         */
         REQUEST_STATE_DONE = 4,
 
         /**
          * Array contain key as url, value as ajax response
-         *
-         * @private
-         * @type {Array}
          */
         cache = [];
 
     /**
      * When success request
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -140,8 +122,6 @@ pklib.ajax = (function () {
     /**
      * When error request
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -153,8 +133,6 @@ pklib.ajax = (function () {
     /**
      * Use when state in request is changed or if used cache is handler to request.
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -179,8 +157,6 @@ pklib.ajax = (function () {
     /**
      * Handler to unusually situation - timeout.
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      * @throws {Error} If exists timeout on request
@@ -195,8 +171,6 @@ pklib.ajax = (function () {
     /**
      * Method use when request has timeout
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      * @throws {Error} If exists timeout on request
@@ -214,8 +188,6 @@ pklib.ajax = (function () {
     /**
      * Try to create Internet Explorer XMLHttpRequest
      *
-     * @private
-     * @function
      * @throws {Error} If can not create XMLHttpRequest object
      * @returns {ActiveXObject|Undefined}
      */
@@ -236,8 +208,6 @@ pklib.ajax = (function () {
     /**
      * Try to create XMLHttpRequest
      *
-     * @private
-     * @function
      * @throws {Error} If can not create XMLHttpRequest object
      * @returns {XMLHttpRequest|Undefined}
      */
@@ -254,8 +224,6 @@ pklib.ajax = (function () {
     /**
      * Add headers to xhr object
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -275,8 +243,6 @@ pklib.ajax = (function () {
     /**
      * Add timeout service to xhr object
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -291,8 +257,6 @@ pklib.ajax = (function () {
     /**
      * Add error service to xhr object
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -305,8 +269,6 @@ pklib.ajax = (function () {
     /**
      * Check is response on this request is in cache
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @returns {Boolean}
      */
@@ -317,8 +279,6 @@ pklib.ajax = (function () {
     /**
      * Return object what is default configuration of request
      *
-     * @private
-     * @function
      * @returns {Object} Default configuration
      */
     function get_default_settings() {
@@ -355,8 +315,6 @@ pklib.ajax = (function () {
      * Check url in request is defined.
      * Throw error if is undefined
      *
-     * @private
-     * @function
      * @param {Object} settings
      * @throws {Error} If unset request url
      */
@@ -373,8 +331,6 @@ pklib.ajax = (function () {
          * Method on first try to can create XMLHttpRequest if browser doesn't support, check
          * if browser support object ActiveXObject which is implemented in Internet Explorer.
          *
-         * @memberOf pklib.ajax
-         * @function
          * @param {Object} config
          * <pre>
          * {
@@ -437,8 +393,6 @@ pklib.ajax = (function () {
         /**
          * Stop request setting in param
          *
-         * @memberOf pklib.ajax
-         * @function
          * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object, or ActiveXObject object if Internet Explorer
          */
         stop: function (xhr) {
@@ -455,7 +409,6 @@ pklib.ajax = (function () {
 
 /**
  * Module to service array object
- * @namespace
  */
 pklib.array = (function () {
     "use strict";
@@ -463,8 +416,6 @@ pklib.array = (function () {
     /**
      * Check if param is array
      *
-     * @private
-     * @function
      * @param {Object} array
      * @returns {Boolean}
      */
@@ -483,8 +434,6 @@ pklib.array = (function () {
     /**
      * Check if element is in array by loop
      *
-     * @private
-     * @function
      * @param {Object} param
      * @param {Array} array
      * @returns {Boolean}
@@ -503,8 +452,6 @@ pklib.array = (function () {
      * Get index of element.
      * If couldn't find searching element, return null value
      *
-     * @private
-     * @function
      * @param {Object} item
      * @param {Array} array
      * @returns {Number|Null}
@@ -522,8 +469,6 @@ pklib.array = (function () {
     /**
      * Unique array. Delete element what was duplicated
      *
-     * @private
-     * @function
      * @param {Array} array
      * @returns {Array}
      */
@@ -544,8 +489,6 @@ pklib.array = (function () {
      * Remove element declared in infinity params without first.
      * First parameter is array object
      *
-     * @private
-     * @function
      * @param {Array} array
      * @returns {Array}
      */
@@ -581,7 +524,6 @@ pklib.array = (function () {
  * Create method with merge first and second.
  * Second method is run after first
  *
- * @function
  * @param {Function} fun The function to bind aspect function
  * @param {Function} asp The aspect function
  * @param {String} [when] Place to aspect function
@@ -618,24 +560,18 @@ pklib.aspect = function (fun, asp, when) {
 
 /**
  * Get best information about browser
- * @namespace
  */
 pklib.browser = (function (global) {
     "use strict";
 
     /**
      * Array with browsers name
-     *
-     * @private
-     * @type {Array}
      */
     var browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
 
     /**
      * Get browser name by checking userAgent in global object navigator
      *
-     * @private
-     * @function
      * @returns {String}
      */
     function get_name() {
@@ -656,8 +592,6 @@ pklib.browser = (function (global) {
      * Get browser version by checking userAgent.
      * Parse userAgent to find next 3 characters
      *
-     * @private
-     * @function
      * @returns {String|Null}
      */
     function get_version() {
@@ -686,7 +620,6 @@ pklib.browser = (function (global) {
 
 /**
  * Common stuff
- * @namespace
  */
 pklib.common = (function () {
     "use strict";
@@ -694,8 +627,6 @@ pklib.common = (function () {
     /**
      * Basic test function. Simple assertion 2 variables
      *
-     * @private
-     * @function
      * @param {Object} expression Object what is true
      * @param {String} comment Message to throw in error
      * @throws {Error}
@@ -710,8 +641,6 @@ pklib.common = (function () {
      * Deferred function about some milliseconds.
      * If milliseconds is 0 that it's hack for some platforms to use function in "next" thread
      *
-     * @private
-     * @function
      * @param {Function} defer_function Function what would be deferred
      * @param {Number} [milliseconds] Time to deferred function
      */
@@ -724,7 +653,6 @@ pklib.common = (function () {
      * Interval checking first function until returns true,
      * run after this second function callback
      *
-     * @private
      * @param {Function} condition Function returns {Boolean} status
      * @param {Function} callback
      */
@@ -760,7 +688,6 @@ pklib.common = (function () {
 
 /**
  * Cookie service manager
- * @namespace
  */
 pklib.cookie = (function () {
     "use strict";
@@ -768,8 +695,6 @@ pklib.cookie = (function () {
     /**
      * Read cookie by it name
      *
-     * @private
-     * @function
      * @param {String} name
      * @returns {String|Null}
      */
@@ -797,8 +722,6 @@ pklib.cookie = (function () {
     /**
      * Create cookie file with name, value and day expired
      *
-     * @private
-     * @function
      * @param {String} name
      * @param {String} [value]
      * @param {Number} [days]
@@ -823,8 +746,6 @@ pklib.cookie = (function () {
     /**
      * Delete cookie by it name
      *
-     * @private
-     * @function
      * @param {String} name
      * @returns {String}
      */
@@ -846,24 +767,18 @@ pklib.cookie = (function () {
 
 /**
  * Utils method related css on tags in DOM tree
- * @namespace
  */
 pklib.css = (function () {
     "use strict";
 
     /**
      * RegExp use to delete white chars
-     *
-     * @private
-     * @type {RegExp}
      */
     var rclass = /[\n\t\r]/g;
 
     /**
      * Check typeof params
      *
-     * @private
-     * @function
      * @param {String} css_class
      * @param {HTMLElement} element
      * @throws {TypeError} If first param is not string, or second param is not Node
@@ -877,8 +792,6 @@ pklib.css = (function () {
     /**
      * Add CSS class to element define in second parameter
      *
-     * @private
-     * @function
      * @param {String} css_class
      * @param {HTMLElement} element
      * @throws {TypeError} If first param is not string, or second param is not Node
@@ -899,8 +812,6 @@ pklib.css = (function () {
     /**
      * Remove CSS class from element define in second parameter
      *
-     * @private
-     * @function
      * @param {String} css_class
      * @param {HTMLElement} element
      * @throws {TypeError} If first param is not string, or second param is not Node
@@ -914,8 +825,6 @@ pklib.css = (function () {
     /**
      * Check if element has CSS class
      *
-     * @private
-     * @function
      * @param {String} css_class
      * @param {HTMLElement} element
      * @throws {TypeError} If first param is not string, or second param is not Node
@@ -940,7 +849,6 @@ pklib.css = (function () {
 
 /**
  * Utils stack to Date object
- * @namespace
  */
 pklib.date = (function () {
     "use strict";
@@ -949,8 +857,6 @@ pklib.date = (function () {
         /**
          * Simple return month in string and file 0 at first place if month smaller than 10
          *
-         * @private
-         * @function
          * @returns {String}
          */
         get_full_month: function () {
@@ -971,7 +877,6 @@ pklib.date = (function () {
 
 /**
  * Helper related with DOM service
- * @namespace
  */
 pklib.dom = (function () {
     "use strict";
@@ -997,8 +902,6 @@ pklib.dom = (function () {
     /**
      * Walking on every node in node
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @param {Function} func Run on every node
      */
@@ -1016,8 +919,6 @@ pklib.dom = (function () {
     /**
      * Check if param is Node, with use assertions
      *
-     * @private
-     * @function
      * @param {Node} node
      * @returns {String}
      */
@@ -1034,8 +935,6 @@ pklib.dom = (function () {
     /**
      * Check if param is NodeList, with use assertions
      *
-     * @private
-     * @function
      * @param {NodeList} node_list
      * @returns {String}
      */
@@ -1054,8 +953,6 @@ pklib.dom = (function () {
     /**
      * Check if param is instanceOf Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {String}
      */
@@ -1066,8 +963,6 @@ pklib.dom = (function () {
     /**
      * Check visibility of Node, with use assertions
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {Boolean}
      */
@@ -1083,8 +978,6 @@ pklib.dom = (function () {
     /**
      * Get element by attribute ID
      *
-     * @private
-     * @function
      * @param {String} id
      * @returns {HTMLElement|Null}
      */
@@ -1095,8 +988,6 @@ pklib.dom = (function () {
     /**
      * Get elements by tag name
      *
-     * @private
-     * @function
      * @param {String} tag
      * @param {Element} [element]
      * @returns {NodeList}
@@ -1109,8 +1000,6 @@ pklib.dom = (function () {
     /**
      * Get elements by attribute CLASS
      *
-     * @private
-     * @function
      * @param {String} css_class
      * @param {HTMLElement} [wrapper]
      * @returns {Array}
@@ -1132,8 +1021,6 @@ pklib.dom = (function () {
     /**
      * Get index of node relative siblings
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {Number|Null}
      */
@@ -1154,8 +1041,6 @@ pklib.dom = (function () {
     /**
      * Get children of element filter by Element type
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {Array}
      */
@@ -1177,8 +1062,6 @@ pklib.dom = (function () {
      * Insert data to Node. Maybe param is string so insert will be exec by innerHTML,
      * but if param is Node inserting will be by appendChild() function
      *
-     * @private
-     * @function
      * @param {HTMLElement|String} element
      * @param {HTMLElement} node
      * @returns {HTMLElement}
@@ -1195,8 +1078,6 @@ pklib.dom = (function () {
     /**
      * Remove Element specified in params
      *
-     * @private
-     * @function
      * @param {HTMLElement}
      */
     function remove() {
@@ -1216,8 +1097,6 @@ pklib.dom = (function () {
     /**
      * Get prev Node what will be Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {HTMLElement|Null}
      */
@@ -1239,8 +1118,6 @@ pklib.dom = (function () {
     /**
      * Get next Node what will be Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {HTMLElement|Null}
      */
@@ -1262,8 +1139,6 @@ pklib.dom = (function () {
     /**
      * Get parent element what will by Element, but if parent is not exists returns Null
      *
-     * @private
-     * @function
      * @param {HTMLElement} node
      * @returns {HTMLElement|Null}
      */
@@ -1306,7 +1181,6 @@ pklib.dom = (function () {
 
 /**
  * Helper about manage event on HTMLElement
- * @namespace
  */
 pklib.event = (function () {
     "use strict";
@@ -1314,8 +1188,6 @@ pklib.event = (function () {
     /**
      * Add event to Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} target
      * @param {String} event_name
      * @param {Function} handler
@@ -1348,8 +1220,6 @@ pklib.event = (function () {
     /**
      * Remove event from Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} target
      * @param {String} event_name
      */
@@ -1389,8 +1259,6 @@ pklib.event = (function () {
     /**
      * Get array with events with concrete name
      *
-     * @private
-     * @function
      * @param {HTMLElement} target
      * @param {String} event_name
      * @returns {Array|Undefined}
@@ -1405,8 +1273,6 @@ pklib.event = (function () {
     /**
      * Run events on Element
      *
-     * @private
-     * @function
      * @param {HTMLElement} target
      * @param {String} event_name
      */
@@ -1442,20 +1308,13 @@ pklib.event = (function () {
 
 /**
  * JS file loader
- * @namespace
  */
 pklib.file = (function () {
     "use strict";
 
-    /**
-     * @private
-     * @type {Array}
-     */
     var copy_files = [];
 
     /**
-     * @private
-     * @function
      * @param {String} url
      * @param {Function} callback
      */
@@ -1470,8 +1329,6 @@ pklib.file = (function () {
         if (script.readyState === undefined) {
             /**
              * Method run when request has ended
-             * @memberOf script
-             * @function
              */
             script.onload = function () {
                 if (typeof callback === "function") {
@@ -1481,8 +1338,6 @@ pklib.file = (function () {
         } else {
             /**
              * Method run when request has change state
-             * @memberOf script
-             * @function
              */
             script.onreadystatechange = function () {
                 if (script.readyState === "loaded" || script.readyState === "complete") {
@@ -1505,8 +1360,6 @@ pklib.file = (function () {
      * Load JS files. Url to files could be with path absolute or not.
      * If you must load more than 1 file use array, to set url to files
      *
-     * @private
-     * @function
      * @param {String|Array} files
      * @param {Function} callback
      */
@@ -1556,7 +1409,6 @@ pklib.file = (function () {
 
 /**
  * Module to service object
- * @namespace
  */
 pklib.object = (function () {
     "use strict";
@@ -1564,8 +1416,6 @@ pklib.object = (function () {
     /**
      * Check if param is object
      *
-     * @private
-     * @function
      * @param {Object} obj
      * @returns {Boolean}
      */
@@ -1579,8 +1429,6 @@ pklib.object = (function () {
     /**
      * Mix two params, from second to first param. Return first param mixin with second param
      *
-     * @private
-     * @function
      * @param {Array|Object} target
      * @param {Array|Object} source
      * @returns {Array}
@@ -1624,20 +1472,13 @@ pklib.object = (function () {
 
 /**
  * Time analyzer
- * @namespace
  */
 pklib.profiler = (function () {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
     var data = {};
 
     /**
-     * @private
-     * @function
      * @param {String} name
      * @returns {Number}
      */
@@ -1647,8 +1488,6 @@ pklib.profiler = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} name
      * @returns {Number}
      */
@@ -1658,8 +1497,6 @@ pklib.profiler = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} name
      * @returns {Number}
      */
@@ -1681,14 +1518,11 @@ pklib.profiler = (function () {
 
 /**
  * String service manager
- * @namespace
  */
 pklib.string = (function () {
     "use strict";
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {Boolean}
      */
@@ -1697,8 +1531,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {Boolean}
      */
@@ -1707,8 +1539,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -1717,8 +1547,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -1751,8 +1579,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -1761,8 +1587,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -1773,8 +1597,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -1789,8 +1611,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source
      * @returns {String}
      */
@@ -1806,8 +1626,6 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} source Text to slice
      * @param {Number} length Number of chars what string will be slice
      * @param {Boolean} [is_force] Force mode. If slice will be end in middle of word, use this to save it, or algorytm slice to last space
@@ -1860,12 +1678,10 @@ pklib.string = (function () {
      * Tags:
      * ${NAME} - replace by value of object["NAME"]
      *
-     * @private
-     * @function
      * @param {String} str Some string to replace by objects
      * @param {Object} obj Object what will serve data to replacer
      *
-     * @example.
+     * @example
      *
      * In: 
      * %{car} is the best!
@@ -1910,14 +1726,11 @@ pklib.string = (function () {
 
 /**
  * User Interface
- * @namespace
  */
 pklib.ui = (function () {
     "use strict";
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} element
      * @param {HTMLElement} wrapper
      * @throws {TypeError} If first param is not HTMLElement
@@ -1945,8 +1758,6 @@ pklib.ui = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} element
      * @param {HTMLElement} wrapper
      * @returns {Array}
@@ -1972,8 +1783,6 @@ pklib.ui = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {Number} param
      * @param {Boolean} animate
      */
@@ -2006,15 +1815,10 @@ pklib.ui = (function () {
 
 /**
  * Show glass on dimensions on browser
- * @namespace
  */
 pklib.ui.glass = (function () {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
     var id = "pklib-glass-wrapper",
         settings = {
             container: null,
@@ -2029,8 +1833,6 @@ pklib.ui.glass = (function () {
         };
 
     /**
-     * @private
-     * @function
      * @param {Object} config
      * @param {Function} callback
      * @returns {HTMLElement}
@@ -2070,8 +1872,6 @@ pklib.ui.glass = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {Function} callback
      * @returns {Boolean}
      */
@@ -2096,10 +1896,6 @@ pklib.ui.glass = (function () {
 
     // public API
     return {
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {String}
-         */
         obj_id: id,
 
         show: show_glass,
@@ -2115,15 +1911,10 @@ pklib.ui.glass = (function () {
 /**
  * Loader adapter.
  * Show animate image (GIF) on special place.
- * @namespace
  */
 pklib.ui.loader = (function () {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
     var id = "pklib-loader-wrapper",
         settings = {
             src: "",
@@ -2137,8 +1928,6 @@ pklib.ui.loader = (function () {
         };
 
     /**
-     * @private
-     * @function
      * @param {object} config
      * @param {function} callback
      */
@@ -2177,8 +1966,6 @@ pklib.ui.loader = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {Function} callback
      * @returns {Boolean}
      */
@@ -2201,10 +1988,6 @@ pklib.ui.loader = (function () {
 
     // public API
     return {
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {String}
-         */
         obj_id: id,
 
         show: show_loader,
@@ -2219,15 +2002,10 @@ pklib.ui.loader = (function () {
 
 /**
  * Show layer on special place.
- * @namespace
  */
 pklib.ui.message = (function () {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
     var id = "pklib-message-wrapper",
         settings = {
             container: null,
@@ -2239,8 +2017,6 @@ pklib.ui.message = (function () {
         };
 
     /**
-     * @private
-     * @function
      * @param {Object} config
      * @param {Function} callback
      * @returns {HTMLElement}
@@ -2278,8 +2054,6 @@ pklib.ui.message = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {Function} callback
      * @returns {Boolean}
      */
@@ -2302,16 +2076,8 @@ pklib.ui.message = (function () {
 
     // public API
     return {
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {String}
-         */
         obj_id: id,
 
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {HTMLElement}
-         */
         content: null,
 
         show: show_message,
@@ -2326,14 +2092,11 @@ pklib.ui.message = (function () {
 
 /**
  * Check ui dimensions
- * @namespace
  */
 pklib.ui.size = (function () {
     "use strict";
 
     /**
-     * @private
-     * @function
      * @param {String} name
      * @throws {TypeError}
      * @returns {Number}
@@ -2350,8 +2113,6 @@ pklib.ui.size = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {String} name
      * @returns {Number}
      */
@@ -2374,8 +2135,6 @@ pklib.ui.size = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} obj
      * @param {String} name
      * @returns {Number}
@@ -2405,7 +2164,6 @@ pklib.ui.size = (function () {
 
 /**
  * Url helper manager
- * @namespace
  */
 pklib.url = (function () {
     "use strict";
@@ -2413,8 +2171,6 @@ pklib.url = (function () {
     /**
      * Get all params, and return in JSON object
      *
-     * @private
-     * @function
      * @returns {Object}
      */
     function get_params() {
@@ -2442,8 +2198,6 @@ pklib.url = (function () {
      * Get concrete param from URL.
      * If param if not defined return null
      *
-     * @private
-     * @function
      * @param {String} key
      * @returns {String}
      */
@@ -2483,14 +2237,11 @@ pklib.url = (function () {
 
 /**
  * Utils tools
- * @namespace
  */
 pklib.utils = (function () {
     "use strict";
 
     /**
-     * @private
-     * @function
      * @param {Event} evt
      */
     function open_trigger(evt) {
@@ -2522,8 +2273,6 @@ pklib.utils = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} obj
      */
     function clear_focus(obj) {
@@ -2542,8 +2291,6 @@ pklib.utils = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} [area]
      */
     function outerlink(area) {
@@ -2564,8 +2311,6 @@ pklib.utils = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} element
      * @param {String} [text]
      */
@@ -2594,37 +2339,15 @@ pklib.utils = (function () {
     return {
         /**
          * Numbers of chars in ASCII system
-         * @memberOf pklib.utils
-         * @field
-         * @namespace
          */
         ascii: {
-            /**
-             * @memberOf pklib.utils.ascii
-             * @field
-             * @namespace
-             */
             letters: {
-                /**
-                 * @memberOf pklib.utils.ascii.letters
-                 * @field
-                 * @type {Array}
-                 */
                 lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
 
-                /**
-                 * @memberOf pklib.utils.ascii.letters
-                 * @field
-                 * @type {Array}
-                 */
                 upper: [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
             }
         },
 
-        /**
-         * @memberOf pklib.utils
-         * @namespace
-         */
         action: {
             clearfocus: clear_focus,
             outerlink: outerlink,

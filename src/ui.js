@@ -5,14 +5,11 @@
 
 /**
  * User Interface
- * @namespace
  */
 pklib.ui = (function () {
     "use strict";
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} element
      * @param {HTMLElement} wrapper
      * @throws {TypeError} If first param is not HTMLElement
@@ -40,8 +37,6 @@ pklib.ui = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} element
      * @param {HTMLElement} wrapper
      * @returns {Array}
@@ -67,8 +62,6 @@ pklib.ui = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {Number} param
      * @param {Boolean} animate
      */
