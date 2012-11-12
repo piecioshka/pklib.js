@@ -197,19 +197,38 @@
 <span class='line'>190</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">str</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>191</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'>192</span> 
-<span class='line'>193</span> </span><span class="WHIT">    </span><span class="COMM">// public API</span><span class="WHIT">
-<span class='line'>194</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>195</span> </span><span class="WHIT">        </span><span class="NAME">is_string</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">is_string</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>196</span> </span><span class="WHIT">        </span><span class="NAME">is_letter</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">is_letter</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>197</span> </span><span class="WHIT">        </span><span class="NAME">trim</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">trim</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>198</span> </span><span class="WHIT">        </span><span class="NAME">slug</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">slug</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>199</span> </span><span class="WHIT">        </span><span class="NAME">capitalize</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">capitalize</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>200</span> </span><span class="WHIT">        </span><span class="NAME">delimiter_separated_words</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">delimiter_separated_words</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>201</span> </span><span class="WHIT">        </span><span class="NAME">strip_tags</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">strip_tags</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>202</span> </span><span class="WHIT">        </span><span class="NAME">camel_case</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">camel_case</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>203</span> </span><span class="WHIT">        </span><span class="NAME">slice</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">slice</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>204</span> </span><span class="WHIT">        </span><span class="NAME">format</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">format</span><span class="WHIT">
-<span class='line'>205</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>206</span> </span><span class="PUNC">}</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>194</span>      * Left padding any chars
+<span class='line'>195</span>      *
+<span class='line'>196</span>      * @param {String} staff Object what be padding on the lef
+<span class='line'>197</span>      * @param {Number} nr_fill Padding size
+<span class='line'>198</span>      * @param {String} add_char Char what be added
+<span class='line'>199</span>      */</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="WHIT">    </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">lpad</span><span class="PUNC">(</span><span class="NAME">staff</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nr_fill</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">add_char</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>201</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">string</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">staff.toString</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">            </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">string.length</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>203</span> 
+<span class='line'>204</span> </span><span class="WHIT">    </span><span class="TOKN"> </span><span class="TOKN"> </span><span class="WHIT">  </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">nr_fill</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">++</span><span class="NAME">i</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">        </span><span class="TOKN"> </span><span class="TOKN"> </span><span class="TOKN"> </span><span class="TOKN"> </span><span class="NAME">string</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">add_char</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">string</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">      </span><span class="TOKN"> </span><span class="TOKN"> </span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'>207</span> 
-<span class='line'>208</span> </span></pre></body></html>
+<span class='line'>208</span> </span><span class="WHIT">  </span><span class="TOKN"> </span><span class="TOKN"> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">string</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>210</span> 
+<span class='line'>211</span> </span><span class="WHIT">    </span><span class="COMM">// public API</span><span class="WHIT">
+<span class='line'>212</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="WHIT">        </span><span class="NAME">is_string</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">is_string</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">        </span><span class="NAME">is_letter</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">is_letter</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="WHIT">        </span><span class="NAME">trim</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">trim</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="WHIT">        </span><span class="NAME">slug</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">slug</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>217</span> </span><span class="WHIT">        </span><span class="NAME">capitalize</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">capitalize</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="WHIT">        </span><span class="NAME">delimiter_separated_words</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">delimiter_separated_words</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">        </span><span class="NAME">strip_tags</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">strip_tags</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">        </span><span class="NAME">camel_case</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">camel_case</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">        </span><span class="NAME">slice</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">slice</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">        </span><span class="NAME">format</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">format</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">        </span><span class="NAME">lpad</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">lpad</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="PUNC">}</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>226</span> 
+<span class='line'>227</span> </span></pre></body></html>

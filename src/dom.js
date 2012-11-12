@@ -153,6 +153,8 @@ pklib.dom = (function () {
      * @returns {Number|Null}
      */
     function index(node) {
+        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.index: @node is not HTMLElement");
+
         var i,
             parent = pklib.dom.parent(node),
             childs = pklib.dom.children(parent),
@@ -173,6 +175,8 @@ pklib.dom = (function () {
      * @returns {Array}
      */
     function children(node) {
+        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.children: @node is not HTMLElement");
+
         var i,
             array = [],
             childs = node.childNodes,
@@ -229,18 +233,21 @@ pklib.dom = (function () {
      * @returns {HTMLElement|Null}
      */
     function prev(node) {
-        var pNode;
+        var prev_node;
+
+        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.prev: @node is not HTMLElement");
+
         while (true) {
-            pNode = node.previousSibling;
-            if (pNode !== undefined &&
-                    pNode !== null &&
-                    pNode.nodeType !== node_types.ELEMENT_NODE) {
-                node = pNode;
+            prev_node = node.previousSibling;
+            if (prev_node !== undefined &&
+                    prev_node !== null &&
+                    prev_node.nodeType !== node_types.ELEMENT_NODE) {
+                node = prev_node;
             } else {
                 break;
             }
         }
-        return pNode;
+        return prev_node;
     }
 
     /**
@@ -250,18 +257,21 @@ pklib.dom = (function () {
      * @returns {HTMLElement|Null}
      */
     function next(node) {
-        var nNode;
+        var next_node;
+
+        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.next: @node is not HTMLElement");
+
         while (true) {
-            nNode = node.nextSibling;
-            if (nNode !== undefined &&
-                    nNode !== null &&
-                    nNode.nodeType !== node_types.ELEMENT_NODE) {
-                node = nNode;
+            next_node = node.nextSibling;
+            if (next_node !== undefined &&
+                    next_node !== null &&
+                    next_node.nodeType !== node_types.ELEMENT_NODE) {
+                node = next_node;
             } else {
                 break;
             }
         }
-        return nNode;
+        return next_node;
     }
 
     /**
@@ -271,18 +281,21 @@ pklib.dom = (function () {
      * @returns {HTMLElement|Null}
      */
     function parent(node) {
-        var prNode;
+        var parent_node;
+
+        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.parent: @node is not HTMLElement");
+
         while (true) {
-            prNode = node.parentNode;
-            if (prNode !== undefined &&
-                    prNode !== null &&
-                    prNode.nodeType !== node_types.ELEMENT_NODE) {
-                node = prNode;
+            parent_node = node.parentNode;
+            if (parent_node !== undefined &&
+                    parent_node !== null &&
+                    parent_node.nodeType !== node_types.ELEMENT_NODE) {
+                node = parent_node;
             } else {
                 break;
             }
         }
-        return prNode;
+        return parent_node;
     }
 
     // public API

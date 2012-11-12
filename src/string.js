@@ -190,6 +190,24 @@ pklib.string = (function () {
         return str;
     }
 
+    /**
+     * Left padding any chars
+     *
+     * @param {String} staff Object what be padding on the lef
+     * @param {Number} nr_fill Padding size
+     * @param {String} add_char Char what be added
+     */
+    function lpad(staff, nr_fill, add_char) {
+        var string = staff.toString(),
+            i = string.length;
+
+        for (; i < nr_fill; ++i) {
+            string = add_char + string;
+        }
+
+        return string;
+    }
+
     // public API
     return {
         is_string: is_string,
@@ -201,7 +219,8 @@ pklib.string = (function () {
         strip_tags: strip_tags,
         camel_case: camel_case,
         slice: slice,
-        format: format
+        format: format,
+        lpad: lpad
     };
 }());
 

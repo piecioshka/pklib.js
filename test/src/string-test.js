@@ -129,5 +129,15 @@ buster.testCase("pklib.string", {
         text = "krótki tekst";
         result = text;
         assert.equals(pklib.string.slice(text, 100), result, "Phrase: " + text);
+    },
+
+    "format": function () {
+        assert(true);
+        // TODO
+    },
+
+    "lpad": function () {
+        assert(true);
+        // TODO
     }
 });
