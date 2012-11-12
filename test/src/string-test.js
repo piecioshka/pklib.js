@@ -137,7 +137,10 @@ buster.testCase("pklib.string", {
     },
 
     "lpad": function () {
-        assert(true);
-        // TODO
+        assert.equals(pklib.string.lpad(2, 2, "0"), "02", "2 -> 02");
+    },
+
+    "rpad": function () {
+        assert.equals(pklib.string.rpad(2, 2, "0"), "20", "2 -> 20");
     }
 });

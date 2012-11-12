@@ -1720,7 +1720,7 @@ pklib.string = (function () {
     /**
      * Left padding any chars
      *
-     * @param {String} staff Object what be padding on the lef
+     * @param {String} staff Object what be padding on the left
      * @param {Number} nr_fill Padding size
      * @param {String} add_char Char what be added
      */
@@ -1735,6 +1735,24 @@ pklib.string = (function () {
         return string;
     }
 
+    /**
+     * Right padding any chars
+     *
+     * @param {String} staff Object what be padding on the right
+     * @param {Number} nr_fill Padding size
+     * @param {String} add_char Char what be added
+     */
+    function rpad(staff, nr_fill, add_char) {
+        var string = staff.toString(),
+            i = string.length;
+
+        for (; i < nr_fill; ++i) {
+            string += add_char;
+        }
+
+        return string;
+    }
+
     // public API
     return {
         is_string: is_string,
@@ -1747,7 +1765,8 @@ pklib.string = (function () {
         camel_case: camel_case,
         slice: slice,
         format: format,
-        lpad: lpad
+        lpad: lpad,
+        rpad: rpad
     };
 }());
 
