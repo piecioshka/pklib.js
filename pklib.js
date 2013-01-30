@@ -420,15 +420,10 @@ pklib.array = (function () {
      * @returns {Boolean}
      */
     function is_array(array) {
-        try {
-            pklib.common.assert(typeof array === "object" &&
-                array !== null &&
-                array.length !== undefined &&
-                array.slice !== undefined);
-            return true;
-        } catch (ignore) {
-            return false;
-        }
+        return (typeof array === "object" &&
+            array !== null &&
+            array.length !== undefined &&
+            array.slice !== undefined);
     }
 
     /**
