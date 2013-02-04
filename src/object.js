@@ -8,6 +8,8 @@
 pklib.object = (function () {
     "use strict";
 
+    var to_string = Object.prototype.toString;
+
     /**
      * Check if param is object
      *
@@ -15,10 +17,11 @@ pklib.object = (function () {
      * @returns {Boolean}
      */
     function is_object(obj) {
-        return obj && typeof obj === "object" &&
+        return obj &&
+            to_string.call(obj) === "[object Object]" &&
+            typeof obj === "object" &&
             typeof obj.hasOwnProperty === "function" &&
-            typeof obj.isPrototypeOf === "function" &&
-            obj.length === undefined;
+            typeof obj.isPrototypeOf === "function";
     }
 
     /**

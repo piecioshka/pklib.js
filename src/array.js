@@ -8,6 +8,8 @@
 pklib.array = (function () {
     "use strict";
 
+    var to_string = Object.prototype.toString;
+
     /**
      * Check if param is array
      *
@@ -15,10 +17,11 @@ pklib.array = (function () {
      * @returns {Boolean}
      */
     function is_array(array) {
-        return (typeof array === "object" &&
-            array !== null &&
-            array.length !== undefined &&
-            array.slice !== undefined);
+        return array !== null &&
+            typeof array === "object" &&
+            to_string.call(array) === "[object Array]" &&
+            typeof array.length === "number" &&
+            typeof array.slice === "function";
     }
 
     /**

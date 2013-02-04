@@ -413,6 +413,8 @@ pklib.ajax = (function () {
 pklib.array = (function () {
     "use strict";
 
+    var to_string = Object.prototype.toString;
+
     /**
      * Check if param is array
      *
@@ -420,10 +422,11 @@ pklib.array = (function () {
      * @returns {Boolean}
      */
     function is_array(array) {
-        return (typeof array === "object" &&
-            array !== null &&
-            array.length !== undefined &&
-            array.slice !== undefined);
+        return array !== null &&
+            typeof array === "object" &&
+            to_string.call(array) === "[object Array]" &&
+            typeof array.length === "number" &&
+            typeof array.slice === "function";
     }
 
     /**
@@ -1421,6 +1424,8 @@ pklib.file = (function () {
 pklib.object = (function () {
     "use strict";
 
+    var to_string = Object.prototype.toString;
+
     /**
      * Check if param is object
      *
@@ -1428,10 +1433,11 @@ pklib.object = (function () {
      * @returns {Boolean}
      */
     function is_object(obj) {
-        return obj && typeof obj === "object" &&
+        return obj &&
+            to_string.call(obj) === "[object Object]" &&
+            typeof obj === "object" &&
             typeof obj.hasOwnProperty === "function" &&
-            typeof obj.isPrototypeOf === "function" &&
-            obj.length === undefined;
+            typeof obj.isPrototypeOf === "function";
     }
 
     /**
