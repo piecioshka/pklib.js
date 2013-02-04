@@ -29,20 +29,21 @@ pklib.object = (function () {
      *
      * @param {Array|Object} target
      * @param {Array|Object} source
-     * @returns {Array}
+     * @returns {Array|Object}
      */
     function mixin(target, source) {
         var i, len, element, item;
 
         if (pklib.array.is_array(target) && pklib.array.is_array(source)) {
             len = source.length;
+
             for (i = 0; i < len; ++i) {
                 element = source[i];
-                if (!pklib.array.in_array(element, target)) {
+
+                if ( !pklib.array.in_array(element, target) ) {
                     target.push(element);
                 }
             }
-            target.sort();
         } else {
             for (item in source) {
                 if (source.hasOwnProperty(item)) {
