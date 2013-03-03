@@ -11,7 +11,7 @@ buster.testCase("pklib.object", {
     "mixin": function () {
         var a1 = [ 1, 2, 3 ],
             a2 = [ 4, "a", 0 ],
-            a3 = [ 0, 1, 2, 3, 4, "a" ];
+            a3 = [ 1, 2, 3, 4, "a", 0];
         assert.equals(pklib.object.mixin(a1, a2), a3, "Merge array are OK");
         var a4 = [ 1, 2, 3 ],
             a5 = [ ],

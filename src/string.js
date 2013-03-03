@@ -201,11 +201,11 @@ pklib.string = (function () {
         var string = staff.toString(),
             i = string.length;
 
-        for (; i < nr_fill; ++i) {
-            string = add_char + string;
-        }
+        for (; i < nr_fill; ++i) {
+            string = add_char + string;
+        }
 
-        return string;
+        return string;
     }
 
     /**
