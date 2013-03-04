@@ -72,25 +72,49 @@ if (typeof Function.prototype.bind !== "function") {
  * Service to send request to server.
  * With first param, which is hashmap, define params, ex. request url
  */
-pklib.ajax = (function () {
+(function (exports) {
     "use strict";
 
-    var /**
-         * Default time what is timeout to use function pklib.ajax
-         */
-        DEFAULT_TIMEOUT_TIME = 30000,
+    var pklib = exports.pklib;
 
-        REQUEST_STATE_UNSENT = 0,
+    // Default time what is timeout to use function pklib.ajax
+    var DEFAULT_TIMEOUT_TIME = 30 * 1000; // 30 sekund
 
-        // REQUEST_STATE_OPENED = 1,
-        // REQUEST_STATE_HEADERS_RECEIVED = 2,
-        // REQUEST_STATE_LOADING = 3,
-        REQUEST_STATE_DONE = 4,
+    var REQUEST_STATE_UNSENT = 0;
+    var REQUEST_STATE_OPENED = 1;
+    var REQUEST_STATE_HEADERS_RECEIVED = 2;
+    var REQUEST_STATE_LOADING = 3;
+    var REQUEST_STATE_DONE = 4;
 
-        /**
-         * Array contain key as url, value as ajax response
-         */
-        cache = [];
+    // Array contain key as url, value as ajax response
+    var cache = [];
+
+    /**
+     * Use when state in request is changed or if used cache is handler to request
+     *
+     * @param {Object} settings
+     * @param {XMLHttpRequest} xhr
+     */
+    function state_change_handler(settings, xhr) {
+        var status = 0;
+
+        if (xhr.readyState === REQUEST_STATE_DONE) {
+            if (xhr.status !== undefined) {
+                status = xhr.status;
+            }
+
+            clearTimeout(xhr.ontimeout);
+            delete xhr.ontimeout;
+
+            if ((status >= 200 && status < 300) || status === 304) {
+                // success
+                success_handler(settings, xhr);
+            } else {
+                // error
+                error_handler_with_abort(settings, xhr);
+            }
+        }
+    }
 
     /**
      * When success request
@@ -126,63 +150,30 @@ pklib.ajax = (function () {
      * @param {XMLHttpRequest} xhr
      */
     function error_handler(settings, xhr) {
-        xhr.error = true;
-        settings.error.call(null, settings, xhr);
-    }
+        // check if error handler is run yet
+        if (!xhr._run_error_handler) {
+            // NO, so we run error handler first time
+            settings.error(settings, xhr);
 
-    /**
-     * Use when state in request is changed or if used cache is handler to request.
-     *
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
-    function handler(settings, xhr) {
-        var status = 0;
-
-        if (xhr.readyState === REQUEST_STATE_DONE) {
-            if (xhr.status !== undefined) {
-                status = xhr.status;
-            }
-
-            if ((status >= 200 && status < 300) || status === 304) {
-                // success
-                success_handler(settings, xhr);
-            } else {
-                // error
-                error_handler(settings, xhr);
-            }
+            // set flag to no run error handler
+            xhr._run_error_handler = true;
         }
     }
 
+    function error_handler_with_abort(settings, xhr) {
+        xhr.abort();
+
+        error_handler(settings, xhr);
+    }
+
     /**
-     * Handler to unusually situation - timeout.
+     * Handler to unusually situation - timeout
      *
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
-     * @throws {Error} If exists timeout on request
      */
     function timeout_handler(settings, xhr) {
-        // clear memory
-        xhr = null;
-        // throw exception
-        throw new Error("pklib.ajax.load: timeout on url: " + settings.url);
-    }
-
-    /**
-     * Method use when request has timeout
-     *
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     * @throws {Error} If exists timeout on request
-     */
-    function request_timeout(settings, xhr) {
-        if (xhr.aborted === undefined &&
-                xhr.error === undefined &&
-                xhr.readyState === REQUEST_STATE_DONE &&
-                xhr.status === REQUEST_STATE_UNSENT) {
-            xhr.abort();
-            timeout_handler.call(null, settings, xhr);
-        }
+        error_handler(settings, xhr);
     }
 
     /**
@@ -247,23 +238,9 @@ pklib.ajax = (function () {
      * @param {XMLHttpRequest} xhr
      */
     function add_timeout_service_to_xhr(settings, xhr) {
-        if (typeof xhr.ontimeout === "function") {
-            xhr.ontimeout = timeout_handler.bind(null, settings, xhr);
-        } else {
-            pklib.common.defer(request_timeout.bind(null, settings, xhr), settings.timeout);
-        }
-    }
-
-    /**
-     * Add error service to xhr object
-     *
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
-    function add_error_service_to_xhr(settings, xhr) {
-        xhr.onerror = function () {
-            error_handler(settings, xhr);
-        };
+        xhr.ontimeout = setTimeout(function () {
+            timeout_handler(settings, xhr);
+        }, settings.timeout);
     }
 
     /**
@@ -273,7 +250,7 @@ pklib.ajax = (function () {
      * @returns {Boolean}
      */
     function is_response_in_cache(settings) {
-        return settings.cache && cache[settings.url];
+        return cache[settings.url];
     }
 
     /**
@@ -311,19 +288,8 @@ pklib.ajax = (function () {
         };
     }
 
-    /**
-     * Check url in request is defined.
-     * Throw error if is undefined
-     *
-     * @param {Object} settings
-     * @throws {Error} If unset request url
-     */
-    function check_if_url_is_defined(settings) {
-        pklib.common.assert(settings.url !== null, "pklib.ajax.load: undefined request url");
-    }
-
     // public API
-    return {
+    pklib.ajax = {
         /**
          * Send request to server on url defined in config.url.
          * Method throw exception when request have timeout on server or if url is not set.
@@ -372,21 +338,40 @@ pklib.ajax = (function () {
             settings = pklib.object.mixin(settings, config);
             settings.type = settings.type.toUpperCase();
 
-            check_if_url_is_defined(settings);
+            // simple assert to check "url" is set
+            pklib.common.assert(settings.url !== null, "pklib.ajax.load: @url is not defined");
 
-            if (is_response_in_cache(settings)) {
-                handler.call(null, settings, cache[settings.url]);
+            // check if we use "cache" flag in request
+            if (settings.cache && is_response_in_cache(settings)) {
+                // YES, we use, so we can return response from cache object
+                state_change_handler.call(null, settings, cache[settings.url]);
             } else {
+                // NO, is normal request to server
                 xhr = create_xhr();
-                xhr.onreadystatechange = handler.bind(null, settings, xhr);
-                xhr.open(settings.type, settings.url, settings.async);
+                xhr.onreadystatechange = state_change_handler.bind(null, settings, xhr);
+
+                try {
+                    xhr.open(settings.type, settings.url, settings.async);
+                } catch (open_exception) {
+                    // error
+                    error_handler_with_abort(settings, xhr);
+
+                    return xhr;
+                }
 
                 add_headers_to_xhr(settings, xhr);
-
                 add_timeout_service_to_xhr(settings, xhr);
-                add_error_service_to_xhr(settings, xhr);
-                xhr.send(settings.params);
+
+                try {
+                    xhr.send(settings.params);
+                } catch (send_exception) {
+                    // error
+                    error_handler_with_abort(settings, xhr);
+
+                    return xhr;
+                }
             }
+
             return xhr;
         },
 
@@ -397,12 +382,12 @@ pklib.ajax = (function () {
          */
         stop: function (xhr) {
             xhr.abort();
-            xhr.aborted = true;
+
             // clear memory
             xhr = null;
         }
     };
-}());
+}(this));
 /**
  * @package pklib.array
  */
@@ -1730,11 +1715,11 @@ pklib.string = (function () {
         var string = staff.toString(),
             i = string.length;
 
-        for (; i < nr_fill; ++i) {
-            string = add_char + string;
-        }
+        for (; i < nr_fill; ++i) {
+            string = add_char + string;
+        }
 
-        return string;
+        return string;
     }
 
     /**
