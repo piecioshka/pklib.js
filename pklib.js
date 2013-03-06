@@ -1390,7 +1390,7 @@ pklib.file = (function () {
                 });
             }
         } else {
-            throw new TypeError("pklib.file.loadjs: @files not {String} or {Array}");
+            throw new Error("pklib.file.loadjs: @files not {String} or {Array}");
         }
     }
 
