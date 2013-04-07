@@ -1,14 +1,14 @@
+require 'rainbow'
+
 library           = "pklib.js"
 library_min       = "pklib.min.js"
 dir_src           = "src/"
 dir_doc           = "docs/"
 dir_jsdoc         = "tools/jsdoc-toolkit/"
-dir_yuicompressor = "tools/yuicompressor/"
 
-yuicompressor = "java -jar #{dir_yuicompressor}/build/yuicompressor-2.4.7.jar #{library} -o #{library_min}"
+yuicompressor = "java -jar tools/yuicompressor/build/yuicompressor-2.4.7.jar #{library} -o #{library_min}"
 jsdoc = "java -jar #{dir_jsdoc}jsrun.jar #{dir_jsdoc}app/run.js -d=#{dir_doc} -a -t=#{dir_jsdoc}templates/jsdoc -p #{dir_src} -q"
 
-# ukrywamy wszelkie logi
 verbose(false)
 
 # glowny plik biblioteki
@@ -30,9 +30,9 @@ Dir.mkdir(dir_doc)
 
 task :default
 
-puts "------------- pklib JavaScript library -------------"
+puts "------------- pklib JavaScript library -------------".foreground(:yellow)
 
-print "[+] Generate library:"
+print "[+] Generate library:".foreground(:cyan)
 
 files = ["header.js", "ajax.js", "array.js", "aspect.js", "browser.js", "common.js", "cookie.js", \
  "css.js", "date.js", "dom.js", "event.js", "file.js", "object.js", "profiler.js", "string.js", \
@@ -47,9 +47,9 @@ File.open(library, 'w') do |f|
   end
 end
 
-puts "\t\t\t\tDone."
+puts "\t\t\t\tDone.".foreground(:green)
 
-print "[+] Minifing:"
+print "[+] Minifing:".foreground(:cyan)
 
 sh yuicompressor
 
@@ -60,8 +60,9 @@ File.open(library_min, 'w') do |f|
   f.write lib_data
 end
 
-puts "\t\t\t\t\tDone."
+puts "\t\t\t\t\tDone.".foreground(:green)
 
-print "[+] Generate documentation:"
+print "[+] Generate documentation:".foreground(:cyan)
 sh jsdoc
-puts "\t\t\tDone."
+puts "\t\t\tDone.".foreground(:green)
+
