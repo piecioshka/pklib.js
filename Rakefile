@@ -1,14 +1,12 @@
-require 'rainbow'
-
-def check_gem_loaded(gem_name)
-  if not defined?(gem_name)
-    puts "Ruby Gem: #{gem_name} is required".foreground(:red)
+# check gem loaded
+['rainbow'].each{ |gem_name|
+  begin
+    require gem_name
+  rescue LoadError
+    puts "Ruby Gem: #{gem_name} is required"
     exit
   end
-end
-
-# check gem loaded
-['pathname', 'rainbow'].each{ |gem| check_gem_loaded(gem) }
+}
 
 library           = "pklib.js"
 library_min       = "pklib.min.js"
