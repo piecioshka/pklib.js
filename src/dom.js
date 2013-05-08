@@ -298,7 +298,7 @@ pklib.dom = (function () {
         return parent_node;
     }
 
-    // public API
+    // exports
     return {
         is_node: is_node,
         is_node_list: is_node_list,

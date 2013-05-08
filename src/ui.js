@@ -79,7 +79,7 @@ pklib.ui = (function () {
         }
     }
 
-    // public API
+    // exports
     return {
         center: center,
         maximize: maximize,

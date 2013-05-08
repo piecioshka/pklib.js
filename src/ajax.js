@@ -223,7 +223,7 @@
         };
     }
 
-    // public API
+    // exports
     pklib.ajax = {
         /**
          * Send request to server on url defined in config.url.

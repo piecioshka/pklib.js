@@ -288,7 +288,7 @@ if (typeof Function.prototype.bind !== "function") {
         };
     }
 
-    // public API
+    // exports
     pklib.ajax = {
         /**
          * Send request to server on url defined in config.url.
@@ -398,6 +398,7 @@ if (typeof Function.prototype.bind !== "function") {
 pklib.array = (function () {
     "use strict";
 
+    // imports
     var to_string = Object.prototype.toString;
 
     /**
@@ -489,7 +490,7 @@ pklib.array = (function () {
         return array;
     }
 
-    // public API
+    // exports
     return {
         is_array: is_array,
         in_array: in_array,
@@ -591,7 +592,7 @@ pklib.browser = (function (global) {
         return null;
     }
 
-    // public API
+    // exports
     return {
         get_name: get_name,
         get_version: get_version
@@ -610,7 +611,7 @@ pklib.common = (function () {
     /**
      * Basic test function. Simple assertion 2 variables
      *
-     * @param {Object} expression Object what is true
+     * @param {Boolean} expression Object what is true
      * @param {String} comment Message to throw in error
      * @throws {Error}
      */
@@ -658,7 +659,7 @@ pklib.common = (function () {
         }
     }
 
-    // public API
+    // exports
     return {
         assert: assert,
         defer: defer,
@@ -736,7 +737,7 @@ pklib.cookie = (function () {
         return create_cookie(name, undefined, -1);
     }
 
-    // public API
+    // exports
     return {
         create: create_cookie,
         get: get_cookie,
@@ -819,7 +820,7 @@ pklib.css = (function () {
         return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
     }
 
-    // public API
+    // exports
     return {
         add_class: add_class,
         remove_class: remove_class,
@@ -1153,7 +1154,7 @@ pklib.dom = (function () {
         return parent_node;
     }
 
-    // public API
+    // exports
     return {
         is_node: is_node,
         is_node_list: is_node_list,
@@ -1290,7 +1291,7 @@ pklib.event = (function () {
         }
     }
 
-    // public API
+    // exports
     return {
         add: add_event,
         remove: remove_event,
@@ -1394,7 +1395,7 @@ pklib.file = (function () {
         }
     }
 
-    // public API
+    // exports
     return {
         loadjs: load_js_file
     };
@@ -1459,7 +1460,7 @@ pklib.object = (function () {
         return target;
     }
 
-    // public API
+    // exports
     return {
         is_object: is_object,
         mixin: mixin
@@ -1504,7 +1505,7 @@ pklib.profiler = (function () {
         return data[name];
     }
 
-    // public API
+    // exports
     return {
         start: start,
         stop: stop,
@@ -1740,7 +1741,7 @@ pklib.string = (function () {
         return string;
     }
 
-    // public API
+    // exports
     return {
         is_string: is_string,
         is_letter: is_letter,
@@ -1838,7 +1839,7 @@ pklib.ui = (function () {
         }
     }
 
-    // public API
+    // exports
     return {
         center: center,
         maximize: maximize,
@@ -1932,7 +1933,7 @@ pklib.ui.glass = (function () {
         return result;
     }
 
-    // public API
+    // exports
     return {
         obj_id: id,
 
@@ -2024,7 +2025,7 @@ pklib.ui.loader = (function () {
         return result;
     }
 
-    // public API
+    // exports
     return {
         obj_id: id,
 
@@ -2112,7 +2113,7 @@ pklib.ui.message = (function () {
         return result;
     }
 
-    // public API
+    // exports
     return {
         obj_id: id,
 
@@ -2261,7 +2262,7 @@ pklib.url = (function () {
         return null;
     }
 
-    // public API
+    // exports
     return {
         get_params: get_params,
         get_param: get_param
@@ -2373,7 +2374,7 @@ pklib.utils = (function () {
         }
     }
 
-    // public API
+    // exports
     return {
         /**
          * Numbers of chars in ASCII system

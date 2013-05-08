@@ -94,7 +94,7 @@ pklib.file = (function () {
         }
     }
 
-    // public API
+    // exports
     return {
         loadjs: load_js_file
     };

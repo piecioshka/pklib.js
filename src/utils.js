@@ -103,7 +103,7 @@ pklib.utils = (function () {
         }
     }
 
-    // public API
+    // exports
     return {
         /**
          * Numbers of chars in ASCII system

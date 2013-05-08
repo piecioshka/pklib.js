@@ -8,6 +8,7 @@
 pklib.array = (function () {
     "use strict";
 
+    // imports
     var to_string = Object.prototype.toString;
 
     /**
@@ -99,7 +100,7 @@ pklib.array = (function () {
         return array;
     }
 
-    // public API
+    // exports
     return {
         is_array: is_array,
         in_array: in_array,

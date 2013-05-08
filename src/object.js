@@ -58,7 +58,7 @@ pklib.object = (function () {
         return target;
     }
 
-    // public API
+    // exports
     return {
         is_object: is_object,
         mixin: mixin

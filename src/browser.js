@@ -52,7 +52,7 @@ pklib.browser = (function (global) {
         return null;
     }
 
-    // public API
+    // exports
     return {
         get_name: get_name,
         get_version: get_version

@@ -11,7 +11,7 @@ pklib.common = (function () {
     /**
      * Basic test function. Simple assertion 2 variables
      *
-     * @param {Object} expression Object what is true
+     * @param {Boolean} expression Object what is true
      * @param {String} comment Message to throw in error
      * @throws {Error}
      */
@@ -59,7 +59,7 @@ pklib.common = (function () {
         }
     }
 
-    // public API
+    // exports
     return {
         assert: assert,
         defer: defer,

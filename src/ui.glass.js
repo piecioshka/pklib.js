@@ -84,7 +84,7 @@ pklib.ui.glass = (function () {
         return result;
     }
 
-    // public API
+    // exports
     return {
         obj_id: id,
 

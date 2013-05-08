@@ -69,7 +69,7 @@ pklib.cookie = (function () {
         return create_cookie(name, undefined, -1);
     }
 
-    // public API
+    // exports
     return {
         create: create_cookie,
         get: get_cookie,

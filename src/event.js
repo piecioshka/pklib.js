@@ -117,7 +117,7 @@ pklib.event = (function () {
         }
     }
 
-    // public API
+    // exports
     return {
         add: add_event,
         remove: remove_event,

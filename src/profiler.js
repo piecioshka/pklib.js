@@ -36,7 +36,7 @@ pklib.profiler = (function () {
         return data[name];
     }
 
-    // public API
+    // exports
     return {
         start: start,
         stop: stop,

@@ -226,7 +226,7 @@ pklib.string = (function () {
         return string;
     }
 
-    // public API
+    // exports
     return {
         is_string: is_string,
         is_letter: is_letter,

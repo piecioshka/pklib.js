@@ -74,7 +74,7 @@ pklib.css = (function () {
         return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
     }
 
-    // public API
+    // exports
     return {
         add_class: add_class,
         remove_class: remove_class,

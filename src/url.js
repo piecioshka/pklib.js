@@ -63,7 +63,7 @@ pklib.url = (function () {
         return null;
     }
 
-    // public API
+    // exports
     return {
         get_params: get_params,
         get_param: get_param
