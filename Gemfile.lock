@@ -1,6 +1,5 @@
 GEM
   remote: http://rubygems.org/
-  remote: http://gems.rubyforge.org/
   specs:
     rainbow (1.1.4)
     rake (10.0.4)
