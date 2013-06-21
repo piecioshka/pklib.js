@@ -6,7 +6,7 @@
 	.REGX {color: #339;}
 	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
 	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
-<span class='line'>  2</span>  * pklib JavaScript library v1.1.1
+<span class='line'>  2</span>  * pklib JavaScript library v1.2.0
 <span class='line'>  3</span>  * 
 <span class='line'>  4</span>  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
 <span class='line'>  5</span>  *
@@ -37,10 +37,10 @@
 <span class='line'> 30</span>  */</span><span class="WHIT">
 <span class='line'> 31</span> 
 <span class='line'> 32</span> </span><span class="COMM">/*jslint plusplus: true, regexp: true */</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="COMM">/*global window, document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="COMM">/*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */</span><span class="WHIT">
 <span class='line'> 34</span> 
 <span class='line'> 35</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">pklib</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 36</span> </span><span class="WHIT">    </span><span class="NAME">version</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"1.1.1"</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">    </span><span class="NAME">VERSION</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"1.2.0"</span><span class="WHIT">
 <span class='line'> 37</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 38</span> 
 <span class='line'> 39</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">Function.prototype.bind</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">"function"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -50,8 +50,8 @@
 <span class='line'> 43</span>      *
 <span class='line'> 44</span>      * &lt;pre>
 <span class='line'> 45</span>      * Method of "Function"
-<span class='line'> 46</span>      * Implemented in	JavaScript 1.8.5
-<span class='line'> 47</span>      * ECMAScript Edition	ECMAScript 5th Edition
+<span class='line'> 46</span>      * Implemented in JavaScript 1.8.5
+<span class='line'> 47</span>      * ECMAScript Edition ECMAScript 5th Edition
 <span class='line'> 48</span>      * &lt;/pre>
 <span class='line'> 49</span>      *
 <span class='line'> 50</span>      * @param {*} that Context
@@ -61,7 +61,7 @@
 <span class='line'> 54</span> </span><span class="WHIT">        </span><span class="STRN">"use strict"</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 55</span> 
 <span class='line'> 56</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">method</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 57</span> </span><span class="WHIT">            </span><span class="NAME">slice</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Array.prototype.slice</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">            </span><span class="NAME">slice</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">slice</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 58</span> </span><span class="WHIT">            </span><span class="NAME">args</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">slice.apply</span><span class="PUNC">(</span><span class="NAME">arguments</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 59</span> 
 <span class='line'> 60</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">

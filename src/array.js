@@ -1,14 +1,11 @@
 /**
  * @package pklib.array
  */
-
-/**
- * Module to service array object
- */
-pklib.array = (function () {
+(function (global) {
     "use strict";
 
     // imports
+    var pklib = global.pklib;
     var to_string = Object.prototype.toString;
 
     /**
@@ -28,7 +25,7 @@ pklib.array = (function () {
     /**
      * Check if element is in array by loop
      *
-     * @param {Object} param
+     * @param {*} param
      * @param {Array} array
      * @returns {Boolean}
      */
@@ -46,7 +43,7 @@ pklib.array = (function () {
      * Get index of element.
      * If couldn't find searching element, return null value
      *
-     * @param {Object} item
+     * @param {*} item
      * @param {Array} array
      * @returns {Number|Null}
      */
@@ -72,7 +69,7 @@ pklib.array = (function () {
 
         for (i = 0; i < len; ++i) {
             item = array[i];
-            if (!pklib.array.in_array.call(null, item, temp)) {
+            if (!in_array.call(null, item, temp)) {
                 temp.push(item);
             }
         }
@@ -93,19 +90,20 @@ pklib.array = (function () {
 
         for (i = 0; i < len; ++i) {
             param = params[i];
-            if (pklib.array.in_array(param, array)) {
-                array.splice(pklib.array.index(param, array), 1);
+            if (in_array(param, array)) {
+                array.splice(index(param, array), 1);
             }
         }
         return array;
     }
 
     // exports
-    return {
+    pklib.array = {
         is_array: is_array,
         in_array: in_array,
         index: index,
         unique: unique,
         remove: remove
     };
-}());
+
+}(this));

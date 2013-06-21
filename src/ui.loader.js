@@ -2,13 +2,11 @@
  * @package pklib.ui.loader
  * @dependence pklib.dom, pklib.event, pklib.utils
  */
-
-/**
- * Loader adapter.
- * Show animate image (GIF) on special place.
- */
-pklib.ui.loader = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var pklib = global.pklib;
 
     var id = "pklib-loader-wrapper",
         settings = {
@@ -46,7 +44,7 @@ pklib.ui.loader = (function () {
         if (settings.center) {
             pklib.ui.center(loader, settings.container);
 
-            pklib.event.add(window, "resize", function () {
+            pklib.event.add(global, "resize", function () {
                 pklib.ui.center(loader, settings.container);
             });
         }
@@ -82,11 +80,11 @@ pklib.ui.loader = (function () {
     }
 
     // exports
-    return {
+    pklib.ui.loader = {
         obj_id: id,
-
         show: show_loader,
         close: close_loader
     };
-}());
+
+}(this));
 

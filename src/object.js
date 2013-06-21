@@ -1,13 +1,13 @@
 /**
  * @package pklib.object
  */
-
-/**
- * Module to service object
- */
-pklib.object = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var pklib = global.pklib;
+    var is_array = pklib.array.is_array;
+    var in_array = pklib.array.in_array;
     var to_string = Object.prototype.toString;
 
     /**
@@ -34,21 +34,21 @@ pklib.object = (function () {
     function mixin(target, source) {
         var i, len, element, item;
 
-        if (pklib.array.is_array(target) && pklib.array.is_array(source)) {
+        if (is_array(target) && is_array(source)) {
             len = source.length;
 
             for (i = 0; i < len; ++i) {
                 element = source[i];
 
-                if ( !pklib.array.in_array(element, target) ) {
+                if (!in_array(element, target)) {
                     target.push(element);
                 }
             }
         } else {
             for (item in source) {
                 if (source.hasOwnProperty(item)) {
-                    if (pklib.object.is_object(target[item])) {
-                        target[item] = pklib.object.mixin(target[item], source[item]);
+                    if (is_object(target[item])) {
+                        target[item] = mixin(target[item], source[item]);
                     } else {
                         target[item] = source[item];
                     }
@@ -59,9 +59,10 @@ pklib.object = (function () {
     }
 
     // exports
-    return {
+    pklib.object = {
         is_object: is_object,
         mixin: mixin
     };
-}());
+
+}(this));
 

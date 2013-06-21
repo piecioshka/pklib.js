@@ -1,12 +1,12 @@
 /**
  * @package pklib.string
  */
-
-/**
- * String service manager
- */
-pklib.string = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var document = global.document;
+    var pklib = global.pklib;
 
     /**
      * @param {String} source
@@ -21,7 +21,7 @@ pklib.string = (function () {
      * @returns {Boolean}
      */
     function is_letter(source) {
-        return pklib.string.is_string(source) && /^[a-zA-Z]$/.test(source);
+        return is_string(source) && (/^[a-zA-Z]$/).test(source);
     }
 
     /**
@@ -137,7 +137,7 @@ pklib.string = (function () {
 
         // * ostatnim znakiem w uciętym tekście jest spacja
         if (text[length - 1] === " ") {
-            return pklib.string.trim(text) + "...";
+            return trim(text) + "...";
         }
 
         // jesli nie ma wymuszenia przycinania wyrazu w jego części 
@@ -198,10 +198,9 @@ pklib.string = (function () {
      * @param {String} add_char Char what be added
      */
     function lpad(staff, nr_fill, add_char) {
-        var string = staff.toString(),
-            i = string.length;
+        var i, string = staff.toString();
 
-        for (; i < nr_fill; ++i) {
+        for (i = string.length; i < nr_fill; ++i) {
             string = add_char + string;
         }
 
@@ -216,10 +215,9 @@ pklib.string = (function () {
      * @param {String} add_char Char what be added
      */
     function rpad(staff, nr_fill, add_char) {
-        var string = staff.toString(),
-            i = string.length;
+        var i, string = staff.toString();
 
-        for (; i < nr_fill; ++i) {
+        for (i = string.length; i < nr_fill; ++i) {
             string += add_char;
         }
 
@@ -227,7 +225,7 @@ pklib.string = (function () {
     }
 
     // exports
-    return {
+    pklib.string = {
         is_string: is_string,
         is_letter: is_letter,
         trim: trim,
@@ -241,5 +239,6 @@ pklib.string = (function () {
         lpad: lpad,
         rpad: rpad
     };
-}());
+
+}(this));
 

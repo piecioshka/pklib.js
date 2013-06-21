@@ -16,23 +16,26 @@
 pklib.aspect = function (fun, asp, when) {
     "use strict";
 
-    var that = this,
-        result;
+    // imports
+    var assert = pklib.common.assert;
 
-    pklib.common.assert(typeof fun === "function", "pklib.aspect: @func: not {Function}");
-    pklib.common.assert(typeof asp === "function", "pklib.aspect: @asp: not {Function}");
+    // private
+    var self = this, result;
+
+    assert(typeof fun === "function", "pklib.aspect: @func: not {Function}");
+    assert(typeof asp === "function", "pklib.aspect: @asp: not {Function}");
 
     when = when || "before";
 
     return function () {
         if (when === "before") {
-            asp.call(that);
+            asp.call(self);
         }
 
-        result = fun.apply(that, arguments);
+        result = fun.apply(self, arguments);
 
         if (when === "after") {
-            result = asp.call(that);
+            result = asp.call(self);
         }
         return result;
     };

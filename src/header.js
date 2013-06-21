@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.1.1
+ * pklib JavaScript library v1.2.0
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  *
@@ -30,10 +30,10 @@
  */
 
 /*jslint plusplus: true, regexp: true */
-/*global window, document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */
+/*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */
 
 var pklib = {
-    version: "1.1.1"
+    VERSION: "1.2.0"
 };
 
 if (typeof Function.prototype.bind !== "function") {
@@ -43,8 +43,8 @@ if (typeof Function.prototype.bind !== "function") {
      *
      * <pre>
      * Method of "Function"
-     * Implemented in	JavaScript 1.8.5
-     * ECMAScript Edition	ECMAScript 5th Edition
+     * Implemented in JavaScript 1.8.5
+     * ECMAScript Edition ECMAScript 5th Edition
      * </pre>
      *
      * @param {*} that Context
@@ -54,7 +54,7 @@ if (typeof Function.prototype.bind !== "function") {
         "use strict";
 
         var method = this,
-            slice = Array.prototype.slice,
+            slice = [].slice,
             args = slice.apply(arguments, [1]);
 
         return function () {

@@ -1,12 +1,11 @@
 /**
  * @package pklib.event
  */
-
-/**
- * Helper about manage event on HTMLElement
- */
-pklib.event = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var pklib = global.pklib;
 
     /**
      * Add event to Element
@@ -118,10 +117,11 @@ pklib.event = (function () {
     }
 
     // exports
-    return {
+    pklib.event = {
         add: add_event,
         remove: remove_event,
         get: get_event,
         trigger: trigger
     };
-}());
+
+}(this));

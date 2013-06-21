@@ -49,8 +49,8 @@ puts "-------------- pklib JavaScript library --------------".foreground(:yellow
 
 print '*'.foreground(:green) + ' Build ...'
 
-files = ["header.js", "ajax.js", "array.js", "aspect.js", "browser.js", "common.js", "cookie.js", \
- "css.js", "date.js", "dom.js", "event.js", "file.js", "object.js", "profiler.js", "string.js", \
+files = ["header.js", "ajax.js", "array.js", "aspect.js", "common.js", "cookie.js", \
+ "css.js", "dom.js", "event.js", "file.js", "object.js", "profiler.js", "string.js", \
  "ui.js", "ui.glass.js", "ui.loader.js", "ui.message.js", "ui.size.js", "url.js", "utils.js"]
 
 lib_data = File.read(library)

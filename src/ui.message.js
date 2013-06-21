@@ -2,13 +2,13 @@
  * @package pklib.ui.message
  * @dependence pklib.dom, pklib.event, pklib.string, pklib.utils
  */
-
-/**
- * Show layer on special place.
- */
-pklib.ui.message = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var pklib = global.pklib;
+
+    // private
     var id = "pklib-message-wrapper",
         settings = {
             container: null,
@@ -45,7 +45,7 @@ pklib.ui.message = (function () {
         settings.container.appendChild(message);
         pklib.ui.center(message, settings.container);
 
-        pklib.event.add(window, "resize", function () {
+        pklib.event.add(global, "resize", function () {
             pklib.ui.center(message, settings.container);
         });
 
@@ -78,7 +78,7 @@ pklib.ui.message = (function () {
     }
 
     // exports
-    return {
+    pklib.ui.message = {
         obj_id: id,
 
         content: null,
@@ -86,5 +86,6 @@ pklib.ui.message = (function () {
         show: show_message,
         close: close_message
     };
-}());
+
+}(this));
 

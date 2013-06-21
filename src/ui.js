@@ -2,12 +2,11 @@
  * @package pklib.ui
  * @dependence pklib.string. pklib.dom
  */
-
-/**
- * User Interface
- */
-pklib.ui = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var pklib = global.pklib;
 
     /**
      * @param {HTMLElement} element
@@ -80,10 +79,11 @@ pklib.ui = (function () {
     }
 
     // exports
-    return {
+    pklib.ui = {
         center: center,
         maximize: maximize,
         scroll_to: scroll_to
     };
-}());
+
+}(this));
 

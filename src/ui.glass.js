@@ -2,12 +2,11 @@
  * @package pklib.glass
  * @dependence pklib.browser, pklib.dom, pklib.event, pklib.utils
  */
-
-/**
- * Show glass on dimensions on browser
- */
-pklib.ui.glass = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var pklib = global.pklib;
 
     var id = "pklib-glass-wrapper",
         settings = {
@@ -48,7 +47,7 @@ pklib.ui.glass = (function () {
 
         pklib.ui.maximize(glass, settings.container);
 
-        pklib.event.add(window, "resize", function () {
+        pklib.event.add(global, "resize", function () {
             pklib.ui.glass.close();
             pklib.ui.glass.show(config, callback);
             pklib.ui.maximize(glass, settings.container);
@@ -69,7 +68,7 @@ pklib.ui.glass = (function () {
         var glass = pklib.dom.by_id(pklib.ui.glass.obj_id),
             result = false;
 
-        pklib.event.remove(window, "resize");
+        pklib.event.remove(global, "resize");
 
         if (glass !== null) {
             glass.parentNode.removeChild(glass);
@@ -85,11 +84,12 @@ pklib.ui.glass = (function () {
     }
 
     // exports
-    return {
+    pklib.ui.glass = {
         obj_id: id,
 
         show: show_glass,
         close: close_glass
     };
-}());
+
+}(this));
 

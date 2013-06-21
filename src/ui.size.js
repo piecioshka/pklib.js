@@ -2,12 +2,12 @@
  * @package pklib.ui.size
  * @dependence pklib.string
  */
-
-/**
- * Check ui dimensions
- */
-pklib.ui.size = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var pklib = global.pklib;
+    var document = global.document;
 
     /**
      * @param {String} name
@@ -63,11 +63,12 @@ pklib.ui.size = (function () {
         return Math.max(client, scroll, offset);
     }
 
-    // public APi
-    return {
+    // public API
+    pklib.ui.size = {
         window: size_of_window,
         document: size_of_document,
         object: size_of_object
     };
-}());
+
+}(this));
 

@@ -2,14 +2,10 @@
  * @package pklib.ajax
  * @dependence pklib.array, pklib.common
  */
-
-/**
- * Service to send request to server.
- * With first param, which is hashmap, define params, ex. request url
- */
 (function (exports) {
     "use strict";
 
+    // imports
     var pklib = exports.pklib;
 
     // Default time what is timeout to use function pklib.ajax
@@ -322,4 +318,5 @@
             xhr = null;
         }
     };
+
 }(this));

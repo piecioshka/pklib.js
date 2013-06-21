@@ -1,12 +1,12 @@
 /**
  * @package pklib.cookie
  */
-
-/**
- * Cookie service manager
- */
-pklib.cookie = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var document = global.document;
+    var pklib = global.pklib;
 
     /**
      * Read cookie by it name
@@ -70,9 +70,10 @@ pklib.cookie = (function () {
     }
 
     // exports
-    return {
+    pklib.cookie = {
         create: create_cookie,
         get: get_cookie,
         remove: remove_cookie
     };
-}());
+
+}(this));

@@ -1,12 +1,11 @@
 /**
  * @package pklib.common
  */
-
-/**
- * Common stuff
- */
-pklib.common = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var pklib = global.pklib;
 
     /**
      * Basic test function. Simple assertion 2 variables
@@ -44,8 +43,8 @@ pklib.common = (function () {
         var interval,
             interval_time = 100;
 
-        pklib.common.assert(typeof condition === "function", "pklib.common.checking: @condition: not {Function}");
-        pklib.common.assert(typeof callback === "function", "pklib.common.checking: @callback: not {Function}");
+        assert(typeof condition === "function", "pklib.common.checking: @condition: not {Function}");
+        assert(typeof callback === "function", "pklib.common.checking: @callback: not {Function}");
 
         if (condition()) {
             callback();
@@ -60,9 +59,10 @@ pklib.common = (function () {
     }
 
     // exports
-    return {
+    pklib.common = {
         assert: assert,
         defer: defer,
         checking: checking
     };
-}());
+
+}(this));

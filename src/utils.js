@@ -2,12 +2,13 @@
  * @package pklib.utils
  * @dependence pklib.common, pklib.dom, pklib.event
  */
-
-/**
- * Utils tools
- */
-pklib.utils = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var document = global.document;
+    var pklib = global.pklib;
+    var add_event = pklib.event.add;
 
     /**
      * @param {Event} evt
@@ -29,12 +30,12 @@ pklib.utils = (function () {
             url = evt.srcElement.href;
         }
 
-        window.open(url);
+        global.open(url);
 
         try {
             evt.preventDefault();
         } catch (ignore) {
-            window.event.returnValue = false;
+            global.event.returnValue = false;
         }
 
         return false;
@@ -45,12 +46,12 @@ pklib.utils = (function () {
      */
     function clear_focus(obj) {
         if (pklib.dom.is_element(obj)) {
-            pklib.event.add(obj, "focus", function () {
+            add_event(obj, "focus", function () {
                 if (obj.value === obj.defaultValue) {
                     obj.value = "";
                 }
             });
-            pklib.event.add(obj, "blur", function () {
+            add_event(obj, "blur", function () {
                 if (obj.value === "") {
                     obj.value = obj.defaultValue;
                 }
@@ -73,7 +74,7 @@ pklib.utils = (function () {
         for (i = 0; i < len; ++i) {
             link = links[i];
             if (link.rel === "outerlink") {
-                pklib.event.add(link, "click", open_trigger.bind(link));
+                add_event(link, "click", open_trigger.bind(link));
             }
         }
     }
@@ -87,13 +88,13 @@ pklib.utils = (function () {
         if (element !== undefined) {
             text = text || "Sure?";
 
-            pklib.event.add(element, "click", function (evt) {
-                response = window.confirm(text);
+            add_event(element, "click", function (evt) {
+                response = global.confirm(text);
                 if (!response) {
                     try {
                         evt.preventDefault();
                     } catch (ignore) {
-                        window.event.returnValue = false;
+                        global.event.returnValue = false;
                     }
 
                     return false;
@@ -104,7 +105,7 @@ pklib.utils = (function () {
     }
 
     // exports
-    return {
+    pklib.utils = {
         /**
          * Numbers of chars in ASCII system
          */
@@ -122,4 +123,5 @@ pklib.utils = (function () {
             confirm: confirm
         }
     };
-}());
+
+}(this));

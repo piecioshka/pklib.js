@@ -1,13 +1,13 @@
 /**
  * @package pklib.profiler
  */
-
-/**
- * Time analyzer
- */
-pklib.profiler = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var pklib = global.pklib;
+
+    // private
     var data = {};
 
     /**
@@ -37,10 +37,11 @@ pklib.profiler = (function () {
     }
 
     // exports
-    return {
+    pklib.profiler = {
         start: start,
         stop: stop,
         get_time: get_time
     };
-}());
+
+}(this));
 

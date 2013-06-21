@@ -2,12 +2,11 @@
  * @package pklib.css
  * @dependence pklib.string. pklib.dom
  */
-
-/**
- * Utils method related css on tags in DOM tree
- */
-pklib.css = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var pklib = global.pklib;
 
     /**
      * RegExp use to delete white chars
@@ -19,12 +18,15 @@ pklib.css = (function () {
      *
      * @param {String} css_class
      * @param {HTMLElement} element
+     * @param {String} call_func_name
      * @throws {TypeError} If first param is not string, or second param is not Node
      */
     function check_params(css_class, element, call_func_name) {
+        var assert = pklib.common.assert;
+        var is_element = pklib.dom.is_element;
         var prefix = "pklib.css." + call_func_name;
-        pklib.common.assert(typeof css_class === "string", prefix + ": @css_class: not {String}");
-        pklib.common.assert(pklib.dom.is_element(element), prefix + ": @element: not {HTMLElement}");
+        assert(typeof css_class === "string", prefix + ": @css_class: not {String}");
+        assert(is_element(element), prefix + ": @element: not {HTMLElement}");
     }
 
     /**
@@ -37,7 +39,7 @@ pklib.css = (function () {
     function add_class(css_class, element) {
         check_params(css_class, element, "add_class");
         var class_element = element.className;
-        if (!pklib.css.has_class(css_class, element)) {
+        if (!has_class(css_class, element)) {
             if (class_element.length) {
                 class_element += " " + css_class;
             } else {
@@ -75,9 +77,10 @@ pklib.css = (function () {
     }
 
     // exports
-    return {
+    pklib.css = {
         add_class: add_class,
         remove_class: remove_class,
         has_class: has_class
     };
-}());
+
+}(this));

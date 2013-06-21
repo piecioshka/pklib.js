@@ -1,13 +1,14 @@
 /**
  * @package pklib.file, pklib.string
  */
-
-/**
- * JS file loader
- */
-pklib.file = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var pklib = global.pklib;
+    var document = global.document;
+
+    // private
     var copy_files = [];
 
     /**
@@ -95,7 +96,8 @@ pklib.file = (function () {
     }
 
     // exports
-    return {
+    pklib.file = {
         loadjs: load_js_file
     };
-}());
+
+}(this));

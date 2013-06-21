@@ -2,12 +2,13 @@
  * @package pklib.dom
  * @dependence pklib.browser, pklib.css, pklib.string, pklib.utils
  */
-
-/**
- * Helper related with DOM service
- */
-pklib.dom = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var document = global.document;
+    var pklib = global.pklib;
+    var to_string = Object.prototype.toString;
 
     /**
      * Types of all available node
@@ -51,38 +52,26 @@ pklib.dom = (function () {
      * @returns {String}
      */
     function is_node(node) {
-        try {
-            pklib.common.assert(Boolean(node && node.nodeType && node.nodeName));
-            pklib.common.assert(Object.prototype.toString.call(node) === "[object Node]");
-            return true;
-        } catch (ignore) {
-            return false;
-        }
+        return node && node.nodeType && node.nodeName &&
+            to_string.call(node) === "[object Node]";
     }
 
     /**
      * Check if param is NodeList, with use assertions
      *
      * @param {NodeList} node_list
-     * @returns {String}
+     * @returns {Boolean}
      */
     function is_node_list(node_list) {
-        try {
-            var to_string = Object.prototype.toString.call(node_list),
-                list = ["[object HTMLCollection]", "[object NodeList]"];
-
-            pklib.common.assert(pklib.array.in_array(to_string, list));
-            return true;
-        } catch (ignore) {
-            return false;
-        }
+        var list = ["[object HTMLCollection]", "[object NodeList]"];
+        return pklib.array.in_array(to_string.call(node_list), list);
     }
 
     /**
      * Check if param is instanceOf Element
      *
      * @param {HTMLElement} node
-     * @returns {String}
+     * @returns {Boolean}
      */
     function is_element(node) {
         return (node && node.nodeType === node_types.ELEMENT_NODE) || false;
@@ -95,7 +84,7 @@ pklib.dom = (function () {
      * @returns {Boolean}
      */
     function is_visible(node) {
-        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.is_visible: @node is not HTMLElement");
+        pklib.common.assert(is_element(node), "pklib.dom.is_visible: @node is not HTMLElement");
 
         return node.style.display !== "none" &&
             node.style.visibility !== "hidden" &&
@@ -138,7 +127,7 @@ pklib.dom = (function () {
         wrapper = wrapper || document;
 
         walk_the_dom(wrapper, function (node) {
-            if (pklib.dom.is_element(node) && pklib.css.has_class(css_class, node)) {
+            if (is_element(node) && pklib.css.has_class(css_class, node)) {
                 results.push(node);
             }
         });
@@ -153,15 +142,14 @@ pklib.dom = (function () {
      * @returns {Number|Null}
      */
     function index(node) {
-        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.index: @node is not HTMLElement");
+        pklib.common.assert(is_element(node), "pklib.dom.index: @node is not HTMLElement");
 
         var i,
             parent = pklib.dom.parent(node),
-            childs = pklib.dom.children(parent),
-            len = childs.length;
+            len = pklib.dom.children(parent).length;
 
         for (i = 0; i < len; ++i) {
-            if (childs[i] === node) {
+            if (children[i] === node) {
                 return i;
             }
         }
@@ -175,16 +163,16 @@ pklib.dom = (function () {
      * @returns {Array}
      */
     function children(node) {
-        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.children: @node is not HTMLElement");
+        pklib.common.assert(is_element(node), "pklib.dom.children: @node is not HTMLElement");
 
         var i,
             array = [],
-            childs = node.childNodes,
-            len = childs.length;
+            chren = node.childNodes,
+            len = chren.length;
 
         for (i = 0; i < len; ++i) {
-            if (pklib.dom.is_element(childs[i])) {
-                array.push(childs[i]);
+            if (is_element(chren[i])) {
+                array.push(chren[i]);
             }
         }
         return array;
@@ -199,7 +187,7 @@ pklib.dom = (function () {
      * @returns {HTMLElement}
      */
     function insert(element, node) {
-        if (pklib.dom.is_element(element)) {
+        if (is_element(element)) {
             node.appendChild(element);
         } else if (pklib.string.is_string(element)) {
             node.innerHTML += element;
@@ -209,17 +197,15 @@ pklib.dom = (function () {
 
     /**
      * Remove Element specified in params
-     *
-     * @param {HTMLElement}
      */
-    function remove() {
+    function remove(/* elements */) {
         var i, node = null, parent = null,
             args = Array.prototype.slice.call(arguments),
             len = args.length;
 
         for (i = 0; i < len; ++i) {
             node = args[i];
-            if (pklib.dom.is_element(node)) {
+            if (is_element(node)) {
                 parent = node.parentNode;
                 parent.removeChild(node);
             }
@@ -235,7 +221,7 @@ pklib.dom = (function () {
     function prev(node) {
         var prev_node;
 
-        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.prev: @node is not HTMLElement");
+        pklib.common.assert(is_element(node), "pklib.dom.prev: @node is not HTMLElement");
 
         while (true) {
             prev_node = node.previousSibling;
@@ -259,7 +245,7 @@ pklib.dom = (function () {
     function next(node) {
         var next_node;
 
-        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.next: @node is not HTMLElement");
+        pklib.common.assert(is_element(node), "pklib.dom.next: @node is not HTMLElement");
 
         while (true) {
             next_node = node.nextSibling;
@@ -283,7 +269,7 @@ pklib.dom = (function () {
     function parent(node) {
         var parent_node;
 
-        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.parent: @node is not HTMLElement");
+        pklib.common.assert(is_element(node), "pklib.dom.parent: @node is not HTMLElement");
 
         while (true) {
             parent_node = node.parentNode;
@@ -299,7 +285,7 @@ pklib.dom = (function () {
     }
 
     // exports
-    return {
+    pklib.dom = {
         is_node: is_node,
         is_node_list: is_node_list,
         is_element: is_element,
@@ -315,4 +301,5 @@ pklib.dom = (function () {
         next: next,
         parent: parent
     };
-}());
+
+}(this));

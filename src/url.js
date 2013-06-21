@@ -1,12 +1,11 @@
 /**
  * @package pklib.url
  */
-
-/**
- * Url helper manager
- */
-pklib.url = (function () {
+(function (global) {
     "use strict";
+
+    // imports
+    var pklib = global.pklib;
 
     /**
      * Get all params, and return in JSON object
@@ -17,7 +16,7 @@ pklib.url = (function () {
         var i,
             item,
             len,
-            params = window.location.search,
+            params = global.location.search,
             params_list = {};
 
         if (params.substr(0, 1) === "?") {
@@ -42,10 +41,8 @@ pklib.url = (function () {
      * @returns {String}
      */
     function get_param(key) {
-        var params = window.location.search,
-            i,
-            item,
-            len;
+        var params = global.location.search,
+            i, item, len;
 
         if (params.substr(0, 1) === "?") {
             params = params.substr(1);
@@ -64,9 +61,10 @@ pklib.url = (function () {
     }
 
     // exports
-    return {
+    pklib.url = {
         get_params: get_params,
         get_param: get_param
     };
-}());
+
+}(this));
 
