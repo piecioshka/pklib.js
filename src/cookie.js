@@ -9,10 +9,9 @@
     var pklib = global.pklib;
 
     /**
-     * Read cookie by it name
-     *
-     * @param {String} name
-     * @returns {String|Null}
+     * Read cookie by it name.
+     * @param {string|undefined} name
+     * @return {string|null}
      */
     function get_cookie(name) {
         if (name === undefined) {
@@ -36,12 +35,11 @@
     }
 
     /**
-     * Create cookie file with name, value and day expired
-     *
-     * @param {String} name
-     * @param {String} [value]
-     * @param {Number} [days]
-     * @returns {String}
+     * Create cookie file with name, value and day expired.
+     * @param {string} name
+     * @param {string} [value]
+     * @param {number} [days]
+     * @return {string}
      */
     function create_cookie(name, value, days) {
         var expires = "",
@@ -51,7 +49,7 @@
 
         if (days !== undefined) {
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toGMTString();
+            expires = "; expires=" + date.toGMTstring();
         }
 
         document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
@@ -60,10 +58,9 @@
     }
 
     /**
-     * Delete cookie by it name
-     *
-     * @param {String} name
-     * @returns {String}
+     * Delete cookie by it name.
+     * @param {string} name
+     * @return {string}
      */
     function remove_cookie(name) {
         return create_cookie(name, undefined, -1);

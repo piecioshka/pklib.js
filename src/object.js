@@ -11,10 +11,9 @@
     var to_string = Object.prototype.toString;
 
     /**
-     * Check if param is object
-     *
+     * Check if param is object.
      * @param {Object} obj
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function is_object(obj) {
         return obj &&
@@ -25,11 +24,11 @@
     }
 
     /**
-     * Mix two params, from second to first param. Return first param mixin with second param
-     *
+     * Mix two params, from second to first param. Return first param mixin
+     *     with second param.
      * @param {Array|Object} target
      * @param {Array|Object} source
-     * @returns {Array|Object}
+     * @return {Array|Object}
      */
     function mixin(target, source) {
         var i, len, element, item;
@@ -65,4 +64,3 @@
     };
 
 }(this));
-

@@ -6,13 +6,14 @@
     "use strict";
 
     // imports
+    var document = global.document;
     var pklib = global.pklib;
 
     /**
      * @param {HTMLElement} element
      * @param {HTMLElement} wrapper
      * @throws {TypeError} If first param is not HTMLElement
-     * @returns {Array}
+     * @return {Array}
      */
     function center(element, wrapper) {
         var left = null,
@@ -38,7 +39,7 @@
     /**
      * @param {HTMLElement} element
      * @param {HTMLElement} wrapper
-     * @returns {Array}
+     * @return {Array}
      */
     function maximize(element, wrapper) {
         var width = null,
@@ -61,8 +62,8 @@
     }
 
     /**
-     * @param {Number} param
-     * @param {Boolean} animate
+     * @param {number} param
+     * @param {boolean} animate
      */
     function scroll_to(param, animate) {
         var interval = null;
@@ -86,4 +87,3 @@
     };
 
 }(this));
-

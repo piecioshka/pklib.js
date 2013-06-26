@@ -12,7 +12,7 @@
     var copy_files = [];
 
     /**
-     * @param {String} url
+     * @param {string} url
      * @param {Function} callback
      */
     function simple_load_js(url, callback) {
@@ -55,9 +55,8 @@
 
     /**
      * Load JS files. Url to files could be with path absolute or not.
-     * If you must load more than 1 file use array, to set url to files
-     *
-     * @param {String|Array} files
+     * If you must load more than 1 file use array, to set url to files.
+     * @param {string|Array} files
      * @param {Function} callback
      */
     function load_js_file(files, callback) {
@@ -91,7 +90,7 @@
                 });
             }
         } else {
-            throw new Error("pklib.file.loadjs: @files not {String} or {Array}");
+            throw new Error("pklib.file.loadjs: @files not {string} or {Array}");
         }
     }
 

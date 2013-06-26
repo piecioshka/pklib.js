@@ -9,7 +9,7 @@
     var pklib = exports.pklib;
 
     // Default time what is timeout to use function pklib.ajax
-    var DEFAULT_TIMEOUT_TIME = 30 * 1000; // 30 sekund
+    var DEFAULT_TIMEOUT_TIME = 30 * 1000; // 30 second
 
     var REQUEST_STATE_UNSENT = 0;
     var REQUEST_STATE_OPENED = 1;
@@ -21,8 +21,8 @@
     var cache = [];
 
     /**
-     * Use when state in request is changed or if used cache is handler to request
-     *
+     * Use when state in request is changed or if used cache is handler
+     *     to request.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -48,8 +48,7 @@
     }
 
     /**
-     * When success request
-     *
+     * When success request.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -75,8 +74,7 @@
     }
 
     /**
-     * When error request
-     *
+     * When error request.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -98,8 +96,7 @@
     }
 
     /**
-     * Handler to unusually situation - timeout
-     *
+     * Handler to unusually situation - timeout.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -108,10 +105,9 @@
     }
 
     /**
-     * Try to create Internet Explorer XMLHttpRequest
-     *
-     * @throws {Error} If cannot create XMLHttpRequest object
-     * @returns {ActiveXObject|Undefined}
+     * Try to create Internet Explorer XMLHttpRequest.
+     * @throws {Error} If cannot create XMLHttpRequest object.
+     * @return {ActiveXObject|undefined}
      */
     function create_microsoft_xhr() {
         var xhr;
@@ -128,10 +124,9 @@
     }
 
     /**
-     * Try to create XMLHttpRequest
-     *
-     * @throws {Error} If cannot create XMLHttpRequest object
-     * @returns {XMLHttpRequest|Undefined}
+     * Try to create XMLHttpRequest.
+     * @throws {Error} If cannot create XMLHttpRequest object.
+     * @return {XMLHttpRequest|undefined}
      */
     function create_xhr() {
         var xhr;
@@ -144,8 +139,7 @@
     }
 
     /**
-     * Add headers to xhr object
-     *
+     * Add headers to xhr object.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -163,8 +157,7 @@
     }
 
     /**
-     * Add timeout service to xhr object
-     *
+     * Add timeout service to xhr object.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -175,25 +168,23 @@
     }
 
     /**
-     * Check is response on this request is in cache
-     *
+     * Check is response on this request is in cache.
      * @param {Object} settings
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function is_response_in_cache(settings) {
         return cache[settings.url];
     }
 
     /**
-     * Return object what is default configuration of request
-     *
-     * @returns {Object} Default configuration
+     * Return object what is default configuration of request.
+     * @return {Object} Default configuration.
      */
     function get_default_settings() {
         /**
-         * Request settings, contain ex. headers, callback when run after request finish.
-         * Default timeout on request is 30 seconds. This is default timeout from popular web servers
-         * ex. Apache, ngninx.
+         * Request settings, contain ex. headers, callback when run after
+         * request finish. Default timeout on request is 30 seconds.
+         * This is default timeout from popular web servers, ex. Apache, nginx.
          * Default request hasn't any headers.
          * Default cache is disabled.
          * Default asynchronous is enable.
@@ -223,18 +214,19 @@
     pklib.ajax = {
         /**
          * Send request to server on url defined in config.url.
-         * Method throw exception when request have timeout on server or if url is not set.
-         * Also, every response (if config.cache is true) saved to hashmap by key config.url.
-         * Method on first try to can create XMLHttpRequest if browser doesn't support, check
-         * if browser support object ActiveXObject which is implemented in Internet Explorer.
-         *
+         * Method throw exception when request have timeout on server or if
+         * url is not set. Also, every response (if config.cache is true)
+         * saved to hashmap by key config.url. Method on first try to can
+         * create XMLHttpRequest if browser doesn't support, check if browser
+         * support object ActiveXObject which is implemented in Internet
+         * Explorer.
          * @param {Object} config
          * <pre>
          * {
-         *      {String} [type="get"]
-         *      {Boolean} [async=true]
-         *      {Boolean} [cache=false]
-         *      {String} url
+         *      {string} [type="get"]
+         *      {boolean} [async=true]
+         *      {boolean} [cache=false]
+         *      {string} url
          *      {Object} [params]
          *      {Object} [headers]
          *      {Function} [done]
@@ -259,8 +251,8 @@
          *      }
          * });
          * </pre>
-         * @throws {Error} If unset request url
-         * @returns {XMLHttpRequest|Null}
+         * @throws {Error} If unset request url.
+         * @return {XMLHttpRequest|null}
          */
         load: function (config) {
             var xhr = null,
@@ -308,8 +300,8 @@
 
         /**
          * Stop request setting in param
-         *
-         * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object, or ActiveXObject object if Internet Explorer
+         * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object,
+         *     or ActiveXObject object if Internet Explorer.
          */
         stop: function (xhr) {
             xhr.abort();

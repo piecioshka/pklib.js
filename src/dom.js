@@ -11,7 +11,7 @@
     var to_string = Object.prototype.toString;
 
     /**
-     * Types of all available node
+     * Types of all available node.
      */
     var node_types = {
         "ELEMENT_NODE": 1,
@@ -29,10 +29,9 @@
     };
 
     /**
-     * Walking on every node in node
-     *
+     * Walking on every node in node.
      * @param {HTMLElement} node
-     * @param {Function} func Run on every node
+     * @param {Function} func Run on every node.
      */
     function walk_the_dom(node, func) {
         if (!!node) {
@@ -46,10 +45,9 @@
     }
 
     /**
-     * Check if param is Node, with use assertions
-     *
+     * Check if param is Node, with use assertions.
      * @param {Node} node
-     * @returns {String}
+     * @return {string}
      */
     function is_node(node) {
         return node && node.nodeType && node.nodeName &&
@@ -57,10 +55,9 @@
     }
 
     /**
-     * Check if param is NodeList, with use assertions
-     *
+     * Check if param is NodeList, with use assertions.
      * @param {NodeList} node_list
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function is_node_list(node_list) {
         var list = ["[object HTMLCollection]", "[object NodeList]"];
@@ -68,20 +65,18 @@
     }
 
     /**
-     * Check if param is instanceOf Element
-     *
+     * Check if param is instanceOf Element.
      * @param {HTMLElement} node
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function is_element(node) {
         return (node && node.nodeType === node_types.ELEMENT_NODE) || false;
     }
 
     /**
-     * Check visibility of Node, with use assertions
-     *
+     * Check visibility of Node, with use assertions.
      * @param {HTMLElement} node
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function is_visible(node) {
         pklib.common.assert(is_element(node), "pklib.dom.is_visible: @node is not HTMLElement");
@@ -93,21 +88,19 @@
     }
 
     /**
-     * Get element by attribute ID
-     *
-     * @param {String} id
-     * @returns {HTMLElement|Null}
+     * Get element by attribute ID.
+     * @param {string} id
+     * @return {HTMLElement|null}
      */
     function by_id(id) {
         return document.getElementById(id);
     }
 
     /**
-     * Get elements by tag name
-     *
-     * @param {String} tag
+     * Get elements by tag name.
+     * @param {string} tag
      * @param {Element} [element]
-     * @returns {NodeList}
+     * @return {NodeList}
      */
     function by_tag(tag, element) {
         element = element || document;
@@ -115,11 +108,10 @@
     }
 
     /**
-     * Get elements by attribute CLASS
-     *
-     * @param {String} css_class
+     * Get elements by attribute CLASS.
+     * @param {string} css_class
      * @param {HTMLElement} [wrapper]
-     * @returns {Array}
+     * @return {Array}
      */
     function by_class(css_class, wrapper) {
         var results = [];
@@ -136,10 +128,9 @@
     }
 
     /**
-     * Get index of node relative siblings
-     *
+     * Get index of node relative siblings.
      * @param {HTMLElement} node
-     * @returns {Number|Null}
+     * @return {number|null}
      */
     function index(node) {
         pklib.common.assert(is_element(node), "pklib.dom.index: @node is not HTMLElement");
@@ -157,10 +148,9 @@
     }
 
     /**
-     * Get children of element filter by Element type
-     *
+     * Get children of element filter by Element type.
      * @param {HTMLElement} node
-     * @returns {Array}
+     * @return {Array}
      */
     function children(node) {
         pklib.common.assert(is_element(node), "pklib.dom.children: @node is not HTMLElement");
@@ -179,12 +169,11 @@
     }
 
     /**
-     * Insert data to Node. Maybe param is string so insert will be exec by innerHTML,
-     * but if param is Node inserting will be by appendChild() function
-     *
-     * @param {HTMLElement|String} element
+     * Insert data to Node. Maybe param is string so insert will be exec
+     * by innerHTML, but if param is Node inserting with appendChild().
+     * @param {HTMLElement|string} element
      * @param {HTMLElement} node
-     * @returns {HTMLElement}
+     * @return {HTMLElement}
      */
     function insert(element, node) {
         if (is_element(element)) {
@@ -196,11 +185,12 @@
     }
 
     /**
-     * Remove Element specified in params
+     * Remove Element specified in params.
+     * @param {...HTMLElement}
      */
-    function remove(/* elements */) {
+    function remove() {
         var i, node = null, parent = null,
-            args = Array.prototype.slice.call(arguments),
+            args = [].slice.call(arguments),
             len = args.length;
 
         for (i = 0; i < len; ++i) {
@@ -213,10 +203,9 @@
     }
 
     /**
-     * Get prev Node what will be Element
-     *
+     * Get prev Node what will be Element.
      * @param {HTMLElement} node
-     * @returns {HTMLElement|Null}
+     * @return {HTMLElement|null}
      */
     function prev(node) {
         var prev_node;
@@ -237,10 +226,9 @@
     }
 
     /**
-     * Get next Node what will be Element
-     *
+     * Get next Node what will be Element.
      * @param {HTMLElement} node
-     * @returns {HTMLElement|Null}
+     * @return {HTMLElement|null}
      */
     function next(node) {
         var next_node;
@@ -261,10 +249,10 @@
     }
 
     /**
-     * Get parent element what will by Element, but if parent is not exists returns Null
-     *
+     * Get parent element what will by Element, but if parent is not exists
+     *     returns null.
      * @param {HTMLElement} node
-     * @returns {HTMLElement|Null}
+     * @return {HTMLElement|null}
      */
     function parent(node) {
         var parent_node;

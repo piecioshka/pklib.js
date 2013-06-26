@@ -8,10 +8,9 @@
     var pklib = global.pklib;
 
     /**
-     * Basic test function. Simple assertion 2 variables
-     *
-     * @param {Boolean} expression Object what is true
-     * @param {String} comment Message to throw in error
+     * Basic test function. Simple assertion 2 variables.
+     * @param {boolean} expression Object what is true.
+     * @param {string} comment Message to throw in error.
      * @throws {Error}
      */
     function assert(expression, comment) {
@@ -22,10 +21,10 @@
 
     /**
      * Deferred function about some milliseconds.
-     * If milliseconds is 0 that it's hack for some platforms to use function in "next" thread
-     *
-     * @param {Function} defer_function Function what would be deferred
-     * @param {Number} [milliseconds] Time to deferred function
+     * If milliseconds is 0 that it's hack for some platforms to use function
+     * in "next" thread.
+     * @param {Function} defer_function Function what would be deferred.
+     * @param {number} [milliseconds] Time to deferred function
      */
     function defer(defer_function, milliseconds) {
         milliseconds = milliseconds || 0;
@@ -33,10 +32,9 @@
     }
 
     /**
-     * Interval checking first function until returns true,
-     * run after this second function callback
-     *
-     * @param {Function} condition Function returns {Boolean} status
+     * Interval checking first function until returns true, run after this
+     * second function callback.
+     * @param {Function} condition Function returns {@type boolean} status.
      * @param {Function} callback
      */
     function checking(condition, callback) {

@@ -9,32 +9,32 @@
     var pklib = global.pklib;
 
     /**
-     * RegExp use to delete white chars
+     * RegExp use to delete white chars.
      */
     var rclass = /[\n\t\r]/g;
 
     /**
-     * Check typeof params
-     *
-     * @param {String} css_class
+     * Check typeof params.
+     * @param {string} css_class
      * @param {HTMLElement} element
-     * @param {String} call_func_name
-     * @throws {TypeError} If first param is not string, or second param is not Node
+     * @param {string} call_func_name
+     * @throws {TypeError} If first param is not string, or second param is
+     *     not Node.
      */
     function check_params(css_class, element, call_func_name) {
         var assert = pklib.common.assert;
         var is_element = pklib.dom.is_element;
         var prefix = "pklib.css." + call_func_name;
-        assert(typeof css_class === "string", prefix + ": @css_class: not {String}");
+        assert(typeof css_class === "string", prefix + ": @css_class: not {string}");
         assert(is_element(element), prefix + ": @element: not {HTMLElement}");
     }
 
     /**
-     * Add CSS class to element define in second parameter
-     *
-     * @param {String} css_class
+     * Add CSS class to element define in second parameter.
+     * @param {string} css_class
      * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not Node
+     * @throws {TypeError} If first param is not string, or second param is
+     *     not Node.
      */
     function add_class(css_class, element) {
         check_params(css_class, element, "add_class");
@@ -50,11 +50,11 @@
     }
 
     /**
-     * Remove CSS class from element define in second parameter
-     *
-     * @param {String} css_class
+     * Remove CSS class from element define in second parameter.
+     * @param {string} css_class
      * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not Node
+     * @throws {TypeError} If first param is not string, or second param is
+     *     not Node.
      */
     function remove_class(css_class, element) {
         check_params(css_class, element, "remove_class");
@@ -63,12 +63,12 @@
     }
 
     /**
-     * Check if element has CSS class
-     *
-     * @param {String} css_class
+     * Check if element has CSS class.
+     * @param {string} css_class
      * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not Node
-     * @returns {Boolean}
+     * @throws {TypeError} If first param is not string, or second param is not
+     *     Node
+     * @return {boolean}
      */
     function has_class(css_class, element) {
         check_params(css_class, element, "has_class");

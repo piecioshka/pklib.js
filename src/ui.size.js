@@ -6,17 +6,17 @@
     "use strict";
 
     // imports
-    var pklib = global.pklib;
     var document = global.document;
+    var pklib = global.pklib;
 
     /**
-     * @param {String} name
+     * @param {string} name
      * @throws {TypeError}
-     * @returns {Number}
+     * @return {number}
      */
     function size_of_window(name) {
         var clientName;
-        pklib.common.assert(typeof name === "string", "pklib.ui.size.window: @name: not {String}");
+        pklib.common.assert(typeof name === "string", "pklib.ui.size.window: @name: not {string}");
 
         name = pklib.string.capitalize(name);
         clientName = document.documentElement["client" + name];
@@ -26,8 +26,8 @@
     }
 
     /**
-     * @param {String} name
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
      */
     function size_of_document(name) {
         var clientName,
@@ -36,7 +36,7 @@
             offsetBodyName,
             offsetName;
 
-        pklib.common.assert(typeof name === "string", "pklib.ui.size.document: @name: not {String}");
+        pklib.common.assert(typeof name === "string", "pklib.ui.size.document: @name: not {string}");
 
         name = pklib.string.capitalize(name);
         clientName = document.documentElement["client" + name];
@@ -49,11 +49,11 @@
 
     /**
      * @param {HTMLElement} obj
-     * @param {String} name
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
      */
     function size_of_object(obj, name) {
-        pklib.common.assert(typeof name === "string", "pklib.ui.size.object: @name: not {String}");
+        pklib.common.assert(typeof name === "string", "pklib.ui.size.object: @name: not {string}");
         pklib.common.assert(pklib.dom.is_element(obj), "pklib.ui.size.object: @obj: not {HTMLElement}");
 
         name = pklib.string.capitalize(name);

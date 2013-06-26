@@ -6,6 +6,7 @@
     "use strict";
 
     // imports
+    var document = global.document;
     var pklib = global.pklib;
 
     var id = "pklib-loader-wrapper",
@@ -60,7 +61,7 @@
 
     /**
      * @param {Function} callback
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function close_loader(callback) {
         var loader = pklib.dom.by_id(pklib.ui.loader.obj_id),
@@ -87,4 +88,3 @@
     };
 
 }(this));
-

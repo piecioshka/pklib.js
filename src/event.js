@@ -8,10 +8,9 @@
     var pklib = global.pklib;
 
     /**
-     * Add event to Element
-     *
+     * Add event to Element.
      * @param {HTMLElement} target
-     * @param {String} event_name
+     * @param {string} event_name
      * @param {Function} handler
      */
     function add_event(target, event_name, handler) {
@@ -40,10 +39,9 @@
     }
 
     /**
-     * Remove event from Element
-     *
+     * Remove event from Element.
      * @param {HTMLElement} target
-     * @param {String} event_name
+     * @param {string} event_name
      */
     function remove_event(target, event_name) {
         var removeEvent, events, len, i, handler;
@@ -79,11 +77,10 @@
     }
 
     /**
-     * Get array with events with concrete name
-     *
+     * Get array with events with concrete name.
      * @param {HTMLElement} target
-     * @param {String} event_name
-     * @returns {Array|Undefined}
+     * @param {string} event_name
+     * @return {Array|undefined}
      */
     function get_event(target, event_name) {
         if (target.events === undefined) {
@@ -93,10 +90,9 @@
     }
 
     /**
-     * Run events on Element
-     *
+     * Run events on Element.
      * @param {HTMLElement} target
-     * @param {String} event_name
+     * @param {string} event_name
      */
     function trigger(target, event_name) {
         var events, len, i;

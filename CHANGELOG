@@ -1,4 +1,8 @@
-1.1.1 / xx.xx.xxxx
+1.2.0 / 26.06.2013
+==================
+* use Google Style Guide to fix everything
+
+1.1.1 / 22.08.2012
 ==================
 * dodanie do QUnit pluginu Composite, aby testowanie stało się przyjemniejsze
 * upgrade biblioteki do testów QUnit

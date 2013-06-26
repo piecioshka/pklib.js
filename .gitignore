@@ -1,6 +1,7 @@
-.settings
+.settings/
 .idea/
+docs/
+
 .project
 .buildpath
-
 .DS_Store

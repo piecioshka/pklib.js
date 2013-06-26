@@ -1,42 +1,46 @@
 /**
  * @package pklib.aspect
  */
-
-/**
- * Bind function to aspect.
- * Create method with merge first and second.
- * Second method is run after first
- *
- * @param {Function} fun The function to bind aspect function
- * @param {Function} asp The aspect function
- * @param {String} [when] Place to aspect function
- * @throws {TypeError} If any param is not function
- * @returns {Function}
- */
-pklib.aspect = function (fun, asp, when) {
+(function (global) {
     "use strict";
 
     // imports
+    var pklib = global.pklib;
     var assert = pklib.common.assert;
 
-    // private
-    var self = this, result;
+    /**
+     * Bind function to aspect.
+     * Create method with merge first and second.
+     * Second method is run after first.
+     * @param {Function} fun The function to bind aspect function.
+     * @param {Function} asp The aspect function.
+     * @param {string} [when] Place to aspect function.
+     * @throws {TypeError} If any param is not function.
+     * @return {Function}
+     */
+    pklib.aspect = function (fun, asp, when) {
 
-    assert(typeof fun === "function", "pklib.aspect: @func: not {Function}");
-    assert(typeof asp === "function", "pklib.aspect: @asp: not {Function}");
+        // private
+        var self = this, result;
 
-    when = when || "before";
+        assert(typeof fun === "function", "pklib.aspect: @func: not {Function}");
+        assert(typeof asp === "function", "pklib.aspect: @asp: not {Function}");
 
-    return function () {
-        if (when === "before") {
-            asp.call(self);
-        }
+        when = when || "before";
 
-        result = fun.apply(self, arguments);
+        return function () {
+            if (when === "before") {
+                asp.call(self);
+            }
 
-        if (when === "after") {
-            result = asp.call(self);
-        }
-        return result;
+            result = fun.apply(self, arguments);
+
+            if (when === "after") {
+                result = asp.call(self);
+            }
+
+            return result;
+        };
     };
-};
+
+}(this));

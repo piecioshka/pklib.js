@@ -11,8 +11,8 @@
     var data = {};
 
     /**
-     * @param {String} name
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
      */
     function start(name) {
         data[name] = new Date();
@@ -20,17 +20,17 @@
     }
 
     /**
-     * @param {String} name
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
      */
     function stop(name) {
         data[name] = new Date() - data[name];
-        return new Date((new Date()).getTime() + data[name]);
+        return (new Date((new Date()).getTime() + data[name])).getTime();
     }
 
     /**
-     * @param {String} name
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
      */
     function get_time(name) {
         return data[name];
@@ -44,4 +44,3 @@
     };
 
 }(this));
-

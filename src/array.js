@@ -9,10 +9,9 @@
     var to_string = Object.prototype.toString;
 
     /**
-     * Check if param is array
-     *
+     * Check if param is array.
      * @param {Object} array
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function is_array(array) {
         return array !== null &&
@@ -23,11 +22,10 @@
     }
 
     /**
-     * Check if element is in array by loop
-     *
+     * Check if element is in array by loop.
      * @param {*} param
      * @param {Array} array
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function in_array(param, array) {
         var i, len = array.length;
@@ -41,11 +39,10 @@
 
     /**
      * Get index of element.
-     * If couldn't find searching element, return null value
-     *
+     * If couldn't find searching element, return null value.
      * @param {*} item
      * @param {Array} array
-     * @returns {Number|Null}
+     * @return {number|null}
      */
     function index(item, array) {
         var i, len = array.length;
@@ -58,10 +55,9 @@
     }
 
     /**
-     * Unique array. Delete element what was duplicated
-     *
+     * Unique array. Delete element what was duplicated.
      * @param {Array} array
-     * @returns {Array}
+     * @return {Array}
      */
     function unique(array) {
         var i, item, temp = [],
@@ -78,14 +74,13 @@
 
     /**
      * Remove element declared in infinity params without first.
-     * First parameter is array object
-     *
+     * First parameter is array object.
      * @param {Array} array
-     * @returns {Array}
+     * @return {Array}
      */
     function remove(array) {
         var i, param,
-            params = Array.prototype.slice.call(arguments, 1),
+            params = [].slice.call(arguments, 1),
             len = params.length;
 
         for (i = 0; i < len; ++i) {

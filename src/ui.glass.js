@@ -6,6 +6,7 @@
     "use strict";
 
     // imports
+    var document = global.document;
     var pklib = global.pklib;
 
     var id = "pklib-glass-wrapper",
@@ -24,7 +25,7 @@
     /**
      * @param {Object} config
      * @param {Function} callback
-     * @returns {HTMLElement}
+     * @return {HTMLElement}
      */
     function show_glass(config, callback) {
         var glass = document.createElement("div"),
@@ -62,7 +63,7 @@
 
     /**
      * @param {Function} callback
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function close_glass(callback) {
         var glass = pklib.dom.by_id(pklib.ui.glass.obj_id),
@@ -86,7 +87,6 @@
     // exports
     pklib.ui.glass = {
         obj_id: id,
-
         show: show_glass,
         close: close_glass
     };

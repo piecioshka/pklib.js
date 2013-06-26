@@ -6,6 +6,7 @@
     "use strict";
 
     // imports
+    var document = global.document;
     var pklib = global.pklib;
 
     // private
@@ -22,7 +23,7 @@
     /**
      * @param {Object} config
      * @param {Function} callback
-     * @returns {HTMLElement}
+     * @return {HTMLElement}
      */
     function show_message(config, callback) {
         var message = document.createElement("div"),
@@ -58,7 +59,7 @@
 
     /**
      * @param {Function} callback
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function close_message(callback) {
         var message = pklib.dom.by_id(pklib.ui.message.obj_id),

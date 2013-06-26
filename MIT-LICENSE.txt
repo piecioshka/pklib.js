@@ -1,4 +1,4 @@
-Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
+Copyright (c) 2013 Piotr Kowalski, http://pklib.com/
 
 MIT License
 

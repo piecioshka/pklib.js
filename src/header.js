@@ -26,7 +26,7 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Sat Sep 22 16:01:17 CEST 2012
+ * Date: Wed Jun 26 22:24:48 CEST 2013
  */
 
 /*jslint plusplus: true, regexp: true */
@@ -48,7 +48,7 @@ if (typeof Function.prototype.bind !== "function") {
      * </pre>
      *
      * @param {*} that Context
-     * @returns {Function}
+     * @return {Function}
      */
     Function.prototype.bind = function (that) {
         "use strict";

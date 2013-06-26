@@ -9,32 +9,32 @@
     var pklib = global.pklib;
 
     /**
-     * @param {String} source
-     * @returns {Boolean}
+     * @param {string} source
+     * @return {boolean}
      */
     function is_string(source) {
         return typeof source === "string";
     }
 
     /**
-     * @param {String} source
-     * @returns {Boolean}
+     * @param {string} source
+     * @return {boolean}
      */
     function is_letter(source) {
         return is_string(source) && (/^[a-zA-Z]$/).test(source);
     }
 
     /**
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function trim(source) {
         return source.replace(/^\s+|\s+$/g, "");
     }
 
     /**
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function slug(source) {
         var result = source.toLowerCase().replace(/\s/mg, "-");
@@ -65,16 +65,16 @@
     }
 
     /**
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function capitalize(source) {
         return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
     }
 
     /**
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function delimiter_separated_words(source) {
         return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function (match) {
@@ -83,22 +83,24 @@
     }
 
     /**
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function strip_tags(source) {
         pklib.common.assert(typeof source === "string", "pklib.string.strip_tags: param @source is not a string");
+
         if (source && source.length !== 0) {
             var dummy = document.createElement("div");
             dummy.innerHTML = source;
             return dummy.textContent || dummy.innerText;
         }
+
         return source;
     }
 
     /**
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function camel_case(source) {
         while (source.indexOf("-") !== -1) {
@@ -112,10 +114,11 @@
     }
 
     /**
-     * @param {String} source Text to slice
-     * @param {Number} length Number of chars what string will be slice
-     * @param {Boolean} [is_force] Force mode. If slice will be end in middle of word, use this to save it, or algorytm slice to last space
-     * @returns {String}
+     * @param {string} source Text to slice.
+     * @param {number} length number of chars what string will be slice.
+     * @param {boolean} [is_force] Force mode. If slice will be end in middle.
+     *     of word, use this to save it, or algorithm slice to last space.
+     * @return {string}
      */
     function slice(source, length, is_force) {
         pklib.common.assert(typeof source === "string", "pklib.string.slice: param @source is not a string");
@@ -160,22 +163,16 @@
     }
 
     /**
-     * Replace tags in string to defined data
-     * Tags:
+     * Replace tags in string to defined data.
      * ${NAME} - replace by value of object["NAME"]
-     *
-     * @param {String} str Some string to replace by objects
-     * @param {Object} obj Object what will serve data to replacer
-     *
+     * @param {string} str Some string to replace by objects.
+     * @param {Object} obj Object what will serve data to replace.
      * @example
-     *
-     * In: 
+     * In:
      * %{car} is the best!
-     *
-     * Run: 
+     * Run:
      * pklib.string.format("%{car} is the best", { car: "Ferrari" });
-     *
-     * Out: 
+     * Out:
      * Ferrari is the best!
      */
     function format(str, obj) {
@@ -191,11 +188,10 @@
     }
 
     /**
-     * Left padding any chars
-     *
-     * @param {String} staff Object what be padding on the left
-     * @param {Number} nr_fill Padding size
-     * @param {String} add_char Char what be added
+     * Left padding any chars.
+     * @param {string} staff Object what be padding on the left.
+     * @param {number} nr_fill Padding size.
+     * @param {string} add_char Char what be added.
      */
     function lpad(staff, nr_fill, add_char) {
         var i, string = staff.toString();
@@ -208,11 +204,10 @@
     }
 
     /**
-     * Right padding any chars
-     *
-     * @param {String} staff Object what be padding on the right
-     * @param {Number} nr_fill Padding size
-     * @param {String} add_char Char what be added
+     * Right padding any chars.
+     * @param {string} staff Object what be padding on the right.
+     * @param {number} nr_fill Padding size.
+     * @param {string} add_char Char what be added.
      */
     function rpad(staff, nr_fill, add_char) {
         var i, string = staff.toString();
