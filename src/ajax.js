@@ -110,7 +110,7 @@
     /**
      * Try to create Internet Explorer XMLHttpRequest
      *
-     * @throws {Error} If can not create XMLHttpRequest object
+     * @throws {Error} If cannot create XMLHttpRequest object
      * @returns {ActiveXObject|Undefined}
      */
     function create_microsoft_xhr() {
@@ -130,7 +130,7 @@
     /**
      * Try to create XMLHttpRequest
      *
-     * @throws {Error} If can not create XMLHttpRequest object
+     * @throws {Error} If cannot create XMLHttpRequest object
      * @returns {XMLHttpRequest|Undefined}
      */
     function create_xhr() {

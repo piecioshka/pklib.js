@@ -175,7 +175,7 @@ if (typeof Function.prototype.bind !== "function") {
     /**
      * Try to create Internet Explorer XMLHttpRequest
      *
-     * @throws {Error} If can not create XMLHttpRequest object
+     * @throws {Error} If cannot create XMLHttpRequest object
      * @returns {ActiveXObject|Undefined}
      */
     function create_microsoft_xhr() {
@@ -195,7 +195,7 @@ if (typeof Function.prototype.bind !== "function") {
     /**
      * Try to create XMLHttpRequest
      *
-     * @throws {Error} If can not create XMLHttpRequest object
+     * @throws {Error} If cannot create XMLHttpRequest object
      * @returns {XMLHttpRequest|Undefined}
      */
     function create_xhr() {
