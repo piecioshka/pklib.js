@@ -6,7 +6,7 @@
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * RegExp use to delete white chars.
@@ -27,6 +27,20 @@
         var prefix = "pklib.css." + call_func_name;
         assert(typeof css_class === "string", prefix + ": @css_class: not {string}");
         assert(is_element(element), prefix + ": @element: not {HTMLElement}");
+    }
+
+    /**
+     * Check if element has CSS class.
+     * @param {string} css_class
+     * @param {HTMLElement} element
+     * @throws {TypeError} If first param is not string, or second param is not
+     *     Node
+     * @return {boolean}
+     */
+    function has_class(css_class, element) {
+        check_params(css_class, element, "has_class");
+        var className = " " + css_class + " ";
+        return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
     }
 
     /**
@@ -60,20 +74,6 @@
         check_params(css_class, element, "remove_class");
         var regexp = new RegExp("(\\s" + css_class + ")|(" + css_class + "\\s)|" + css_class, "i");
         element.className = pklib.string.trim(element.className.replace(regexp, ""));
-    }
-
-    /**
-     * Check if element has CSS class.
-     * @param {string} css_class
-     * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not
-     *     Node
-     * @return {boolean}
-     */
-    function has_class(css_class, element) {
-        check_params(css_class, element, "has_class");
-        var className = " " + css_class + " ";
-        return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
     }
 
     // exports

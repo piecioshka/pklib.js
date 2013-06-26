@@ -5,7 +5,7 @@
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
     var to_string = Object.prototype.toString;
 
     /**

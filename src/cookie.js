@@ -6,7 +6,7 @@
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * Read cookie by it name.

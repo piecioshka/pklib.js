@@ -7,7 +7,7 @@
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
     var add_event = pklib.event.add;
 
     /**

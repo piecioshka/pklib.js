@@ -5,28 +5,24 @@
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * Get all params, and return in JSON object.
-     * @param {?String} [url]
+     * @param {?string} [url]
      * @return {Object}
      */
     function get_params(url) {
         var i,
             item,
             len,
+            key_value_section,
             params,
             params_list = {};
 
-        // url exists?
         if (typeof url === "string") {
-            // YES, url is string
-
-            // has search part?
             params = url.match(/\?(.*)/)[0] || "";
         } else {
-            // NO, use current location
             params = global.location.search;
         }
 
@@ -38,8 +34,11 @@
         len = params.length;
 
         for (i = 0; i < len; ++i) {
-            item = params[i].split("=");
-            params_list[item[0]] = item[1];
+            key_value_section = params[i];
+            if (key_value_section.length > 0) {
+                item = key_value_section.split("=");
+                params_list[item[0]] = item[1];
+            }
         }
 
         return params_list;
@@ -49,7 +48,7 @@
      * Get concrete param from URL.
      * If param if not defined return null.
      * @param {string} key
-     * @param {?String} url
+     * @param {?string} url
      * @return {string}
      */
     function get_param(key, url) {
@@ -58,14 +57,9 @@
             item,
             len;
 
-        // url exists?
         if (typeof url === "string") {
-            // YES, url is string
-
-            // has search part?
             params = url.match(/\?(.*)/)[0] || "";
         } else {
-            // NO, use current location
             params = global.location.search;
         }
 

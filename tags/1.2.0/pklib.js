@@ -29,8 +29,8 @@
  * Date: Wed Jun 26 22:24:48 CEST 2013
  */
 
-/*jslint plusplus: true, regexp: true */
-/*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */
+/*jslint continue: true, nomen: true, plusplus: true, regexp: true, vars: true, white: true, indent: 4 */
+/*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout, clearTimeout */
 
 var pklib = {
     VERSION: "1.2.0"
@@ -67,11 +67,11 @@ if (typeof Function.prototype.bind !== "function") {
  * @package pklib.ajax
  * @dependence pklib.array, pklib.common
  */
-(function (exports) {
+(function (global) {
     "use strict";
 
     // imports
-    var pklib = exports.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     // Default time what is timeout to use function pklib.ajax
     var DEFAULT_TIMEOUT_TIME = 30 * 1000; // 30 second
@@ -84,33 +84,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     // Array contain key as url, value as ajax response
     var cache = [];
-
-    /**
-     * Use when state in request is changed or if used cache is handler
-     *     to request.
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
-    function state_change_handler(settings, xhr) {
-        var status = 0;
-
-        if (xhr.readyState === REQUEST_STATE_DONE) {
-            if (xhr.status !== undefined) {
-                status = xhr.status;
-            }
-
-            clearTimeout(xhr.ontimeout);
-            delete xhr.ontimeout;
-
-            if ((status >= 200 && status < 300) || status === 304) {
-                // success
-                success_handler(settings, xhr);
-            } else {
-                // error
-                error_handler_with_abort(settings, xhr);
-            }
-        }
-    }
 
     /**
      * When success request.
@@ -151,6 +124,33 @@ if (typeof Function.prototype.bind !== "function") {
 
             // set flag to no run error handler
             xhr._run_error_handler = true;
+        }
+    }
+
+    /**
+     * Use when state in request is changed or if used cache is handler
+     *     to request.
+     * @param {Object} settings
+     * @param {XMLHttpRequest} xhr
+     */
+    function state_change_handler(settings, xhr) {
+        var status = 0;
+
+        if (xhr.readyState === REQUEST_STATE_DONE && xhr.status !== REQUEST_STATE_UNSENT) {
+            if (xhr.status !== undefined) {
+                status = xhr.status;
+            }
+
+            clearTimeout(xhr.ontimeout);
+            delete xhr.ontimeout;
+
+            if ((status >= 200 && status < 300) || status === 304) {
+                // success
+                success_handler(settings, xhr);
+            } else {
+                // error
+                error_handler_with_abort(settings, xhr);
+            }
         }
     }
 
@@ -384,7 +384,7 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
     var to_string = Object.prototype.toString;
 
     /**
@@ -488,7 +488,7 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
     var assert = pklib.common.assert;
 
     /**
@@ -533,7 +533,7 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * Basic test function. Simple assertion 2 variables.
@@ -600,7 +600,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * Read cookie by it name.
@@ -676,7 +676,7 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * RegExp use to delete white chars.
@@ -697,6 +697,20 @@ if (typeof Function.prototype.bind !== "function") {
         var prefix = "pklib.css." + call_func_name;
         assert(typeof css_class === "string", prefix + ": @css_class: not {string}");
         assert(is_element(element), prefix + ": @element: not {HTMLElement}");
+    }
+
+    /**
+     * Check if element has CSS class.
+     * @param {string} css_class
+     * @param {HTMLElement} element
+     * @throws {TypeError} If first param is not string, or second param is not
+     *     Node
+     * @return {boolean}
+     */
+    function has_class(css_class, element) {
+        check_params(css_class, element, "has_class");
+        var className = " " + css_class + " ";
+        return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
     }
 
     /**
@@ -732,20 +746,6 @@ if (typeof Function.prototype.bind !== "function") {
         element.className = pklib.string.trim(element.className.replace(regexp, ""));
     }
 
-    /**
-     * Check if element has CSS class.
-     * @param {string} css_class
-     * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not
-     *     Node
-     * @return {boolean}
-     */
-    function has_class(css_class, element) {
-        check_params(css_class, element, "has_class");
-        var className = " " + css_class + " ";
-        return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
-    }
-
     // exports
     pklib.css = {
         add_class: add_class,
@@ -763,7 +763,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
     var to_string = Object.prototype.toString;
 
     /**
@@ -893,10 +893,11 @@ if (typeof Function.prototype.bind !== "function") {
 
         var i,
             parent = pklib.dom.parent(node),
-            len = pklib.dom.children(parent).length;
+            chren = pklib.dom.children(parent),
+            len = chren.length;
 
         for (i = 0; i < len; ++i) {
-            if (children[i] === node) {
+            if (chren[i] === node) {
                 return i;
             }
         }
@@ -1054,7 +1055,7 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * Add event to Element.
@@ -1177,8 +1178,8 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     // imports
-    var pklib = global.pklib;
     var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
 
     // private
     var copy_files = [];
@@ -1279,7 +1280,7 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
     var is_array = pklib.array.is_array;
     var in_array = pklib.array.in_array;
     var to_string = Object.prototype.toString;
@@ -1331,10 +1332,23 @@ if (typeof Function.prototype.bind !== "function") {
         return target;
     }
 
+    function is_empty(obj) {
+        var i, items = 0;
+
+        for (i in obj) {
+            if (obj.hasOwnProperty(i)) {
+                items++;
+            }
+        }
+
+        return !items;
+    }
+
     // exports
     pklib.object = {
         is_object: is_object,
-        mixin: mixin
+        mixin: mixin,
+        is_empty: is_empty
     };
 
 }(this));
@@ -1345,7 +1359,7 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     // private
     var data = {};
@@ -1392,7 +1406,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * @param {string} source
@@ -1489,13 +1503,16 @@ if (typeof Function.prototype.bind !== "function") {
      * @return {string}
      */
     function camel_case(source) {
+        var pos, pre, sub, post;
+
         while (source.indexOf("-") !== -1) {
-            var pos = source.indexOf("-"),
-                pre = source.substr(0, pos),
-                sub = source.substr(pos + 1, 1).toUpperCase(),
-                post = source.substring(pos + 2, source.length);
+            pos = source.indexOf("-");
+            pre = source.substr(0, pos);
+            sub = source.substr(pos + 1, 1).toUpperCase();
+            post = source.substring(pos + 2, source.length);
             source = pre + sub + post;
         }
+
         return source;
     }
 
@@ -1632,7 +1649,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * @param {HTMLElement} element
@@ -1721,7 +1738,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     var id = "pklib-glass-wrapper",
         settings = {
@@ -1816,7 +1833,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     var id = "pklib-loader-wrapper",
         settings = {
@@ -1906,7 +1923,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     // private
     var id = "pklib-message-wrapper",
@@ -1998,7 +2015,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * @param {string} name
@@ -2070,28 +2087,24 @@ if (typeof Function.prototype.bind !== "function") {
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * Get all params, and return in JSON object.
-     * @param {?String} [url]
+     * @param {?string} [url]
      * @return {Object}
      */
     function get_params(url) {
         var i,
             item,
             len,
+            key_value_section,
             params,
             params_list = {};
 
-        // url exists?
         if (typeof url === "string") {
-            // YES, url is string
-
-            // has search part?
             params = url.match(/\?(.*)/)[0] || "";
         } else {
-            // NO, use current location
             params = global.location.search;
         }
 
@@ -2103,8 +2116,11 @@ if (typeof Function.prototype.bind !== "function") {
         len = params.length;
 
         for (i = 0; i < len; ++i) {
-            item = params[i].split("=");
-            params_list[item[0]] = item[1];
+            key_value_section = params[i];
+            if (key_value_section.length > 0) {
+                item = key_value_section.split("=");
+                params_list[item[0]] = item[1];
+            }
         }
 
         return params_list;
@@ -2114,7 +2130,7 @@ if (typeof Function.prototype.bind !== "function") {
      * Get concrete param from URL.
      * If param if not defined return null.
      * @param {string} key
-     * @param {?String} url
+     * @param {?string} url
      * @return {string}
      */
     function get_param(key, url) {
@@ -2123,14 +2139,9 @@ if (typeof Function.prototype.bind !== "function") {
             item,
             len;
 
-        // url exists?
         if (typeof url === "string") {
-            // YES, url is string
-
-            // has search part?
             params = url.match(/\?(.*)/)[0] || "";
         } else {
-            // NO, use current location
             params = global.location.search;
         }
 
@@ -2167,7 +2178,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
     var add_event = pklib.event.add;
 
     /**

@@ -29,8 +29,8 @@
  * Date: Wed Jun 26 22:24:48 CEST 2013
  */
 
-/*jslint plusplus: true, regexp: true */
-/*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */
+/*jslint continue: true, nomen: true, plusplus: true, regexp: true, vars: true, white: true, indent: 4 */
+/*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout, clearTimeout */
 
 var pklib = {
     VERSION: "1.2.0"

@@ -6,7 +6,7 @@
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * @param {string} source
@@ -103,13 +103,16 @@
      * @return {string}
      */
     function camel_case(source) {
+        var pos, pre, sub, post;
+
         while (source.indexOf("-") !== -1) {
-            var pos = source.indexOf("-"),
-                pre = source.substr(0, pos),
-                sub = source.substr(pos + 1, 1).toUpperCase(),
-                post = source.substring(pos + 2, source.length);
+            pos = source.indexOf("-");
+            pre = source.substr(0, pos);
+            sub = source.substr(pos + 1, 1).toUpperCase();
+            post = source.substring(pos + 2, source.length);
             source = pre + sub + post;
         }
+
         return source;
     }
 

@@ -5,8 +5,8 @@
     "use strict";
 
     // imports
-    var pklib = global.pklib;
     var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
 
     // private
     var copy_files = [];

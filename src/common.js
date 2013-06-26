@@ -5,7 +5,7 @@
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * Basic test function. Simple assertion 2 variables.

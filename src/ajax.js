@@ -2,11 +2,11 @@
  * @package pklib.ajax
  * @dependence pklib.array, pklib.common
  */
-(function (exports) {
+(function (global) {
     "use strict";
 
     // imports
-    var pklib = exports.pklib;
+    var pklib = (global.pklib = global.pklib || {});
 
     // Default time what is timeout to use function pklib.ajax
     var DEFAULT_TIMEOUT_TIME = 30 * 1000; // 30 second
@@ -19,33 +19,6 @@
 
     // Array contain key as url, value as ajax response
     var cache = [];
-
-    /**
-     * Use when state in request is changed or if used cache is handler
-     *     to request.
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
-    function state_change_handler(settings, xhr) {
-        var status = 0;
-
-        if (xhr.readyState === REQUEST_STATE_DONE) {
-            if (xhr.status !== undefined) {
-                status = xhr.status;
-            }
-
-            clearTimeout(xhr.ontimeout);
-            delete xhr.ontimeout;
-
-            if ((status >= 200 && status < 300) || status === 304) {
-                // success
-                success_handler(settings, xhr);
-            } else {
-                // error
-                error_handler_with_abort(settings, xhr);
-            }
-        }
-    }
 
     /**
      * When success request.
@@ -86,6 +59,33 @@
 
             // set flag to no run error handler
             xhr._run_error_handler = true;
+        }
+    }
+
+    /**
+     * Use when state in request is changed or if used cache is handler
+     *     to request.
+     * @param {Object} settings
+     * @param {XMLHttpRequest} xhr
+     */
+    function state_change_handler(settings, xhr) {
+        var status = 0;
+
+        if (xhr.readyState === REQUEST_STATE_DONE && xhr.status !== REQUEST_STATE_UNSENT) {
+            if (xhr.status !== undefined) {
+                status = xhr.status;
+            }
+
+            clearTimeout(xhr.ontimeout);
+            delete xhr.ontimeout;
+
+            if ((status >= 200 && status < 300) || status === 304) {
+                // success
+                success_handler(settings, xhr);
+            } else {
+                // error
+                error_handler_with_abort(settings, xhr);
+            }
         }
     }
 

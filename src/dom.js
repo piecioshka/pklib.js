@@ -7,7 +7,7 @@
 
     // imports
     var document = global.document;
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
     var to_string = Object.prototype.toString;
 
     /**
@@ -137,10 +137,11 @@
 
         var i,
             parent = pklib.dom.parent(node),
-            len = pklib.dom.children(parent).length;
+            chren = pklib.dom.children(parent),
+            len = chren.length;
 
         for (i = 0; i < len; ++i) {
-            if (children[i] === node) {
+            if (chren[i] === node) {
                 return i;
             }
         }

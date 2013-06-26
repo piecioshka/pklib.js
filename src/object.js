@@ -5,7 +5,7 @@
     "use strict";
 
     // imports
-    var pklib = global.pklib;
+    var pklib = (global.pklib = global.pklib || {});
     var is_array = pklib.array.is_array;
     var in_array = pklib.array.in_array;
     var to_string = Object.prototype.toString;
@@ -57,10 +57,23 @@
         return target;
     }
 
+    function is_empty(obj) {
+        var i, items = 0;
+
+        for (i in obj) {
+            if (obj.hasOwnProperty(i)) {
+                items++;
+            }
+        }
+
+        return !items;
+    }
+
     // exports
     pklib.object = {
         is_object: is_object,
-        mixin: mixin
+        mixin: mixin,
+        is_empty: is_empty
     };
 
 }(this));
