@@ -49,7 +49,7 @@
 
         if (days !== undefined) {
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toGMTstring();
+            expires = "; expires=" + date.toUTCString();
         }
 
         document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";

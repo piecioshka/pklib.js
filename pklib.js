@@ -489,7 +489,6 @@ if (typeof Function.prototype.bind !== "function") {
 
     // imports
     var pklib = (global.pklib = global.pklib || {});
-    var assert = pklib.common.assert;
 
     /**
      * Bind function to aspect.
@@ -497,7 +496,7 @@ if (typeof Function.prototype.bind !== "function") {
      * Second method is run after first.
      * @param {Function} fun The function to bind aspect function.
      * @param {Function} asp The aspect function.
-     * @param {string} [when] Place to aspect function.
+     * @param {string} [when="before"] Place to aspect function.
      * @throws {TypeError} If any param is not function.
      * @return {Function}
      */
@@ -505,6 +504,7 @@ if (typeof Function.prototype.bind !== "function") {
 
         // private
         var self = this, result;
+        var assert = pklib.common.assert;
 
         assert(typeof fun === "function", "pklib.aspect: @func: not {Function}");
         assert(typeof asp === "function", "pklib.aspect: @asp: not {Function}");
@@ -643,7 +643,7 @@ if (typeof Function.prototype.bind !== "function") {
 
         if (days !== undefined) {
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toGMTstring();
+            expires = "; expires=" + date.toUTCString();
         }
 
         document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
