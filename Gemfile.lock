@@ -1,8 +1,15 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    execjs (1.4.0)
+      multi_json (~> 1.0)
+    multi_json (1.6.1)
     rainbow (1.1.4)
     rake (10.0.4)
+    uglifier (2.1.2)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.0, >= 1.0.2)
+    yui-compressor (0.11.0)
 
 PLATFORMS
   ruby
@@ -10,3 +17,5 @@ PLATFORMS
 DEPENDENCIES
   rainbow
   rake
+  uglifier
+  yui-compressor
