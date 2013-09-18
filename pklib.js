@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.2.0
+ * pklib JavaScript library v1.2.1
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  *
@@ -1458,7 +1458,7 @@ if (typeof Function.prototype.bind !== "function") {
      * @return {string}
      */
     function capitalize(source) {
-        return source.substr(0, 1).toUpperCase() + source.substring(1, source.length);
+        return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
     }
 
     /**

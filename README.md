@@ -1,7 +1,8 @@
-# pklib - JavaScript library[![Build Status](https://secure.travis-ci.org/piecioshka/pklib.png?branch=master)](http://travis-ci.org/piecioshka/pklib)
+# pklib - JavaScript library [![Build Status](https://secure.travis-ci.org/piecioshka/pklib.png?branch=master)](http://travis-ci.org/piecioshka/pklib)
 
 `pklib` jest wynikiem ciągłego używania z tych samych wzorców w sieci web oraz telewizorach,<br />
 z dodatkiem ogromu przydatnych metod używanych na co dzień w projektach z użyciem JavaScript.<br />
+Biblioteka posiada testy jednostkowe napisane zgodnie ze specyfikacją [Jasmine][1].
 
 Przykład
 ========
@@ -9,7 +10,14 @@ Przykład
 Moduł `pklib.profiler`<br />
 Plik: `src/profiler.js`
 
-Biblioteka posiada testy jednostkowe napisane zgodnie ze specyfikacją [Jasmine][1].
+```
+pklib.common.defer(function () {
+    var filenames = ["test.js", "example.js"];
+    pklib.file.loadjs(filenames, function (file) {
+        console.log("file: " + file.src + " loaded");
+    });
+});
+```
 
 Budowa biblioteki
 =================
@@ -22,21 +30,8 @@ wygenerowanie biblioteki z aktualnych źródeł dostępnych w branch'ach plik **
 Dokumentacja
 ============
 
-Dokumentacja została wygenerowana za pomoca narzędzia [jsdoc][3].
-
+Dokumentacja została wygenerowana za pomoca narzędzia [jsdoc][3].<br />
 Link do dokumentacji online: [http://api.pklib.com][4].
-
-Przykład użycia
-===============
-
-```
-pklib.common.defer(function () {
-    var filenames = ["test.js", "example.js"];
-    pklib.file.loadjs(filenames, function (file) {
-        console.log("file: " + file.src + " loaded");
-    });
-});
-```
 
 Licencja
 ========
