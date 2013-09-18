@@ -94,7 +94,6 @@
             dummy.innerHTML = source;
             return dummy.textContent || dummy.innerText;
         }
-
         return source;
     }
 
@@ -112,7 +111,6 @@
             post = source.substring(pos + 2, source.length);
             source = pre + sub + post;
         }
-
         return source;
     }
 
@@ -171,12 +169,9 @@
      * @param {string} str Some string to replace by objects.
      * @param {Object} obj Object what will serve data to replace.
      * @example
-     * In:
      * %{car} is the best!
-     * Run:
      * pklib.string.format("%{car} is the best", { car: "Ferrari" });
-     * Out:
-     * Ferrari is the best!
+     * //=> Ferrari is the best!
      */
     function format(str, obj) {
         var name;
@@ -186,7 +181,6 @@
                 str = str.replace(new RegExp("%{" + name + "}", "ig"), obj[name]);
             }
         }
-
         return str;
     }
 
@@ -202,7 +196,6 @@
         for (i = string.length; i < nr_fill; ++i) {
             string = add_char + string;
         }
-
         return string;
     }
 
@@ -218,7 +211,6 @@
         for (i = string.length; i < nr_fill; ++i) {
             string += add_char;
         }
-
         return string;
     }
 

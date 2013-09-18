@@ -37,7 +37,6 @@
         } catch (ignore) {
             global.event.returnValue = false;
         }
-
         return false;
     }
 

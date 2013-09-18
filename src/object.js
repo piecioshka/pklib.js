@@ -12,15 +12,15 @@
 
     /**
      * Check if param is object.
-     * @param {Object} obj
+     * @param {Object} it
      * @return {boolean}
      */
-    function is_object(obj) {
-        return obj &&
-            to_string.call(obj) === "[object Object]" &&
-            typeof obj === "object" &&
-            typeof obj.hasOwnProperty === "function" &&
-            typeof obj.isPrototypeOf === "function";
+    function is_object(it) {
+        return it &&
+            to_string.call(it) === "[object Object]" &&
+            typeof it === "object" &&
+            typeof it.hasOwnProperty === "function" &&
+            typeof it.isPrototypeOf === "function";
     }
 
     /**
@@ -57,6 +57,11 @@
         return target;
     }
 
+    /**
+     * Check if object is empty (contains non-value).
+     * @param {Object} obj
+     * @returns {boolean}
+     */
     function is_empty(obj) {
         var i, items = 0;
 
@@ -65,7 +70,6 @@
                 items++;
             }
         }
-
         return !items;
     }
 

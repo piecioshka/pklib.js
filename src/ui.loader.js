@@ -76,7 +76,6 @@
         if (typeof callback === "function") {
             callback();
         }
-
         return result;
     }
 

@@ -14,8 +14,8 @@
      * @param {Function} fun The function to bind aspect function.
      * @param {Function} asp The aspect function.
      * @param {string} [when="before"] Place to aspect function.
-     * @throws {TypeError} If any param is not function.
      * @return {Function}
+     * @throws {TypeError} If any param is not function.
      */
     pklib.aspect = function (fun, asp, when) {
 

@@ -53,7 +53,6 @@
         if (typeof callback === "function") {
             callback();
         }
-
         return message;
     }
 
@@ -74,16 +73,13 @@
         if (typeof callback === "function") {
             callback();
         }
-
         return result;
     }
 
     // exports
     pklib.ui.message = {
         obj_id: id,
-
         content: null,
-
         show: show_message,
         close: close_message
     };

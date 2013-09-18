@@ -12,8 +12,8 @@
     /**
      * @param {HTMLElement} element
      * @param {HTMLElement} wrapper
-     * @throws {TypeError} If first param is not HTMLElement
      * @return {Array}
+     * @throws {TypeError} If first param is not HTMLElement.
      */
     function center(element, wrapper) {
         var left = null,
@@ -32,7 +32,6 @@
         element.style.left = left + "px";
         element.style.top = top + "px";
         element.style.position = "absolute";
-
         return [left, top];
     }
 

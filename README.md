@@ -7,26 +7,29 @@ Przykład:<br />
     moduł `pklib.profiler`<br />
     plik: `src/profiler.js`
 
-Biblioteka posiada testy jednostkowe napisane zgodnie ze specyfikacją [QUnit](http://docs.jquery.com/Qunit) + Composite
+Biblioteka posiada testy jednostkowe napisane zgodnie ze specyfikacją [Jasmine][1]
 
 
-## budowa biblioteki
+Budowa biblioteki
+=================
 
 Każda wersja posiada własny tag w gałęzi projektu. Dla poprawy pracy nad biblioteką został napisany skrypt w ruby,
 który ma za zadanie generować kod całej biblioteki z aktualnego katalogu w jeden duży plik. <br />
 Każdy tag ma w swoich żródłach już wygenerowany plik z kodem źródłowym biblioteki, ale gdy istniała by potrzeba
 wygenerowanie biblioteki z aktualnych źródeł dostępnych w branch'ach plik **Rakefile**, znajduje swoje praktyczne zastosowanie.
 
-`username:~/workspace/pklib$ ruby Rakefile`
+`$ rake`
 
 
-## dokumentacja
+Dokumentacja
+============
 
-Dokumentacja została wygenerowana za pomoca narzędzia [http://code.google.com/p/jsdoc-toolkit/](http://code.google.com/p/jsdoc-toolkit/).<br />
-Link do dokumentacji online: [http://docs.pklib.com](http://docs.pklib.com)
+Dokumentacja została wygenerowana za pomoca narzędzia [jsdoc][3].
+Link do dokumentacji online: [http://api.pklib.com][4].
 
 
-## przykład użycia
+Przykład użycia
+===============
 
 ```
 pklib.common.defer(function () {
@@ -37,6 +40,12 @@ pklib.common.defer(function () {
 });
 ```
 
-## licencja
+Licencja
+========
 
-MIT License ( [http://pklib.com/licencja.html](http://pklib.com/licencja.html "MIT License") )
+[MIT License][2]
+
+[1]: http://pivotal.github.io/jasmine/
+[2]: http://pklib.com/licencja.html
+[3]: https://github.com/jsdoc3/jsdoc
+[4]: http://api.pklib.com

@@ -26,14 +26,14 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Wed Jun 26 22:24:48 CEST 2013
+ * Date: Wed Sep 18 09:14:37 CEST 2013
  */
 
 /*jslint continue: true, nomen: true, plusplus: true, regexp: true, vars: true, white: true, indent: 4 */
 /*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout, clearTimeout */
 
 var pklib = {
-    VERSION: "1.2.0"
+    VERSION: "1.2.1"
 };
 
 if (typeof Function.prototype.bind !== "function") {
@@ -41,11 +41,9 @@ if (typeof Function.prototype.bind !== "function") {
      * Creates a new function that, when called, itself calls this function in the context of the provided this value,
      * with a given sequence of arguments preceding any provided when the new function was called.
      *
-     * <pre>
      * Method of "Function"
      * Implemented in JavaScript 1.8.5
      * ECMAScript Edition ECMAScript 5th Edition
-     * </pre>
      *
      * @param {*} that Context
      * @return {Function}
@@ -129,7 +127,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Use when state in request is changed or if used cache is handler
-     *     to request.
+     * to request.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -171,8 +169,8 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Try to create Internet Explorer XMLHttpRequest.
-     * @throws {Error} If cannot create XMLHttpRequest object.
      * @return {ActiveXObject|undefined}
+     * @throws {Error} If cannot create XMLHttpRequest object.
      */
     function create_microsoft_xhr() {
         var xhr;
@@ -190,8 +188,8 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Try to create XMLHttpRequest.
-     * @throws {Error} If cannot create XMLHttpRequest object.
      * @return {XMLHttpRequest|undefined}
+     * @throws {Error} If cannot create XMLHttpRequest object.
      */
     function create_xhr() {
         var xhr;
@@ -286,7 +284,6 @@ if (typeof Function.prototype.bind !== "function") {
          * support object ActiveXObject which is implemented in Internet
          * Explorer.
          * @param {Object} config
-         * <pre>
          * {
          *      {string} [type="get"]
          *      {boolean} [async=true]
@@ -297,17 +294,13 @@ if (typeof Function.prototype.bind !== "function") {
          *      {Function} [done]
          *      {Function} [error]
          * }
-         * </pre>
          * @example
-         * <pre>
          * pklib.ajax.load({
          *      type: "post",
          *      async: false,
          *      cache:  true,
          *      url: "http://example.org/check-item.php",
-         *      params: {
-         *          id: 33
-         *      },
+         *      params: { id: 33 },
          *      headers: {
          *          "User-Agent": "tv"
          *      },
@@ -315,9 +308,8 @@ if (typeof Function.prototype.bind !== "function") {
          *          // pass
          *      }
          * });
-         * </pre>
-         * @throws {Error} If unset request url.
          * @return {XMLHttpRequest|null}
+         * @throws {Error} If unset request url.
          */
         load: function (config) {
             var xhr = null,
@@ -364,7 +356,7 @@ if (typeof Function.prototype.bind !== "function") {
         },
 
         /**
-         * Stop request setting in param
+         * Stop request setting in param.
          * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object,
          *     or ActiveXObject object if Internet Explorer.
          */
@@ -497,8 +489,8 @@ if (typeof Function.prototype.bind !== "function") {
      * @param {Function} fun The function to bind aspect function.
      * @param {Function} asp The aspect function.
      * @param {string} [when="before"] Place to aspect function.
-     * @throws {TypeError} If any param is not function.
      * @return {Function}
+     * @throws {TypeError} If any param is not function.
      */
     pklib.aspect = function (fun, asp, when) {
 
@@ -539,7 +531,7 @@ if (typeof Function.prototype.bind !== "function") {
      * Basic test function. Simple assertion 2 variables.
      * @param {boolean} expression Object what is true.
      * @param {string} comment Message to throw in error.
-     * @throws {Error}
+     * @throws {Error} Condition it's not true.
      */
     function assert(expression, comment) {
         if (expression !== true) {
@@ -703,9 +695,9 @@ if (typeof Function.prototype.bind !== "function") {
      * Check if element has CSS class.
      * @param {string} css_class
      * @param {HTMLElement} element
+     * @return {boolean}
      * @throws {TypeError} If first param is not string, or second param is not
      *     Node
-     * @return {boolean}
      */
     function has_class(css_class, element) {
         check_params(css_class, element, "has_class");
@@ -943,9 +935,9 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Remove Element specified in params.
-     * @param {...HTMLElement}
+     * @param {...HTMLElement} items
      */
-    function remove() {
+    function remove(items) {
         var i, node = null, parent = null,
             args = [].slice.call(arguments),
             len = args.length;
@@ -1189,34 +1181,27 @@ if (typeof Function.prototype.bind !== "function") {
      * @param {Function} callback
      */
     function simple_load_js(url, callback) {
-        /**
-         * Create HTMLElement <script>
-         */
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.src = url;
 
+        function success_callback() {
+            if (typeof callback === "function") {
+                callback(script);
+            }
+        }
+
+        function readystatechange() {
+            if (script.readyState === "loaded" || script.readyState === "complete") {
+                script.onreadystatechange = null;
+                success_callback();
+            }
+        }
+
         if (script.readyState === undefined) {
-            /**
-             * Method run when request has ended
-             */
-            script.onload = function () {
-                if (typeof callback === "function") {
-                    callback(script);
-                }
-            };
+            script.onload = success_callback;
         } else {
-            /**
-             * Method run when request has change state
-             */
-            script.onreadystatechange = function () {
-                if (script.readyState === "loaded" || script.readyState === "complete") {
-                    script.onreadystatechange = null;
-                    if (typeof callback === "function") {
-                        callback(script);
-                    }
-                }
-            };
+            script.onreadystatechange = readystatechange;
         }
 
         if (document.head === undefined) {
@@ -1287,15 +1272,15 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Check if param is object.
-     * @param {Object} obj
+     * @param {Object} it
      * @return {boolean}
      */
-    function is_object(obj) {
-        return obj &&
-            to_string.call(obj) === "[object Object]" &&
-            typeof obj === "object" &&
-            typeof obj.hasOwnProperty === "function" &&
-            typeof obj.isPrototypeOf === "function";
+    function is_object(it) {
+        return it &&
+            to_string.call(it) === "[object Object]" &&
+            typeof it === "object" &&
+            typeof it.hasOwnProperty === "function" &&
+            typeof it.isPrototypeOf === "function";
     }
 
     /**
@@ -1332,6 +1317,11 @@ if (typeof Function.prototype.bind !== "function") {
         return target;
     }
 
+    /**
+     * Check if object is empty (contains non-value).
+     * @param {Object} obj
+     * @returns {boolean}
+     */
     function is_empty(obj) {
         var i, items = 0;
 
@@ -1340,7 +1330,6 @@ if (typeof Function.prototype.bind !== "function") {
                 items++;
             }
         }
-
         return !items;
     }
 
@@ -1494,7 +1483,6 @@ if (typeof Function.prototype.bind !== "function") {
             dummy.innerHTML = source;
             return dummy.textContent || dummy.innerText;
         }
-
         return source;
     }
 
@@ -1512,7 +1500,6 @@ if (typeof Function.prototype.bind !== "function") {
             post = source.substring(pos + 2, source.length);
             source = pre + sub + post;
         }
-
         return source;
     }
 
@@ -1571,12 +1558,9 @@ if (typeof Function.prototype.bind !== "function") {
      * @param {string} str Some string to replace by objects.
      * @param {Object} obj Object what will serve data to replace.
      * @example
-     * In:
      * %{car} is the best!
-     * Run:
      * pklib.string.format("%{car} is the best", { car: "Ferrari" });
-     * Out:
-     * Ferrari is the best!
+     * //=> Ferrari is the best!
      */
     function format(str, obj) {
         var name;
@@ -1586,7 +1570,6 @@ if (typeof Function.prototype.bind !== "function") {
                 str = str.replace(new RegExp("%{" + name + "}", "ig"), obj[name]);
             }
         }
-
         return str;
     }
 
@@ -1602,7 +1585,6 @@ if (typeof Function.prototype.bind !== "function") {
         for (i = string.length; i < nr_fill; ++i) {
             string = add_char + string;
         }
-
         return string;
     }
 
@@ -1618,7 +1600,6 @@ if (typeof Function.prototype.bind !== "function") {
         for (i = string.length; i < nr_fill; ++i) {
             string += add_char;
         }
-
         return string;
     }
 
@@ -1654,8 +1635,8 @@ if (typeof Function.prototype.bind !== "function") {
     /**
      * @param {HTMLElement} element
      * @param {HTMLElement} wrapper
-     * @throws {TypeError} If first param is not HTMLElement
      * @return {Array}
+     * @throws {TypeError} If first param is not HTMLElement.
      */
     function center(element, wrapper) {
         var left = null,
@@ -1674,7 +1655,6 @@ if (typeof Function.prototype.bind !== "function") {
         element.style.left = left + "px";
         element.style.top = top + "px";
         element.style.position = "absolute";
-
         return [left, top];
     }
 
@@ -1788,7 +1768,6 @@ if (typeof Function.prototype.bind !== "function") {
         if (typeof callback === "function") {
             callback();
         }
-
         return glass;
     }
 
@@ -1811,7 +1790,6 @@ if (typeof Function.prototype.bind !== "function") {
         if (typeof callback === "function") {
             callback();
         }
-
         return result;
     }
 
@@ -1902,7 +1880,6 @@ if (typeof Function.prototype.bind !== "function") {
         if (typeof callback === "function") {
             callback();
         }
-
         return result;
     }
 
@@ -1969,7 +1946,6 @@ if (typeof Function.prototype.bind !== "function") {
         if (typeof callback === "function") {
             callback();
         }
-
         return message;
     }
 
@@ -1990,16 +1966,13 @@ if (typeof Function.prototype.bind !== "function") {
         if (typeof callback === "function") {
             callback();
         }
-
         return result;
     }
 
     // exports
     pklib.ui.message = {
         obj_id: id,
-
         content: null,
-
         show: show_message,
         close: close_message
     };
@@ -2019,8 +1992,8 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * @param {string} name
-     * @throws {TypeError}
      * @return {number}
+     * @throws {TypeError} Name is not *string* value.
      */
     function size_of_window(name) {
         var clientName;
@@ -2122,7 +2095,6 @@ if (typeof Function.prototype.bind !== "function") {
                 params_list[item[0]] = item[1];
             }
         }
-
         return params_list;
     }
 
@@ -2208,7 +2180,6 @@ if (typeof Function.prototype.bind !== "function") {
         } catch (ignore) {
             global.event.returnValue = false;
         }
-
         return false;
     }
 

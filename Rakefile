@@ -1,5 +1,5 @@
 # check gem loaded
-%w(rainbow).each{ |gem_name|
+%w(rainbow uglifier yui/compressor).each{ |gem_name|
   begin
     require gem_name
   rescue LoadError
@@ -11,12 +11,7 @@
 LIB_NAME = 'pklib.js'
 LIB_NAME_MIN = 'pklib.min.js'
 DIR_SRC = 'src/'
-DIR_DOCS = 'docs/'
-DIR_TOOLS_JS_DOC = 'tools/jsdoc-toolkit/'
-DIT_TOOLS_COMPRESSOR = 'tools/yuicompressor/'
-
-yuicompressor = "java -jar #{DIT_TOOLS_COMPRESSOR}/build/yuicompressor-2.4.7.jar #{LIB_NAME} -o #{LIB_NAME_MIN}"
-jsdoc = "java -jar #{DIR_TOOLS_JS_DOC}jsrun.jar #{DIR_TOOLS_JS_DOC}app/run.js -d=#{DIR_DOCS} -a -t=#{DIR_TOOLS_JS_DOC}templates/jsdoc -p #{DIR_SRC} -q"
+DIR_DOCS = 'api/'
 
 verbose(false)
 
@@ -42,41 +37,51 @@ def its_ok
   puts "\t\t\t\t\t" + '['.foreground(:cyan) + ' ok '.foreground(:green) + ']'.foreground(:cyan)
 end
 
-task :default
+def compress_js(file_content)
+  # compress by Uglifier
+  Uglifier.new(:output => {:comments => :none}).compile(file_content)
+end
 
-puts '-------------- pklib JavaScript library --------------'.foreground(:yellow)
+task :default => [:join, :doc, :min]
 
-print '*'.foreground(:green) + ' Build ...'
+puts '-------------- pklib JavaScript library --------------'.foreground(:magenta)
 
-files = ["header.js", "ajax.js", "array.js", "aspect.js", "common.js", "cookie.js", \
- "css.js", "dom.js", "event.js", "file.js", "object.js", "profiler.js", "string.js", \
- "ui.js", "ui.glass.js", "ui.loader.js", "ui.message.js", "ui.size.js", "url.js", "utils.js"]
+task :join => [] do
+  print '*'.foreground(:green) + ' Build ...'
 
-lib_data = File.read(LIB_NAME)
+  files = ["header.js", "ajax.js", "array.js", "aspect.js", "common.js", "cookie.js", \
+   "css.js", "dom.js", "event.js", "file.js", "object.js", "profiler.js", "string.js", \
+   "ui.js", "ui.glass.js", "ui.loader.js", "ui.message.js", "ui.size.js", "url.js", "utils.js"]
 
-File.open(LIB_NAME, 'w') do |f|
-  for file in files
-    f.write File.read("#{DIR_SRC}#{file}")
-    f.write lib_data
+  lib_data = File.read(LIB_NAME)
+
+  File.open(LIB_NAME, 'w') do |f|
+    for file in files
+      f.write File.read("#{DIR_SRC}#{file}")
+      f.write lib_data
+    end
   end
+
+  its_ok()
 end
 
-its_ok()
+task :doc => [] do
+  print '*'.foreground(:green) + ' Documents ...'
 
-print '*'.foreground(:green) + ' Minifing ...'
+  sh "jsdoc #{LIB_NAME} -d api"
 
-sh yuicompressor
-
-lib_data = File.read(LIB_NAME_MIN)
-
-File.open(LIB_NAME_MIN, 'w') do |f|
-  f.write "/** pklib JavaScript library | http://pklib.com/licencja.html **/\n"
-  f.write lib_data
+  its_ok()
 end
 
-its_ok()
+task :min => [] do
+  print '*'.foreground(:green) + ' Minifing ...'
 
-print '*'.foreground(:green) + ' Documents ...'
-sh jsdoc
+  # create new file
+  file = File.new(LIB_NAME_MIN, 'w')
+  file.write "/** pklib JavaScript library | http://pklib.com/licencja.html **/\n"
+  # fill content from all files js to one
+  file.write(compress_js(File.read(LIB_NAME)))
+  file.close()
 
-its_ok()
+  its_ok()
+end

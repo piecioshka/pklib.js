@@ -16,34 +16,27 @@
      * @param {Function} callback
      */
     function simple_load_js(url, callback) {
-        /**
-         * Create HTMLElement <script>
-         */
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.src = url;
 
+        function success_callback() {
+            if (typeof callback === "function") {
+                callback(script);
+            }
+        }
+
+        function readystatechange() {
+            if (script.readyState === "loaded" || script.readyState === "complete") {
+                script.onreadystatechange = null;
+                success_callback();
+            }
+        }
+
         if (script.readyState === undefined) {
-            /**
-             * Method run when request has ended
-             */
-            script.onload = function () {
-                if (typeof callback === "function") {
-                    callback(script);
-                }
-            };
+            script.onload = success_callback;
         } else {
-            /**
-             * Method run when request has change state
-             */
-            script.onreadystatechange = function () {
-                if (script.readyState === "loaded" || script.readyState === "complete") {
-                    script.onreadystatechange = null;
-                    if (typeof callback === "function") {
-                        callback(script);
-                    }
-                }
-            };
+            script.onreadystatechange = readystatechange;
         }
 
         if (document.head === undefined) {

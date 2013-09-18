@@ -1,7 +1,11 @@
+# IDE configs
 .settings/
 .idea/
-docs/
-
 .project
 .buildpath
+
+# Mac OS X
 .DS_Store
+
+# Projects ignores
+api/

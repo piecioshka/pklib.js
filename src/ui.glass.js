@@ -57,7 +57,6 @@
         if (typeof callback === "function") {
             callback();
         }
-
         return glass;
     }
 
@@ -80,7 +79,6 @@
         if (typeof callback === "function") {
             callback();
         }
-
         return result;
     }
 

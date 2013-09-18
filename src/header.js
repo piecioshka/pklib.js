@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.2.0
+ * pklib JavaScript library v1.2.1
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  *
@@ -26,14 +26,14 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Wed Jun 26 22:24:48 CEST 2013
+ * Date: Wed Sep 18 09:14:37 CEST 2013
  */
 
 /*jslint continue: true, nomen: true, plusplus: true, regexp: true, vars: true, white: true, indent: 4 */
 /*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout, clearTimeout */
 
 var pklib = {
-    VERSION: "1.2.0"
+    VERSION: "1.2.1"
 };
 
 if (typeof Function.prototype.bind !== "function") {
@@ -41,11 +41,9 @@ if (typeof Function.prototype.bind !== "function") {
      * Creates a new function that, when called, itself calls this function in the context of the provided this value,
      * with a given sequence of arguments preceding any provided when the new function was called.
      *
-     * <pre>
      * Method of "Function"
      * Implemented in JavaScript 1.8.5
      * ECMAScript Edition ECMAScript 5th Edition
-     * </pre>
      *
      * @param {*} that Context
      * @return {Function}

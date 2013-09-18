@@ -33,9 +33,9 @@
      * Check if element has CSS class.
      * @param {string} css_class
      * @param {HTMLElement} element
+     * @return {boolean}
      * @throws {TypeError} If first param is not string, or second param is not
      *     Node
-     * @return {boolean}
      */
     function has_class(css_class, element) {
         check_params(css_class, element, "has_class");

@@ -64,7 +64,7 @@
 
     /**
      * Use when state in request is changed or if used cache is handler
-     *     to request.
+     * to request.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -106,8 +106,8 @@
 
     /**
      * Try to create Internet Explorer XMLHttpRequest.
-     * @throws {Error} If cannot create XMLHttpRequest object.
      * @return {ActiveXObject|undefined}
+     * @throws {Error} If cannot create XMLHttpRequest object.
      */
     function create_microsoft_xhr() {
         var xhr;
@@ -125,8 +125,8 @@
 
     /**
      * Try to create XMLHttpRequest.
-     * @throws {Error} If cannot create XMLHttpRequest object.
      * @return {XMLHttpRequest|undefined}
+     * @throws {Error} If cannot create XMLHttpRequest object.
      */
     function create_xhr() {
         var xhr;
@@ -221,7 +221,6 @@
          * support object ActiveXObject which is implemented in Internet
          * Explorer.
          * @param {Object} config
-         * <pre>
          * {
          *      {string} [type="get"]
          *      {boolean} [async=true]
@@ -232,17 +231,13 @@
          *      {Function} [done]
          *      {Function} [error]
          * }
-         * </pre>
          * @example
-         * <pre>
          * pklib.ajax.load({
          *      type: "post",
          *      async: false,
          *      cache:  true,
          *      url: "http://example.org/check-item.php",
-         *      params: {
-         *          id: 33
-         *      },
+         *      params: { id: 33 },
          *      headers: {
          *          "User-Agent": "tv"
          *      },
@@ -250,9 +245,8 @@
          *          // pass
          *      }
          * });
-         * </pre>
-         * @throws {Error} If unset request url.
          * @return {XMLHttpRequest|null}
+         * @throws {Error} If unset request url.
          */
         load: function (config) {
             var xhr = null,
@@ -299,7 +293,7 @@
         },
 
         /**
-         * Stop request setting in param
+         * Stop request setting in param.
          * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object,
          *     or ActiveXObject object if Internet Explorer.
          */

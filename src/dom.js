@@ -187,9 +187,9 @@
 
     /**
      * Remove Element specified in params.
-     * @param {...HTMLElement}
+     * @param {...HTMLElement} items
      */
-    function remove() {
+    function remove(items) {
         var i, node = null, parent = null,
             args = [].slice.call(arguments),
             len = args.length;

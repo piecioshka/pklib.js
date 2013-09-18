@@ -40,7 +40,6 @@
                 params_list[item[0]] = item[1];
             }
         }
-
         return params_list;
     }
 

@@ -11,8 +11,8 @@
 
     /**
      * @param {string} name
-     * @throws {TypeError}
      * @return {number}
+     * @throws {TypeError} Name is not *string* value.
      */
     function size_of_window(name) {
         var clientName;

@@ -11,7 +11,7 @@
      * Basic test function. Simple assertion 2 variables.
      * @param {boolean} expression Object what is true.
      * @param {string} comment Message to throw in error.
-     * @throws {Error}
+     * @throws {Error} Condition it's not true.
      */
     function assert(expression, comment) {
         if (expression !== true) {
