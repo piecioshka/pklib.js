@@ -1,5 +1,5 @@
 /**
- * @package pklib.event
+ * @module pklib.event
  */
 (function (global) {
     "use strict";

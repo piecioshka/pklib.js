@@ -1,6 +1,6 @@
 /**
- * @package pklib.utils
- * @dependence pklib.common, pklib.dom, pklib.event
+ * @module pklib.utils
+ * @requires pklib.common, pklib.dom, pklib.event
  */
 (function (global) {
     "use strict";

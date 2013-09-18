@@ -1,5 +1,5 @@
 /**
- * @package pklib.profiler
+ * @module pklib.profiler
  */
 (function (global) {
     "use strict";

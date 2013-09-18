@@ -1,6 +1,6 @@
 /**
- * @package pklib.glass
- * @dependence pklib.browser, pklib.dom, pklib.event, pklib.utils
+ * @module pklib.glass
+ * @requires pklib.browser, pklib.dom, pklib.event, pklib.utils
  */
 (function (global) {
     "use strict";

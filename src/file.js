@@ -1,5 +1,5 @@
 /**
- * @package pklib.file, pklib.string
+ * @module pklib.file, pklib.string
  */
 (function (global) {
     "use strict";

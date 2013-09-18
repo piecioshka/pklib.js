@@ -1,6 +1,6 @@
 /**
- * @package pklib.dom
- * @dependence pklib.browser, pklib.css, pklib.string, pklib.utils
+ * @module pklib.dom
+ * @requires pklib.browser, pklib.css, pklib.string, pklib.utils
  */
 (function (global) {
     "use strict";

@@ -1,6 +1,6 @@
 /**
- * @package pklib.ajax
- * @dependence pklib.array, pklib.common
+ * @module pklib.ajax
+ * @requires pklib.array, pklib.common
  */
 (function (global) {
     "use strict";

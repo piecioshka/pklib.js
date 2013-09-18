@@ -1,6 +1,6 @@
 /**
- * @package pklib.ui
- * @dependence pklib.string. pklib.dom
+ * @module pklib.ui
+ * @requires pklib.string. pklib.dom
  */
 (function (global) {
     "use strict";

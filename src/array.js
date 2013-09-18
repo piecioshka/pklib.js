@@ -1,5 +1,5 @@
 /**
- * @package pklib.array
+ * @module pklib.array
  */
 (function (global) {
     "use strict";

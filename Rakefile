@@ -78,7 +78,7 @@ task :min => [] do
 
   # create new file
   file = File.new(LIB_NAME_MIN, 'w')
-  file.write "/** pklib JavaScript library | http://pklib.com/licencja.html **/\n"
+  file.write "/* pklib JavaScript library | http://pklib.com/licencja.html */\n"
   # fill content from all files js to one
   file.write(compress_js(File.read(LIB_NAME)))
   file.close()

@@ -1,5 +1,5 @@
 /**
- * @package pklib.aspect
+ * @module pklib.aspect
  */
 (function (global) {
     "use strict";

@@ -1,5 +1,5 @@
 /**
- * @package pklib.cookie
+ * @module pklib.cookie
  */
 (function (global) {
     "use strict";
