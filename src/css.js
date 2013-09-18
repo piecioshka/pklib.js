@@ -1,5 +1,4 @@
 /**
- * @module pklib.css
  * @requires pklib.string. pklib.dom
  */
 (function (global) {
@@ -76,7 +75,10 @@
         element.className = pklib.string.trim(element.className.replace(regexp, ""));
     }
 
-    // exports
+    /**
+     * @module pklib.css
+     * @type {{add_class: Function, remove_class: Function, has_class: Function}}
+     */
     pklib.css = {
         add_class: add_class,
         remove_class: remove_class,

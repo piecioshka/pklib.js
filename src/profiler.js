@@ -1,6 +1,3 @@
-/**
- * @module pklib.profiler
- */
 (function (global) {
     "use strict";
 
@@ -36,7 +33,10 @@
         return data[name];
     }
 
-    // exports
+    /**
+     * @module pklib.profiler
+     * @type {{start: Function, stop: Function, get_time: Function}}
+     */
     pklib.profiler = {
         start: start,
         stop: stop,

@@ -1,5 +1,4 @@
 /**
- * @module pklib.ui.loader
  * @requires pklib.dom, pklib.event, pklib.utils
  */
 (function (global) {
@@ -79,7 +78,10 @@
         return result;
     }
 
-    // exports
+    /**
+     * @module pklib.ui.loader
+     * @type {{obj_id: string, show: Function, close: Function}}
+     */
     pklib.ui.loader = {
         obj_id: id,
         show: show_loader,

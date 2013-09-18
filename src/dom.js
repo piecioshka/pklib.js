@@ -1,5 +1,4 @@
 /**
- * @module pklib.dom
  * @requires pklib.browser, pklib.css, pklib.string, pklib.utils
  */
 (function (global) {
@@ -273,7 +272,10 @@
         return parent_node;
     }
 
-    // exports
+    /**
+     * @module pklib.dom
+     * @type {{is_node: Function, is_node_list: Function, is_element: Function, is_visible: Function, by_id: Function, by_tag: Function, by_class: Function, index: Function, children: Function, insert: Function, remove: Function, prev: Function, next: Function, parent: Function}}
+     */
     pklib.dom = {
         is_node: is_node,
         is_node_list: is_node_list,

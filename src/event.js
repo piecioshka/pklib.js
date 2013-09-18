@@ -1,6 +1,3 @@
-/**
- * @module pklib.event
- */
 (function (global) {
     "use strict";
 
@@ -112,7 +109,10 @@
         }
     }
 
-    // exports
+    /**
+     * @module pklib.event
+     * @type {{add: Function, remove: Function, get: Function, trigger: Function}}
+     */
     pklib.event = {
         add: add_event,
         remove: remove_event,

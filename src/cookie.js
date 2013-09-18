@@ -1,6 +1,3 @@
-/**
- * @module pklib.cookie
- */
 (function (global) {
     "use strict";
 
@@ -66,7 +63,10 @@
         return create_cookie(name, undefined, -1);
     }
 
-    // exports
+    /**
+     * @module pklib.cookie
+     * @type {{create: Function, get: Function, remove: Function}}
+     */
     pklib.cookie = {
         create: create_cookie,
         get: get_cookie,

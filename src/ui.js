@@ -1,5 +1,4 @@
 /**
- * @module pklib.ui
  * @requires pklib.string. pklib.dom
  */
 (function (global) {
@@ -78,7 +77,10 @@
         }
     }
 
-    // exports
+    /**
+     * @module pklib.ui
+     * @type {{center: Function, maximize: Function, scroll_to: Function}}
+     */
     pklib.ui = {
         center: center,
         maximize: maximize,

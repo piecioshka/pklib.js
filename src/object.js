@@ -1,6 +1,3 @@
-/**
- * @module pklib.object
- */
 (function (global) {
     "use strict";
 
@@ -73,7 +70,10 @@
         return !items;
     }
 
-    // exports
+    /**
+     * @module pklib.object
+     * @type {{is_object: Function, mixin: Function, is_empty: Function}}
+     */
     pklib.object = {
         is_object: is_object,
         mixin: mixin,

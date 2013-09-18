@@ -1,5 +1,4 @@
 /**
- * @module pklib.glass
  * @requires pklib.browser, pklib.dom, pklib.event, pklib.utils
  */
 (function (global) {
@@ -82,7 +81,10 @@
         return result;
     }
 
-    // exports
+    /**
+     * @module pklib.ui.glass
+     * @type {{obj_id: string, show: Function, close: Function}}
+     */
     pklib.ui.glass = {
         obj_id: id,
         show: show_glass,

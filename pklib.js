@@ -62,8 +62,8 @@ if (typeof Function.prototype.bind !== "function") {
 }
 
 /**
- * @package pklib.ajax
- * @dependence pklib.array, pklib.common
+ * @module pklib.ajax
+ * @requires pklib.array, pklib.common
  */
 (function (global) {
     "use strict";
@@ -370,7 +370,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.array
+ * @module pklib.array
  */
 (function (global) {
     "use strict";
@@ -474,7 +474,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.aspect
+ * @module pklib.aspect
  */
 (function (global) {
     "use strict";
@@ -519,7 +519,7 @@ if (typeof Function.prototype.bind !== "function") {
     };
 
 }(this));/**
- * @package pklib.common
+ * @module pklib.common
  */
 (function (global) {
     "use strict";
@@ -585,7 +585,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.cookie
+ * @module pklib.cookie
  */
 (function (global) {
     "use strict";
@@ -661,8 +661,8 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.css
- * @dependence pklib.string. pklib.dom
+ * @module pklib.css
+ * @requires pklib.string. pklib.dom
  */
 (function (global) {
     "use strict";
@@ -747,8 +747,8 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.dom
- * @dependence pklib.browser, pklib.css, pklib.string, pklib.utils
+ * @module pklib.dom
+ * @requires pklib.browser, pklib.css, pklib.string, pklib.utils
  */
 (function (global) {
     "use strict";
@@ -1041,7 +1041,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.event
+ * @module pklib.event
  */
 (function (global) {
     "use strict";
@@ -1164,7 +1164,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.file, pklib.string
+ * @module pklib.file, pklib.string
  */
 (function (global) {
     "use strict";
@@ -1259,7 +1259,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.object
+ * @module pklib.object
  */
 (function (global) {
     "use strict";
@@ -1342,7 +1342,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.profiler
+ * @module pklib.profiler
  */
 (function (global) {
     "use strict";
@@ -1388,7 +1388,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.string
+ * @module pklib.string
  */
 (function (global) {
     "use strict";
@@ -1622,8 +1622,8 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * @package pklib.ui
- * @dependence pklib.string. pklib.dom
+ * @module pklib.ui
+ * @requires pklib.string. pklib.dom
  */
 (function (global) {
     "use strict";
@@ -1710,8 +1710,8 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.glass
- * @dependence pklib.browser, pklib.dom, pklib.event, pklib.utils
+ * @module pklib.glass
+ * @requires pklib.browser, pklib.dom, pklib.event, pklib.utils
  */
 (function (global) {
     "use strict";
@@ -1803,8 +1803,8 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * @package pklib.ui.loader
- * @dependence pklib.dom, pklib.event, pklib.utils
+ * @module pklib.ui.loader
+ * @requires pklib.dom, pklib.event, pklib.utils
  */
 (function (global) {
     "use strict";
@@ -1892,8 +1892,8 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @package pklib.ui.message
- * @dependence pklib.dom, pklib.event, pklib.string, pklib.utils
+ * @module pklib.ui.message
+ * @requires pklib.dom, pklib.event, pklib.string, pklib.utils
  */
 (function (global) {
     "use strict";
@@ -1980,8 +1980,8 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * @package pklib.ui.size
- * @dependence pklib.string
+ * @module pklib.ui.size
+ * @requires pklib.string
  */
 (function (global) {
     "use strict";
@@ -2054,7 +2054,7 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * @package pklib.url
+ * @module pklib.url
  */
 (function (global) {
     "use strict";
@@ -2142,8 +2142,8 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * @package pklib.utils
- * @dependence pklib.common, pklib.dom, pklib.event
+ * @module pklib.utils
+ * @requires pklib.common, pklib.dom, pklib.event
  */
 (function (global) {
     "use strict";

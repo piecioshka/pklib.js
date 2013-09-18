@@ -1,6 +1,3 @@
-/**
- * @module pklib.aspect
- */
 (function (global) {
     "use strict";
 
@@ -11,6 +8,7 @@
      * Bind function to aspect.
      * Create method with merge first and second.
      * Second method is run after first.
+     * @module pklib.aspect
      * @param {Function} fun The function to bind aspect function.
      * @param {Function} asp The aspect function.
      * @param {string} [when="before"] Place to aspect function.

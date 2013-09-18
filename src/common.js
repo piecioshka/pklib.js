@@ -1,6 +1,3 @@
-/**
- * @module pklib.common
- */
 (function (global) {
     "use strict";
 
@@ -56,7 +53,10 @@
         }
     }
 
-    // exports
+    /**
+     * @module pklib.common
+     * @type {{assert: Function, defer: Function, checking: Function}}
+     */
     pklib.common = {
         assert: assert,
         defer: defer,

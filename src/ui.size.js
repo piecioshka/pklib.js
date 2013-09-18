@@ -1,5 +1,4 @@
 /**
- * @module pklib.ui.size
  * @requires pklib.string
  */
 (function (global) {
@@ -63,7 +62,10 @@
         return Math.max(client, scroll, offset);
     }
 
-    // public API
+    /**
+     * @module pklib.ui.size
+     * @type {{window: Function, document: Function, object: Function}}
+     */
     pklib.ui.size = {
         window: size_of_window,
         document: size_of_document,

@@ -1,5 +1,4 @@
 /**
- * @module pklib.utils
  * @requires pklib.common, pklib.dom, pklib.event
  */
 (function (global) {
@@ -103,7 +102,10 @@
         }
     }
 
-    // exports
+    /**
+     * @module pklib.utils
+     * @type {{ascii: {letters: {lower: Array, upper: Array}}, action: {clearfocus: Function, outerlink: Function, confirm: Function}}}
+     */
     pklib.utils = {
         /**
          * numbers of chars in ASCII system

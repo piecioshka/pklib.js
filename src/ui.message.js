@@ -1,5 +1,4 @@
 /**
- * @module pklib.ui.message
  * @requires pklib.dom, pklib.event, pklib.string, pklib.utils
  */
 (function (global) {
@@ -76,7 +75,10 @@
         return result;
     }
 
-    // exports
+    /**
+     * @module pklib.ui.message
+     * @type {{obj_id: string, content: null, show: Function, close: Function}}
+     */
     pklib.ui.message = {
         obj_id: id,
         content: null,

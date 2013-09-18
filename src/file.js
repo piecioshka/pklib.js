@@ -1,5 +1,5 @@
 /**
- * @module pklib.file, pklib.string
+ * @requires pklib.array, pklib.object
  */
 (function (global) {
     "use strict";
@@ -87,7 +87,10 @@
         }
     }
 
-    // exports
+    /**
+     * @module pklib.file
+     * @type {{loadjs: Function}}
+     */
     pklib.file = {
         loadjs: load_js_file
     };

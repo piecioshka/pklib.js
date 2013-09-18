@@ -1,6 +1,3 @@
-/**
- * @module pklib.url
- */
 (function (global) {
     "use strict";
 
@@ -78,7 +75,10 @@
         return null;
     }
 
-    // exports
+    /**
+     * @module pklib.url
+     * @type {{get_params: Function, get_param: Function}}
+     */
     pklib.url = {
         get_params: get_params,
         get_param: get_param

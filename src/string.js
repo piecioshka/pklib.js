@@ -1,6 +1,3 @@
-/**
- * @module pklib.string
- */
 (function (global) {
     "use strict";
 
@@ -214,7 +211,10 @@
         return string;
     }
 
-    // exports
+    /**
+     * @module pklib.string
+     * @type {{is_string: Function, is_letter: Function, trim: Function, slug: Function, capitalize: Function, delimiter_separated_words: Function, strip_tags: Function, camel_case: Function, slice: Function, format: Function, lpad: Function, rpad: Function}}
+     */
     pklib.string = {
         is_string: is_string,
         is_letter: is_letter,

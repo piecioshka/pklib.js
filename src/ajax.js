@@ -1,5 +1,4 @@
 /**
- * @module pklib.ajax
  * @requires pklib.array, pklib.common
  */
 (function (global) {
@@ -210,7 +209,10 @@
         };
     }
 
-    // exports
+    /**
+     * @module pklib.ajax
+     * @type {{load: Function, stop: Function}}
+     */
     pklib.ajax = {
         /**
          * Send request to server on url defined in config.url.

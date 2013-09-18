@@ -1,6 +1,3 @@
-/**
- * @module pklib.array
- */
 (function (global) {
     "use strict";
 
@@ -92,7 +89,10 @@
         return array;
     }
 
-    // exports
+    /**
+     * @module pklib.array
+     * @type {{is_array: Function, in_array: Function, index: Function, unique: Function, remove: Function}}
+     */
     pklib.array = {
         is_array: is_array,
         in_array: in_array,
