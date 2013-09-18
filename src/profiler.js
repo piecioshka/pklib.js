@@ -12,8 +12,7 @@
      * @return {number}
      */
     function start(name) {
-        data[name] = new Date();
-        return data[name];
+        return data[name] = new Date();
     }
 
     /**

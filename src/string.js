@@ -1,3 +1,6 @@
+/**
+ * @requires pklib.common
+ */
 (function (global) {
     "use strict";
 

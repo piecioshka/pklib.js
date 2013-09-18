@@ -1,5 +1,7 @@
 /**
- * @requires pklib.string. pklib.dom
+ * @requires pklib.common
+ * @requires pklib.string
+ * @requires pklib.dom
  */
 (function (global) {
     "use strict";

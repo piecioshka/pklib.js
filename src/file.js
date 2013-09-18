@@ -1,5 +1,6 @@
 /**
- * @requires pklib.array, pklib.object
+ * @requires pklib.array
+ * @requires pklib.object
  */
 (function (global) {
     "use strict";

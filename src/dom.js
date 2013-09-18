@@ -1,5 +1,8 @@
 /**
- * @requires pklib.browser, pklib.css, pklib.string, pklib.utils
+ * @requires pklib.browser
+ * @requires pklib.css
+ * @requires pklib.string
+ * @requires pklib.utils
  */
 (function (global) {
     "use strict";
@@ -102,8 +105,7 @@
      * @return {NodeList}
      */
     function by_tag(tag, element) {
-        element = element || document;
-        return element.getElementsByTagName(tag);
+        return (element || document).getElementsByTagName(tag);
     }
 
     /**
@@ -122,7 +124,6 @@
                 results.push(node);
             }
         });
-
         return results;
     }
 
@@ -136,11 +137,11 @@
 
         var i,
             parent = pklib.dom.parent(node),
-            chren = pklib.dom.children(parent),
-            len = chren.length;
+            children = pklib.dom.children(parent),
+            len = children.length;
 
         for (i = 0; i < len; ++i) {
-            if (chren[i] === node) {
+            if (children[i] === node) {
                 return i;
             }
         }
@@ -157,12 +158,12 @@
 
         var i,
             array = [],
-            chren = node.childNodes,
-            len = chren.length;
+            children = node.childNodes,
+            len = children.length;
 
         for (i = 0; i < len; ++i) {
-            if (is_element(chren[i])) {
-                array.push(chren[i]);
+            if (is_element(children[i])) {
+                array.push(children[i]);
             }
         }
         return array;
