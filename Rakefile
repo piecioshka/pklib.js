@@ -42,7 +42,7 @@ def compress_js(file_content)
   Uglifier.new(:output => {:comments => :none}).compile(file_content)
 end
 
-task :default => [:join, :doc, :min]
+task :default => [:join, :min, :doc]
 
 puts '-------------- pklib JavaScript library --------------'.foreground(:magenta)
 
@@ -65,14 +65,6 @@ task :join => [] do
   its_ok()
 end
 
-task :doc => [] do
-  print '*'.foreground(:green) + ' Documents ...'
-
-  sh "jsdoc #{LIB_NAME} -d api"
-
-  its_ok()
-end
-
 task :min => [] do
   print '*'.foreground(:green) + ' Minifing ...'
 
@@ -82,6 +74,14 @@ task :min => [] do
   # fill content from all files js to one
   file.write(compress_js(File.read(LIB_NAME)))
   file.close()
+
+  its_ok()
+end
+
+task :doc => [] do
+  print '*'.foreground(:green) + ' Documents ...'
+
+  sh "jsdoc #{LIB_NAME} -d #{DIR_DOCS}"
 
   its_ok()
 end

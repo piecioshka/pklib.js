@@ -62,7 +62,6 @@ if (typeof Function.prototype.bind !== "function") {
 }
 
 /**
- * @module pklib.ajax
  * @requires pklib.array, pklib.common
  */
 (function (global) {
@@ -273,7 +272,10 @@ if (typeof Function.prototype.bind !== "function") {
         };
     }
 
-    // exports
+    /**
+     * @module pklib.ajax
+     * @type {{load: Function, stop: Function}}
+     */
     pklib.ajax = {
         /**
          * Send request to server on url defined in config.url.
@@ -369,9 +371,6 @@ if (typeof Function.prototype.bind !== "function") {
     };
 
 }(this));
-/**
- * @module pklib.array
- */
 (function (global) {
     "use strict";
 
@@ -463,7 +462,10 @@ if (typeof Function.prototype.bind !== "function") {
         return array;
     }
 
-    // exports
+    /**
+     * @module pklib.array
+     * @type {{is_array: Function, in_array: Function, index: Function, unique: Function, remove: Function}}
+     */
     pklib.array = {
         is_array: is_array,
         in_array: in_array,
@@ -473,9 +475,6 @@ if (typeof Function.prototype.bind !== "function") {
     };
 
 }(this));
-/**
- * @module pklib.aspect
- */
 (function (global) {
     "use strict";
 
@@ -486,6 +485,7 @@ if (typeof Function.prototype.bind !== "function") {
      * Bind function to aspect.
      * Create method with merge first and second.
      * Second method is run after first.
+     * @module pklib.aspect
      * @param {Function} fun The function to bind aspect function.
      * @param {Function} asp The aspect function.
      * @param {string} [when="before"] Place to aspect function.
@@ -518,10 +518,7 @@ if (typeof Function.prototype.bind !== "function") {
         };
     };
 
-}(this));/**
- * @module pklib.common
- */
-(function (global) {
+}(this));(function (global) {
     "use strict";
 
     // imports
@@ -576,7 +573,10 @@ if (typeof Function.prototype.bind !== "function") {
         }
     }
 
-    // exports
+    /**
+     * @module pklib.common
+     * @type {{assert: Function, defer: Function, checking: Function}}
+     */
     pklib.common = {
         assert: assert,
         defer: defer,
@@ -584,9 +584,6 @@ if (typeof Function.prototype.bind !== "function") {
     };
 
 }(this));
-/**
- * @module pklib.cookie
- */
 (function (global) {
     "use strict";
 
@@ -652,7 +649,10 @@ if (typeof Function.prototype.bind !== "function") {
         return create_cookie(name, undefined, -1);
     }
 
-    // exports
+    /**
+     * @module pklib.cookie
+     * @type {{create: Function, get: Function, remove: Function}}
+     */
     pklib.cookie = {
         create: create_cookie,
         get: get_cookie,
@@ -661,7 +661,6 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @module pklib.css
  * @requires pklib.string. pklib.dom
  */
 (function (global) {
@@ -738,7 +737,10 @@ if (typeof Function.prototype.bind !== "function") {
         element.className = pklib.string.trim(element.className.replace(regexp, ""));
     }
 
-    // exports
+    /**
+     * @module pklib.css
+     * @type {{add_class: Function, remove_class: Function, has_class: Function}}
+     */
     pklib.css = {
         add_class: add_class,
         remove_class: remove_class,
@@ -747,7 +749,6 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @module pklib.dom
  * @requires pklib.browser, pklib.css, pklib.string, pklib.utils
  */
 (function (global) {
@@ -1021,7 +1022,10 @@ if (typeof Function.prototype.bind !== "function") {
         return parent_node;
     }
 
-    // exports
+    /**
+     * @module pklib.dom
+     * @type {{is_node: Function, is_node_list: Function, is_element: Function, is_visible: Function, by_id: Function, by_tag: Function, by_class: Function, index: Function, children: Function, insert: Function, remove: Function, prev: Function, next: Function, parent: Function}}
+     */
     pklib.dom = {
         is_node: is_node,
         is_node_list: is_node_list,
@@ -1040,9 +1044,6 @@ if (typeof Function.prototype.bind !== "function") {
     };
 
 }(this));
-/**
- * @module pklib.event
- */
 (function (global) {
     "use strict";
 
@@ -1154,7 +1155,10 @@ if (typeof Function.prototype.bind !== "function") {
         }
     }
 
-    // exports
+    /**
+     * @module pklib.event
+     * @type {{add: Function, remove: Function, get: Function, trigger: Function}}
+     */
     pklib.event = {
         add: add_event,
         remove: remove_event,
@@ -1164,7 +1168,7 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @module pklib.file, pklib.string
+ * @requires pklib.array, pklib.object
  */
 (function (global) {
     "use strict";
@@ -1252,15 +1256,15 @@ if (typeof Function.prototype.bind !== "function") {
         }
     }
 
-    // exports
+    /**
+     * @module pklib.file
+     * @type {{loadjs: Function}}
+     */
     pklib.file = {
         loadjs: load_js_file
     };
 
 }(this));
-/**
- * @module pklib.object
- */
 (function (global) {
     "use strict";
 
@@ -1333,7 +1337,10 @@ if (typeof Function.prototype.bind !== "function") {
         return !items;
     }
 
-    // exports
+    /**
+     * @module pklib.object
+     * @type {{is_object: Function, mixin: Function, is_empty: Function}}
+     */
     pklib.object = {
         is_object: is_object,
         mixin: mixin,
@@ -1341,9 +1348,6 @@ if (typeof Function.prototype.bind !== "function") {
     };
 
 }(this));
-/**
- * @module pklib.profiler
- */
 (function (global) {
     "use strict";
 
@@ -1379,7 +1383,10 @@ if (typeof Function.prototype.bind !== "function") {
         return data[name];
     }
 
-    // exports
+    /**
+     * @module pklib.profiler
+     * @type {{start: Function, stop: Function, get_time: Function}}
+     */
     pklib.profiler = {
         start: start,
         stop: stop,
@@ -1387,9 +1394,6 @@ if (typeof Function.prototype.bind !== "function") {
     };
 
 }(this));
-/**
- * @module pklib.string
- */
 (function (global) {
     "use strict";
 
@@ -1603,7 +1607,10 @@ if (typeof Function.prototype.bind !== "function") {
         return string;
     }
 
-    // exports
+    /**
+     * @module pklib.string
+     * @type {{is_string: Function, is_letter: Function, trim: Function, slug: Function, capitalize: Function, delimiter_separated_words: Function, strip_tags: Function, camel_case: Function, slice: Function, format: Function, lpad: Function, rpad: Function}}
+     */
     pklib.string = {
         is_string: is_string,
         is_letter: is_letter,
@@ -1622,7 +1629,6 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * @module pklib.ui
  * @requires pklib.string. pklib.dom
  */
 (function (global) {
@@ -1701,7 +1707,10 @@ if (typeof Function.prototype.bind !== "function") {
         }
     }
 
-    // exports
+    /**
+     * @module pklib.ui
+     * @type {{center: Function, maximize: Function, scroll_to: Function}}
+     */
     pklib.ui = {
         center: center,
         maximize: maximize,
@@ -1710,7 +1719,6 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @module pklib.glass
  * @requires pklib.browser, pklib.dom, pklib.event, pklib.utils
  */
 (function (global) {
@@ -1793,7 +1801,10 @@ if (typeof Function.prototype.bind !== "function") {
         return result;
     }
 
-    // exports
+    /**
+     * @module pklib.ui.glass
+     * @type {{obj_id: string, show: Function, close: Function}}
+     */
     pklib.ui.glass = {
         obj_id: id,
         show: show_glass,
@@ -1803,7 +1814,6 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * @module pklib.ui.loader
  * @requires pklib.dom, pklib.event, pklib.utils
  */
 (function (global) {
@@ -1883,7 +1893,10 @@ if (typeof Function.prototype.bind !== "function") {
         return result;
     }
 
-    // exports
+    /**
+     * @module pklib.ui.loader
+     * @type {{obj_id: string, show: Function, close: Function}}
+     */
     pklib.ui.loader = {
         obj_id: id,
         show: show_loader,
@@ -1892,7 +1905,6 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 /**
- * @module pklib.ui.message
  * @requires pklib.dom, pklib.event, pklib.string, pklib.utils
  */
 (function (global) {
@@ -1969,7 +1981,10 @@ if (typeof Function.prototype.bind !== "function") {
         return result;
     }
 
-    // exports
+    /**
+     * @module pklib.ui.message
+     * @type {{obj_id: string, content: null, show: Function, close: Function}}
+     */
     pklib.ui.message = {
         obj_id: id,
         content: null,
@@ -1980,7 +1995,6 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * @module pklib.ui.size
  * @requires pklib.string
  */
 (function (global) {
@@ -2044,7 +2058,10 @@ if (typeof Function.prototype.bind !== "function") {
         return Math.max(client, scroll, offset);
     }
 
-    // public API
+    /**
+     * @module pklib.ui.size
+     * @type {{window: Function, document: Function, object: Function}}
+     */
     pklib.ui.size = {
         window: size_of_window,
         document: size_of_document,
@@ -2053,9 +2070,6 @@ if (typeof Function.prototype.bind !== "function") {
 
 }(this));
 
-/**
- * @module pklib.url
- */
 (function (global) {
     "use strict";
 
@@ -2133,7 +2147,10 @@ if (typeof Function.prototype.bind !== "function") {
         return null;
     }
 
-    // exports
+    /**
+     * @module pklib.url
+     * @type {{get_params: Function, get_param: Function}}
+     */
     pklib.url = {
         get_params: get_params,
         get_param: get_param
@@ -2142,7 +2159,6 @@ if (typeof Function.prototype.bind !== "function") {
 }(this));
 
 /**
- * @module pklib.utils
  * @requires pklib.common, pklib.dom, pklib.event
  */
 (function (global) {
@@ -2246,7 +2262,10 @@ if (typeof Function.prototype.bind !== "function") {
         }
     }
 
-    // exports
+    /**
+     * @module pklib.utils
+     * @type {{ascii: {letters: {lower: Array, upper: Array}}, action: {clearfocus: Function, outerlink: Function, confirm: Function}}}
+     */
     pklib.utils = {
         /**
          * numbers of chars in ASCII system
