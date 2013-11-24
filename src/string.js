@@ -69,7 +69,7 @@
      * @return {string}
      */
     function capitalize(source) {
-        return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
+        return source.substr(0, 1).toUpperCase() + source.substring(1, source.length);
     }
 
     /**

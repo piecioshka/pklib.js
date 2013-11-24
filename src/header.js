@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.2.1
+ * pklib JavaScript library v1.2.2
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  *
@@ -26,14 +26,14 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Wed Sep 18 09:14:37 CEST 2013
+ * Date: Sun, 24 Nov 2013 18:33:34 GMT
  */
 
 /*jslint continue: true, nomen: true, plusplus: true, regexp: true, vars: true, white: true, indent: 4 */
 /*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout, clearTimeout */
 
 var pklib = {
-    VERSION: "1.2.1"
+    VERSION: "1.2.2"
 };
 
 if (typeof Function.prototype.bind !== "function") {

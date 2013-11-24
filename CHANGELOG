@@ -1,3 +1,7 @@
+1.2.2 / 24.11.2013
+==================
+* fix pklib.string.capitalize - make only first letter upper
+
 1.2.0 / 26.06.2013
 ==================
 * use Google Style Guide to fix everything
