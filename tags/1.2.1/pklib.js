@@ -1,5 +1,5 @@
 /**
- * pklib JavaScript library v1.1.1
+ * pklib JavaScript library v1.2.1
  * 
  * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
  *
@@ -26,47 +26,33 @@
  *  
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Date: Sat Sep 22 16:01:17 CEST 2012
+ * Date: Wed Sep 18 09:14:37 CEST 2013
  */
 
-/*jslint plusplus: true, regexp: true */
-/*global window, document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout */
+/*jslint continue: true, nomen: true, plusplus: true, regexp: true, vars: true, white: true, indent: 4 */
+/*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout, clearTimeout */
 
-var pklib;
-pklib = (function () {
-    "use strict";
-
-    /**
-     * Global object, contain modules
-     * @namespace
-     * @type {Object}
-     */
-    return {
-        author: "Piotr Kowalski",
-        www: "http://pklib.com/",
-        version: "1.1.0"
-    };
-}());
+var pklib = {
+    VERSION: "1.2.1"
+};
 
 if (typeof Function.prototype.bind !== "function") {
     /**
      * Creates a new function that, when called, itself calls this function in the context of the provided this value,
      * with a given sequence of arguments preceding any provided when the new function was called.
      *
-     * <pre>
      * Method of "Function"
-     * Implemented in	JavaScript 1.8.5
-     * ECMAScript Edition	ECMAScript 5th Edition
-     * </pre>
+     * Implemented in JavaScript 1.8.5
+     * ECMAScript Edition ECMAScript 5th Edition
      *
      * @param {*} that Context
-     * @returns {Function}
+     * @return {Function}
      */
     Function.prototype.bind = function (that) {
         "use strict";
 
         var method = this,
-            slice = Array.prototype.slice,
+            slice = [].slice,
             args = slice.apply(arguments, [1]);
 
         return function () {
@@ -74,58 +60,31 @@ if (typeof Function.prototype.bind !== "function") {
         };
     };
 }
+
 /**
  * @package pklib.ajax
  * @dependence pklib.array, pklib.common
  */
-
-/**
- * Service to send request to server.
- * With first param, which is hashmap, define params, ex. request url
- * @namespace
- */
-pklib.ajax = (function () {
+(function (global) {
     "use strict";
 
-    var /**
-         * Default time what is timeout to use function pklib.ajax
-         *
-         * @private
-         * @constant
-         * @type {Number}
-         */
-        DEFAULT_TIMEOUT_TIME = 30000,
+    // imports
+    var pklib = (global.pklib = global.pklib || {});
 
-        /**
-         * @private
-         * @constant
-         * @type {Number}
-         */
-        REQUEST_STATE_UNSENT = 0,
+    // Default time what is timeout to use function pklib.ajax
+    var DEFAULT_TIMEOUT_TIME = 30 * 1000; // 30 second
 
-        // REQUEST_STATE_OPENED = 1,
-        // REQUEST_STATE_HEADERS_RECEIVED = 2,
-        // REQUEST_STATE_LOADING = 3,
-        /**
-         * @private
-         * @constant
-         * @type {Number}
-         */
-        REQUEST_STATE_DONE = 4,
+    var REQUEST_STATE_UNSENT = 0;
+    var REQUEST_STATE_OPENED = 1;
+    var REQUEST_STATE_HEADERS_RECEIVED = 2;
+    var REQUEST_STATE_LOADING = 3;
+    var REQUEST_STATE_DONE = 4;
 
-        /**
-         * Array contain key as url, value as ajax response
-         *
-         * @private
-         * @type {Array}
-         */
-        cache = [];
+    // Array contain key as url, value as ajax response
+    var cache = [];
 
     /**
-     * When success request
-     *
-     * @private
-     * @function
+     * When success request.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -151,86 +110,67 @@ pklib.ajax = (function () {
     }
 
     /**
-     * When error request
-     *
-     * @private
-     * @function
+     * When error request.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
     function error_handler(settings, xhr) {
-        xhr.error = true;
-        settings.error.call(null, settings, xhr);
+        // check if error handler is run yet
+        if (!xhr._run_error_handler) {
+            // NO, so we run error handler first time
+            settings.error(settings, xhr);
+
+            // set flag to no run error handler
+            xhr._run_error_handler = true;
+        }
     }
 
     /**
-     * Use when state in request is changed or if used cache is handler to request.
-     *
-     * @private
-     * @function
+     * Use when state in request is changed or if used cache is handler
+     * to request.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
-    function handler(settings, xhr) {
+    function state_change_handler(settings, xhr) {
         var status = 0;
 
-        if (xhr.readyState === REQUEST_STATE_DONE) {
+        if (xhr.readyState === REQUEST_STATE_DONE && xhr.status !== REQUEST_STATE_UNSENT) {
             if (xhr.status !== undefined) {
                 status = xhr.status;
             }
+
+            clearTimeout(xhr.ontimeout);
+            delete xhr.ontimeout;
 
             if ((status >= 200 && status < 300) || status === 304) {
                 // success
                 success_handler(settings, xhr);
             } else {
                 // error
-                error_handler(settings, xhr);
+                error_handler_with_abort(settings, xhr);
             }
         }
     }
 
+    function error_handler_with_abort(settings, xhr) {
+        xhr.abort();
+
+        error_handler(settings, xhr);
+    }
+
     /**
      * Handler to unusually situation - timeout.
-     *
-     * @private
-     * @function
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
-     * @throws {Error} If exists timeout on request
      */
     function timeout_handler(settings, xhr) {
-        // clear memory
-        xhr = null;
-        // throw exception
-        throw new Error("pklib.ajax.load: timeout on url: " + settings.url);
+        error_handler(settings, xhr);
     }
 
     /**
-     * Method use when request has timeout
-     *
-     * @private
-     * @function
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     * @throws {Error} If exists timeout on request
-     */
-    function request_timeout(settings, xhr) {
-        if (xhr.aborted === undefined &&
-                xhr.error === undefined &&
-                xhr.readyState === REQUEST_STATE_DONE &&
-                xhr.status === REQUEST_STATE_UNSENT) {
-            xhr.abort();
-            timeout_handler.call(null, settings, xhr);
-        }
-    }
-
-    /**
-     * Try to create Internet Explorer XMLHttpRequest
-     *
-     * @private
-     * @function
-     * @throws {Error} If can not create XMLHttpRequest object
-     * @returns {ActiveXObject|Undefined}
+     * Try to create Internet Explorer XMLHttpRequest.
+     * @return {ActiveXObject|undefined}
+     * @throws {Error} If cannot create XMLHttpRequest object.
      */
     function create_microsoft_xhr() {
         var xhr;
@@ -247,12 +187,9 @@ pklib.ajax = (function () {
     }
 
     /**
-     * Try to create XMLHttpRequest
-     *
-     * @private
-     * @function
-     * @throws {Error} If can not create XMLHttpRequest object
-     * @returns {XMLHttpRequest|Undefined}
+     * Try to create XMLHttpRequest.
+     * @return {XMLHttpRequest|undefined}
+     * @throws {Error} If cannot create XMLHttpRequest object.
      */
     function create_xhr() {
         var xhr;
@@ -265,10 +202,7 @@ pklib.ajax = (function () {
     }
 
     /**
-     * Add headers to xhr object
-     *
-     * @private
-     * @function
+     * Add headers to xhr object.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -286,59 +220,34 @@ pklib.ajax = (function () {
     }
 
     /**
-     * Add timeout service to xhr object
-     *
-     * @private
-     * @function
+     * Add timeout service to xhr object.
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
     function add_timeout_service_to_xhr(settings, xhr) {
-        if (typeof xhr.ontimeout === "function") {
-            xhr.ontimeout = timeout_handler.bind(null, settings, xhr);
-        } else {
-            pklib.common.defer(request_timeout.bind(null, settings, xhr), settings.timeout);
-        }
+        xhr.ontimeout = setTimeout(function () {
+            timeout_handler(settings, xhr);
+        }, settings.timeout);
     }
 
     /**
-     * Add error service to xhr object
-     *
-     * @private
-     * @function
+     * Check is response on this request is in cache.
      * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
-    function add_error_service_to_xhr(settings, xhr) {
-        xhr.onerror = function () {
-            error_handler(settings, xhr);
-        };
-    }
-
-    /**
-     * Check is response on this request is in cache
-     *
-     * @private
-     * @function
-     * @param {Object} settings
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function is_response_in_cache(settings) {
-        return settings.cache && cache[settings.url];
+        return cache[settings.url];
     }
 
     /**
-     * Return object what is default configuration of request
-     *
-     * @private
-     * @function
-     * @returns {Object} Default configuration
+     * Return object what is default configuration of request.
+     * @return {Object} Default configuration.
      */
     function get_default_settings() {
         /**
-         * Request settings, contain ex. headers, callback when run after request finish.
-         * Default timeout on request is 30 seconds. This is default timeout from popular web servers
-         * ex. Apache, ngninx.
+         * Request settings, contain ex. headers, callback when run after
+         * request finish. Default timeout on request is 30 seconds.
+         * This is default timeout from popular web servers, ex. Apache, nginx.
          * Default request hasn't any headers.
          * Default cache is disabled.
          * Default asynchronous is enable.
@@ -364,53 +273,34 @@ pklib.ajax = (function () {
         };
     }
 
-    /**
-     * Check url in request is defined.
-     * Throw error if is undefined
-     *
-     * @private
-     * @function
-     * @param {Object} settings
-     * @throws {Error} If unset request url
-     */
-    function check_if_url_is_defined(settings) {
-        pklib.common.assert(settings.url !== null, "pklib.ajax.load: undefined request url");
-    }
-
-    // public API
-    return {
+    // exports
+    pklib.ajax = {
         /**
          * Send request to server on url defined in config.url.
-         * Method throw exception when request have timeout on server or if url is not set.
-         * Also, every response (if config.cache is true) saved to hashmap by key config.url.
-         * Method on first try to can create XMLHttpRequest if browser doesn't support, check
-         * if browser support object ActiveXObject which is implemented in Internet Explorer.
-         *
-         * @memberOf pklib.ajax
-         * @function
+         * Method throw exception when request have timeout on server or if
+         * url is not set. Also, every response (if config.cache is true)
+         * saved to hashmap by key config.url. Method on first try to can
+         * create XMLHttpRequest if browser doesn't support, check if browser
+         * support object ActiveXObject which is implemented in Internet
+         * Explorer.
          * @param {Object} config
-         * <pre>
          * {
-         *      {String} [type="get"]
-         *      {Boolean} [async=true]
-         *      {Boolean} [cache=false]
-         *      {String} url
+         *      {string} [type="get"]
+         *      {boolean} [async=true]
+         *      {boolean} [cache=false]
+         *      {string} url
          *      {Object} [params]
          *      {Object} [headers]
          *      {Function} [done]
          *      {Function} [error]
          * }
-         * </pre>
          * @example
-         * <pre>
          * pklib.ajax.load({
          *      type: "post",
          *      async: false,
          *      cache:  true,
          *      url: "http://example.org/check-item.php",
-         *      params: {
-         *          id: 33
-         *      },
+         *      params: { id: 33 },
          *      headers: {
          *          "User-Agent": "tv"
          *      },
@@ -418,9 +308,8 @@ pklib.ajax = (function () {
          *          // pass
          *      }
          * });
-         * </pre>
-         * @throws {Error} If unset request url
-         * @returns {XMLHttpRequest|Null}
+         * @return {XMLHttpRequest|null}
+         * @throws {Error} If unset request url.
          */
         load: function (config) {
             var xhr = null,
@@ -429,78 +318,85 @@ pklib.ajax = (function () {
             settings = pklib.object.mixin(settings, config);
             settings.type = settings.type.toUpperCase();
 
-            check_if_url_is_defined(settings);
+            // simple assert to check "url" is set
+            pklib.common.assert(settings.url !== null, "pklib.ajax.load: @url is not defined");
 
-            if (is_response_in_cache(settings)) {
-                handler.call(null, settings, cache[settings.url]);
+            // check if we use "cache" flag in request
+            if (settings.cache && is_response_in_cache(settings)) {
+                // YES, we use, so we can return response from cache object
+                state_change_handler.call(null, settings, cache[settings.url]);
             } else {
+                // NO, is normal request to server
                 xhr = create_xhr();
-                xhr.onreadystatechange = handler.bind(null, settings, xhr);
-                xhr.open(settings.type, settings.url, settings.async);
+                xhr.onreadystatechange = state_change_handler.bind(null, settings, xhr);
+
+                try {
+                    xhr.open(settings.type, settings.url, settings.async);
+                } catch (open_exception) {
+                    // error
+                    error_handler_with_abort(settings, xhr);
+
+                    return xhr;
+                }
 
                 add_headers_to_xhr(settings, xhr);
-
                 add_timeout_service_to_xhr(settings, xhr);
-                add_error_service_to_xhr(settings, xhr);
-                xhr.send(settings.params);
+
+                try {
+                    xhr.send(settings.params);
+                } catch (send_exception) {
+                    // error
+                    error_handler_with_abort(settings, xhr);
+
+                    return xhr;
+                }
             }
+
             return xhr;
         },
 
         /**
-         * Stop request setting in param
-         *
-         * @memberOf pklib.ajax
-         * @function
-         * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object, or ActiveXObject object if Internet Explorer
+         * Stop request setting in param.
+         * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object,
+         *     or ActiveXObject object if Internet Explorer.
          */
         stop: function (xhr) {
             xhr.abort();
-            xhr.aborted = true;
+
             // clear memory
             xhr = null;
         }
     };
-}());
+
+}(this));
 /**
  * @package pklib.array
  */
-
-/**
- * Module to service array object
- * @namespace
- */
-pklib.array = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var pklib = (global.pklib = global.pklib || {});
+    var to_string = Object.prototype.toString;
+
     /**
-     * Check if param is array
-     *
-     * @private
-     * @function
+     * Check if param is array.
      * @param {Object} array
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function is_array(array) {
-        try {
-            pklib.common.assert(typeof array === "object" &&
-                array !== null &&
-                array.length !== undefined &&
-                array.slice !== undefined);
-            return true;
-        } catch (ignore) {
-            return false;
-        }
+        return array !== null &&
+            typeof array === "object" &&
+            to_string.call(array) === "[object Array]" &&
+            typeof array.length === "number" &&
+            typeof array.slice === "function";
     }
 
     /**
-     * Check if element is in array by loop
-     *
-     * @private
-     * @function
-     * @param {Object} param
+     * Check if element is in array by loop.
+     * @param {*} param
      * @param {Array} array
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function in_array(param, array) {
         var i, len = array.length;
@@ -514,13 +410,10 @@ pklib.array = (function () {
 
     /**
      * Get index of element.
-     * If couldn't find searching element, return null value
-     *
-     * @private
-     * @function
-     * @param {Object} item
+     * If couldn't find searching element, return null value.
+     * @param {*} item
      * @param {Array} array
-     * @returns {Number|Null}
+     * @return {number|null}
      */
     function index(item, array) {
         var i, len = array.length;
@@ -533,12 +426,9 @@ pklib.array = (function () {
     }
 
     /**
-     * Unique array. Delete element what was duplicated
-     *
-     * @private
-     * @function
+     * Unique array. Delete element what was duplicated.
      * @param {Array} array
-     * @returns {Array}
+     * @return {Array}
      */
     function unique(array) {
         var i, item, temp = [],
@@ -546,7 +436,7 @@ pklib.array = (function () {
 
         for (i = 0; i < len; ++i) {
             item = array[i];
-            if (!pklib.array.in_array.call(null, item, temp)) {
+            if (!in_array.call(null, item, temp)) {
                 temp.push(item);
             }
         }
@@ -555,163 +445,93 @@ pklib.array = (function () {
 
     /**
      * Remove element declared in infinity params without first.
-     * First parameter is array object
-     *
-     * @private
-     * @function
+     * First parameter is array object.
      * @param {Array} array
-     * @returns {Array}
+     * @return {Array}
      */
     function remove(array) {
         var i, param,
-            params = Array.prototype.slice.call(arguments, 1),
+            params = [].slice.call(arguments, 1),
             len = params.length;
 
         for (i = 0; i < len; ++i) {
             param = params[i];
-            if (pklib.array.in_array(param, array)) {
-                array.splice(pklib.array.index(param, array), 1);
+            if (in_array(param, array)) {
+                array.splice(index(param, array), 1);
             }
         }
         return array;
     }
 
-    // public API
-    return {
+    // exports
+    pklib.array = {
         is_array: is_array,
         in_array: in_array,
         index: index,
         unique: unique,
         remove: remove
     };
-}());
+
+}(this));
 /**
  * @package pklib.aspect
  */
-
-/**
- * Bind function to aspect.
- * Create method with merge first and second.
- * Second method is run after first
- *
- * @function
- * @param {Function} fun The function to bind aspect function
- * @param {Function} asp The aspect function
- * @param {String} [when="before"] Place to aspect function
- * @throws {TypeError} If any param is not function
- * @returns {Function}
- */
-pklib.aspect = function (fun, asp, when) {
+(function (global) {
     "use strict";
 
-    var that = this,
-        result;
-
-    pklib.common.assert(typeof fun === "function", "pklib.aspect: @func: not {Function}");
-    pklib.common.assert(typeof asp === "function", "pklib.aspect: @asp: not {Function}");
-
-    when = when || "before";
-
-    return function () {
-        if (when === "before") {
-            asp.call(that);
-        }
-
-        result = fun.apply(that, arguments);
-
-        if (when === "after") {
-            result = asp.call(that);
-        }
-        return result;
-    };
-};
-/**
- * @package pklib.browser
- */
-
-/**
- * Get best information about browser
- * @namespace
- */
-pklib.browser = (function (global) {
-    "use strict";
+    // imports
+    var pklib = (global.pklib = global.pklib || {});
 
     /**
-     * Array with browsers name
-     *
-     * @private
-     * @type {Array}
+     * Bind function to aspect.
+     * Create method with merge first and second.
+     * Second method is run after first.
+     * @param {Function} fun The function to bind aspect function.
+     * @param {Function} asp The aspect function.
+     * @param {string} [when="before"] Place to aspect function.
+     * @return {Function}
+     * @throws {TypeError} If any param is not function.
      */
-    var browsers = ["msie", "chrome", "safari", "opera", "mozilla", "konqueror"];
+    pklib.aspect = function (fun, asp, when) {
 
-    /**
-     * Get browser name by checking userAgent in global object navigator
-     *
-     * @private
-     * @function
-     * @returns {String}
-     */
-    function get_name() {
-        var i, browser,
-            len = browsers.length,
-            userAgent = global.navigator.userAgent.toLowerCase();
+        // private
+        var self = this, result;
+        var assert = pklib.common.assert;
 
-        for (i = 0; i < len; ++i) {
-            browser = browsers[i];
-            if (new RegExp(browser).test(userAgent)) {
-                return browser;
+        assert(typeof fun === "function", "pklib.aspect: @func: not {Function}");
+        assert(typeof asp === "function", "pklib.aspect: @asp: not {Function}");
+
+        when = when || "before";
+
+        return function () {
+            if (when === "before") {
+                asp.call(self);
             }
-        }
-        return null;
-    }
 
-    /**
-     * Get browser version by checking userAgent.
-     * Parse userAgent to find next 3 characters
-     *
-     * @private
-     * @function
-     * @returns {String|Null}
-     */
-    function get_version() {
-        var i, len = browsers.length, browser, cur,
-            user_agent = global.navigator.userAgent.toLowerCase();
+            result = fun.apply(self, arguments);
 
-        for (i = 0; i < len; ++i) {
-            browser = browsers[i];
-            cur = user_agent.indexOf(browser);
-            if (cur !== -1) {
-                return user_agent.substr(cur + len + 1, 3);
+            if (when === "after") {
+                result = asp.call(self);
             }
-        }
-        return null;
-    }
 
-    // public API
-    return {
-        get_name: get_name,
-        get_version: get_version
+            return result;
+        };
     };
-}(this));
-/**
+
+}(this));/**
  * @package pklib.common
  */
-
-/**
- * Common stuff
- * @namespace
- */
-pklib.common = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var pklib = (global.pklib = global.pklib || {});
+
     /**
-     * Basic test function. Simple assertion 2 variables
-     *
-     * @private
-     * @function
-     * @param {Object} expression Object what is true
-     * @param {String} comment Message to throw in error
-     * @throws {Error}
+     * Basic test function. Simple assertion 2 variables.
+     * @param {boolean} expression Object what is true.
+     * @param {string} comment Message to throw in error.
+     * @throws {Error} Condition it's not true.
      */
     function assert(expression, comment) {
         if (expression !== true) {
@@ -721,12 +541,10 @@ pklib.common = (function () {
 
     /**
      * Deferred function about some milliseconds.
-     * If milliseconds is 0 that it's hack for some platforms to use function in "next" thread
-     *
-     * @private
-     * @function
-     * @param {Function} defer_function Function what would be deferred
-     * @param {Number} milliseconds Time to deferred function
+     * If milliseconds is 0 that it's hack for some platforms to use function
+     * in "next" thread.
+     * @param {Function} defer_function Function what would be deferred.
+     * @param {number} [milliseconds] Time to deferred function
      */
     function defer(defer_function, milliseconds) {
         milliseconds = milliseconds || 0;
@@ -734,19 +552,17 @@ pklib.common = (function () {
     }
 
     /**
-     * Interval checking first function until returns true,
-     * run after this second function callback
-     *
-     * @private
-     * @param {Function} condition Function returns {Boolean} status
+     * Interval checking first function until returns true, run after this
+     * second function callback.
+     * @param {Function} condition Function returns {@type boolean} status.
      * @param {Function} callback
      */
     function checking(condition, callback) {
         var interval,
             interval_time = 100;
 
-        pklib.common.assert(typeof condition === "function", "pklib.common.checking: @condition: not {Function}");
-        pklib.common.assert(typeof callback === "function", "pklib.common.checking: @callback: not {Function}");
+        assert(typeof condition === "function", "pklib.common.checking: @condition: not {Function}");
+        assert(typeof callback === "function", "pklib.common.checking: @callback: not {Function}");
 
         if (condition()) {
             callback();
@@ -760,31 +576,28 @@ pklib.common = (function () {
         }
     }
 
-    // public API
-    return {
+    // exports
+    pklib.common = {
         assert: assert,
         defer: defer,
         checking: checking
     };
-}());
+
+}(this));
 /**
  * @package pklib.cookie
  */
-
-/**
- * Cookie service manager
- * @namespace
- */
-pklib.cookie = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
+
     /**
-     * Read cookie by it name
-     *
-     * @private
-     * @function
-     * @param {String} name
-     * @returns {String|Null}
+     * Read cookie by it name.
+     * @param {string|undefined} name
+     * @return {string|null}
      */
     function get_cookie(name) {
         if (name === undefined) {
@@ -808,14 +621,11 @@ pklib.cookie = (function () {
     }
 
     /**
-     * Create cookie file with name, value and day expired
-     *
-     * @private
-     * @function
-     * @param {String} name
-     * @param {String} value
-     * @param {Number} days
-     * @returns {String}
+     * Create cookie file with name, value and day expired.
+     * @param {string} name
+     * @param {string} [value]
+     * @param {number} [days]
+     * @return {string}
      */
     function create_cookie(name, value, days) {
         var expires = "",
@@ -825,7 +635,7 @@ pklib.cookie = (function () {
 
         if (days !== undefined) {
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toGMTString();
+            expires = "; expires=" + date.toUTCString();
         }
 
         document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
@@ -834,72 +644,78 @@ pklib.cookie = (function () {
     }
 
     /**
-     * Delete cookie by it name
-     *
-     * @private
-     * @function
-     * @param {String} name
-     * @returns {String}
+     * Delete cookie by it name.
+     * @param {string} name
+     * @return {string}
      */
     function remove_cookie(name) {
         return create_cookie(name, undefined, -1);
     }
 
-    // public API
-    return {
+    // exports
+    pklib.cookie = {
         create: create_cookie,
         get: get_cookie,
         remove: remove_cookie
     };
-}());
+
+}(this));
 /**
  * @package pklib.css
  * @dependence pklib.string. pklib.dom
  */
-
-/**
- * Utils method related css on tags in DOM tree
- * @namespace
- */
-pklib.css = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var pklib = (global.pklib = global.pklib || {});
+
     /**
-     * RegExp use to delete white chars
-     *
-     * @private
-     * @type {RegExp}
+     * RegExp use to delete white chars.
      */
     var rclass = /[\n\t\r]/g;
 
     /**
-     * Check typeof params
-     *
-     * @private
-     * @function
-     * @param {String} css_class
+     * Check typeof params.
+     * @param {string} css_class
      * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not Node
+     * @param {string} call_func_name
+     * @throws {TypeError} If first param is not string, or second param is
+     *     not Node.
      */
     function check_params(css_class, element, call_func_name) {
+        var assert = pklib.common.assert;
+        var is_element = pklib.dom.is_element;
         var prefix = "pklib.css." + call_func_name;
-        pklib.common.assert(typeof css_class === "string", prefix + ": @css_class: not {String}");
-        pklib.common.assert(pklib.dom.is_element(element), prefix + ": @element: not {HTMLElement}");
+        assert(typeof css_class === "string", prefix + ": @css_class: not {string}");
+        assert(is_element(element), prefix + ": @element: not {HTMLElement}");
     }
 
     /**
-     * Add CSS class to element define in second parameter
-     *
-     * @private
-     * @function
-     * @param {String} css_class
+     * Check if element has CSS class.
+     * @param {string} css_class
      * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not Node
+     * @return {boolean}
+     * @throws {TypeError} If first param is not string, or second param is not
+     *     Node
+     */
+    function has_class(css_class, element) {
+        check_params(css_class, element, "has_class");
+        var className = " " + css_class + " ";
+        return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
+    }
+
+    /**
+     * Add CSS class to element define in second parameter.
+     * @param {string} css_class
+     * @param {HTMLElement} element
+     * @throws {TypeError} If first param is not string, or second param is
+     *     not Node.
      */
     function add_class(css_class, element) {
         check_params(css_class, element, "add_class");
         var class_element = element.className;
-        if (!pklib.css.has_class(css_class, element)) {
+        if (!has_class(css_class, element)) {
             if (class_element.length) {
                 class_element += " " + css_class;
             } else {
@@ -910,13 +726,11 @@ pklib.css = (function () {
     }
 
     /**
-     * Remove CSS class from element define in second parameter
-     *
-     * @private
-     * @function
-     * @param {String} css_class
+     * Remove CSS class from element define in second parameter.
+     * @param {string} css_class
      * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not Node
+     * @throws {TypeError} If first param is not string, or second param is
+     *     not Node.
      */
     function remove_class(css_class, element) {
         check_params(css_class, element, "remove_class");
@@ -924,73 +738,28 @@ pklib.css = (function () {
         element.className = pklib.string.trim(element.className.replace(regexp, ""));
     }
 
-    /**
-     * Check if element has CSS class
-     *
-     * @private
-     * @function
-     * @param {String} css_class
-     * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not Node
-     * @returns {Boolean}
-     */
-    function has_class(css_class, element) {
-        check_params(css_class, element, "has_class");
-        var className = " " + css_class + " ";
-        return ((" " + element.className + " ").replace(rclass, " ").indexOf(className) > -1);
-    }
-
-    // public API
-    return {
+    // exports
+    pklib.css = {
         add_class: add_class,
         remove_class: remove_class,
         has_class: has_class
     };
-}());
-/**
- * @package pklib.date
- */
 
-/**
- * Utils stack to Date object
- * @namespace
- */
-pklib.date = (function () {
-    "use strict";
-
-    return {
-        /**
-         * Simple return month in string and file 0 at first place if month smaller than 10
-         *
-         * @private
-         * @function
-         * @returns {String}
-         */
-        get_full_month: function () {
-            var month = (parseInt(new Date().getMonth(), 10) + 1);
-
-            if (month < 10) {
-                month = "0" + month;
-            }
-
-            return String(month);
-        }
-    };
-}());
+}(this));
 /**
  * @package pklib.dom
  * @dependence pklib.browser, pklib.css, pklib.string, pklib.utils
  */
-
-/**
- * Helper related with DOM service
- * @namespace
- */
-pklib.dom = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
+    var to_string = Object.prototype.toString;
+
     /**
-     * Types of all available node
+     * Types of all available node.
      */
     var node_types = {
         "ELEMENT_NODE": 1,
@@ -1008,12 +777,9 @@ pklib.dom = (function () {
     };
 
     /**
-     * Walking on every node in node
-     *
-     * @private
-     * @function
+     * Walking on every node in node.
      * @param {HTMLElement} node
-     * @param {Function} func Run on every node
+     * @param {Function} func Run on every node.
      */
     function walk_the_dom(node, func) {
         if (!!node) {
@@ -1027,65 +793,41 @@ pklib.dom = (function () {
     }
 
     /**
-     * Check if param is Node, with use assertions
-     *
-     * @private
-     * @function
+     * Check if param is Node, with use assertions.
      * @param {Node} node
-     * @returns {String}
+     * @return {string}
      */
     function is_node(node) {
-        try {
-            pklib.common.assert(Boolean(node && node.nodeType && node.nodeName));
-            pklib.common.assert(Object.prototype.toString.call(node) === "[object Node]");
-            return true;
-        } catch (ignore) {
-            return false;
-        }
+        return node && node.nodeType && node.nodeName &&
+            to_string.call(node) === "[object Node]";
     }
 
     /**
-     * Check if param is NodeList, with use assertions
-     *
-     * @private
-     * @function
+     * Check if param is NodeList, with use assertions.
      * @param {NodeList} node_list
-     * @returns {String}
+     * @return {boolean}
      */
     function is_node_list(node_list) {
-        try {
-            var to_string = Object.prototype.toString.call(node_list),
-                list = ["[object HTMLCollection]", "[object NodeList]"];
-
-            pklib.common.assert(pklib.array.in_array(to_string, list));
-            return true;
-        } catch (ignore) {
-            return false;
-        }
+        var list = ["[object HTMLCollection]", "[object NodeList]"];
+        return pklib.array.in_array(to_string.call(node_list), list);
     }
 
     /**
-     * Check if param is instanceOf Element
-     *
-     * @private
-     * @function
+     * Check if param is instanceOf Element.
      * @param {HTMLElement} node
-     * @returns {String}
+     * @return {boolean}
      */
     function is_element(node) {
         return (node && node.nodeType === node_types.ELEMENT_NODE) || false;
     }
 
     /**
-     * Check visibility of Node, with use assertions
-     *
-     * @private
-     * @function
+     * Check visibility of Node, with use assertions.
      * @param {HTMLElement} node
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function is_visible(node) {
-        pklib.common.assert(pklib.dom.is_element(node), "pklib.dom.is_visible: @node is not HTMLElement");
+        pklib.common.assert(is_element(node), "pklib.dom.is_visible: @node is not HTMLElement");
 
         return node.style.display !== "none" &&
             node.style.visibility !== "hidden" &&
@@ -1094,25 +836,19 @@ pklib.dom = (function () {
     }
 
     /**
-     * Get element by attribute ID
-     *
-     * @private
-     * @function
-     * @param {String} id
-     * @returns {HTMLElement|Null}
+     * Get element by attribute ID.
+     * @param {string} id
+     * @return {HTMLElement|null}
      */
     function by_id(id) {
         return document.getElementById(id);
     }
 
     /**
-     * Get elements by tag name
-     *
-     * @private
-     * @function
-     * @param {String} tag
-     * @param {Element} element
-     * @returns {NodeList}
+     * Get elements by tag name.
+     * @param {string} tag
+     * @param {Element} [element]
+     * @return {NodeList}
      */
     function by_tag(tag, element) {
         element = element || document;
@@ -1120,48 +856,40 @@ pklib.dom = (function () {
     }
 
     /**
-     * Get elements by attribute CLASS
-     *
-     * @private
-     * @function
-     * @param {String} css_class
-     * @param {HTMLElement} wrapper
-     * @returns {NodeList|Array}
+     * Get elements by attribute CLASS.
+     * @param {string} css_class
+     * @param {HTMLElement} [wrapper]
+     * @return {Array}
      */
     function by_class(css_class, wrapper) {
-        var results;
+        var results = [];
 
         wrapper = wrapper || document;
 
-        if (wrapper.getElementsByClassName) {
-            results = wrapper.getElementsByClassName(css_class);
-        } else {
-            results = [];
-            walk_the_dom(wrapper, function (node) {
-                if (pklib.dom.is_element(node) && pklib.css.has_class(css_class, node)) {
-                    results.push(node);
-                }
-            });
-        }
+        walk_the_dom(wrapper, function (node) {
+            if (is_element(node) && pklib.css.has_class(css_class, node)) {
+                results.push(node);
+            }
+        });
+
         return results;
     }
 
     /**
-     * Get index of node relative siblings
-     *
-     * @private
-     * @function
+     * Get index of node relative siblings.
      * @param {HTMLElement} node
-     * @returns {Number|Null}
+     * @return {number|null}
      */
     function index(node) {
+        pklib.common.assert(is_element(node), "pklib.dom.index: @node is not HTMLElement");
+
         var i,
             parent = pklib.dom.parent(node),
-            childs = pklib.dom.children(parent),
-            len = childs.length;
+            chren = pklib.dom.children(parent),
+            len = chren.length;
 
         for (i = 0; i < len; ++i) {
-            if (childs[i] === node) {
+            if (chren[i] === node) {
                 return i;
             }
         }
@@ -1169,39 +897,35 @@ pklib.dom = (function () {
     }
 
     /**
-     * Get children of element filter by Element type
-     *
-     * @private
-     * @function
+     * Get children of element filter by Element type.
      * @param {HTMLElement} node
-     * @returns {Array}
+     * @return {Array}
      */
     function children(node) {
+        pklib.common.assert(is_element(node), "pklib.dom.children: @node is not HTMLElement");
+
         var i,
             array = [],
-            childs = node.childNodes,
-            len = childs.length;
+            chren = node.childNodes,
+            len = chren.length;
 
         for (i = 0; i < len; ++i) {
-            if (pklib.dom.is_element(childs[i])) {
-                array.push(childs[i]);
+            if (is_element(chren[i])) {
+                array.push(chren[i]);
             }
         }
         return array;
     }
 
     /**
-     * Insert data to Node. Maybe param is string so insert will be exec by innerHTML,
-     * but if param is Node inserting will be by appendChild() function
-     *
-     * @private
-     * @function
-     * @param {HTMLElement|String} element
+     * Insert data to Node. Maybe param is string so insert will be exec
+     * by innerHTML, but if param is Node inserting with appendChild().
+     * @param {HTMLElement|string} element
      * @param {HTMLElement} node
-     * @returns {HTMLElement}
+     * @return {HTMLElement}
      */
     function insert(element, node) {
-        if (pklib.dom.is_element(element)) {
+        if (is_element(element)) {
             node.appendChild(element);
         } else if (pklib.string.is_string(element)) {
             node.innerHTML += element;
@@ -1210,20 +934,17 @@ pklib.dom = (function () {
     }
 
     /**
-     * Remove Element specified in params
-     *
-     * @private
-     * @function
-     * @param {HTMLElement}
+     * Remove Element specified in params.
+     * @param {...HTMLElement} items
      */
-    function remove() {
+    function remove(items) {
         var i, node = null, parent = null,
-            args = Array.prototype.slice.call(arguments),
+            args = [].slice.call(arguments),
             len = args.length;
 
         for (i = 0; i < len; ++i) {
             node = args[i];
-            if (pklib.dom.is_element(node)) {
+            if (is_element(node)) {
                 parent = node.parentNode;
                 parent.removeChild(node);
             }
@@ -1231,76 +952,77 @@ pklib.dom = (function () {
     }
 
     /**
-     * Get prev Node what will be Element
-     *
-     * @private
-     * @function
+     * Get prev Node what will be Element.
      * @param {HTMLElement} node
-     * @returns {HTMLElement|Null}
+     * @return {HTMLElement|null}
      */
     function prev(node) {
-        var pNode;
+        var prev_node;
+
+        pklib.common.assert(is_element(node), "pklib.dom.prev: @node is not HTMLElement");
+
         while (true) {
-            pNode = node.previousSibling;
-            if (pNode !== undefined &&
-                    pNode !== null &&
-                    pNode.nodeType !== node_types.ELEMENT_NODE) {
-                node = pNode;
+            prev_node = node.previousSibling;
+            if (prev_node !== undefined &&
+                    prev_node !== null &&
+                    prev_node.nodeType !== node_types.ELEMENT_NODE) {
+                node = prev_node;
             } else {
                 break;
             }
         }
-        return pNode;
+        return prev_node;
     }
 
     /**
-     * Get next Node what will be Element
-     *
-     * @private
-     * @function
+     * Get next Node what will be Element.
      * @param {HTMLElement} node
-     * @returns {HTMLElement|Null}
+     * @return {HTMLElement|null}
      */
     function next(node) {
-        var nNode;
+        var next_node;
+
+        pklib.common.assert(is_element(node), "pklib.dom.next: @node is not HTMLElement");
+
         while (true) {
-            nNode = node.nextSibling;
-            if (nNode !== undefined &&
-                    nNode !== null &&
-                    nNode.nodeType !== node_types.ELEMENT_NODE) {
-                node = nNode;
+            next_node = node.nextSibling;
+            if (next_node !== undefined &&
+                    next_node !== null &&
+                    next_node.nodeType !== node_types.ELEMENT_NODE) {
+                node = next_node;
             } else {
                 break;
             }
         }
-        return nNode;
+        return next_node;
     }
 
     /**
-     * Get parent element what will by Element, but if parent is not exists returns Null
-     *
-     * @private
-     * @function
+     * Get parent element what will by Element, but if parent is not exists
+     *     returns null.
      * @param {HTMLElement} node
-     * @returns {HTMLElement|Null}
+     * @return {HTMLElement|null}
      */
     function parent(node) {
-        var prNode;
+        var parent_node;
+
+        pklib.common.assert(is_element(node), "pklib.dom.parent: @node is not HTMLElement");
+
         while (true) {
-            prNode = node.parentNode;
-            if (prNode !== undefined &&
-                    prNode !== null &&
-                    prNode.nodeType !== node_types.ELEMENT_NODE) {
-                node = prNode;
+            parent_node = node.parentNode;
+            if (parent_node !== undefined &&
+                    parent_node !== null &&
+                    parent_node.nodeType !== node_types.ELEMENT_NODE) {
+                node = parent_node;
             } else {
                 break;
             }
         }
-        return prNode;
+        return parent_node;
     }
 
-    // public API
-    return {
+    // exports
+    pklib.dom = {
         is_node: is_node,
         is_node_list: is_node_list,
         is_element: is_element,
@@ -1316,25 +1038,21 @@ pklib.dom = (function () {
         next: next,
         parent: parent
     };
-}());
+
+}(this));
 /**
  * @package pklib.event
  */
-
-/**
- * Helper about manage event on HTMLElement
- * @namespace
- */
-pklib.event = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var pklib = (global.pklib = global.pklib || {});
+
     /**
-     * Add event to Element
-     *
-     * @private
-     * @function
+     * Add event to Element.
      * @param {HTMLElement} target
-     * @param {String} event_name
+     * @param {string} event_name
      * @param {Function} handler
      */
     function add_event(target, event_name, handler) {
@@ -1363,12 +1081,9 @@ pklib.event = (function () {
     }
 
     /**
-     * Remove event from Element
-     *
-     * @private
-     * @function
+     * Remove event from Element.
      * @param {HTMLElement} target
-     * @param {String} event_name
+     * @param {string} event_name
      */
     function remove_event(target, event_name) {
         var removeEvent, events, len, i, handler;
@@ -1404,13 +1119,10 @@ pklib.event = (function () {
     }
 
     /**
-     * Get array with events with concrete name
-     *
-     * @private
-     * @function
+     * Get array with events with concrete name.
      * @param {HTMLElement} target
-     * @param {String} event_name
-     * @returns {Array|Undefined}
+     * @param {string} event_name
+     * @return {Array|undefined}
      */
     function get_event(target, event_name) {
         if (target.events === undefined) {
@@ -1420,12 +1132,9 @@ pklib.event = (function () {
     }
 
     /**
-     * Run events on Element
-     *
-     * @private
-     * @function
+     * Run events on Element.
      * @param {HTMLElement} target
-     * @param {String} event_name
+     * @param {string} event_name
      */
     function trigger(target, event_name) {
         var events, len, i;
@@ -1445,70 +1154,54 @@ pklib.event = (function () {
         }
     }
 
-    // public API
-    return {
+    // exports
+    pklib.event = {
         add: add_event,
         remove: remove_event,
         get: get_event,
         trigger: trigger
     };
-}());
+
+}(this));
 /**
  * @package pklib.file, pklib.string
  */
-
-/**
- * JS file loader
- * @namespace
- */
-pklib.file = (function () {
+(function (global) {
     "use strict";
 
-    /**
-     * @private
-     * @type {Array}
-     */
+    // imports
+    var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
+
+    // private
     var copy_files = [];
 
     /**
-     * @private
-     * @function
-     * @param {String} url
+     * @param {string} url
      * @param {Function} callback
      */
     function simple_load_js(url, callback) {
-        /**
-         * Create HTMLElement <script>
-         */
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.src = url;
 
+        function success_callback() {
+            if (typeof callback === "function") {
+                callback(script);
+            }
+        }
+
+        function readystatechange() {
+            if (script.readyState === "loaded" || script.readyState === "complete") {
+                script.onreadystatechange = null;
+                success_callback();
+            }
+        }
+
         if (script.readyState === undefined) {
-            /**
-             * Method run when request has ended
-             * @memberOf script
-             * @function
-             */
-            script.onload = function () {
-                if (typeof callback === "function") {
-                    callback(script);
-                }
-            };
+            script.onload = success_callback;
         } else {
-            /**
-             * Method run when request has change state
-             * @memberOf script
-             * @function
-             */
-            script.onreadystatechange = function () {
-                if (script.readyState === "loaded" || script.readyState === "complete") {
-                    script.onreadystatechange = null;
-                    if (typeof callback === "function") {
-                        callback(script);
-                    }
-                }
-            };
+            script.onreadystatechange = readystatechange;
         }
 
         if (document.head === undefined) {
@@ -1520,11 +1213,8 @@ pklib.file = (function () {
 
     /**
      * Load JS files. Url to files could be with path absolute or not.
-     * If you must load more than 1 file use array, to set url to files
-     *
-     * @private
-     * @function
-     * @param {String|Array} files
+     * If you must load more than 1 file use array, to set url to files.
+     * @param {string|Array} files
      * @param {Function} callback
      */
     function load_js_file(files, callback) {
@@ -1558,67 +1248,66 @@ pklib.file = (function () {
                 });
             }
         } else {
-            throw new TypeError("pklib.file.loadjs: @files not {String} or {Array}");
+            throw new Error("pklib.file.loadjs: @files not {string} or {Array}");
         }
     }
 
-    // public API
-    return {
+    // exports
+    pklib.file = {
         loadjs: load_js_file
     };
-}());
+
+}(this));
 /**
  * @package pklib.object
  */
-
-/**
- * Module to service object
- * @namespace
- */
-pklib.object = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var pklib = (global.pklib = global.pklib || {});
+    var is_array = pklib.array.is_array;
+    var in_array = pklib.array.in_array;
+    var to_string = Object.prototype.toString;
+
     /**
-     * Check if param is object
-     *
-     * @private
-     * @function
-     * @param {Object} obj
-     * @returns {Boolean}
+     * Check if param is object.
+     * @param {Object} it
+     * @return {boolean}
      */
-    function is_object(obj) {
-        return obj && typeof obj === "object" &&
-            typeof obj.hasOwnProperty === "function" &&
-            typeof obj.isPrototypeOf === "function" &&
-            obj.length === undefined;
+    function is_object(it) {
+        return it &&
+            to_string.call(it) === "[object Object]" &&
+            typeof it === "object" &&
+            typeof it.hasOwnProperty === "function" &&
+            typeof it.isPrototypeOf === "function";
     }
 
     /**
-     * Mix two params, from second to first param. Return first param mixin with second param
-     *
-     * @private
-     * @function
+     * Mix two params, from second to first param. Return first param mixin
+     *     with second param.
      * @param {Array|Object} target
      * @param {Array|Object} source
-     * @returns {Array}
+     * @return {Array|Object}
      */
     function mixin(target, source) {
         var i, len, element, item;
 
-        if (pklib.array.is_array(target) && pklib.array.is_array(source)) {
+        if (is_array(target) && is_array(source)) {
             len = source.length;
+
             for (i = 0; i < len; ++i) {
                 element = source[i];
-                if (!pklib.array.in_array(element, target)) {
+
+                if (!in_array(element, target)) {
                     target.push(element);
                 }
             }
-            target.sort();
         } else {
             for (item in source) {
                 if (source.hasOwnProperty(item)) {
-                    if (pklib.object.is_object(target[item])) {
-                        target[item] = pklib.object.mixin(target[item], source[item]);
+                    if (is_object(target[item])) {
+                        target[item] = mixin(target[item], source[item]);
                     } else {
                         target[item] = source[item];
                     }
@@ -1628,35 +1317,45 @@ pklib.object = (function () {
         return target;
     }
 
-    // public API
-    return {
-        is_object: is_object,
-        mixin: mixin
-    };
-}());
+    /**
+     * Check if object is empty (contains non-value).
+     * @param {Object} obj
+     * @returns {boolean}
+     */
+    function is_empty(obj) {
+        var i, items = 0;
 
+        for (i in obj) {
+            if (obj.hasOwnProperty(i)) {
+                items++;
+            }
+        }
+        return !items;
+    }
+
+    // exports
+    pklib.object = {
+        is_object: is_object,
+        mixin: mixin,
+        is_empty: is_empty
+    };
+
+}(this));
 /**
  * @package pklib.profiler
  */
-
-/**
- * Time analyzer
- * @namespace
- */
-pklib.profiler = (function () {
+(function (global) {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
+    // imports
+    var pklib = (global.pklib = global.pklib || {});
+
+    // private
     var data = {};
 
     /**
-     * @private
-     * @function
-     * @param {String} name
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
      */
     function start(name) {
         data[name] = new Date();
@@ -1664,80 +1363,67 @@ pklib.profiler = (function () {
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} name
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
      */
     function stop(name) {
         data[name] = new Date() - data[name];
-        return new Date((new Date()).getTime() + data[name]);
+        return (new Date((new Date()).getTime() + data[name])).getTime();
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} name
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
      */
     function get_time(name) {
         return data[name];
     }
 
-    // public API
-    return {
+    // exports
+    pklib.profiler = {
         start: start,
         stop: stop,
         get_time: get_time
     };
-}());
 
+}(this));
 /**
  * @package pklib.string
  */
-
-/**
- * String service manager
- * @namespace
- */
-pklib.string = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
+
     /**
-     * @private
-     * @function
-     * @param {String} source
-     * @returns {Boolean}
+     * @param {string} source
+     * @return {boolean}
      */
     function is_string(source) {
         return typeof source === "string";
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} source
-     * @returns {Boolean}
+     * @param {string} source
+     * @return {boolean}
      */
     function is_letter(source) {
-        return pklib.string.is_string(source) && /^[a-zA-Z]$/.test(source);
+        return is_string(source) && (/^[a-zA-Z]$/).test(source);
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function trim(source) {
         return source.replace(/^\s+|\s+$/g, "");
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function slug(source) {
         var result = source.toLowerCase().replace(/\s/mg, "-");
@@ -1768,20 +1454,16 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function capitalize(source) {
         return source.substr(0, 1).toUpperCase() + source.substring(1, source.length).toLowerCase();
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function delimiter_separated_words(source) {
         return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function (match) {
@@ -1790,13 +1472,12 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function strip_tags(source) {
         pklib.common.assert(typeof source === "string", "pklib.string.strip_tags: param @source is not a string");
+
         if (source && source.length !== 0) {
             var dummy = document.createElement("div");
             dummy.innerHTML = source;
@@ -1806,29 +1487,28 @@ pklib.string = (function () {
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} source
-     * @returns {String}
+     * @param {string} source
+     * @return {string}
      */
     function camel_case(source) {
+        var pos, pre, sub, post;
+
         while (source.indexOf("-") !== -1) {
-            var pos = source.indexOf("-"),
-                pre = source.substr(0, pos),
-                sub = source.substr(pos + 1, 1).toUpperCase(),
-                post = source.substring(pos + 2, source.length);
+            pos = source.indexOf("-");
+            pre = source.substr(0, pos);
+            sub = source.substr(pos + 1, 1).toUpperCase();
+            post = source.substring(pos + 2, source.length);
             source = pre + sub + post;
         }
         return source;
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} source Text to slice
-     * @param {Number} length Number of chars what string will be slice
-     * @param {Boolean} [is_force] Force mode. If slice will be end in middle of word, use this to save it, or algorytm slice to last space
-     * @returns {String}
+     * @param {string} source Text to slice.
+     * @param {number} length number of chars what string will be slice.
+     * @param {boolean} [is_force] Force mode. If slice will be end in middle.
+     *     of word, use this to save it, or algorithm slice to last space.
+     * @return {string}
      */
     function slice(source, length, is_force) {
         pklib.common.assert(typeof source === "string", "pklib.string.slice: param @source is not a string");
@@ -1850,7 +1530,7 @@ pklib.string = (function () {
 
         // * ostatnim znakiem w uciętym tekście jest spacja
         if (text[length - 1] === " ") {
-            return pklib.string.trim(text) + "...";
+            return trim(text) + "...";
         }
 
         // jesli nie ma wymuszenia przycinania wyrazu w jego części 
@@ -1873,25 +1553,14 @@ pklib.string = (function () {
     }
 
     /**
-     * Replace tags in string to defined data
-     * Tags:
+     * Replace tags in string to defined data.
      * ${NAME} - replace by value of object["NAME"]
-     *
-     * @private
-     * @function
-     * @param {String} str Some string to replace by objects
-     * @param {Object} obj Object what will serve data to replacer
-     *
-     * @example.
-     *
-     * In: 
+     * @param {string} str Some string to replace by objects.
+     * @param {Object} obj Object what will serve data to replace.
+     * @example
      * %{car} is the best!
-     *
-     * Run: 
      * pklib.string.format("%{car} is the best", { car: "Ferrari" });
-     *
-     * Out: 
-     * Ferrari is the best!
+     * //=> Ferrari is the best!
      */
     function format(str, obj) {
         var name;
@@ -1901,12 +1570,41 @@ pklib.string = (function () {
                 str = str.replace(new RegExp("%{" + name + "}", "ig"), obj[name]);
             }
         }
-
         return str;
     }
 
-    // public API
-    return {
+    /**
+     * Left padding any chars.
+     * @param {string} staff Object what be padding on the left.
+     * @param {number} nr_fill Padding size.
+     * @param {string} add_char Char what be added.
+     */
+    function lpad(staff, nr_fill, add_char) {
+        var i, string = staff.toString();
+
+        for (i = string.length; i < nr_fill; ++i) {
+            string = add_char + string;
+        }
+        return string;
+    }
+
+    /**
+     * Right padding any chars.
+     * @param {string} staff Object what be padding on the right.
+     * @param {number} nr_fill Padding size.
+     * @param {string} add_char Char what be added.
+     */
+    function rpad(staff, nr_fill, add_char) {
+        var i, string = staff.toString();
+
+        for (i = string.length; i < nr_fill; ++i) {
+            string += add_char;
+        }
+        return string;
+    }
+
+    // exports
+    pklib.string = {
         is_string: is_string,
         is_letter: is_letter,
         trim: trim,
@@ -1916,29 +1614,29 @@ pklib.string = (function () {
         strip_tags: strip_tags,
         camel_case: camel_case,
         slice: slice,
-        format: format
+        format: format,
+        lpad: lpad,
+        rpad: rpad
     };
-}());
+
+}(this));
 
 /**
  * @package pklib.ui
  * @dependence pklib.string. pklib.dom
  */
-
-/**
- * User Interface
- * @namespace
- */
-pklib.ui = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
+
     /**
-     * @private
-     * @function
      * @param {HTMLElement} element
      * @param {HTMLElement} wrapper
-     * @throws {TypeError} If first param is not HTMLElement
-     * @returns {Array}
+     * @return {Array}
+     * @throws {TypeError} If first param is not HTMLElement.
      */
     function center(element, wrapper) {
         var left = null,
@@ -1957,16 +1655,13 @@ pklib.ui = (function () {
         element.style.left = left + "px";
         element.style.top = top + "px";
         element.style.position = "absolute";
-
         return [left, top];
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} element
      * @param {HTMLElement} wrapper
-     * @returns {Array}
+     * @return {Array}
      */
     function maximize(element, wrapper) {
         var width = null,
@@ -1989,10 +1684,8 @@ pklib.ui = (function () {
     }
 
     /**
-     * @private
-     * @function
-     * @param {Number} param
-     * @param {Boolean} animate
+     * @param {number} param
+     * @param {boolean} animate
      */
     function scroll_to(param, animate) {
         var interval = null;
@@ -2008,30 +1701,25 @@ pklib.ui = (function () {
         }
     }
 
-    // public API
-    return {
+    // exports
+    pklib.ui = {
         center: center,
         maximize: maximize,
         scroll_to: scroll_to
     };
-}());
 
+}(this));
 /**
  * @package pklib.glass
  * @dependence pklib.browser, pklib.dom, pklib.event, pklib.utils
  */
-
-/**
- * Show glass on dimensions on browser
- * @namespace
- */
-pklib.ui.glass = (function () {
+(function (global) {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
+    // imports
+    var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
+
     var id = "pklib-glass-wrapper",
         settings = {
             container: null,
@@ -2046,11 +1734,9 @@ pklib.ui.glass = (function () {
         };
 
     /**
-     * @private
-     * @function
      * @param {Object} config
      * @param {Function} callback
-     * @returns {HTMLElement}
+     * @return {HTMLElement}
      */
     function show_glass(config, callback) {
         var glass = document.createElement("div"),
@@ -2073,7 +1759,7 @@ pklib.ui.glass = (function () {
 
         pklib.ui.maximize(glass, settings.container);
 
-        pklib.event.add(window, "resize", function () {
+        pklib.event.add(global, "resize", function () {
             pklib.ui.glass.close();
             pklib.ui.glass.show(config, callback);
             pklib.ui.maximize(glass, settings.container);
@@ -2082,21 +1768,18 @@ pklib.ui.glass = (function () {
         if (typeof callback === "function") {
             callback();
         }
-
         return glass;
     }
 
     /**
-     * @private
-     * @function
      * @param {Function} callback
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function close_glass(callback) {
         var glass = pklib.dom.by_id(pklib.ui.glass.obj_id),
             result = false;
 
-        pklib.event.remove(window, "resize");
+        pklib.event.remove(global, "resize");
 
         if (glass !== null) {
             glass.parentNode.removeChild(glass);
@@ -2107,40 +1790,29 @@ pklib.ui.glass = (function () {
         if (typeof callback === "function") {
             callback();
         }
-
         return result;
     }
 
-    // public API
-    return {
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {String}
-         */
+    // exports
+    pklib.ui.glass = {
         obj_id: id,
-
         show: show_glass,
         close: close_glass
     };
-}());
+
+}(this));
 
 /**
  * @package pklib.ui.loader
  * @dependence pklib.dom, pklib.event, pklib.utils
  */
-
-/**
- * Loader adapter.
- * Show animate image (GIF) on special place.
- * @namespace
- */
-pklib.ui.loader = (function () {
+(function (global) {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
+    // imports
+    var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
+
     var id = "pklib-loader-wrapper",
         settings = {
             src: "",
@@ -2154,8 +1826,6 @@ pklib.ui.loader = (function () {
         };
 
     /**
-     * @private
-     * @function
      * @param {object} config
      * @param {function} callback
      */
@@ -2179,7 +1849,7 @@ pklib.ui.loader = (function () {
         if (settings.center) {
             pklib.ui.center(loader, settings.container);
 
-            pklib.event.add(window, "resize", function () {
+            pklib.event.add(global, "resize", function () {
                 pklib.ui.center(loader, settings.container);
             });
         }
@@ -2194,10 +1864,8 @@ pklib.ui.loader = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {Function} callback
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function close_loader(callback) {
         var loader = pklib.dom.by_id(pklib.ui.loader.obj_id),
@@ -2212,39 +1880,29 @@ pklib.ui.loader = (function () {
         if (typeof callback === "function") {
             callback();
         }
-
         return result;
     }
 
-    // public API
-    return {
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {String}
-         */
+    // exports
+    pklib.ui.loader = {
         obj_id: id,
-
         show: show_loader,
         close: close_loader
     };
-}());
 
+}(this));
 /**
  * @package pklib.ui.message
  * @dependence pklib.dom, pklib.event, pklib.string, pklib.utils
  */
-
-/**
- * Show layer on special place.
- * @namespace
- */
-pklib.ui.message = (function () {
+(function (global) {
     "use strict";
 
-    /**
-     * @namespace
-     * @type {Object}
-     */
+    // imports
+    var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
+
+    // private
     var id = "pklib-message-wrapper",
         settings = {
             container: null,
@@ -2256,11 +1914,9 @@ pklib.ui.message = (function () {
         };
 
     /**
-     * @private
-     * @function
      * @param {Object} config
      * @param {Function} callback
-     * @returns {HTMLElement}
+     * @return {HTMLElement}
      */
     function show_message(config, callback) {
         var message = document.createElement("div"),
@@ -2283,22 +1939,19 @@ pklib.ui.message = (function () {
         settings.container.appendChild(message);
         pklib.ui.center(message, settings.container);
 
-        pklib.event.add(window, "resize", function () {
+        pklib.event.add(global, "resize", function () {
             pklib.ui.center(message, settings.container);
         });
 
         if (typeof callback === "function") {
             callback();
         }
-
         return message;
     }
 
     /**
-     * @private
-     * @function
      * @param {Function} callback
-     * @returns {Boolean}
+     * @return {boolean}
      */
     function close_message(callback) {
         var message = pklib.dom.by_id(pklib.ui.message.obj_id),
@@ -2313,51 +1966,38 @@ pklib.ui.message = (function () {
         if (typeof callback === "function") {
             callback();
         }
-
         return result;
     }
 
-    // public API
-    return {
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {String}
-         */
+    // exports
+    pklib.ui.message = {
         obj_id: id,
-
-        /**
-         * @memberOf pklib.ui.glass
-         * @type {HTMLElement}
-         */
         content: null,
-
         show: show_message,
         close: close_message
     };
-}());
+
+}(this));
 
 /**
  * @package pklib.ui.size
  * @dependence pklib.string
  */
-
-/**
- * Check ui dimensions
- * @namespace
- */
-pklib.ui.size = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
+
     /**
-     * @private
-     * @function
-     * @param {String} name
-     * @throws {TypeError}
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
+     * @throws {TypeError} Name is not *string* value.
      */
     function size_of_window(name) {
         var clientName;
-        pklib.common.assert(typeof name === "string", "pklib.ui.size.window: @name: not {String}");
+        pklib.common.assert(typeof name === "string", "pklib.ui.size.window: @name: not {string}");
 
         name = pklib.string.capitalize(name);
         clientName = document.documentElement["client" + name];
@@ -2367,10 +2007,8 @@ pklib.ui.size = (function () {
     }
 
     /**
-     * @private
-     * @function
-     * @param {String} name
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
      */
     function size_of_document(name) {
         var clientName,
@@ -2379,7 +2017,7 @@ pklib.ui.size = (function () {
             offsetBodyName,
             offsetName;
 
-        pklib.common.assert(typeof name === "string", "pklib.ui.size.document: @name: not {String}");
+        pklib.common.assert(typeof name === "string", "pklib.ui.size.document: @name: not {string}");
 
         name = pklib.string.capitalize(name);
         clientName = document.documentElement["client" + name];
@@ -2391,14 +2029,12 @@ pklib.ui.size = (function () {
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} obj
-     * @param {String} name
-     * @returns {Number}
+     * @param {string} name
+     * @return {number}
      */
     function size_of_object(obj, name) {
-        pklib.common.assert(typeof name === "string", "pklib.ui.size.object: @name: not {String}");
+        pklib.common.assert(typeof name === "string", "pklib.ui.size.object: @name: not {string}");
         pklib.common.assert(pklib.dom.is_element(obj), "pklib.ui.size.object: @obj: not {HTMLElement}");
 
         name = pklib.string.capitalize(name);
@@ -2408,38 +2044,42 @@ pklib.ui.size = (function () {
         return Math.max(client, scroll, offset);
     }
 
-    // public APi
-    return {
+    // public API
+    pklib.ui.size = {
         window: size_of_window,
         document: size_of_document,
         object: size_of_object
     };
-}());
+
+}(this));
 
 /**
  * @package pklib.url
  */
-
-/**
- * Url helper manager
- * @namespace
- */
-pklib.url = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var pklib = (global.pklib = global.pklib || {});
+
     /**
-     * Get all params, and return in JSON object
-     *
-     * @private
-     * @function
-     * @returns {Object}
+     * Get all params, and return in JSON object.
+     * @param {?string} [url]
+     * @return {Object}
      */
-    function get_params() {
+    function get_params(url) {
         var i,
             item,
             len,
-            params = window.location.search,
+            key_value_section,
+            params,
             params_list = {};
+
+        if (typeof url === "string") {
+            params = url.match(/\?(.*)/)[0] || "";
+        } else {
+            params = global.location.search;
+        }
 
         if (params.substr(0, 1) === "?") {
             params = params.substr(1);
@@ -2449,26 +2089,33 @@ pklib.url = (function () {
         len = params.length;
 
         for (i = 0; i < len; ++i) {
-            item = params[i].split("=");
-            params_list[item[0]] = item[1];
+            key_value_section = params[i];
+            if (key_value_section.length > 0) {
+                item = key_value_section.split("=");
+                params_list[item[0]] = item[1];
+            }
         }
         return params_list;
     }
 
     /**
      * Get concrete param from URL.
-     * If param if not defined return null
-     *
-     * @private
-     * @function
-     * @param {String} key
-     * @returns {String}
+     * If param if not defined return null.
+     * @param {string} key
+     * @param {?string} url
+     * @return {string}
      */
-    function get_param(key) {
-        var params = window.location.search,
+    function get_param(key, url) {
+        var params,
             i,
             item,
             len;
+
+        if (typeof url === "string") {
+            params = url.match(/\?(.*)/)[0] || "";
+        } else {
+            params = global.location.search;
+        }
 
         if (params.substr(0, 1) === "?") {
             params = params.substr(1);
@@ -2486,28 +2133,27 @@ pklib.url = (function () {
         return null;
     }
 
-    // public API
-    return {
+    // exports
+    pklib.url = {
         get_params: get_params,
         get_param: get_param
     };
-}());
+
+}(this));
 
 /**
  * @package pklib.utils
  * @dependence pklib.common, pklib.dom, pklib.event
  */
-
-/**
- * Utils tools
- * @namespace
- */
-pklib.utils = (function () {
+(function (global) {
     "use strict";
 
+    // imports
+    var document = global.document;
+    var pklib = (global.pklib = global.pklib || {});
+    var add_event = pklib.event.add;
+
     /**
-     * @private
-     * @function
      * @param {Event} evt
      */
     function open_trigger(evt) {
@@ -2527,30 +2173,27 @@ pklib.utils = (function () {
             url = evt.srcElement.href;
         }
 
-        window.open(url);
+        global.open(url);
 
         try {
             evt.preventDefault();
         } catch (ignore) {
-            window.event.returnValue = false;
+            global.event.returnValue = false;
         }
-
         return false;
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} obj
      */
     function clear_focus(obj) {
         if (pklib.dom.is_element(obj)) {
-            pklib.event.add(obj, "focus", function () {
+            add_event(obj, "focus", function () {
                 if (obj.value === obj.defaultValue) {
                     obj.value = "";
                 }
             });
-            pklib.event.add(obj, "blur", function () {
+            add_event(obj, "blur", function () {
                 if (obj.value === "") {
                     obj.value = obj.defaultValue;
                 }
@@ -2559,9 +2202,7 @@ pklib.utils = (function () {
     }
 
     /**
-     * @private
-     * @function
-     * @param {HTMLElement} area
+     * @param {HTMLElement} [area]
      */
     function outerlink(area) {
         var i, len,
@@ -2575,29 +2216,27 @@ pklib.utils = (function () {
         for (i = 0; i < len; ++i) {
             link = links[i];
             if (link.rel === "outerlink") {
-                pklib.event.add(link, "click", open_trigger.bind(link));
+                add_event(link, "click", open_trigger.bind(link));
             }
         }
     }
 
     /**
-     * @private
-     * @function
      * @param {HTMLElement} element
-     * @param {String} [text="Sure?"]
+     * @param {string} [text]
      */
     function confirm(element, text) {
         var response;
         if (element !== undefined) {
             text = text || "Sure?";
 
-            pklib.event.add(element, "click", function (evt) {
-                response = window.confirm(text);
+            add_event(element, "click", function (evt) {
+                response = global.confirm(text);
                 if (!response) {
                     try {
                         evt.preventDefault();
                     } catch (ignore) {
-                        window.event.returnValue = false;
+                        global.event.returnValue = false;
                     }
 
                     return false;
@@ -2607,45 +2246,26 @@ pklib.utils = (function () {
         }
     }
 
-    // public API
-    return {
+    // exports
+    pklib.utils = {
         /**
-         * Numbers of chars in ASCII system
-         * @memberOf pklib.utils
-         * @field
-         * @namespace
+         * numbers of chars in ASCII system
          */
         ascii: {
-            /**
-             * @memberOf pklib.utils.ascii
-             * @field
-             * @namespace
-             */
             letters: {
-                /**
-                 * @memberOf pklib.utils.ascii.letters
-                 * @field
-                 * @type {Array}
-                 */
-                lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118, 98, 110, 109],
-
-                /**
-                 * @memberOf pklib.utils.ascii.letters
-                 * @field
-                 * @type {Array}
-                 */
-                upper: [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
+                lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97,
+                    115, 100, 102, 103, 104, 106, 107, 108, 122, 120, 99, 118,
+                    98, 110, 109],
+                upper: [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68,
+                    70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
             }
         },
 
-        /**
-         * @memberOf pklib.utils
-         * @namespace
-         */
         action: {
             clearfocus: clear_focus,
             outerlink: outerlink,
             confirm: confirm
         }
     };
-}());
+
+}(this));
