@@ -78,7 +78,9 @@
             }
 
             clearTimeout(xhr.ontimeout);
-            delete xhr.ontimeout;
+            if (xhr.ontimeout) {
+                delete xhr.ontimeout;
+            }
 
             if ((status >= 200 && status < 300) || status === 304) {
                 // success

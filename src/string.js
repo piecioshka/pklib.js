@@ -124,7 +124,7 @@
     function slice(source, length, is_force) {
         pklib.common.assert(typeof source === "string", "pklib.string.slice: param @source is not a string");
 
-        // jeśli długość przycinania jest wiąksza niż długość całego tekstu
+        // jeśli długość przycinania jest większa niż długość całego tekstu
         // to zwracamy przekazany tekst
         if (source.length < length) {
             return source;
@@ -133,7 +133,7 @@
         // ucinamy tyle tekstu ile jest wskazane w parametrze length
         var text = source.slice(0, length), last_space;
 
-        // sprawdzamy czy nie ucieliśmy w połowie wyrazu:
+        // sprawdzamy czy nie ucięliśmy w połowie wyrazu:
         // * tj. czy kolejnym znakiem nie jest spacja
         if (source[length] === " ") {
             return text + "...";
@@ -144,11 +144,11 @@
             return trim(text) + "...";
         }
 
-        // jesli nie ma wymuszenia przycinania wyrazu w jego części 
-        // to sprawdzamy czy możemy przyciąć do ostatniej spacji w przycietym tekście
+        // jeśli nie ma wymuszenia przycinania wyrazu w jego części
+        // to sprawdzamy czy możemy przyciąć do ostatniej spacji w przyciętym tekście
         if (!is_force) {
-            // niestety ucieliśmy tekst w połowie wyrazu
-            // postępujemy zgodnie z intrukcja, że odnajdujemy ostatnią spację
+            // niestety ucięliśmy tekst w połowie wyrazu
+            // postępujemy zgodnie z instrukcja, że odnajdujemy ostatnią spację
             // i obcinamy fraze do tej spacji 
             last_space = text.lastIndexOf(" ");
 
