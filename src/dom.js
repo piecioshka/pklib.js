@@ -158,12 +158,12 @@
 
         var i,
             array = [],
-            children = node.childNodes,
-            len = children.length;
+            childNodes = node.childNodes,
+            len = childNodes.length;
 
         for (i = 0; i < len; ++i) {
-            if (is_element(children[i])) {
-                array.push(children[i]);
+            if (is_element(childNodes[i])) {
+                array.push(childNodes[i]);
             }
         }
         return array;
