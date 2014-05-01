@@ -525,7 +525,8 @@ if (typeof Function.prototype.bind !== "function") {
         };
     };
 
-}(this));(function (global) {
+}(this));
+(function (global) {
     "use strict";
 
     // imports
@@ -917,12 +918,12 @@ if (typeof Function.prototype.bind !== "function") {
 
         var i,
             array = [],
-            children = node.childNodes,
-            len = children.length;
+            childNodes = node.childNodes,
+            len = childNodes.length;
 
         for (i = 0; i < len; ++i) {
-            if (is_element(children[i])) {
-                array.push(children[i]);
+            if (is_element(childNodes[i])) {
+                array.push(childNodes[i]);
             }
         }
         return array;
@@ -1376,7 +1377,8 @@ if (typeof Function.prototype.bind !== "function") {
      * @return {number}
      */
     function start(name) {
-        return data[name] = new Date();
+        data[name] = new Date();
+        return data[name];
     }
 
     /**
