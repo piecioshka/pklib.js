@@ -43,5 +43,3 @@ Licencja
 [3]: https://github.com/jsdoc3/jsdoc
 [4]: http://api.pklib.com
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/piecioshka/pklib/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
