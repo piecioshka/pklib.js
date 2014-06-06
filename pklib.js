@@ -1,76 +1,18 @@
-/**
- * pklib JavaScript library v1.2.3
- * 
- * Copyright (c) 2012 Piotr Kowalski, http://pklib.com/
- *
- * MIT License
- * 
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- * 
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *  
- * http://www.opensource.org/licenses/mit-license.php
- * 
- * Date: ptk 28 lut 12:38:06 2014 CET
- */
-
 /*jslint continue: true, nomen: true, plusplus: true, regexp: true, vars: true, white: true, indent: 4 */
 /*global document, XMLHttpRequest, ActiveXObject, setInterval, clearInterval, setTimeout, clearTimeout */
 
-var pklib = {
-    VERSION: "1.2.3"
-};
+/** pklib JavaScript library v1.3 - MIT License */
 
-if (typeof Function.prototype.bind !== "function") {
-    /**
-     * Creates a new function that, when called, itself calls this function in the context of the provided this value,
-     * with a given sequence of arguments preceding any provided when the new function was called.
-     *
-     * Method of "Function"
-     * Implemented in JavaScript 1.8.5
-     * ECMAScript Edition ECMAScript 5th Edition
-     *
-     * @param {*} that Context
-     * @return {Function}
-     */
-    Function.prototype.bind = function (that) {
-        "use strict";
-
-        var method = this,
-            slice = [].slice,
-            args = slice.apply(arguments, [1]);
-
-        return function () {
-            return method.apply(that, args.concat(slice.apply(arguments, [0])));
-        };
-    };
-}
-
-/**
- * @requires pklib.array
- * @requires pklib.common
- * @requires pklib.object
- */
-(function (global) {
+(function (root) {
     "use strict";
 
     // imports
-    var pklib = (global.pklib = global.pklib || {});
+    var document = root.document;
+    var to_string = Object.prototype.toString;
+
+    var pklib = {
+        VERSION: "1.3"
+    };
 
     // Default time what is timeout to use function pklib.ajax
     var DEFAULT_TIMEOUT_TIME = 30 * 1000; // 30 second
@@ -86,6 +28,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * When success request.
+     *
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -112,6 +55,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * When error request.
+     *
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -127,8 +71,8 @@ if (typeof Function.prototype.bind !== "function") {
     }
 
     /**
-     * Use when state in request is changed or if used cache is handler
-     * to request.
+     * Use when state in request is changed or if used cache is handler to request.
+     *
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -163,6 +107,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Handler to unusually situation - timeout.
+     *
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -172,6 +117,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Try to create Internet Explorer XMLHttpRequest.
+     *
      * @return {ActiveXObject|undefined}
      * @throws {Error} If cannot create XMLHttpRequest object.
      */
@@ -191,6 +137,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Try to create XMLHttpRequest.
+     *
      * @return {XMLHttpRequest|undefined}
      * @throws {Error} If cannot create XMLHttpRequest object.
      */
@@ -206,6 +153,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Add headers to xhr object.
+     *
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -224,6 +172,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Add timeout service to xhr object.
+     *
      * @param {Object} settings
      * @param {XMLHttpRequest} xhr
      */
@@ -235,6 +184,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Check is response on this request is in cache.
+     *
      * @param {Object} settings
      * @return {boolean}
      */
@@ -244,6 +194,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Return object what is default configuration of request.
+     *
      * @return {Object} Default configuration.
      */
     function get_default_settings() {
@@ -289,6 +240,7 @@ if (typeof Function.prototype.bind !== "function") {
          * create XMLHttpRequest if browser doesn't support, check if browser
          * support object ActiveXObject which is implemented in Internet
          * Explorer.
+         *
          * @param {Object} config
          * {
          *      {string} [type="get"]
@@ -363,6 +315,7 @@ if (typeof Function.prototype.bind !== "function") {
 
         /**
          * Stop request setting in param.
+         *
          * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object,
          *     or ActiveXObject object if Internet Explorer.
          */
@@ -374,16 +327,9 @@ if (typeof Function.prototype.bind !== "function") {
         }
     };
 
-}(this));
-(function (global) {
-    "use strict";
-
-    // imports
-    var pklib = (global.pklib = global.pklib || {});
-    var to_string = Object.prototype.toString;
-
     /**
      * Check if param is array.
+     *
      * @param {Object} array
      * @return {boolean}
      */
@@ -397,6 +343,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Check if element is in array by loop.
+     *
      * @param {*} param
      * @param {Array} array
      * @return {boolean}
@@ -412,8 +359,8 @@ if (typeof Function.prototype.bind !== "function") {
     }
 
     /**
-     * Get index of element.
-     * If couldn't find searching element, return null value.
+     * Get index of element. If couldn't find searching element, return null value.
+     *
      * @param {*} item
      * @param {Array} array
      * @return {number|null}
@@ -430,6 +377,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Unique array. Delete element what was duplicated.
+     *
      * @param {Array} array
      * @return {Array}
      */
@@ -449,6 +397,7 @@ if (typeof Function.prototype.bind !== "function") {
     /**
      * Remove element declared in infinity params without first.
      * First parameter is array object.
+     *
      * @param {Array} array
      * @return {Array}
      */
@@ -478,20 +427,11 @@ if (typeof Function.prototype.bind !== "function") {
         remove: remove
     };
 
-}(this));
-/**
- * @requires pklib.common
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var pklib = (global.pklib = global.pklib || {});
-
     /**
      * Bind function to aspect.
      * Create method with merge first and second.
      * Second method is run after first.
+     *
      * @module pklib.aspect
      * @param {Function} fun The function to bind aspect function.
      * @param {Function} asp The aspect function.
@@ -525,15 +465,9 @@ if (typeof Function.prototype.bind !== "function") {
         };
     };
 
-}(this));
-(function (global) {
-    "use strict";
-
-    // imports
-    var pklib = (global.pklib = global.pklib || {});
-
     /**
      * Basic test function. Simple assertion 2 variables.
+     *
      * @param {boolean} expression Object what is true.
      * @param {string} comment Message to throw in error.
      * @throws {Error} Condition it's not true.
@@ -548,6 +482,7 @@ if (typeof Function.prototype.bind !== "function") {
      * Deferred function about some milliseconds.
      * If milliseconds is 0 that it's hack for some platforms to use function
      * in "next" thread.
+     *
      * @param {Function} defer_function Function what would be deferred.
      * @param {number} [milliseconds] Time to deferred function
      */
@@ -557,8 +492,8 @@ if (typeof Function.prototype.bind !== "function") {
     }
 
     /**
-     * Interval checking first function until returns true, run after this
-     * second function callback.
+     * Interval checking first function until returns true, run after this second function callback.
+     *
      * @param {Function} condition Function returns {@type boolean} status.
      * @param {Function} callback
      */
@@ -591,16 +526,9 @@ if (typeof Function.prototype.bind !== "function") {
         checking: checking
     };
 
-}(this));
-(function (global) {
-    "use strict";
-
-    // imports
-    var document = global.document;
-    var pklib = (global.pklib = global.pklib || {});
-
     /**
      * Read cookie by it name.
+     *
      * @param {string|undefined} name
      * @return {string|null}
      */
@@ -627,6 +555,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Create cookie file with name, value and day expired.
+     *
      * @param {string} name
      * @param {string} [value]
      * @param {number} [days]
@@ -650,6 +579,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Delete cookie by it name.
+     *
      * @param {string} name
      * @return {string}
      */
@@ -667,18 +597,6 @@ if (typeof Function.prototype.bind !== "function") {
         remove: remove_cookie
     };
 
-}(this));
-/**
- * @requires pklib.common
- * @requires pklib.string
- * @requires pklib.dom
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var pklib = (global.pklib = global.pklib || {});
-
     /**
      * RegExp use to delete white chars.
      */
@@ -686,6 +604,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Check typeof params.
+     *
      * @param {string} css_class
      * @param {HTMLElement} element
      * @param {string} call_func_name
@@ -702,6 +621,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Check if element has CSS class.
+     *
      * @param {string} css_class
      * @param {HTMLElement} element
      * @return {boolean}
@@ -716,10 +636,10 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Add CSS class to element define in second parameter.
+     *
      * @param {string} css_class
      * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is
-     *     not Node.
+     * @throws {TypeError} If first param is not string, or second param is not Node.
      */
     function add_class(css_class, element) {
         check_params(css_class, element, "add_class");
@@ -736,10 +656,10 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Remove CSS class from element define in second parameter.
+     *
      * @param {string} css_class
      * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is
-     *     not Node.
+     * @throws {TypeError} If first param is not string, or second param is not Node.
      */
     function remove_class(css_class, element) {
         check_params(css_class, element, "remove_class");
@@ -756,21 +676,6 @@ if (typeof Function.prototype.bind !== "function") {
         remove_class: remove_class,
         has_class: has_class
     };
-
-}(this));
-/**
- * @requires pklib.browser
- * @requires pklib.css
- * @requires pklib.string
- * @requires pklib.utils
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var document = global.document;
-    var pklib = (global.pklib = global.pklib || {});
-    var to_string = Object.prototype.toString;
 
     /**
      * Types of all available node.
@@ -792,6 +697,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Walking on every node in node.
+     *
      * @param {HTMLElement} node
      * @param {Function} func Run on every node.
      */
@@ -808,6 +714,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Check if param is Node, with use assertions.
+     *
      * @param {Node} node
      * @return {string}
      */
@@ -818,6 +725,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Check if param is NodeList, with use assertions.
+     *
      * @param {NodeList} node_list
      * @return {boolean}
      */
@@ -828,6 +736,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Check if param is instanceOf Element.
+     *
      * @param {HTMLElement} node
      * @return {boolean}
      */
@@ -837,6 +746,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Check visibility of Node, with use assertions.
+     *
      * @param {HTMLElement} node
      * @return {boolean}
      */
@@ -851,6 +761,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Get element by attribute ID.
+     *
      * @param {string} id
      * @return {HTMLElement|null}
      */
@@ -860,6 +771,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Get elements by tag name.
+     *
      * @param {string} tag
      * @param {Element} [element]
      * @return {NodeList}
@@ -870,6 +782,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Get elements by attribute CLASS.
+     *
      * @param {string} css_class
      * @param {HTMLElement} [wrapper]
      * @return {Array}
@@ -889,6 +802,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Get index of node relative siblings.
+     *
      * @param {HTMLElement} node
      * @return {number|null}
      */
@@ -910,6 +824,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Get children of element filter by Element type.
+     *
      * @param {HTMLElement} node
      * @return {Array}
      */
@@ -932,6 +847,7 @@ if (typeof Function.prototype.bind !== "function") {
     /**
      * Insert data to Node. Maybe param is string so insert will be exec
      * by innerHTML, but if param is Node inserting with appendChild().
+     *
      * @param {HTMLElement|string} element
      * @param {HTMLElement} node
      * @return {HTMLElement}
@@ -947,6 +863,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Remove Element specified in params.
+     *
      * @param {...HTMLElement} items
      */
     function remove(items) {
@@ -965,6 +882,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Get prev Node what will be Element.
+     *
      * @param {HTMLElement} node
      * @return {HTMLElement|null}
      */
@@ -988,6 +906,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Get next Node what will be Element.
+     *
      * @param {HTMLElement} node
      * @return {HTMLElement|null}
      */
@@ -1010,8 +929,8 @@ if (typeof Function.prototype.bind !== "function") {
     }
 
     /**
-     * Get parent element what will by Element, but if parent is not exists
-     *     returns null.
+     * Get parent element what will by Element, but if parent is not exists returns null.
+     *
      * @param {HTMLElement} node
      * @return {HTMLElement|null}
      */
@@ -1054,15 +973,9 @@ if (typeof Function.prototype.bind !== "function") {
         parent: parent
     };
 
-}(this));
-(function (global) {
-    "use strict";
-
-    // imports
-    var pklib = (global.pklib = global.pklib || {});
-
     /**
      * Add event to Element.
+     *
      * @param {HTMLElement} target
      * @param {string} event_name
      * @param {Function} handler
@@ -1094,6 +1007,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Remove event from Element.
+     *
      * @param {HTMLElement} target
      * @param {string} event_name
      */
@@ -1132,6 +1046,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Get array with events with concrete name.
+     *
      * @param {HTMLElement} target
      * @param {string} event_name
      * @return {Array|undefined}
@@ -1145,6 +1060,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Run events on Element.
+     *
      * @param {HTMLElement} target
      * @param {string} event_name
      */
@@ -1176,18 +1092,6 @@ if (typeof Function.prototype.bind !== "function") {
         get: get_event,
         trigger: trigger
     };
-
-}(this));
-/**
- * @requires pklib.array
- * @requires pklib.object
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var document = global.document;
-    var pklib = (global.pklib = global.pklib || {});
 
     // private
     var copy_files = [];
@@ -1230,6 +1134,7 @@ if (typeof Function.prototype.bind !== "function") {
     /**
      * Load JS files. Url to files could be with path absolute or not.
      * If you must load more than 1 file use array, to set url to files.
+     *
      * @param {string|Array} files
      * @param {Function} callback
      */
@@ -1276,21 +1181,9 @@ if (typeof Function.prototype.bind !== "function") {
         loadjs: load_js_file
     };
 
-}(this));
-/**
- * @requires pklib.array
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var pklib = (global.pklib = global.pklib || {});
-    var is_array = pklib.array.is_array;
-    var in_array = pklib.array.in_array;
-    var to_string = Object.prototype.toString;
-
     /**
      * Check if param is object.
+     *
      * @param {Object} it
      * @return {boolean}
      */
@@ -1303,8 +1196,8 @@ if (typeof Function.prototype.bind !== "function") {
     }
 
     /**
-     * Mix two params, from second to first param. Return first param mixin
-     *     with second param.
+     * Mix two params, from second to first param. Return first param mixin with second param.
+     *
      * @param {Array|Object} target
      * @param {Array|Object} source
      * @return {Array|Object}
@@ -1338,6 +1231,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Check if object is empty (contains non-value).
+     *
      * @param {Object} obj
      * @returns {boolean}
      */
@@ -1361,13 +1255,6 @@ if (typeof Function.prototype.bind !== "function") {
         mixin: mixin,
         is_empty: is_empty
     };
-
-}(this));
-(function (global) {
-    "use strict";
-
-    // imports
-    var pklib = (global.pklib = global.pklib || {});
 
     // private
     var data = {};
@@ -1407,17 +1294,6 @@ if (typeof Function.prototype.bind !== "function") {
         stop: stop,
         get_time: get_time
     };
-
-}(this));
-/**
- * @requires pklib.common
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var document = global.document;
-    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * @param {string} source
@@ -1577,6 +1453,7 @@ if (typeof Function.prototype.bind !== "function") {
     /**
      * Replace tags in string to defined data.
      * ${NAME} - replace by value of object["NAME"]
+     *
      * @param {string} str Some string to replace by objects.
      * @param {Object} obj Object what will serve data to replace.
      * @example
@@ -1597,6 +1474,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Left padding any chars.
+     *
      * @param {string} staff Object what be padding on the left.
      * @param {number} nr_fill Padding size.
      * @param {string} add_char Char what be added.
@@ -1612,6 +1490,7 @@ if (typeof Function.prototype.bind !== "function") {
 
     /**
      * Right padding any chars.
+     *
      * @param {string} staff Object what be padding on the right.
      * @param {number} nr_fill Padding size.
      * @param {string} add_char Char what be added.
@@ -1643,19 +1522,6 @@ if (typeof Function.prototype.bind !== "function") {
         lpad: lpad,
         rpad: rpad
     };
-
-}(this));
-
-/**
- * @requires pklib.string
- * @requires pklib.dom
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var document = global.document;
-    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * @param {HTMLElement} element
@@ -1736,20 +1602,6 @@ if (typeof Function.prototype.bind !== "function") {
         scroll_to: scroll_to
     };
 
-}(this));
-/**
- * @requires pklib.browser
- * @requires pklib.dom
- * @requires pklib.event
- * @requires pklib.utils
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var document = global.document;
-    var pklib = (global.pklib = global.pklib || {});
-
     var id = "pklib-glass-wrapper",
         settings = {
             container: null,
@@ -1789,7 +1641,7 @@ if (typeof Function.prototype.bind !== "function") {
 
         pklib.ui.maximize(glass, settings.container);
 
-        pklib.event.add(global, "resize", function () {
+        pklib.event.add(root, "resize", function () {
             pklib.ui.glass.close();
             pklib.ui.glass.show(config, callback);
             pklib.ui.maximize(glass, settings.container);
@@ -1809,7 +1661,7 @@ if (typeof Function.prototype.bind !== "function") {
         var glass = pklib.dom.by_id(pklib.ui.glass.obj_id),
             result = false;
 
-        pklib.event.remove(global, "resize");
+        pklib.event.remove(root, "resize");
 
         if (glass !== null) {
             glass.parentNode.removeChild(glass);
@@ -1832,20 +1684,6 @@ if (typeof Function.prototype.bind !== "function") {
         show: show_glass,
         close: close_glass
     };
-
-}(this));
-
-/**
- * @requires pklib.dom
- * @requires pklib.event
- * @requires pklib.utils
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var document = global.document;
-    var pklib = (global.pklib = global.pklib || {});
 
     var id = "pklib-loader-wrapper",
         settings = {
@@ -1883,7 +1721,7 @@ if (typeof Function.prototype.bind !== "function") {
         if (settings.center) {
             pklib.ui.center(loader, settings.container);
 
-            pklib.event.add(global, "resize", function () {
+            pklib.event.add(root, "resize", function () {
                 pklib.ui.center(loader, settings.container);
             });
         }
@@ -1927,20 +1765,6 @@ if (typeof Function.prototype.bind !== "function") {
         close: close_loader
     };
 
-}(this));
-/**
- * @requires pklib.dom
- * @requires pklib.event
- * @requires pklib.string
- * @requires pklib.utils
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var document = global.document;
-    var pklib = (global.pklib = global.pklib || {});
-
     // private
     var id = "pklib-message-wrapper",
         settings = {
@@ -1978,7 +1802,7 @@ if (typeof Function.prototype.bind !== "function") {
         settings.container.appendChild(message);
         pklib.ui.center(message, settings.container);
 
-        pklib.event.add(global, "resize", function () {
+        pklib.event.add(root, "resize", function () {
             pklib.ui.center(message, settings.container);
         });
 
@@ -2018,18 +1842,6 @@ if (typeof Function.prototype.bind !== "function") {
         show: show_message,
         close: close_message
     };
-
-}(this));
-
-/**
- * @requires pklib.string
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var document = global.document;
-    var pklib = (global.pklib = global.pklib || {});
 
     /**
      * @param {string} name
@@ -2095,16 +1907,9 @@ if (typeof Function.prototype.bind !== "function") {
         object: size_of_object
     };
 
-}(this));
-
-(function (global) {
-    "use strict";
-
-    // imports
-    var pklib = (global.pklib = global.pklib || {});
-
     /**
      * Get all params, and return in JSON object.
+     *
      * @param {?string} [url]
      * @return {Object}
      */
@@ -2119,7 +1924,7 @@ if (typeof Function.prototype.bind !== "function") {
         if (typeof url === "string") {
             params = url.match(/\?(.*)/)[0] || "";
         } else {
-            params = global.location.search;
+            params = root.location.search;
         }
 
         if (params.substr(0, 1) === "?") {
@@ -2142,6 +1947,7 @@ if (typeof Function.prototype.bind !== "function") {
     /**
      * Get concrete param from URL.
      * If param if not defined return null.
+     *
      * @param {string} key
      * @param {?string} url
      * @return {string}
@@ -2155,7 +1961,7 @@ if (typeof Function.prototype.bind !== "function") {
         if (typeof url === "string") {
             params = url.match(/\?(.*)/)[0] || "";
         } else {
-            params = global.location.search;
+            params = root.location.search;
         }
 
         if (params.substr(0, 1) === "?") {
@@ -2183,19 +1989,6 @@ if (typeof Function.prototype.bind !== "function") {
         get_param: get_param
     };
 
-}(this));
-
-/**
- * @requires pklib.common
- * @requires pklib.dom
- * @requires pklib.event
- */
-(function (global) {
-    "use strict";
-
-    // imports
-    var document = global.document;
-    var pklib = (global.pklib = global.pklib || {});
     var add_event = pklib.event.add;
 
     /**
@@ -2218,12 +2011,12 @@ if (typeof Function.prototype.bind !== "function") {
             url = evt.srcElement.href;
         }
 
-        global.open(url);
+        root.open(url);
 
         try {
             evt.preventDefault();
         } catch (ignore) {
-            global.event.returnValue = false;
+            root.event.returnValue = false;
         }
         return false;
     }
@@ -2276,12 +2069,12 @@ if (typeof Function.prototype.bind !== "function") {
             text = text || "Sure?";
 
             add_event(element, "click", function (evt) {
-                response = global.confirm(text);
+                response = root.confirm(text);
                 if (!response) {
                     try {
                         evt.preventDefault();
                     } catch (ignore) {
-                        global.event.returnValue = false;
+                        root.event.returnValue = false;
                     }
 
                     return false;

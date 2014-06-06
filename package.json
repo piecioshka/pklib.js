@@ -1,0 +1,20 @@
+{
+    "version": "0.0.1",
+    "private": true,
+    "author": {
+        "name": "Piotr Kowalski",
+        "email": "piecioshka@gmail.com",
+        "url": "http://piecioshka.pl/"
+    },
+    "name": "pklib.js",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/piecioshka/pklib.js.git"
+    },
+    "devDependencies": {
+        "gulp": "latest",
+        "gulp-util": "latest",
+        "gulp-concat": "latest",
+        "gulp-uglify": "latest"
+    }
+}
