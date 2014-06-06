@@ -1,12 +1,12 @@
 {
-    "version": "0.0.1",
-    "private": true,
+    "version": "2.0.0",
+    "name": "pklib.js",
+    "description": "Sack with simple helper functions",
     "author": {
         "name": "Piotr Kowalski",
         "email": "piecioshka@gmail.com",
         "url": "http://piecioshka.pl/"
     },
-    "name": "pklib.js",
     "repository": {
         "type": "git",
         "url": "git://github.com/piecioshka/pklib.js.git"
