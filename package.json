@@ -1,5 +1,4 @@
 {
-    "version": "2.0.0",
     "name": "pklib.js",
     "description": "Sack with simple helper functions",
     "author": {
@@ -7,14 +6,27 @@
         "email": "piecioshka@gmail.com",
         "url": "http://piecioshka.pl/"
     },
+    "private": true,
     "repository": {
         "type": "git",
         "url": "git://github.com/piecioshka/pklib.js.git"
     },
+    "main": "pklib.js",
+    "version": "2.0.0",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://raw.github.com/jashkenas/underscore/master/LICENSE"
+        }
+    ],
     "devDependencies": {
-        "gulp": "3.4.0",
-        "gulp-util": "latest",
-        "gulp-concat": "latest",
-        "gulp-uglify": "latest"
+        "phantomjs": "latest",
+        "uglify-js": "latest",
+        "eslint": "latest"
+    },
+    "scripts": {
+        "test": "phantomjs test/index.html && jslint underscore.js",
+        "build": "uglifyjs pklib.js -m --source-map pklib.min.map -o pklib.min.js",
+        "doc": "docco pklib.js"
     }
 }

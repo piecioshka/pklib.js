@@ -15,17 +15,12 @@
 
     // shortcuts
     var toString = ObjectProto.toString;
+    var isIE = (/msie/).test(navigator.userAgent);
 
-    // Helpers.
-    // -----------------------------------------------------------------------------------------------------------------
+    // Helpers
+    // -------
 
-    /**
-     * Basic test function. Simple assertion 2 variables.
-     *
-     * @param {boolean} expression Object what is true.
-     * @param {string} comment Message to throw in error.
-     * @throws {Error} Condition it's not true.
-     */
+    // Basic test function. Simple assertion 2 variables.
     function assert(expression, comment) {
         if (!expression) {
             throw new Error(comment);
@@ -36,12 +31,12 @@
 
     assert.count = 0;
 
-    // Library.
-    // -----------------------------------------------------------------------------------------------------------------
-
     var pklib = {
         VERSION: '1.3'
     };
+
+    // Ajax
+    // ----
 
     // Default time what is timeout to use function pklib.ajax
     var DEFAULT_TIMEOUT_TIME = 30 * 1000; // 30 second
@@ -55,12 +50,7 @@
     // Array contain key as url, value as ajax response
     var cache = [];
 
-    /**
-     * When success request.
-     *
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
+    // When success request.
     function successHandler(settings, xhr) {
         var contentType,
             xmlContentType = ['application/xml', 'text/xml'],
@@ -82,12 +72,7 @@
         xhr = null;
     }
 
-    /**
-     * When error request.
-     *
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
+    // When error request.
     function errorHandler(settings, xhr) {
         // check if error handler is run yet
         if (!xhr._run_error_handler) {
@@ -99,12 +84,7 @@
         }
     }
 
-    /**
-     * Use when state in request is changed or if used cache is handler to request.
-     *
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
+    // Use when state in request is changed or if used cache is handler to request.
     function stateChangeHandler(settings, xhr) {
         var status = 0;
 
@@ -134,22 +114,12 @@
         errorHandler(settings, xhr);
     }
 
-    /**
-     * Handler to unusually situation - timeout.
-     *
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
+    // Handler to unusually situation - timeout.
     function timeoutHandler(settings, xhr) {
         errorHandler(settings, xhr);
     }
 
-    /**
-     * Try to create Internet Explorer XMLHttpRequest.
-     *
-     * @return {ActiveXObject|undefined}
-     * @throws {Error} If cannot create XMLHttpRequest object.
-     */
+    // Try to create Internet Explorer XMLHttpRequest.
     function createMicrosoftXhr() {
         var xhr;
         try {
@@ -164,12 +134,7 @@
         return xhr;
     }
 
-    /**
-     * Try to create XMLHttpRequest.
-     *
-     * @return {XMLHttpRequest|undefined}
-     * @throws {Error} If cannot create XMLHttpRequest object.
-     */
+    // Try to create XMLHttpRequest.
     function createXhr() {
         var xhr;
         try {
@@ -180,12 +145,7 @@
         return xhr;
     }
 
-    /**
-     * Add headers to xhr object.
-     *
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
+    // Add headers to xhr object.
     function addHeadersToXhr(settings, xhr) {
         var header, headers = settings.headers;
 
@@ -198,42 +158,26 @@
         }
     }
 
-    /**
-     * Add timeout service to xhr object.
-     *
-     * @param {Object} settings
-     * @param {XMLHttpRequest} xhr
-     */
+    // Add timeout service to xhr object.
     function addTimeoutServiceToXhr(settings, xhr) {
         xhr.ontimeout = setTimeout(function () {
             timeoutHandler(settings, xhr);
         }, settings.timeout);
     }
 
-    /**
-     * Check is response on this request is in cache.
-     *
-     * @param {Object} settings
-     * @return {boolean}
-     */
+    // Check is response on this request is in cache.
     function isResponseInCache(settings) {
         return cache[settings.url];
     }
 
-    /**
-     * Return object what is default configuration of request.
-     *
-     * @return {Object} Default configuration.
-     */
+    // Return object what is default configuration of request.
     function getDefaultSettings() {
-        /**
-         * Request settings, contain ex. headers, callback when run after
-         * request finish. Default timeout on request is 30 seconds.
-         * This is default timeout from popular web servers, ex. Apache, nginx.
-         * Default request hasn't any headers.
-         * Default cache is disabled.
-         * Default asynchronous is enable.
-         */
+        // Request settings, contain ex. headers, callback when run after
+        // request finish. Default timeout on request is 30 seconds.
+        // This is default timeout from popular web servers, ex. Apache, nginx.
+        // Default request hasn't any headers.
+        // Default cache is disabled.
+        // Default asynchronous is enable.
         return {
             type: 'get',
             async: true,
@@ -242,10 +186,8 @@
             params: null,
             timeout: DEFAULT_TIMEOUT_TIME,
             headers: {},
-            /**
-             * Function run after request ended
-             * In params exists only: response
-             */
+            // Function run after request ended
+            // In params exists only: response
             done: function () {
                 // do something when success request
             },
@@ -255,47 +197,15 @@
         };
     }
 
-    /**
-     * @module pklib.ajax
-     */
+    // Module pklib.ajax
     pklib.ajax = {
-        /**
-         * Send request to server on url defined in config.url.
-         * Method throw exception when request have timeout on server or if
-         * url is not set. Also, every response (if config.cache is true)
-         * saved to hashmap by key config.url. Method on first try to can
-         * create XMLHttpRequest if browser doesn't support, check if browser
-         * support object ActiveXObject which is implemented in Internet
-         * Explorer.
-         *
-         * @param {Object} config
-         * {
-         *      {string} [type='get']
-         *      {boolean} [async=true]
-         *      {boolean} [cache=false]
-         *      {string} url
-         *      {Object} [params]
-         *      {Object} [headers]
-         *      {Function} [done]
-         *      {Function} [error]
-         * }
-         * @example
-         * pklib.ajax.load({
-         *      type: 'post',
-         *      async: false,
-         *      cache:  true,
-         *      url: 'http://example.org/check-item.php',
-         *      params: { id: 33 },
-         *      headers: {
-         *          'User-Agent': 'tv'
-         *      },
-         *      done: function (res) {
-         *          // pass
-         *      }
-         * });
-         * @return {XMLHttpRequest|null}
-         * @throws {Error} If unset request url.
-         */
+        // Send request to server on url defined in config.url.
+        // Method throw exception when request have timeout on server or if
+        // url is not set. Also, every response (if config.cache is true)
+        // saved to hashmap by key config.url. Method on first try to can
+        // create XMLHttpRequest if browser doesn't support, check if browser
+        // support object ActiveXObject which is implemented in Internet
+        // Explorer.
         load: function (config) {
             var xhr = null, settings = getDefaultSettings();
 
@@ -339,12 +249,7 @@
             return xhr;
         },
 
-        /**
-         * Stop request setting in param.
-         *
-         * @param {XMLHttpRequest|ActiveXObject} xhr XMLHttpRequest object,
-         *     or ActiveXObject object if Internet Explorer.
-         */
+        // Stop request setting in param.
         stop: function (xhr) {
             xhr.abort();
 
@@ -353,24 +258,16 @@
         }
     };
 
-    /**
-     * Check if param is array.
-     *
-     * @param {Object} array
-     * @return {boolean}
-     */
+    // Array
+    // -----
+
+    // Check if param is array.
     function isArray(array) {
         return array !== null && typeof array === 'object' && toString.call(array) === '[object Array]' &&
             typeof array.length === 'number' && typeof array.slice === 'function';
     }
 
-    /**
-     * Check if element is in array by loop.
-     *
-     * @param {*} param
-     * @param {Array} array
-     * @return {boolean}
-     */
+    // Check if element is in array by loop.
     function inArray(param, array) {
         var i, len = array.length;
 
@@ -382,13 +279,7 @@
         return false;
     }
 
-    /**
-     * Get index of element. If couldn't find searching element, return null value.
-     *
-     * @param {*} item
-     * @param {Array} array
-     * @return {number|null}
-     */
+    // Get index of element. If couldn't find searching element, return null value.
     function arrayIndex(item, array) {
         var i, len = array.length;
 
@@ -400,12 +291,7 @@
         return null;
     }
 
-    /**
-     * Unique array. Delete element what was duplicated.
-     *
-     * @param {Array} array
-     * @return {Array}
-     */
+    // Unique array. Delete element what was duplicated.
     function unique(array) {
         var i, item, temp = [], len = array.length;
 
@@ -418,13 +304,8 @@
         return temp;
     }
 
-    /**
-     * Remove element declared in infinity params without first.
-     * First parameter is array object.
-     *
-     * @param {Array} array
-     * @return {Array}
-     */
+    // Remove element declared in infinity params without first.
+    // First parameter is array object.
     function arrayRemove(array) {
         var i, param, params = ArrayProto.slice.call(arguments, 1), len = params.length;
 
@@ -437,9 +318,7 @@
         return array;
     }
 
-    /**
-     * @module pklib.array
-     */
+    // Module pklib.array
     pklib.array = {
         isArray: isArray,
         inArray: inArray,
@@ -448,20 +327,11 @@
         remove: arrayRemove
     };
 
-    /**
-     * Bind function to aspect.
-     * Create method with merge first and second.
-     * Second method is run after first.
-     *
-     * @module pklib.aspect
-     * @param {Function} fun The function to bind aspect function.
-     * @param {Function} asp The aspect function.
-     * @param {string} [when='before'] Place to aspect function.
-     * @return {Function}
-     * @throws {TypeError} If any param is not function.
-     */
+    // Aspect
+    // ------
+
+    // Bind function to aspect. Create method with merge first and second. Second method is run after first.
     pklib.aspect = function (fun, asp, when) {
-        // private
         var self = this, result;
 
         assert(typeof fun === 'function', 'pklib.aspect: @func: not {Function}');
@@ -484,28 +354,19 @@
         };
     };
 
-    /**
-     * Deferred function about some milliseconds.
-     * If milliseconds is 0 that it's hack for some platforms to use function
-     * in 'next' thread.
-     *
-     * @param {Function} defer_function Function what would be deferred.
-     * @param {number} [milliseconds] Time to deferred function
-     */
-    function defer(defer_function, milliseconds) {
+    // Common
+    // ------
+
+    // Deferred function about some milliseconds.
+    // If milliseconds is 0 that it's hack for some platforms to use function in 'next' thread.
+    function defer(deferFn, milliseconds) {
         milliseconds = milliseconds || 0;
-        setTimeout(defer_function, milliseconds);
+        setTimeout(deferFn, milliseconds);
     }
 
-    /**
-     * Interval checking first function until returns true, run after this second function callback.
-     *
-     * @param {Function} condition Function returns {@type boolean} status.
-     * @param {Function} callback
-     */
+    // Interval checking first function until returns true, run after this second function callback.
     function checking(condition, callback) {
-        var interval,
-            interval_time = 100;
+        var interval, intervalTime = 100;
 
         assert(typeof condition === 'function', 'pklib.common.checking: @condition: not {Function}');
         assert(typeof callback === 'function', 'pklib.common.checking: @callback: not {Function}');
@@ -518,33 +379,27 @@
                     clearInterval(interval);
                     callback();
                 }
-            }, interval_time);
+            }, intervalTime);
         }
     }
 
-    /**
-     * @module pklib.common
-     */
     pklib.common = {
         assert: assert,
         defer: defer,
         checking: checking
     };
 
-    /**
-     * Read cookie by it name.
-     *
-     * @param {string|undefined} name
-     * @return {string|null}
-     */
+    // Cookie
+    // ------
+
+    // Read cookie by it name.
     function getCookie(name) {
         if (name === undefined) {
             return null;
         }
         name += '=';
-        var i, c,
-            ca = document.cookie.split(';'),
-            len = ca.length;
+
+        var i, c, ca = document.cookie.split(';'), len = ca.length;
 
         for (i = 0; i < len; ++i) {
             c = ca[i];
@@ -558,17 +413,9 @@
         return null;
     }
 
-    /**
-     * Create cookie file with name, value and day expired.
-     *
-     * @param {string} name
-     * @param {string} [value]
-     * @param {number} [days]
-     * @return {string}
-     */
+    // Create cookie file with name, value and day expired.
     function createCookie(name, value, days) {
-        var expires = '',
-            date = new Date();
+        var expires = '', date = new Date();
 
         value = value || null;
 
@@ -582,70 +429,42 @@
         return getCookie(name);
     }
 
-    /**
-     * Delete cookie by it name.
-     *
-     * @param {string} name
-     * @return {string}
-     */
+    // Delete cookie by it name.
     function removeCookie(name) {
         return createCookie(name, undefined, -1);
     }
 
-    /**
-     * @module pklib.cookie
-     */
     pklib.cookie = {
         create: createCookie,
         get: getCookie,
         remove: removeCookie
     };
 
-    /**
-     * RegExp use to delete white chars.
-     */
+    // CSS
+    // ---
+
+    // RegExp use to delete white chars.
     var rclass = /[\n\t\r]/g;
 
-    /**
-     * Check typeof params.
-     *
-     * @param {string} css_class
-     * @param {HTMLElement} element
-     * @param {string} call_func_name
-     * @throws {TypeError} If first param is not string, or second param is
-     *     not Node.
-     */
+    // Check typeof params.
     function checkParams(css_class, element, call_func_name) {
         var prefix = 'pklib.css.' + call_func_name;
         assert(typeof css_class === 'string', prefix + ': @css_class: not {string}');
         assert(isElement(element), prefix + ': @element: not {HTMLElement}');
     }
 
-    /**
-     * Check if element has CSS class.
-     *
-     * @param {string} css_class
-     * @param {HTMLElement} element
-     * @return {boolean}
-     * @throws {TypeError} If first param is not string, or second param is not
-     *     Node
-     */
+    // Check if element has CSS class.
     function hasClass(css_class, element) {
         checkParams(css_class, element, 'hasClass');
         var className = ' ' + css_class + ' ';
         return ((' ' + element.className + ' ').replace(rclass, ' ').indexOf(className) > -1);
     }
 
-    /**
-     * Add CSS class to element define in second parameter.
-     *
-     * @param {string} css_class
-     * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not Node.
-     */
+    // Add CSS class to element define in second parameter.
     function addClass(css_class, element) {
         checkParams(css_class, element, 'addClass');
         var class_element = element.className;
+
         if (!hasClass(css_class, element)) {
             if (class_element.length) {
                 class_element += ' ' + css_class;
@@ -656,31 +475,23 @@
         element.className = class_element;
     }
 
-    /**
-     * Remove CSS class from element define in second parameter.
-     *
-     * @param {string} css_class
-     * @param {HTMLElement} element
-     * @throws {TypeError} If first param is not string, or second param is not Node.
-     */
+    // Remove CSS class from element define in second parameter.
     function removeClass(css_class, element) {
         checkParams(css_class, element, 'removeClass');
         var regexp = new RegExp('(\\s' + css_class + ')|(' + css_class + '\\s)|' + css_class, 'i');
         element.className = trim(element.className.replace(regexp, ''));
     }
 
-    /**
-     * @module pklib.css
-     */
     pklib.css = {
         add_class: addClass,
         remove_class: removeClass,
         has_class: hasClass
     };
 
-    /**
-     * Types of all available node.
-     */
+    // DOM
+    // ---
+
+    // Types of all available node.
     var node_types = {
         'ELEMENT_NODE': 1,
         'ATTRIBUTE_NODE': 2,
@@ -696,12 +507,7 @@
         'NOTATION_NODE': 12
     };
 
-    /**
-     * Walking on every node in node.
-     *
-     * @param {HTMLElement} node
-     * @param {Function} func Run on every node.
-     */
+    // Walking on every node in node.
     function walkTheDom(node, func) {
         if (!!node) {
             func(node);
@@ -713,81 +519,41 @@
         }
     }
 
-    /**
-     * Check if param is Node, with use assertions.
-     *
-     * @param {Node} node
-     * @return {string}
-     */
+    // Check if param is Node, with use assertions.
     function isNode(node) {
         return node && node.nodeType && node.nodeName &&
             toString.call(node) === '[object Node]';
     }
 
-    /**
-     * Check if param is NodeList, with use assertions.
-     *
-     * @param {NodeList} node_list
-     * @return {boolean}
-     */
+    // Check if param is NodeList, with use assertions.
     function isNodeList(node_list) {
         var list = ['[object HTMLCollection]', '[object NodeList]'];
         return inArray(toString.call(node_list), list);
     }
 
-    /**
-     * Check if param is instanceOf Element.
-     *
-     * @param {HTMLElement} node
-     * @return {boolean}
-     */
+    // Check if param is instanceOf Element.
     function isElement(node) {
         return (node && node.nodeType === node_types.ELEMENT_NODE) || false;
     }
 
-    /**
-     * Check visibility of Node, with use assertions.
-     *
-     * @param {HTMLElement} node
-     * @return {boolean}
-     */
+    // Check visibility of Node, with use assertions.
     function isVisible(node) {
         assert(isElement(node), 'pklib.dom.isVisible: @node is not HTMLElement');
 
-        return node.style.display !== 'none' &&
-            node.style.visibility !== 'hidden' &&
-            node.offsetWidth !== 0 &&
-            node.offsetHeight !== 0;
+        return node.style.display !== 'none' && node.style.visibility !== 'hidden' && node.offsetWidth !== 0 && node.offsetHeight !== 0;
     }
 
-    /**
-     * Get element by attribute ID.
-     *
-     * @param {string} id
-     * @return {HTMLElement|null}
-     */
+    // Get element by attribute ID.
     function byId(id) {
         return document.getElementById(id);
     }
 
-    /**
-     * Get elements by tag name.
-     *
-     * @param {string} tag
-     * @param {Element} [element]
-     * @return {NodeList}
-     */
+    // Get elements by tag name.
     function byTag(tag, element) {
         return (element || document).getElementsByTagName(tag);
     }
 
-    /**
-     * Get elements by attribute CLASS.
-     *
-     * @param {string} css_class
-     * @param {HTMLElement} [wrapper]
-     * @return {Array}
-     */
+    // Get elements by attribute CLASS.
     function byClass(css_class, wrapper) {
         var results = [];
 
@@ -801,41 +567,25 @@
         return results;
     }
 
-    /**
-     * Get index of node relative siblings.
-     *
-     * @param {HTMLElement} node
-     * @return {number|null}
-     */
+    // Get index of node relative siblings.
     function nodeIndex(node) {
         assert(isElement(node), 'pklib.dom.index: @node is not HTMLElement');
 
-        var i,
-            parent = parent(node),
-            children = children(parent),
-            len = children.length;
+        var i, childrenInstance = children(parent(node)), len = children.length;
 
         for (i = 0; i < len; ++i) {
-            if (children[i] === node) {
+            if (childrenInstance[i] === node) {
                 return i;
             }
         }
         return null;
     }
 
-    /**
-     * Get children of element filter by Element type.
-     *
-     * @param {HTMLElement} node
-     * @return {Array}
-     */
+    // Get children of element filter by Element type.
     function children(node) {
         assert(isElement(node), 'pklib.dom.children: @node is not HTMLElement');
 
-        var i,
-            array = [],
-            childNodes = node.childNodes,
-            len = childNodes.length;
+        var i, array = [], childNodes = node.childNodes, len = childNodes.length;
 
         for (i = 0; i < len; ++i) {
             if (isElement(childNodes[i])) {
@@ -845,14 +595,8 @@
         return array;
     }
 
-    /**
-     * Insert data to Node. Maybe param is string so insert will be exec
-     * by innerHTML, but if param is Node inserting with appendChild().
-     *
-     * @param {HTMLElement|string} element
-     * @param {HTMLElement} node
-     * @return {HTMLElement}
-     */
+    // Insert data to Node. Maybe param is string so insert will be exec
+    // by innerHTML, but if param is Node inserting with appendChild().
     function insert(element, node) {
         if (isElement(element)) {
             node.appendChild(element);
@@ -862,15 +606,9 @@
         return element;
     }
 
-    /**
-     * Remove Element specified in params.
-     *
-     * @param {...HTMLElement} items
-     */
+    // Remove Element specified in params.
     function nodeRemove(items) {
-        var i, node = null, parent = null,
-            args = ArrayProto.slice.call(arguments),
-            len = args.length;
+        var i, node = null, parent = null, args = ArrayProto.slice.call(arguments), len = args.length;
 
         for (i = 0; i < len; ++i) {
             node = args[i];
@@ -881,12 +619,7 @@
         }
     }
 
-    /**
-     * Get prev Node what will be Element.
-     *
-     * @param {HTMLElement} node
-     * @return {HTMLElement|null}
-     */
+    // Get prev Node what will be Element.
     function prev(node) {
         var prev_node;
 
@@ -894,9 +627,7 @@
 
         while (true) {
             prev_node = node.previousSibling;
-            if (prev_node !== undefined &&
-                    prev_node !== null &&
-                    prev_node.nodeType !== node_types.ELEMENT_NODE) {
+            if (prev_node !== undefined && prev_node !== null && prev_node.nodeType !== node_types.ELEMENT_NODE) {
                 node = prev_node;
             } else {
                 break;
@@ -905,12 +636,7 @@
         return prev_node;
     }
 
-    /**
-     * Get next Node what will be Element.
-     *
-     * @param {HTMLElement} node
-     * @return {HTMLElement|null}
-     */
+    // Get next Node what will be Element.
     function next(node) {
         var next_node;
 
@@ -918,9 +644,7 @@
 
         while (true) {
             next_node = node.nextSibling;
-            if (next_node !== undefined &&
-                    next_node !== null &&
-                    next_node.nodeType !== node_types.ELEMENT_NODE) {
+            if (next_node !== undefined && next_node !== null && next_node.nodeType !== node_types.ELEMENT_NODE) {
                 node = next_node;
             } else {
                 break;
@@ -929,12 +653,7 @@
         return next_node;
     }
 
-    /**
-     * Get parent element what will by Element, but if parent is not exists returns null.
-     *
-     * @param {HTMLElement} node
-     * @return {HTMLElement|null}
-     */
+    // Get parent element what will by Element, but if parent is not exists returns null.
     function parent(node) {
         var parent_node;
 
@@ -942,9 +661,7 @@
 
         while (true) {
             parent_node = node.parentNode;
-            if (parent_node !== undefined &&
-                    parent_node !== null &&
-                    parent_node.nodeType !== node_types.ELEMENT_NODE) {
+            if (parent_node !== undefined && parent_node !== null && parent_node.nodeType !== node_types.ELEMENT_NODE) {
                 node = parent_node;
             } else {
                 break;
@@ -953,9 +670,6 @@
         return parent_node;
     }
 
-    /**
-     * @module pklib.dom
-     */
     pklib.dom = {
         isNode: isNode,
         isNodeList: isNodeList,
@@ -973,13 +687,10 @@
         parent: parent
     };
 
-    /**
-     * Add event to Element.
-     *
-     * @param {HTMLElement} target
-     * @param {string} event_name
-     * @param {Function} handler
-     */
+    // Events
+    // ------
+
+    // Add event to Element.
     function addEvent(target, event_name, handler) {
         if (target.events === undefined) {
             target.events = {};
@@ -1005,14 +716,9 @@
         }
     }
 
-    /**
-     * Remove event from Element.
-     *
-     * @param {HTMLElement} target
-     * @param {string} event_name
-     */
+    // Remove event from Element.
     function removeEvent(target, event_name) {
-        var removeEvent, events, len, i, handler;
+        var removeAPI, events, len, i, handler;
 
         if (target.events === undefined) {
             target.events = {};
@@ -1020,13 +726,13 @@
 
         if (target.detachEvent) {
             // IE browser
-            removeEvent = 'detachEvent';
+            removeAPI = 'detachEvent';
         } else if (target.removeEventListener) {
             // other browser
-            removeEvent = 'removeEventListener';
+            removeAPI = 'removeEventListener';
         }
 
-        if (removeEvent === undefined) {
+        if (removeAPI === undefined) {
             // for old browser
             delete target['on' + event_name];
         } else {
@@ -1037,20 +743,14 @@
 
                 for (i = 0; i < len; ++i) {
                     handler = events[i];
-                    target[removeEvent](event_name, handler);
+                    target[removeAPI](event_name, handler);
                     delete target.events[event_name];
                 }
             }
         }
     }
 
-    /**
-     * Get array with events with concrete name.
-     *
-     * @param {HTMLElement} target
-     * @param {string} event_name
-     * @return {Array|undefined}
-     */
+    // Get array with events with concrete name.
     function getEvent(target, event_name) {
         if (target.events === undefined) {
             target.events = {};
@@ -1058,12 +758,7 @@
         return target.events[event_name];
     }
 
-    /**
-     * Run events on Element.
-     *
-     * @param {HTMLElement} target
-     * @param {string} event_name
-     */
+    // Run events on Element.
     function trigger(target, event_name) {
         var events, len, i;
 
@@ -1082,9 +777,6 @@
         }
     }
 
-    /**
-     * @module pklib.event
-     */
     pklib.event = {
         add: addEvent,
         remove: removeEvent,
@@ -1092,13 +784,11 @@
         trigger: trigger
     };
 
-    // private
+    // File
+    // ----
+
     var copy_files = [];
 
-    /**
-     * @param {string} url
-     * @param {Function} callback
-     */
     function simpleLoadJS(url, callback) {
         var script = document.createElement('script');
         script.type = 'text/javascript';
@@ -1130,13 +820,8 @@
         document.head.appendChild(script);
     }
 
-    /**
-     * Load JS files. Url to files could be with path absolute or not.
-     * If you must load more than 1 file use array, to set url to files.
-     *
-     * @param {string|Array} files
-     * @param {Function} callback
-     */
+    // Load JS files. Url to files could be with path absolute or not.
+    // If you must load more than 1 file use array, to set url to files.
     function loadJSFile(files, callback) {
         var file;
 
@@ -1172,34 +857,20 @@
         }
     }
 
-    /**
-     * @module pklib.file
-     */
     pklib.file = {
         loadjs: loadJSFile
     };
 
-    /**
-     * Check if param is object.
-     *
-     * @param {Object} it
-     * @return {boolean}
-     */
+    // Object
+    // ------
+
+    // Check if param is object.
     function isObject(it) {
-        return it &&
-            toString.call(it) === '[object Object]' &&
-            typeof it === 'object' &&
-            typeof it.hasOwnProperty === 'function' &&
-            typeof it.isPrototypeOf === 'function';
+        return it && toString.call(it) === '[object Object]' && typeof it === 'object' &&
+            typeof it.hasOwnProperty === 'function' && typeof it.isPrototypeOf === 'function';
     }
 
-    /**
-     * Mix two params, from second to first param. Return first param mixin with second param.
-     *
-     * @param {Array|Object} target
-     * @param {Array|Object} source
-     * @return {Array|Object}
-     */
+    // Mix two params, from second to first param. Return first param mixin with second param.
     function mixin(target, source) {
         var i, len, element, item;
 
@@ -1227,148 +898,96 @@
         return target;
     }
 
-    /**
-     * Check if object is empty (contains non-value).
-     *
-     * @param {Object} obj
-     * @returns {boolean}
-     */
+    // Check if object is empty (contains non-value).
     function isEmpty(obj) {
-        var i, items = 0;
+        var i;
 
         for (i in obj) {
             if (obj.hasOwnProperty(i)) {
-                items++;
+                return false;
             }
         }
-        return !items;
+        return true;
     }
 
-    /**
-     * @module pklib.object
-     */
     pklib.object = {
         isObject: isObject,
         mixin: mixin,
         isEmpty: isEmpty
     };
 
-    // private
-    var data = {};
+    // Profiler
+    // --------
 
-    /**
-     * @param {string} name
-     * @return {number}
-     */
-    function start(name) {
-        data[name] = new Date();
-        return data[name];
+    var profilerData = {};
+
+    function startProfile(name) {
+        profilerData[name] = new Date();
+        return profilerData[name];
     }
 
-    /**
-     * @param {string} name
-     * @return {number}
-     */
-    function stop(name) {
-        data[name] = new Date() - data[name];
-        return (new Date((new Date()).getTime() + data[name])).getTime();
+    function stopProfile(name) {
+        profilerData[name] = new Date() - profilerData[name];
+        return (new Date((new Date()).getTime() + profilerData[name])).getTime();
     }
 
-    /**
-     * @param {string} name
-     * @return {number}
-     */
-    function getTime(name) {
-        return data[name];
+    function getProfilerTime(name) {
+        return profilerData[name];
     }
 
-    /**
-     * @module pklib.profiler
-     */
     pklib.profiler = {
-        start: start,
-        stop: stop,
-        getTime: getTime
+        start: startProfile,
+        stop: stopProfile,
+        getTime: getProfilerTime
     };
 
-    /**
-     * @param {string} source
-     * @return {boolean}
-     */
+    // String
+    // ------
+
     function isString(source) {
         return typeof source === 'string';
     }
 
-    /**
-     * @param {string} source
-     * @return {boolean}
-     */
     function isLetter(source) {
         return isString(source) && (/^[a-zA-Z]$/).test(source);
     }
 
-    /**
-     * @param {string} source
-     * @return {string}
-     */
     function trim(source) {
         return source.replace(/^\s+|\s+$/g, '');
     }
 
-    /**
-     * @param {string} source
-     * @return {string}
-     */
     function slug(source) {
+        var polish = [];
+        polish[261] = 97;
+        polish[281] = 101;
+        polish[243] = 111;
+        polish[347] = 115;
+        polish[322] = 108;
+        polish[378] = polish[380] = 122;
+        polish[263] = 99;
+        polish[324] = 110;
+
         var result = source.toLowerCase().replace(/\s/mg, '-');
         result = result.replace(/[^a-zA-Z0-9\-]/mg, function (ch) {
-            switch (ch.charCodeAt(0)) {
-            case 261:
-                return String.fromCharCode(97);
-            case 281:
-                return String.fromCharCode(101);
-            case 243:
-                return String.fromCharCode(111);
-            case 347:
-                return String.fromCharCode(115);
-            case 322:
-                return String.fromCharCode(108);
-            case 378:
-            case 380:
-                return String.fromCharCode(122);
-            case 263:
-                return String.fromCharCode(99);
-            case 324:
-                return String.fromCharCode(110);
-            default:
-                return '';
+            var char = polish[ch.charCodeAt(0)];
+            if (char) {
+                return String.fromCharCode(char);
             }
+            return '';
         });
         return result;
     }
 
-    /**
-     * @param {string} source
-     * @return {string}
-     */
     function capitalize(source) {
         return source.substr(0, 1).toUpperCase() + source.substring(1, source.length);
     }
 
-    /**
-     * @param {string} source
-     * @return {string}
-     */
     function delimiterSeparatedWords(source) {
         return source.replace(/[A-ZĘÓĄŚŁŻŹĆŃ]/g, function (match) {
             return '-' + match.toLowerCase();
         });
     }
 
-    /**
-     * @param {string} source
-     * @return {string}
-     */
     function stripTags(source) {
         assert(typeof source === 'string', 'pklib.string.stripTags: param @source is not a string');
 
@@ -1380,10 +999,6 @@
         return source;
     }
 
-    /**
-     * @param {string} source
-     * @return {string}
-     */
     function camelCase(source) {
         var pos, pre, sub, post;
 
@@ -1397,66 +1012,35 @@
         return source;
     }
 
-    /**
-     * @param {string} source Text to slice.
-     * @param {number} length number of chars what string will be slice.
-     * @param {boolean} [is_force] Force mode. If slice will be end in middle.
-     *     of word, use this to save it, or algorithm slice to last space.
-     * @return {string}
-     */
     function slice(source, length, is_force) {
         assert(typeof source === 'string', 'pklib.string.slice: param @source is not a string');
 
-        // jeśli długość przycinania jest większa niż długość całego tekstu
-        // to zwracamy przekazany tekst
+        // When source is longer than limit, return it
         if (source.length < length) {
             return source;
         }
 
-        // ucinamy tyle tekstu ile jest wskazane w parametrze length
+        // Slice source text using second param
         var text = source.slice(0, length), last_space;
 
-        // sprawdzamy czy nie ucięliśmy w połowie wyrazu:
-        // * tj. czy kolejnym znakiem nie jest spacja
-        if (source[length] === ' ') {
-            return text + '...';
-        }
-
-        // * ostatnim znakiem w uciętym tekście jest spacja
-        if (text[length - 1] === ' ') {
+        // If we don't cut in the middle of word, add ellipsis
+        if (source[length] === ' ' || text[length - 1] === ' ') {
             return trim(text) + '...';
         }
 
-        // jeśli nie ma wymuszenia przycinania wyrazu w jego części
-        // to sprawdzamy czy możemy przyciąć do ostatniej spacji w przyciętym tekście
         if (!is_force) {
-            // niestety ucięliśmy tekst w połowie wyrazu
-            // postępujemy zgodnie z instrukcja, że odnajdujemy ostatnią spację
-            // i obcinamy fraze do tej spacji 
             last_space = text.lastIndexOf(' ');
 
-            // spacja została znaleziona, więc przycinamy frazę do spacji
             if (last_space !== -1) {
                 return text.slice(0, last_space) + '...';
             }
         }
 
-        // włączony tryb 'force' albo spacja nie została odnaleziona więc aby nie zwracać
-        // w pustej wartości, ucinamy wyraz w tym miejscu w którym jest
         return text + '...';
     }
 
-    /**
-     * Replace tags in string to defined data.
-     * ${NAME} - replace by value of object['NAME']
-     *
-     * @param {string} str Some string to replace by objects.
-     * @param {Object} obj Object what will serve data to replace.
-     * @example
-     * %{car} is the best!
-     * pklib.string.format('%{car} is the best', { car: 'Ferrari' });
-     * //=> Ferrari is the best!
-     */
+    // Replace tags in string to defined data.
+    // ${NAME} - replace by value of object['NAME']
     function format(str, obj) {
         var name;
 
@@ -1468,41 +1052,26 @@
         return str;
     }
 
-    /**
-     * Left padding any chars.
-     *
-     * @param {string} staff Object what be padding on the left.
-     * @param {number} nr_fill Padding size.
-     * @param {string} add_char Char what be added.
-     */
-    function lpad(staff, nr_fill, add_char) {
+    // Left padding any chars.
+    function lpad(staff, nrFill, add_char) {
         var i, string = staff.toString();
 
-        for (i = string.length; i < nr_fill; ++i) {
+        for (i = string.length; i < nrFill; ++i) {
             string = add_char + string;
         }
         return string;
     }
 
-    /**
-     * Right padding any chars.
-     *
-     * @param {string} staff Object what be padding on the right.
-     * @param {number} nr_fill Padding size.
-     * @param {string} add_char Char what be added.
-     */
-    function rpad(staff, nr_fill, add_char) {
+    // Right padding any chars.
+    function rpad(staff, nrFill, add_char) {
         var i, string = staff.toString();
 
-        for (i = string.length; i < nr_fill; ++i) {
+        for (i = string.length; i < nrFill; ++i) {
             string += add_char;
         }
         return string;
     }
 
-    /**
-     * @module pklib.string
-     */
     pklib.string = {
         isString: isString,
         isLetter: isLetter,
@@ -1518,12 +1087,9 @@
         rpad: rpad
     };
 
-    /**
-     * @param {HTMLElement} element
-     * @param {HTMLElement} wrapper
-     * @return {Array}
-     * @throws {TypeError} If first param is not HTMLElement.
-     */
+    // UI
+    // --
+
     function center(element, wrapper) {
         var left = null, top = null, pus = pklib.ui.size;
 
@@ -1542,22 +1108,13 @@
         return [left, top];
     }
 
-    function isIE() {
-        return (/msie/).test(navigator.userAgent);
-    }
-
-    /**
-     * @param {HTMLElement} element
-     * @param {HTMLElement} wrapper
-     * @return {Array}
-     */
     function maximize(element, wrapper) {
         var width = null, height = null, pus = pklib.ui.size;
 
         if (wrapper === document.body) {
             width = Math.max(pus.window('width'), pus.document('width'));
             height = Math.max(pus.window('height'), pus.document('height'));
-            if (isIE()) {
+            if (isIE) {
                 width -= 20;
             }
         } else {
@@ -1569,10 +1126,6 @@
         return [width, height];
     }
 
-    /**
-     * @param {number} param
-     * @param {boolean} animate
-     */
     function scrollTo(param, animate) {
         var interval = null;
         if (animate) {
@@ -1587,58 +1140,53 @@
         }
     }
 
-    /**
-     * @module pklib.ui
-     */
     pklib.ui = {
         center: center,
         maximize: maximize,
         scrollTo: scrollTo
     };
 
-    var id = 'pklib-glass-wrapper',
-        settings = {
-            container: null,
-            style: {
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                background: '#000',
-                opacity: 0.5,
-                zIndex: 1000
-            }
-        };
+    // UI Glass
+    // --------
 
-    /**
-     * @param {Object} config
-     * @param {Function} callback
-     * @return {HTMLElement}
-     */
+    var glassId = 'pklib-glass-wrapper';
+    var glassSettings = {
+        container: null,
+        style: {
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            background: '#000',
+            opacity: 0.5,
+            zIndex: 1000
+        }
+    };
+
     function showGlass(config, callback) {
         var glass = document.createElement('div'),
             glassStyle = glass.style,
             style;
 
-        settings.container = document.body;
-        settings = mixin(settings, config);
-        settings.style.filter = 'alpha(opacity=' + parseFloat(settings.style.opacity) * 100 + ')';
+        glassSettings.container = document.body;
+        glassSettings = mixin(glassSettings, config);
+        glassSettings.style.filter = 'alpha(opacity=' + parseFloat(glassSettings.style.opacity) * 100 + ')';
 
-        glass.setAttribute('id', pklib.ui.glass.objId);
+        glass.setAttribute('id', glassId);
 
-        for (style in settings.style) {
-            if (settings.style.hasOwnProperty(style)) {
-                glassStyle[style] = settings.style[style];
+        for (style in glassSettings.style) {
+            if (glassSettings.style.hasOwnProperty(style)) {
+                glassStyle[style] = glassSettings.style[style];
             }
         }
 
-        settings.container.appendChild(glass);
+        glassSettings.container.appendChild(glass);
 
-        maximize(glass, settings.container);
+        maximize(glass, glassSettings.container);
 
         addEvent(root, 'resize', function () {
             closeGlass();
             showGlass(config, callback);
-            maximize(glass, settings.container);
+            maximize(glass, glassSettings.container);
         });
 
         if (typeof callback === 'function') {
@@ -1647,12 +1195,8 @@
         return glass;
     }
 
-    /**
-     * @param {Function} [callback]
-     * @return {boolean}
-     */
     function closeGlass(callback) {
-        var glass = byId(pklib.ui.glass.objId),
+        var glass = byId(glassId),
             result = false;
 
         removeEvent(root, 'resize');
@@ -1669,57 +1213,53 @@
         return result;
     }
 
-    /**
-     * @module pklib.ui.glass
-     */
     pklib.ui.glass = {
-        objId: id,
+        objId: glassId,
         show: showGlass,
         close: closeGlass
     };
 
-    var id = 'pklib-loader-wrapper',
-        settings = {
-            src: '',
-            container: null,
-            style: {
-                width: 31,
-                height: 31,
-                zIndex: 1010
-            },
-            center: true
-        };
+    // UI Loader
+    // ---------
 
-    /**
-     * @param {object} config
-     * @param {function} callback
-     */
+    var loaderId = 'pklib-loader-wrapper';
+    var loaderSettings = {
+        src: '',
+        container: null,
+        style: {
+            width: 31,
+            height: 31,
+            zIndex: 1010
+        },
+        center: true
+    };
+
     function showLoader(config, callback) {
         var loader = document.createElement('img'),
             loaderStyle = loader.style,
             style;
 
-        settings.container = document.body;
-        settings = mixin(settings, config);
+        loaderSettings.container = document.body;
+        loaderSettings = mixin(loaderSettings, config);
 
         loader.setAttribute('id', pklib.ui.loader.objId);
-        loader.setAttribute('src', settings.src);
+        loader.setAttribute('src', loaderSettings.src);
 
-        for (style in settings.style) {
-            if (settings.style.hasOwnProperty(style)) {
-                loaderStyle[style] = settings.style[style];
+        for (style in loaderSettings.style) {
+            if (loaderSettings.style.hasOwnProperty(style)) {
+                loaderStyle[style] = loaderSettings.style[style];
             }
         }
 
         if (settings.center) {
-            center(loader, settings.container);
+            center(loader, loaderSettings.container);
 
             addEvent(root, 'resize', function () {
-                center(loader, settings.container);
+                center(loader, loaderSettings.container);
             });
         }
 
-        settings.container.appendChild(loader);
+        loaderSettings.container.appendChild(loader);
 
         if (typeof callback === 'function') {
             callback();
@@ -1728,12 +1268,8 @@
         loader = null;
     }
 
-    /**
-     * @param {Function} callback
-     * @return {boolean}
-     */
     function closeLoader(callback) {
-        var loader = byId(pklib.ui.loader.objId),
+        var loader = byId(loaderId),
             result = false;
 
         if (loader !== null) {
@@ -1748,54 +1284,48 @@
         return result;
     }
 
-    /**
-     * @module pklib.ui.loader
-     */
     pklib.ui.loader = {
-        objId: id,
+        objId: loaderId,
         show: showLoader,
         close: closeLoader
     };
 
-    // private
-    var id = 'pklib-message-wrapper',
-        settings = {
-            container: null,
-            style: {
-                width: 300,
-                height: 300,
-                zIndex: 1010
-            }
-        };
+    // UI Message
+    // ----------
 
-    /**
-     * @param {Object} config
-     * @param {Function} callback
-     * @return {HTMLElement}
-     */
+    var messageId = 'pklib-message-wrapper';
+    var messageSettings = {
+        container: null,
+        style: {
+            width: 300,
+            height: 300,
+            zIndex: 1010
+        }
+    };
+
     function showMessage(config, callback) {
         var message = document.createElement('div'),
             messageStyle = message.style,
             style;
 
-        settings.container = document.body;
-        settings = mixin(settings, config);
+        messageSettings.container = document.body;
+        messageSettings = mixin(messageSettings, config);
 
         message.setAttribute('id', pklib.ui.message.objId);
 
-        for (style in settings.style) {
-            if (settings.style.hasOwnProperty(style)) {
-                messageStyle[style] = settings.style[style];
+        for (style in messageSettings.style) {
+            if (messageSettings.style.hasOwnProperty(style)) {
+                messageStyle[style] = messageSettings.style[style];
             }
         }
 
         insert(pklib.ui.message.content, message);
 
-        settings.container.appendChild(message);
-        center(message, settings.container);
+        messageSettings.container.appendChild(message);
+        center(message, messageSettings.container);
 
         addEvent(root, 'resize', function () {
-            center(message, settings.container);
+            center(message, messageSettings.container);
         });
 
         if (typeof callback === 'function') {
@@ -1804,10 +1334,6 @@
         return message;
     }
 
-    /**
-     * @param {Function} callback
-     * @return {boolean}
-     */
     function closeMessage(callback) {
         var message = byId(pklib.ui.message.objId),
             result = false;
@@ -1824,21 +1350,16 @@
         return result;
     }
 
-    /**
-     * @module pklib.ui.message
-     */
     pklib.ui.message = {
-        objId: id,
+        objId: messageId,
         content: null,
         show: showMessage,
         close: closeMessage
     };
 
-    /**
-     * @param {string} name
-     * @return {number}
-     * @throws {TypeError} Name is not *string* value.
-     */
+    // UI Size
+    // -------
+
     function getWindowSize(name) {
         var clientName;
         assert(typeof name === 'string', 'pklib.ui.size.window: @name: not {string}');
@@ -1850,10 +1371,6 @@
             clientName;
     }
 
-    /**
-     * @param {string} name
-     * @return {number}
-     */
     function getDocumentSize(name) {
         var clientName,
             scrollBodyName,
@@ -1872,11 +1389,6 @@
         return Math.max(clientName, scrollBodyName, scrollName, offsetBodyName, offsetName);
     }
 
-    /**
-     * @param {HTMLElement} obj
-     * @param {string} name
-     * @return {number}
-     */
     function getObjectSize(obj, name) {
         assert(typeof name === 'string', 'pklib.ui.size.object: @name: not {string}');
         assert(isElement(obj), 'pklib.ui.size.object: @obj: not {HTMLElement}');
@@ -1889,28 +1401,18 @@
         return Math.max(client, scroll, offset);
     }
 
-    /**
-     * @module pklib.ui.size
-     */
     pklib.ui.size = {
         window: getWindowSize,
         document: getDocumentSize,
         object: getObjectSize
     };
 
-    /**
-     * Get all params, and return in JSON object.
-     *
-     * @param {?string} [url]
-     * @return {Object}
-     */
+    // URL
+    // ---
+
+    // Get all params, and return in JSON object.
     function getParams(url) {
-        var i,
-            item,
-            len,
-            key_value_section,
-            params,
-            params_list = {};
+        var i, item, len, key_value_section, params, params_list = {};
 
         if (typeof url === 'string') {
             params = url.match(/\?(.*)/)[0] || '';
@@ -1935,14 +1437,7 @@
         return params_list;
     }
 
-    /**
-     * Get concrete param from URL.
-     * If param if not defined return null.
-     *
-     * @param {string} key
-     * @param {?string} url
-     * @return {string}
-     */
+    // Get concrete param from URL. If param if not defined return null.
     function getParam(key, url) {
         var params, i, item, len;
 
@@ -1968,31 +1463,22 @@
         return null;
     }
 
-    /**
-     * @module pklib.url
-     */
     pklib.url = {
         getParams: getParams,
         getParam: getParam
     };
 
-    /**
-     * @param {Event} evt
-     */
+    // Utilities
+    // ---------
+
     function openTrigger(evt) {
         var url = '';
 
-        if (evt.originalTarget &&
-                typeof evt.originalTarget === 'object' &&
-                evt.originalTarget.href !== undefined) {
+        if (evt.originalTarget && typeof evt.originalTarget === 'object' && evt.originalTarget.href !== undefined) {
             url = evt.originalTarget.href;
-        } else if (evt.toElement &&
-                typeof evt.toElement === 'object' &&
-                evt.toElement.href !== undefined) {
+        } else if (evt.toElement && typeof evt.toElement === 'object' && evt.toElement.href !== undefined) {
             url = evt.toElement.href;
-        } else if (evt.srcElement &&
-                typeof evt.srcElement === 'object' &&
-                evt.srcElement !== undefined) {
+        } else if (evt.srcElement && typeof evt.srcElement === 'object' && evt.srcElement !== undefined) {
             url = evt.srcElement.href;
         }
 
@@ -2006,11 +1492,8 @@
         return false;
     }
 
-    /**
-     * @param {HTMLElement} obj
-     */
     function clearFocus(obj) {
-        if (pklib.dom.is_element(obj)) {
+        if (isElement(obj)) {
             addEvent(obj, 'focus', function () {
                 if (obj.value === obj.defaultValue) {
                     obj.value = '';
@@ -2024,12 +1507,8 @@
         }
     }
 
-    /**
-     * @param {HTMLElement} [area]
-     */
     function outerlink(area) {
-        var i, len,
-            link, links;
+        var i, len, link, links;
 
         area = area || document;
 
@@ -2044,12 +1523,9 @@
         }
     }
 
-    /**
-     * @param {HTMLElement} element
-     * @param {string} [text]
-     */
     function confirm(element, text) {
         var response;
+
         if (element !== undefined) {
             text = text || 'Sure?';
 
@@ -2069,13 +1545,8 @@
         }
     }
 
-    /**
-     * @module pklib.utils
-     */
     pklib.utils = {
-        /**
-         * numbers of chars in ASCII system
-         */
+        // Numbers of chars in ASCII system
         ascii: {
             letters: {
                 lower: [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97,
