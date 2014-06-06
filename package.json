@@ -12,7 +12,7 @@
         "url": "git://github.com/piecioshka/pklib.js.git"
     },
     "devDependencies": {
-        "gulp": "latest",
+        "gulp": "3.4.0",
         "gulp-util": "latest",
         "gulp-concat": "latest",
         "gulp-uglify": "latest"
