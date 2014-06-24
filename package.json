@@ -28,6 +28,6 @@
     "scripts": {
         "test": "phantomjs test/index.html && jslint underscore.js",
         "build": "uglifyjs pklib.js -m --source-map pklib.min.map -o pklib.min.js",
-        "doc": "docker -o docs -s yes -I -u -x docs,node_modules,test"
+        "doc": "docker -i dist -o docs -s yes -I -u -x pklib.min.js --extras fileSearch,goToLine"
     }
 }
