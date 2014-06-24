@@ -1,11 +1,11 @@
-# IDE configs
+# IDE
 .idea/
 .settings/
 .project
 .buildpath
 
-# Mac OS X
-.DS_Store
-
-# Projects ignores
+# App
 node_modules/
+
+# OS
+.DS_Store

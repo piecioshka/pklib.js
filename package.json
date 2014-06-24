@@ -16,7 +16,7 @@
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://raw.github.com/jashkenas/underscore/master/LICENSE"
+            "url": "http://piecioshka.mit-license.org/"
         }
     ],
     "devDependencies": {
@@ -26,8 +26,8 @@
         "docker": "latest"
     },
     "scripts": {
-        "test": "phantomjs test/index.html && jslint underscore.js",
-        "build": "uglifyjs pklib.js -m --source-map pklib.min.map -o pklib.min.js",
+        "test": "phantomjs test/index.html && jslint dist/pklib.js",
+        "build": "uglifyjs dist/pklib.js -m --source-map dist/pklib.min.map -o dist/pklib.min.js",
         "doc": "docker -i dist -o docs -s yes -I -u -x pklib.min.js --extras fileSearch,goToLine"
     }
 }

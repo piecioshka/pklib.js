@@ -4,7 +4,7 @@
 
 ## Example
 
-Module `pklib.profiler`
+Module `pklib.profiler`:
 
 ```javascript
 pklib.common.defer(function () {
@@ -17,7 +17,7 @@ pklib.common.defer(function () {
 
 ## Warning
 
-Please be careful when you use library form *tags* directory.
+DEPRECATED! Please be careful when you use library form `tags` directory.
 This are my working directory from a long time.
 
 ## License
