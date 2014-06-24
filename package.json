@@ -22,11 +22,12 @@
     "devDependencies": {
         "phantomjs": "latest",
         "uglify-js": "latest",
-        "eslint": "latest"
+        "eslint": "latest",
+        "docker": "latest"
     },
     "scripts": {
         "test": "phantomjs test/index.html && jslint underscore.js",
         "build": "uglifyjs pklib.js -m --source-map pklib.min.map -o pklib.min.js",
-        "doc": "docco pklib.js"
+        "doc": "docker -o docs -s yes -I -u -x docs,node_modules,test"
     }
 }

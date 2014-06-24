@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>pklib.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "tags/0.5.7/pklib.js", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>pklib.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Pklib - Piotr Kowalski library Library to use cases</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">depends</div>
+    <div class="dox_tag_detail">
+      <span>jQuery 1.4+</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Add alias name 'bind' to 'addEvent'.
+This is better to syntax language</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">jQuery</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">addEvent</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">bind</span><span class="p">;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Add alias 'unbind' to 'removeEvent'.
+This is better to syntax language</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">jQuery</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">removeEvent</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">unbind</span><span class="p">;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Pklib Body Class</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">Pklib</span> <span class="o">=</span> <span class="p">{</span>
+
+  <span class="nx">author</span> <span class="o">:</span> <span class="s1">&#39;Piotr Kowalski&#39;</span><span class="p">,</span>
+  <span class="nx">www</span> <span class="o">:</span> <span class="s1">&#39;http://pklib.pl/&#39;</span><span class="p">,</span>
+  <span class="nx">version</span><span class="o">:</span> <span class="s1">&#39;0.5.7&#39;</span><span class="p">,</span>
+  <span class="nx">lastModified</span> <span class="o">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">lastModified</span><span class="p">,</span>
+  <span class="nx">self</span> <span class="o">:</span> <span class="k">this</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Utils object contains useful function</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">Utils</span> <span class="o">:</span> <span class="p">{</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Clear content from parameter element after focus.
+On blur if content doesn't change is restore.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">jQuery</span>
+      <span>object objectToClear | Object was be clear after focus </span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">clearfocus</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">objectToClear</span><span class="p">){</span>
+      <span class="nx">objectToClear</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">v</span><span class="p">.</span><span class="nx">defaultValue</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">v</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+      <span class="p">});</span>
+
+      <span class="nx">objectToClear</span><span class="p">.</span><span class="nx">addEvent</span><span class="p">(</span><span class="s1">&#39;focus&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">==</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">defaultValue</span><span class="p">)</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+      <span class="p">}).</span><span class="nx">addEvent</span><span class="p">(</span><span class="s1">&#39;blur&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">defaultValue</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Add event to open new window with address that how is href attribute.
+To add event in special place use function parameter - place.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>place | Place were find all element <a> and add remove all previous trigger click
+and add event to open link in new window or tab.             </span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">outerlink</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">place</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">place</span> <span class="o">==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="nx">place</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+
+      <span class="nx">$</span><span class="p">(</span><span class="nx">place</span> <span class="o">+</span> <span class="s1">&#39; a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;rel&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;outerlink&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">removeEvent</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">).</span><span class="nx">addEvent</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nb">window</span><span class="p">.</span><span class="nx">open</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">));</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+          <span class="p">});</span>
+        <span class="p">}</span>
+      <span class="p">});</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Add to jQuery element event to confirm go to link.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">jQuery</span>
+      <span>object element | Element which add event click and confirm go to link.</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>text | String what be show in confirmation window.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">confirm</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">text</span> <span class="o">==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="nx">text</span> <span class="o">=</span> <span class="s1">&#39;Are You sure?&#39;</span><span class="p">;</span>
+
+      <span class="nx">element</span><span class="p">.</span><span class="nx">addEvent</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">confirm</span><span class="p">(</span><span class="nx">text</span><span class="p">))</span> <span class="p">{</span>
+          <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">});</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Array with chars which are trim in tail and head word.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">chars</span> <span class="o">:</span> <span class="p">[</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span> <span class="p">],</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Trim word on the head ( left side ).</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>word | Word which be left trim.</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>string | Head trim word</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">ltrim</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">word</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">chars</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">word</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="k">this</span><span class="p">.</span><span class="nx">chars</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
+            <span class="nx">word</span> <span class="o">=</span> <span class="nx">word</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">word</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">word</span><span class="p">;</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Trim word on the tail ( right side ).</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>word | Word which be right trim.</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>string | Tail trim word</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">rtrim</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">word</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">chars</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">word</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">word</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="k">this</span><span class="p">.</span><span class="nx">chars</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
+            <span class="nx">word</span> <span class="o">=</span> <span class="nx">word</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">word</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">word</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">word</span><span class="p">;</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Trim word on the both side, tail and head ( left and right side ).</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>word | Word which be trim on the both side.</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>string | Trim word </span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">trim</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">word</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">ltrim</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">rtrim</span><span class="p">(</span><span class="nx">word</span><span class="p">));</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Replace special chars in text by normalize chars.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>text | Text which be normalize.</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>string | Normalize text.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">slug</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">letter</span> <span class="o">=</span> <span class="nx">text</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">();</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">letter</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">case</span> <span class="s1">&#39;e&#39;</span><span class="o">:</span> <span class="nx">result</span> <span class="o">+=</span> <span class="s1">&#39;e&#39;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="s1">&#39;ó&#39;</span><span class="o">:</span> <span class="nx">result</span> <span class="o">+=</span> <span class="s1">&#39;o&#39;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="s1">&#39;ą&#39;</span><span class="o">:</span> <span class="nx">result</span> <span class="o">+=</span> <span class="s1">&#39;a&#39;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="s1">&#39;ś&#39;</span><span class="o">:</span> <span class="nx">result</span> <span class="o">+=</span> <span class="s1">&#39;s&#39;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="s1">&#39;ł&#39;</span><span class="o">:</span> <span class="nx">result</span> <span class="o">+=</span> <span class="s1">&#39;l&#39;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="s1">&#39;ż&#39;</span><span class="o">:</span>
+                    <span class="k">case</span> <span class="s1">&#39;ź&#39;</span><span class="o">:</span> <span class="nx">result</span> <span class="o">+=</span> <span class="s1">&#39;z&#39;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="s1">&#39;ć&#39;</span><span class="o">:</span> <span class="nx">result</span> <span class="o">+=</span> <span class="s1">&#39;c&#39;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="s1">&#39;ń&#39;</span><span class="o">:</span> <span class="nx">result</span> <span class="o">+=</span> <span class="s1">&#39;n&#39;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
+
+                    <span class="k">case</span> <span class="s1">&#39; &#39;</span><span class="o">:</span>
+                    <span class="k">case</span> <span class="s1">&#39;!&#39;</span><span class="o">:</span>
+                    <span class="k">case</span> <span class="s1">&#39;?&#39;</span><span class="o">:</span>
+                    <span class="k">case</span> <span class="s1">&#39;+&#39;</span><span class="o">:</span> <span class="nx">result</span> <span class="o">+=</span> <span class="s1">&#39;-&#39;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
+                    <span class="k">default</span><span class="o">:</span> <span class="nx">result</span> <span class="o">+=</span> <span class="nx">letter</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Message Object - represent layer popup.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">Message</span> <span class="o">:</span> <span class="p">{</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Class name to new layer.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">objClass</span> <span class="o">:</span> <span class="s1">&#39;Pklib-Message-Wrapper&#39;</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Text what be show in layer popup.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">text</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Time to auto close layer popup.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">autoclosetime</span><span class="o">:</span> <span class="mi">1500</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Time to close layer popup.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">closetime</span><span class="o">:</span> <span class="mi">1000</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Time to animate fade layer popup in browser.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">showtime</span><span class="o">:</span> <span class="mi">1500</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Show layer popup.
+Default popup will be centered in horizontal and vertical.</p>
+  </div>
+  <div class="body"><p>Add object to DOM.</p>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">show</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div /&gt;&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">objClass</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">text</span><span class="p">);</span>
+
+            <span class="nx">message</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+                <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#000000&#39;</span><span class="p">,</span>
+                <span class="nx">top</span><span class="o">:</span> <span class="s1">&#39;-99999px&#39;</span><span class="p">,</span>
+                <span class="nx">width</span><span class="o">:</span> <span class="mi">300</span><span class="p">,</span>
+                <span class="nx">height</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span>
+                <span class="nx">border</span><span class="o">:</span> <span class="s1">&#39;1px solid #000000&#39;</span><span class="p">,</span>
+                <span class="nx">background</span><span class="o">:</span> <span class="s1">&#39;#ffffff&#39;</span><span class="p">,</span>
+                <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="nx">zIndex</span><span class="o">:</span> <span class="mi">2000</span>
+            <span class="p">});</span>
+
+            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+
+            <span class="nx">message</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+                <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;fixed&#39;</span><span class="p">,</span>
+                <span class="nx">left</span><span class="o">:</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">()</span> <span class="o">-</span> <span class="nx">message</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span> <span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+                <span class="nx">top</span><span class="o">:</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">-</span> <span class="nx">message</span><span class="p">.</span><span class="nx">height</span><span class="p">()</span> <span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+            <span class="p">});</span>
+
+            <span class="nx">message</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
+                <span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span>
+            <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">showtime</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>IE6 Hack</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="k">if</span><span class="p">(</span> <span class="nx">self</span><span class="p">.</span><span class="nx">Browser</span><span class="p">.</span><span class="nx">getName</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;msie&#39;</span> <span class="o">&amp;&amp;</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">Browser</span><span class="p">.</span><span class="nx">getVersion</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="p">){</span>
+                <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                    <span class="nx">message</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+                        <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;absolute&#39;</span><span class="p">,</span>
+                        <span class="nx">left</span><span class="o">:</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">()</span> <span class="o">-</span> <span class="nx">message</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span> <span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">scrollLeft</span><span class="p">(),</span>
+                        <span class="nx">top</span><span class="o">:</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">-</span> <span class="nx">message</span><span class="p">.</span><span class="nx">height</span><span class="p">()</span> <span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">()</span>
+                    <span class="p">});</span>
+                <span class="p">},</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="p">}</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Auto close layer popup.
+Remove object from DOM.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">autoclose</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">className</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">objClass</span><span class="p">;</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">className</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+                    <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span>
+                <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">autoclosetime</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+                   <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">className</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+                <span class="p">});</span>
+            <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">autoclosetime</span><span class="p">);</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Close layer popup.
+Remove object from DOM.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">close</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">objClass</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+                <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span>
+            <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">closetime</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+            <span class="p">});</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Refresh content in layer popup, what will happened by remove and create object again.</p>
+  </div>
+  <div class="body"><p>Remove object from DOM. 
+Add object to DOM.</p>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">refresh</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+        <span class="p">}</span>
+
+  <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Loader object - represent loader.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Loader</span> <span class="o">:</span> <span class="p">{</span>
+        
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Class name to new layer.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">objClass</span> <span class="o">:</span> <span class="s1">&#39;Pklib-Loader-Wrapper&#39;</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Time to auto close loader.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">autoclosetime</span><span class="o">:</span> <span class="mi">1500</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Time to close loader.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">closetime</span><span class="o">:</span> <span class="mi">1000</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Time to animate fade loader in browser.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">showtime</span><span class="o">:</span> <span class="mi">1500</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Url to loader image</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">loaderImage</span> <span class="o">:</span> <span class="s1">&#39;http://piecioshka.pl/img/ajax-loader.gif&#39;</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Show loader in browser.
+Default will be show in body.
+Default not be centered.</p>
+  </div>
+  <div class="body"><p>Add object to DOM.</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>place | Place what loader will be add</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">boolean</span>
+      <span>center | If true, loader will be centered, else not.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">show</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">place</span><span class="p">,</span> <span class="nx">center</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span> <span class="nx">place</span> <span class="o">==</span> <span class="kc">undefined</span> <span class="p">)</span> <span class="nx">place</span> <span class="o">=</span> <span class="s1">&#39;body&#39;</span><span class="p">;</span>
+
+            <span class="kd">var</span> <span class="nx">loader</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;img /&gt;&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">objClass</span><span class="p">).</span><span class="nx">attr</span><span class="p">({</span>
+                <span class="nx">src</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">loaderImage</span><span class="p">,</span>
+                <span class="nx">alt</span><span class="o">:</span> <span class="s1">&#39;Loader&#39;</span>
+            <span class="p">});</span>
+
+            <span class="nx">loader</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+                <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;absolute&#39;</span><span class="p">,</span>
+                <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#000000&#39;</span><span class="p">,</span>
+                <span class="nx">width</span><span class="o">:</span> <span class="mi">32</span><span class="p">,</span>
+                <span class="nx">height</span><span class="o">:</span> <span class="mi">32</span><span class="p">,</span>
+                <span class="nx">background</span><span class="o">:</span> <span class="s1">&#39;transparent&#39;</span><span class="p">,</span>
+                <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="nx">zIndex</span><span class="o">:</span> <span class="mi">2000</span>
+            <span class="p">});</span>
+
+            <span class="nx">$</span><span class="p">(</span><span class="nx">place</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">loader</span><span class="p">);</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="nx">center</span><span class="p">){</span>
+                <span class="nx">loader</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+                    <span class="nx">left</span><span class="o">:</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">()</span> <span class="o">-</span> <span class="nx">loader</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span> <span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="nx">top</span><span class="o">:</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">-</span> <span class="nx">loader</span><span class="p">.</span><span class="nx">height</span><span class="p">()</span> <span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+                <span class="p">});</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">loader</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+                    <span class="nx">left</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="nx">top</span><span class="o">:</span> <span class="mi">0</span>
+                <span class="p">});</span>
+            <span class="p">}</span>
+
+        <span class="nx">loader</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
+                <span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span>
+            <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">showtime</span><span class="p">);</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Auto close loader.
+Remove object from DOM.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">autoclose</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">className</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">objClass</span><span class="p">;</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">className</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+                    <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span>
+                <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">autoclosetime</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+                   <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">className</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+                <span class="p">});</span>
+            <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">autoclosetime</span><span class="p">);</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Close loader.
+Remove object from DOM.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">close</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">objClass</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+                <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span>
+            <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">closetime</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+            <span class="p">});</span>
+    <span class="p">}</span>
+
+  <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Glass object - present transparent max width and max height box</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">Glass</span> <span class="o">:</span> <span class="p">{</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Class name to glass</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">objClass</span> <span class="o">:</span> <span class="s1">&#39;Pklib-Glass-Wrapper&#39;</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Opacity what be have a container.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">opacity</span> <span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Auto close time glass.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">autoclosetime</span><span class="o">:</span> <span class="mi">1500</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Close time glass.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">closetime</span><span class="o">:</span> <span class="mi">1000</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Show time glass.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">showtime</span><span class="o">:</span> <span class="mi">1500</span><span class="p">,</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Show glass in browser.
+Have max windth and max height.</p>
+  </div>
+  <div class="body"><p>Add object to DOM.</p>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">show</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">glassFrame</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;iframe /&gt;&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">objClass</span><span class="p">);</span> <span class="c1">//IE6 Hack</span>
+      <span class="kd">var</span> <span class="nx">glass</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div /&gt;&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">objClass</span><span class="p">);</span>
+
+            <span class="kd">var</span> <span class="nx">winWidth</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">winHeight</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">height</span><span class="p">();</span>
+            
+            <span class="kd">var</span> <span class="nx">docWidth</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">width</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">dovHeight</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">height</span><span class="p">();</span>
+
+            <span class="kd">var</span> <span class="nx">maxWidth</span><span class="p">,</span> <span class="nx">maxHeight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+      <span class="k">if</span> <span class="p">(</span> <span class="nx">docWidth</span> <span class="o">&gt;</span> <span class="nx">winWidth</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">maxWidth</span> <span class="o">=</span> <span class="nx">docWidth</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">docWidth</span> <span class="o">&gt;</span> <span class="nx">winWidth</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">maxWidth</span> <span class="o">=</span> <span class="nx">winWidth</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">maxWidth</span> <span class="o">=</span> <span class="nx">winWidth</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span> <span class="p">(</span> <span class="nx">dovHeight</span> <span class="o">&gt;</span> <span class="nx">winHeight</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">maxHeight</span> <span class="o">=</span> <span class="nx">dovHeight</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">dovHeight</span> <span class="o">&lt;</span> <span class="nx">winHeight</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">maxHeight</span> <span class="o">=</span> <span class="nx">winHeight</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">maxHeight</span> <span class="o">=</span> <span class="nx">winHeight</span>
+      <span class="p">}</span>
+
+      <span class="nx">glassFrame</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span> <span class="p">{</span>
+        <span class="nx">height</span> <span class="o">:</span> <span class="nx">maxHeight</span><span class="p">,</span>
+        <span class="nx">width</span> <span class="o">:</span> <span class="nx">maxWidth</span> <span class="o">-</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="nx">position</span> <span class="o">:</span> <span class="s1">&#39;absolute&#39;</span><span class="p">,</span>
+        <span class="nx">top</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">left</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">opacity</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="nx">zIndex</span><span class="o">:</span> <span class="mi">1000</span>
+      <span class="p">});</span>
+
+      <span class="nx">glass</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span> <span class="p">{</span>
+        <span class="nx">height</span> <span class="o">:</span> <span class="nx">maxHeight</span><span class="p">,</span>
+        <span class="nx">width</span> <span class="o">:</span> <span class="nx">maxWidth</span><span class="p">,</span>
+        <span class="nx">position</span> <span class="o">:</span> <span class="s1">&#39;absolute&#39;</span><span class="p">,</span>
+        <span class="nx">top</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">left</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">background</span> <span class="o">:</span> <span class="s1">&#39;#000000&#39;</span><span class="p">,</span>
+        <span class="nx">overflow</span> <span class="o">:</span> <span class="s1">&#39;hidden&#39;</span><span class="p">,</span>
+        <span class="nx">opacity</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="nx">zIndex</span><span class="o">:</span> <span class="mi">1000</span>
+      <span class="p">});</span>
+
+            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">glassFrame</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">glass</span><span class="p">);</span>
+
+            <span class="nx">glassFrame</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
+                <span class="nx">opacity</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">opacity</span>
+            <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">showtime</span><span class="p">);</span>
+
+      <span class="nx">glass</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
+          <span class="nx">opacity</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">opacity</span>
+            <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">showtime</span><span class="p">);</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Auto close glass object.</p>
+  </div>
+  <div class="body"><p>Remove object from DOM.</p>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">autoclose</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">className</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">objClass</span><span class="p">;</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">className</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+                    <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span>
+                <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">autoclosetime</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+                   <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">className</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+                <span class="p">});</span>
+            <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">autoclosetime</span><span class="p">);</span>
+    <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Close glass object.</p>
+  </div>
+  <div class="body"><p>Remove object from DOM.</p>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">close</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">objClass</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+          <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span>
+            <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">closetime</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+            <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Object to present browser.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">Browser</span> <span class="o">:</span> <span class="p">{</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Get short browser name.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>string | Short object name.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">getName</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="k">if</span><span class="p">(</span> <span class="sr">/msie/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span> <span class="k">return</span> <span class="s1">&#39;msie&#39;</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span> <span class="sr">/chrome/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span> <span class="k">return</span> <span class="s1">&#39;chrome&#39;</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span> <span class="sr">/safari/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span> <span class="k">return</span> <span class="s1">&#39;safari&#39;</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span> <span class="sr">/opera/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span> <span class="k">return</span> <span class="s1">&#39;opera&#39;</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span> <span class="sr">/mozilla/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span> <span class="k">return</span> <span class="s1">&#39;mozilla&#39;</span><span class="p">;</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Get browser version.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>string</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">getVersion</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">$</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">version</span><span class="p">;</span>
+    <span class="p">}</span>
+
+  <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Present file in library.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">File</span> <span class="o">:</span> <span class="p">{</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Attach file on page.</p>
+  </div>
+  <div class="body"><p>Add object to DOM.</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>tag | Tag which be create.</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>src | Url or src what element has</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>type | New element type</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">string</span>
+      <span>section | Html main section (head|body)</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">attach</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tag</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">section</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tag</span> <span class="o">==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">src</span> <span class="o">==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">section</span> <span class="o">==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+
+      <span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">tag</span><span class="p">);</span>
+      <span class="nx">file</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">;</span>
+      <span class="nx">file</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span><span class="p">;</span>
+
+      <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="nx">section</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+  <span class="p">},</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-48" id="section-48">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Validate object present</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">Validate</span> <span class="o">:</span> <span class="p">{</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-49" id="section-49">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>Check if object doesn't empty.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">jQuery</span>
+      <span>object jObject | Validate element.</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>boolean</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">empty</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">jObject</span><span class="p">){</span>
+          <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">jObject</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span> <span class="nx">type</span> <span class="o">==</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="p">(</span> <span class="nx">jObject</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span> <span class="nx">type</span> <span class="o">==</span> <span class="s1">&#39;number&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="p">(</span> <span class="nx">jObject</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span> <span class="nx">type</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="p">(</span> <span class="nx">jObject</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">);</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+
+  <span class="p">}</span>
+
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
