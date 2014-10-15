@@ -1,7 +1,8 @@
 2.0.0 / 24.11.2013
 ==================
-* Split each of src/ file to one: pklib.js
-* Use Gulp to create pklib.min.js - minification version of pklib.js
+* Split each of src/* file to one: dist/pklib.js
+* Use `uglifyjs` to create pklib.min.js - minification version of pklib.js
+* Use `docker` to build documentation
 
 1.2.3 / 24.11.2013
 ==================

@@ -6,6 +6,7 @@
 
 # App
 node_modules/
+npm-debug.log
 
 # OS
 .DS_Store

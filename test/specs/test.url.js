@@ -1,6 +1,8 @@
-/*global pklib, location */
+/*global pklib, location, describe, it, expect */
 
 describe('pklib.url', function () {
+    'use strict';
+
     var test_url = 'http://google.com/?test=1';
 
     it('identify params', function () {

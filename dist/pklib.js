@@ -32,7 +32,7 @@
     assert.count = 0;
 
     var pklib = {
-        VERSION: '1.3'
+        VERSION: '2.0'
     };
 
     // Ajax.
