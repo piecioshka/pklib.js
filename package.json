@@ -1,17 +1,17 @@
 {
     "name": "pklib.js",
     "description": "Sack with simple helper functions",
+    "version": "2.0.0",
+    "private": true,
     "author": {
         "name": "Piotr Kowalski",
         "email": "piecioshka@gmail.com",
         "url": "http://piecioshka.pl/"
     },
-    "private": true,
     "repository": {
         "type": "git",
         "url": "git://github.com/piecioshka/pklib.js.git"
     },
-    "version": "2.0.0",
     "licenses": [
         {
             "type": "MIT",
@@ -25,9 +25,7 @@
         "docker": "latest"
     },
     "scripts": {
-        "build-js": "uglifyjs dist/pklib.js -m --source-map dist/pklib.min.map -o dist/pklib.min.js",
-        "build": "npm run build-js",
-        "test": "phantomjs test/index.html && jslint dist/pklib.js",
-        "doc": "docker -i dist -o docs -s yes -I -u -x pklib.min.js --extras fileSearch,goToLine"
+        "build": "uglifyjs dist/pklib.js -m --source-map dist/pklib.min.map -o dist/pklib.min.js",
+        "docs": "docker -i dist -o docs -s yes -I -u -x pklib.min.js --extras fileSearch,goToLine"
     }
 }
