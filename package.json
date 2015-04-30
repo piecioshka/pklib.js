@@ -1,5 +1,5 @@
 {
-    "name": "pklib.js",
+    "name": "pklib",
     "description": "Sack with simple helper functions",
     "version": "2.0.0",
     "private": true,
