@@ -1,28 +1,32 @@
-# pklib.js - Simple JavaScript library [![Build Status](https://secure.travis-ci.org/piecioshka/pklib.js.png?branch=master)](http://travis-ci.org/piecioshka/pklib.js)
+# pklib.js
 
-`pklib.js` is results of repeat the same patterns on Web engines, to create the same things.
+> `pklib.js` is results of repeat the same patterns on web engines, to create the same things.
 
-## Example
+## Install
+
+```
+<script src="dist/pklib.js"></script>
+```
+
+## Usage
 
 Module `pklib.profiler`:
 
 ```javascript
 pklib.common.defer(function () {
-    var filenames = ["test.js", "example.js"];
+    var filenames = ['test.js', 'example.js'];
+
     pklib.file.loadjs(filenames, function (file) {
-        console.log("file: " + file.src + " loaded");
+        console.log('file: ' + file.src + ' loaded');
     });
 });
 ```
 
-## Warning
+## Warning!
 
 DEPRECATED! Please be careful when you use library form `tags` directory.
 This are my working directory from a long time.
 
 ## License
 
-[The MIT License][0]
-
-[0]: http://piecioshka.mit-license.org/
-
+[The MIT License](http://piecioshka.mit-license.org/)

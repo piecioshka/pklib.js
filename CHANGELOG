@@ -23,14 +23,14 @@
 * usunięcie rzucania wyjątku w przypadku wywołania zdarzenia z elementu bez takiego zdarzenia pklib.event.trigger
 * poprawna obsługa błędów w odpowiedziach z pklib.ajax
 * dodanie nowej metody pklib.dom.is_node_list
-* fix poberania elementów wg nazwy klasy css
-* zastąpienie frmeworka do testów QUnit, lepszym BusterJS
-* zmiana kontrukcji modułów - wykorzystanie domknięć
+* fix pobierania elementów wg nazwy klasy css
+* zastąpienie frameworka do testów QUnit, lepszym BusterJS
+* zmiana konstrukcji modułów - wykorzystanie domknięć
 * dodanie pklib.string.format
 
 1.1.0 / 27.05.2012
 ==================
-* usunięcie modulu pklib.json na rzecz nowego projektu https://github.com/piecioshka/text-plain-logger
+* usunięcie modułu pklib.json na rzecz nowego projektu https://github.com/piecioshka/text-plain-logger
 * poprawką błędu w pklib.glass
 * zmiana nazw funkcji których nazwy były w zapisie camelCase ( aB )na underscore ( a_b )
 * poprawienie JSDoc'a

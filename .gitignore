@@ -1,12 +1,2 @@
-# IDE
-.idea/
-.settings/
-.project
-.buildpath
-
-# App
 node_modules/
 npm-debug.log
-
-# OS
-.DS_Store

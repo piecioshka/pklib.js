@@ -8,6 +8,10 @@
         "email": "piecioshka@gmail.com",
         "url": "http://piecioshka.pl/"
     },
+    "scripts": {
+        "build": "uglifyjs dist/pklib.js -m --source-map dist/pklib.min.map -o dist/pklib.min.js",
+        "docs": "docker -i dist -o docs -s yes -I -u -x pklib.min.js --extras fileSearch,goToLine"
+    },
     "repository": {
         "type": "git",
         "url": "git://github.com/piecioshka/pklib.js.git"
@@ -21,11 +25,6 @@
     "devDependencies": {
         "phantomjs": "latest",
         "uglify-js": "latest",
-        "eslint": "latest",
         "docker": "latest"
-    },
-    "scripts": {
-        "build": "uglifyjs dist/pklib.js -m --source-map dist/pklib.min.map -o dist/pklib.min.js",
-        "docs": "docker -i dist -o docs -s yes -I -u -x pklib.min.js --extras fileSearch,goToLine"
     }
 }
